@@ -25,4 +25,9 @@
     <!-- Bookmark ribbon -->
     <path d="M195,245 L195,275 L205,265 L215,275 L215,245"/>
   </g>
+  <!-- Text -->
+  <rect x="140" y="290" width="120" height="2.5" fill="#c0a050" rx="1"/>
+  <text x="200" y="313" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#c0a050" letter-spacing="3">RECIPE</text>
+  <text x="200" y="336" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#c0a050" letter-spacing="3">BOOK</text>
+  <rect x="148" y="343" width="104" height="2.5" fill="#c0a050" rx="1"/>
 </svg>
