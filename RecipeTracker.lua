@@ -51,25 +51,22 @@ end
 
 -- Scan the currently open profession window and record known recipes
 function RecipeBook:ScanProfessionWindow()
-    if not RecipeBookCharDB then return end
-    if not RecipeBookCharDB.knownRecipes then
-        RecipeBookCharDB.knownRecipes = {}
-    end
-    if not RecipeBookCharDB.knownProfessions then
-        RecipeBookCharDB.knownProfessions = {}
-    end
+    local charData = self:GetMyCharData()
+    if not charData then return end
 
     local profID, isEnchanting = GetDisplayedProfessionID()
     if not profID then return end
 
     -- Mark this profession as known
-    RecipeBookCharDB.knownProfessions[profID] = true
+    charData.knownProfessions[profID] = true
+    charData.lastScanned = time()
 
     -- Ensure we have a recipe table for this profession
     if not self.recipeDB[profID] then return end
-    if not RecipeBookCharDB.knownRecipes[profID] then
-        RecipeBookCharDB.knownRecipes[profID] = {}
+    if not charData.knownRecipes[profID] then
+        charData.knownRecipes[profID] = {}
     end
+    local known = charData.knownRecipes[profID]
 
     local numSkills = isEnchanting and GetNumCrafts() or GetNumTradeSkills()
     if numSkills == 0 then return end
@@ -103,27 +100,27 @@ function RecipeBook:ScanProfessionWindow()
 
         -- Strategy 1: crafted item ID is the recipeDB key
         if itemID and self.recipeDB[profID][itemID] then
-            RecipeBookCharDB.knownRecipes[profID][itemID] = true
+            known[itemID] = true
             matched = true
         end
         -- Strategy 2: crafted item ID is a "teaches" value
         if itemID then
             local recipeID = teachesLookup[itemID]
             if recipeID then
-                RecipeBookCharDB.knownRecipes[profID][recipeID] = true
+                known[recipeID] = true
                 matched = true
             end
         end
         -- Strategy 3: recipe spell ID is the recipeDB key
         if spellID and self.recipeDB[profID][spellID] then
-            RecipeBookCharDB.knownRecipes[profID][spellID] = true
+            known[spellID] = true
             matched = true
         end
         -- Strategy 4: recipe spell ID is a "teaches" value
         if spellID then
             local recipeID = teachesLookup[spellID]
             if recipeID then
-                RecipeBookCharDB.knownRecipes[profID][recipeID] = true
+                known[recipeID] = true
                 matched = true
             end
         end
@@ -138,7 +135,7 @@ function RecipeBook:ScanProfessionWindow()
             if skillName then
                 local recipeID = nameLookup[strlower(skillName)]
                 if recipeID then
-                    RecipeBookCharDB.knownRecipes[profID][recipeID] = true
+                    known[recipeID] = true
                 end
             end
         end
@@ -148,7 +145,7 @@ function RecipeBook:ScanProfessionWindow()
     -- If the character knows any recipe with requiredSkill > this rank-up's requiredSkill,
     -- they must have already learned the rank-up.
     local maxKnownSkill = 0
-    for recipeID in pairs(RecipeBookCharDB.knownRecipes[profID]) do
+    for recipeID in pairs(known) do
         local data = self.recipeDB[profID][recipeID]
         if data and data.requiredSkill and data.requiredSkill > maxKnownSkill then
             maxKnownSkill = data.requiredSkill
@@ -159,7 +156,7 @@ function RecipeBook:ScanProfessionWindow()
             if data.teaches and type(data.teaches) == "string" then
                 -- String teaches = rank-up (Expert, Artisan, Master, etc.)
                 if data.requiredSkill and data.requiredSkill <= maxKnownSkill then
-                    RecipeBookCharDB.knownRecipes[profID][recipeID] = true
+                    known[recipeID] = true
                 end
             end
         end
@@ -171,9 +168,12 @@ function RecipeBook:ScanProfessionWindow()
     end
 end
 
-function RecipeBook:IsRecipeKnown(profID, recipeID)
-    if not RecipeBookCharDB or not RecipeBookCharDB.knownRecipes then return false end
-    local profRecipes = RecipeBookCharDB.knownRecipes[profID]
+function RecipeBook:IsRecipeKnown(profID, recipeID, charKey)
+    charKey = charKey or self:GetViewedCharKey()
+    if not charKey or not RecipeBookDB.characters then return false end
+    local entry = RecipeBookDB.characters[charKey]
+    if not entry or not entry.knownRecipes then return false end
+    local profRecipes = entry.knownRecipes[profID]
     if not profRecipes then return false end
     return profRecipes[recipeID] == true
 end

@@ -10,10 +10,20 @@ local hideKnown = false
 local myFactionOnly = true
 local selectedPhase = nil -- nil = use maxPhase from settings
 local searchText = ""
+local listMode = "all" -- "all" | "wishlist" | "ignored"
 
 -- References to controls that need updating
 local hideKnownCheck = nil
 local profDropdown = nil
+local charDropdown = nil
+
+-- Display name for a character key
+local function CharDisplayName(charKey)
+    if not charKey then return "?" end
+    local entry = RecipeBookDB and RecipeBookDB.characters and RecipeBookDB.characters[charKey]
+    if not entry then return charKey end
+    return entry.name or charKey
+end
 
 function RecipeBook:CreateMainFrame()
     if self.mainFrame then return end
@@ -96,9 +106,106 @@ function RecipeBook:CreateMainFrame()
     local ddLeft = leftEdge + UI.LABEL_WIDTH  -- where dropdowns start
 
     -------------------------------------------------------------------
-    -- ROW 1: Profession dropdown | My Faction | Hide Known | Search
+    -- ROW 0: Character dropdown | Show (all/wishlist/ignored)
     -------------------------------------------------------------------
-    local row1Y = -UI.HEADER_HEIGHT - 4
+    local row0Y = -UI.HEADER_HEIGHT - 4
+
+    local charLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    charLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row0Y - 5)
+    charLabel:SetText("Character:")
+    charLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
+    charDropdown = CreateFrame("Frame", "RecipeBookCharDropdown", frame, "UIDropDownMenuTemplate")
+    charDropdown:SetPoint("TOPLEFT", frame, "TOPLEFT", ddLeft - 16, row0Y + 4)
+    UIDropDownMenu_SetWidth(charDropdown, UI.DROPDOWN_WIDTH)
+
+    local function CharDropdown_Init(self, level)
+        local myKey = RecipeBook:GetMyCharKey()
+        local keys = RecipeBook:GetAllCharKeys()
+
+        -- Always put current character first
+        if myKey then
+            local info = UIDropDownMenu_CreateInfo()
+            info.text = CharDisplayName(myKey) .. " (this character)"
+            info.notCheckable = true
+            info.func = function()
+                RecipeBook:SetViewedCharKey(myKey)
+                UIDropDownMenu_SetText(charDropdown, CharDisplayName(myKey))
+                selectedProfession = nil
+                RecipeBookCharDB.selectedProfession = nil
+                UIDropDownMenu_SetText(profDropdown, "Select...")
+                RecipeBook:UpdateHideKnownState()
+                RecipeBook:RefreshRecipeList()
+            end
+            UIDropDownMenu_AddButton(info, level)
+        end
+
+        -- Other characters, sorted
+        local hasOthers = false
+        for _, key in ipairs(keys) do
+            if key ~= myKey then
+                if not hasOthers then
+                    local header = UIDropDownMenu_CreateInfo()
+                    header.text = "Other Characters"
+                    header.isTitle = true
+                    header.notCheckable = true
+                    UIDropDownMenu_AddButton(header, level)
+                    hasOthers = true
+                end
+                local info = UIDropDownMenu_CreateInfo()
+                info.text = CharDisplayName(key)
+                info.notCheckable = true
+                info.func = function()
+                    RecipeBook:SetViewedCharKey(key)
+                    UIDropDownMenu_SetText(charDropdown, CharDisplayName(key))
+                    selectedProfession = nil
+                    UIDropDownMenu_SetText(profDropdown, "Select...")
+                    RecipeBook:UpdateHideKnownState()
+                    RecipeBook:RefreshRecipeList()
+                end
+                UIDropDownMenu_AddButton(info, level)
+            end
+        end
+    end
+    UIDropDownMenu_Initialize(charDropdown, CharDropdown_Init)
+    UIDropDownMenu_SetText(charDropdown, CharDisplayName(RecipeBook:GetViewedCharKey()))
+
+    -- Show filter: All / Wishlist / Ignored (right side of row 0)
+    local showDropdown = CreateFrame("Frame", "RecipeBookShowDropdown", frame, "UIDropDownMenuTemplate")
+    showDropdown:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING + 8, row0Y + 4)
+    UIDropDownMenu_SetWidth(showDropdown, 90)
+
+    local showLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    showLabel:SetPoint("RIGHT", showDropdown, "LEFT", 12, 0)
+    showLabel:SetPoint("TOP", charLabel, "TOP", 0, 0)
+    showLabel:SetText("Show:")
+    showLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
+    local function ShowDropdown_Init(self, level)
+        local modes = {
+            { key = "all", label = "All" },
+            { key = "wishlist", label = "Wishlist" },
+            { key = "ignored", label = "Ignored" },
+        }
+        for _, m in ipairs(modes) do
+            local info = UIDropDownMenu_CreateInfo()
+            info.text = m.label
+            info.notCheckable = true
+            info.func = function()
+                listMode = m.key
+                UIDropDownMenu_SetText(showDropdown, m.label)
+                RecipeBook:RefreshRecipeList()
+            end
+            UIDropDownMenu_AddButton(info, level)
+        end
+    end
+    UIDropDownMenu_Initialize(showDropdown, ShowDropdown_Init)
+    UIDropDownMenu_SetText(showDropdown, "All")
+
+    -------------------------------------------------------------------
+    -- ROW 1: Profession dropdown | My Faction | Hide Known/Ignored
+    -------------------------------------------------------------------
+    local row1Y = row0Y - 26
 
     local profLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     profLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row1Y - 5)
@@ -185,12 +292,12 @@ function RecipeBook:CreateMainFrame()
         RecipeBook:RefreshRecipeList()
     end)
 
-    -- Hide Known checkbox (pinned to right side)
+    -- Hide Known/Ignored checkbox (pinned to right side)
     hideKnownCheck = CreateFrame("CheckButton", "RecipeBookHideKnown", frame, "UICheckButtonTemplate")
-    hideKnownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 70, 0)
+    hideKnownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 110, 0)
     hideKnownCheck:SetPoint("TOP", profLabel, "TOP", 0, 5)
     hideKnownCheck:SetSize(20, 20)
-    _G["RecipeBookHideKnownText"]:SetText("Hide Known")
+    _G["RecipeBookHideKnownText"]:SetText("Hide Known/Ignored")
     _G["RecipeBookHideKnownText"]:SetFontObject("RecipeBookFontSmall")
     hideKnownCheck:SetScript("OnClick", function(self)
         hideKnown = self:GetChecked()
@@ -447,7 +554,7 @@ function RecipeBook:CreateMainFrame()
     -------------------------------------------------------------------
     -- SCROLL FRAME (main content area)
     -------------------------------------------------------------------
-    local topBarHeight = UI.HEADER_HEIGHT + 84
+    local topBarHeight = UI.HEADER_HEIGHT + 110
 
     local listPanel = CreateFrame("Frame", nil, frame, "BackdropTemplate")
     listPanel:SetPoint("TOPLEFT", frame, "TOPLEFT", UI.PADDING, -topBarHeight)
@@ -617,5 +724,7 @@ function RecipeBook:GetFilterState()
         maxPhase = selectedPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
         playerFaction = playerFaction,
         searchText = searchText ~= "" and strlower(searchText) or nil,
+        listMode = listMode,
+        viewedCharKey = self:GetViewedCharKey(),
     }
 end

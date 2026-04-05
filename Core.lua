@@ -268,10 +268,140 @@ function RecipeBook:HasTomTom()
     return TomTom and true or false
 end
 
--- Check if a profession is known by the character
-function RecipeBook:IsProfessionKnown(profID)
-    if not RecipeBookCharDB or not RecipeBookCharDB.knownProfessions then return false end
-    return RecipeBookCharDB.knownProfessions[profID] == true
+-- Build the stable character key for a name + realm
+function RecipeBook:BuildCharKey(name, realm)
+    if not name or not realm then return nil end
+    return name .. "-" .. realm
+end
+
+-- Current character's key
+function RecipeBook:GetMyCharKey()
+    local name = UnitName("player")
+    local realm = GetRealmName()
+    return self:BuildCharKey(name, realm)
+end
+
+-- Ensure a character entry exists in the global store, return it
+function RecipeBook:GetOrCreateCharData(charKey, name, realm)
+    if not RecipeBookDB.characters then RecipeBookDB.characters = {} end
+    local entry = RecipeBookDB.characters[charKey]
+    if not entry then
+        entry = {
+            name = name,
+            realm = realm,
+            knownProfessions = {},
+            knownRecipes = {},
+            wishlist = {},
+            ignored = {},
+        }
+        RecipeBookDB.characters[charKey] = entry
+    end
+    -- Ensure sub-tables (forward compat)
+    entry.knownProfessions = entry.knownProfessions or {}
+    entry.knownRecipes = entry.knownRecipes or {}
+    entry.wishlist = entry.wishlist or {}
+    entry.ignored = entry.ignored or {}
+    return entry
+end
+
+-- Current character's data entry
+function RecipeBook:GetMyCharData()
+    local key = self:GetMyCharKey()
+    if not key then return nil end
+    return self:GetOrCreateCharData(key, UnitName("player"), GetRealmName())
+end
+
+-- Currently viewed character (defaults to me)
+function RecipeBook:GetViewedCharKey()
+    if RecipeBookCharDB and RecipeBookCharDB.viewingChar then
+        local key = RecipeBookCharDB.viewingChar
+        if RecipeBookDB.characters and RecipeBookDB.characters[key] then
+            return key
+        end
+    end
+    return self:GetMyCharKey()
+end
+
+function RecipeBook:SetViewedCharKey(key)
+    if not RecipeBookCharDB then return end
+    if key == self:GetMyCharKey() then
+        RecipeBookCharDB.viewingChar = nil
+    else
+        RecipeBookCharDB.viewingChar = key
+    end
+end
+
+function RecipeBook:GetViewedCharData()
+    local key = self:GetViewedCharKey()
+    if not key or not RecipeBookDB.characters then return nil end
+    return RecipeBookDB.characters[key]
+end
+
+-- Sorted list of all character keys in the store
+function RecipeBook:GetAllCharKeys()
+    local list = {}
+    if not RecipeBookDB.characters then return list end
+    for key in pairs(RecipeBookDB.characters) do
+        list[#list + 1] = key
+    end
+    table.sort(list)
+    return list
+end
+
+-- Check if a profession is known by the viewed (or specified) character
+function RecipeBook:IsProfessionKnown(profID, charKey)
+    charKey = charKey or self:GetViewedCharKey()
+    if not charKey or not RecipeBookDB.characters then return false end
+    local entry = RecipeBookDB.characters[charKey]
+    if not entry or not entry.knownProfessions then return false end
+    return entry.knownProfessions[profID] == true
+end
+
+-- Wishlist / ignored helpers (operate on viewed char unless charKey given)
+local function getCharFlagTable(self, bucket, profID, charKey, create)
+    charKey = charKey or self:GetViewedCharKey()
+    if not charKey or not RecipeBookDB.characters then return nil end
+    local entry = RecipeBookDB.characters[charKey]
+    if not entry then return nil end
+    entry[bucket] = entry[bucket] or {}
+    local t = entry[bucket][profID]
+    if not t and create then
+        t = {}
+        entry[bucket][profID] = t
+    end
+    return t
+end
+
+function RecipeBook:IsRecipeInWishlist(profID, recipeID, charKey)
+    local t = getCharFlagTable(self, "wishlist", profID, charKey, false)
+    return t and t[recipeID] == true or false
+end
+
+function RecipeBook:IsRecipeIgnored(profID, recipeID, charKey)
+    local t = getCharFlagTable(self, "ignored", profID, charKey, false)
+    return t and t[recipeID] == true or false
+end
+
+function RecipeBook:SetRecipeWishlist(profID, recipeID, value, charKey)
+    local t = getCharFlagTable(self, "wishlist", profID, charKey, value and true or false)
+    if not t then return end
+    t[recipeID] = value and true or nil
+end
+
+function RecipeBook:SetRecipeIgnored(profID, recipeID, value, charKey)
+    local t = getCharFlagTable(self, "ignored", profID, charKey, value and true or false)
+    if not t then return end
+    t[recipeID] = value and true or nil
+end
+
+function RecipeBook:ToggleRecipeWishlist(profID, recipeID, charKey)
+    local cur = self:IsRecipeInWishlist(profID, recipeID, charKey)
+    self:SetRecipeWishlist(profID, recipeID, not cur, charKey)
+end
+
+function RecipeBook:ToggleRecipeIgnored(profID, recipeID, charKey)
+    local cur = self:IsRecipeIgnored(profID, recipeID, charKey)
+    self:SetRecipeIgnored(profID, recipeID, not cur, charKey)
 end
 
 -- Initialize saved variables with defaults
@@ -287,27 +417,51 @@ local function InitSavedVars()
     end
     -- Current server phase — update this when the server advances
     RecipeBookDB.currentPhase = 1
+    if not RecipeBookDB.characters then
+        RecipeBookDB.characters = {}
+    end
 
     if not RecipeBookCharDB then
         RecipeBookCharDB = {}
-    end
-    if not RecipeBookCharDB.knownRecipes then
-        RecipeBookCharDB.knownRecipes = {}
-    end
-    if not RecipeBookCharDB.knownProfessions then
-        RecipeBookCharDB.knownProfessions = {}
-    end
-    -- One-time wipe of stale data from v1.0.0 buggy cross-profession matching
-    if not RecipeBookCharDB.profTrackingFixed then
-        RecipeBookCharDB.knownProfessions = {}
-        RecipeBookCharDB.knownRecipes = {}
-        RecipeBookCharDB.profTrackingFixed = true
     end
     if RecipeBookCharDB.hideKnown == nil then
         RecipeBookCharDB.hideKnown = false
     end
     if not RecipeBookCharDB.collapsedSources then
         RecipeBookCharDB.collapsedSources = {}
+    end
+
+    -- Ensure current character has an entry in the global store
+    local myName = UnitName("player")
+    local myRealm = GetRealmName()
+    local myKey = RecipeBook:BuildCharKey(myName, myRealm)
+    if myKey then
+        local entry = RecipeBook:GetOrCreateCharData(myKey, myName, myRealm)
+        -- Record faction/class metadata (cheap, refresh every login)
+        local _, faction = UnitFactionGroup("player")
+        entry.faction = faction
+        local _, classFile = UnitClass("player")
+        entry.class = classFile
+        entry.lastSeen = time()
+
+        -- One-time migration from per-character DB to global characters store
+        if RecipeBookCharDB.knownRecipes and not RecipeBookCharDB.migratedToGlobal then
+            for profID, recipes in pairs(RecipeBookCharDB.knownRecipes) do
+                entry.knownRecipes[profID] = entry.knownRecipes[profID] or {}
+                for recipeID, v in pairs(recipes) do
+                    if v then entry.knownRecipes[profID][recipeID] = true end
+                end
+            end
+            if RecipeBookCharDB.knownProfessions then
+                for profID, v in pairs(RecipeBookCharDB.knownProfessions) do
+                    if v then entry.knownProfessions[profID] = true end
+                end
+            end
+            RecipeBookCharDB.knownRecipes = nil
+            RecipeBookCharDB.knownProfessions = nil
+            RecipeBookCharDB.profTrackingFixed = nil
+            RecipeBookCharDB.migratedToGlobal = true
+        end
     end
 end
 

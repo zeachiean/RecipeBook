@@ -5,7 +5,7 @@ RecipeBook.UI = RecipeBook.UI or {}
 local UI = RecipeBook.UI
 
 UI.FRAME_WIDTH = 540
-UI.FRAME_HEIGHT = 540
+UI.FRAME_HEIGHT = 566
 UI.ROW_HEIGHT = 18
 UI.HEADER_HEIGHT = 30
 UI.PADDING = 8
@@ -25,6 +25,8 @@ UI.COLOR_ZONE = { r = 0.7, g = 0.7, b = 0.7 }
 UI.COLOR_WORLDDROP = { r = 0.9, g = 0.6, b = 0.2 }
 UI.COLOR_WAYPOINT = { r = 0.3, g = 1.0, b = 0.3 }
 UI.COLOR_DISABLED = { r = 0.4, g = 0.4, b = 0.4 }
+UI.COLOR_WISHLIST = { r = 1.0, g = 0.85, b = 0.2 }   -- gold star
+UI.COLOR_IGNORED  = { r = 0.45, g = 0.45, b = 0.45 } -- dim grey
 
 -- WoW item quality colors
 UI.QUALITY_COLORS = {
@@ -53,7 +55,7 @@ function RecipeBook:GetPooledRow(parent)
         row = CreateFrame("Button", nil, parent, "BackdropTemplate")
         row:SetHeight(UI.ROW_HEIGHT)
         row:EnableMouse(true)
-        row:RegisterForClicks("LeftButtonUp")
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
         -- Highlight texture
         local highlight = row:CreateTexture(nil, "HIGHLIGHT")

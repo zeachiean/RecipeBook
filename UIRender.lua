@@ -158,7 +158,60 @@ local function OnRecipeLeave(self)
     GameTooltip:Hide()
 end
 
+-- Hidden anchor for row context menus (wishlist / ignore)
+local contextMenuFrame = CreateFrame("Frame", "RecipeBookContextMenu", UIParent, "UIDropDownMenuTemplate")
+local contextMenuList = nil
+
+local function ContextMenu_Init(self, level)
+    if not contextMenuList then return end
+    for _, entry in ipairs(contextMenuList) do
+        local info = UIDropDownMenu_CreateInfo()
+        info.text = entry.text
+        info.isTitle = entry.isTitle
+        info.notCheckable = true
+        info.disabled = entry.disabled
+        info.func = entry.func
+        UIDropDownMenu_AddButton(info, level)
+    end
+end
+UIDropDownMenu_Initialize(contextMenuFrame, ContextMenu_Init, "MENU")
+
+local function ShowRecipeContextMenu(row)
+    if not row._recipeID or not row._profID then return end
+    local profID, recipeID = row._profID, row._recipeID
+    local inWish = RecipeBook:IsRecipeInWishlist(profID, recipeID)
+    local isIgn  = RecipeBook:IsRecipeIgnored(profID, recipeID)
+    local name = RecipeBook:GetRecipeName(profID, recipeID) or "Recipe"
+    local viewedName = (RecipeBookDB.characters[RecipeBook:GetViewedCharKey()] or {}).name or "character"
+    contextMenuList = {
+        { text = name, isTitle = true },
+        {
+            text = inWish and ("Remove from " .. viewedName .. "'s Wishlist")
+                        or ("Add to " .. viewedName .. "'s Wishlist"),
+            func = function()
+                RecipeBook:ToggleRecipeWishlist(profID, recipeID)
+                RecipeBook:RefreshRecipeList()
+            end,
+        },
+        {
+            text = isIgn and ("Stop ignoring for " .. viewedName)
+                      or ("Ignore for " .. viewedName),
+            func = function()
+                RecipeBook:ToggleRecipeIgnored(profID, recipeID)
+                RecipeBook:RefreshRecipeList()
+            end,
+        },
+        { text = "Cancel", func = function() end },
+    }
+    ToggleDropDownMenu(1, nil, contextMenuFrame, "cursor", 0, 0)
+end
+
 local function OnRecipeClick(self, button)
+    if button == "RightButton" then
+        ShowRecipeContextMenu(self)
+        return
+    end
+
     -- Shift-click: link recipe into chat
     if IsShiftKeyDown() and self._recipeID then
         local data = RecipeBook.recipeDB[self._profID] and RecipeBook.recipeDB[self._profID][self._recipeID]
@@ -445,15 +498,34 @@ local function BuildDisplayData(filters)
         groups[srcType] = {}
     end
 
+    local viewedKey = filters.viewedCharKey
+    local listMode = filters.listMode or "all"
+
     for recipeID, data in pairs(recipes) do
         local dominated = false
 
+        -- List-mode filter (Wishlist / Ignored view)
+        if listMode == "wishlist" then
+            if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
+                dominated = true
+            end
+        elseif listMode == "ignored" then
+            if not RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey) then
+                dominated = true
+            end
+        end
+
         -- Phase filter
-        local phase = RecipeBook:GetRecipePhase(profID, recipeID)
-        if phase > filters.maxPhase then dominated = true end
-        -- Hide known
-        if not dominated and filters.hideKnown and RecipeBook:IsRecipeKnown(profID, recipeID) then
-            dominated = true
+        if not dominated then
+            local phase = RecipeBook:GetRecipePhase(profID, recipeID)
+            if phase > filters.maxPhase then dominated = true end
+        end
+        -- Hide known / ignored (only applies to the "all" list)
+        if not dominated and listMode == "all" and filters.hideKnown then
+            if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey)
+                or RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey) then
+                dominated = true
+            end
         end
         -- Faction filter
         if not dominated and not RecipePassesFactionFilter(profID, recipeID, filters.playerFaction) then
@@ -482,7 +554,9 @@ local function BuildDisplayData(filters)
                     sourceName = srcName,
                     sourceZone = srcZone,
                     isWorldDrop = isWorldDrop,
-                    isKnown = RecipeBook:IsRecipeKnown(profID, recipeID),
+                    isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey),
+                    isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey),
+                    isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey),
                 }
                 groups[srcType][#groups[srcType] + 1] = entry
             end
@@ -580,18 +654,24 @@ function RecipeBook:RefreshRecipeList()
                     row:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 14, yOffset)
                     row:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
 
-                    -- Recipe name with quality color
+                    -- Recipe name with quality color + wishlist/ignored indicators
                     local recipeName = self:GetRecipeName(filters.professionID, entry.recipeID)
                     row._nameText:SetFontObject("RecipeBookFontHighlight")
                     row._nameText:SetWidth(210)
                     row._nameText:ClearAllPoints()
                     row._nameText:SetPoint("LEFT", row, "LEFT", 4, 0)
 
-                    if entry.isKnown then
-                        row._nameText:SetText(recipeName)
+                    local displayName = recipeName
+                    if entry.isWishlist then
+                        displayName = "|cffffd833*|r " .. displayName
+                    end
+                    row._nameText:SetText(displayName)
+
+                    if entry.isIgnored then
+                        row._nameText:SetTextColor(UI.COLOR_IGNORED.r, UI.COLOR_IGNORED.g, UI.COLOR_IGNORED.b)
+                    elseif entry.isKnown then
                         row._nameText:SetTextColor(UI.COLOR_KNOWN.r, UI.COLOR_KNOWN.g, UI.COLOR_KNOWN.b)
                     else
-                        row._nameText:SetText(recipeName)
                         local qc = GetRecipeQualityColor(filters.professionID, entry.recipeID)
                         row._nameText:SetTextColor(qc.r, qc.g, qc.b)
                     end
