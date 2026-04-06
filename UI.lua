@@ -85,6 +85,13 @@ function RecipeBook:CreateMainFrame()
     ttStatus:SetPoint("TOPRIGHT", abStatus, "TOPLEFT", -8, 0)
     frame._ttStatus = ttStatus
 
+    -- Version string (top left, same baseline as status indicators)
+    local versionText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    versionText:SetPoint("LEFT", frame, "LEFT", 12, 0)
+    versionText:SetPoint("TOP", abStatus, "TOP", 0, 0)
+    versionText:SetText("v" .. RecipeBook.VERSION .. " - " .. RecipeBook.RELEASE_DATE)
+    versionText:SetTextColor(0, 1, 0)
+
     -- Entry count (below status line)
     local countText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     countText:SetPoint("TOPRIGHT", abStatus, "BOTTOMRIGHT", 0, -1)

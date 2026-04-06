@@ -1,5 +1,14 @@
 # RecipeBook Changelog
 
+## v1.2.0
+
+### New Features
+- Now tracking learniability with a Hide Unlearnable filter for known professions
+
+### Improvements
+- Large-scale data remapping to solve bad Trainer/Spell/Item IDs
+- Eliminated login lag caused by mass item data requests
+
 ## v1.1.2
 
 ### Fixes
