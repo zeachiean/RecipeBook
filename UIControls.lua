@@ -25,6 +25,13 @@ UI.COLOR_ZONE = { r = 0.7, g = 0.7, b = 0.7 }
 UI.COLOR_WORLDDROP = { r = 0.9, g = 0.6, b = 0.2 }
 UI.COLOR_WAYPOINT = { r = 0.3, g = 1.0, b = 0.3 }
 UI.COLOR_DISABLED = { r = 0.4, g = 0.4, b = 0.4 }
+UI.COLOR_LEARNABLE = { r = 0.0, g = 1.0, b = 0.0 }
+
+-- Crafting difficulty colors (matches WoW's profession UI)
+UI.COLOR_ORANGE = { r = 1.0, g = 0.5, b = 0.0 }
+UI.COLOR_YELLOW = { r = 1.0, g = 1.0, b = 0.0 }
+UI.COLOR_GREEN  = { r = 0.25, g = 0.75, b = 0.25 }
+UI.COLOR_GRAY   = { r = 0.5, g = 0.5, b = 0.5 }
 
 -- WoW item quality colors
 UI.QUALITY_COLORS = {
@@ -79,9 +86,16 @@ function RecipeBook:GetPooledRow(parent)
         skillText:SetTextColor(UI.COLOR_SKILL.r, UI.COLOR_SKILL.g, UI.COLOR_SKILL.b)
         row._skillText = skillText
 
+        -- Learnable indicator (ready-check icon)
+        local learnIcon = row:CreateTexture(nil, "OVERLAY")
+        learnIcon:SetSize(12, 12)
+        learnIcon:SetPoint("LEFT", skillText, "RIGHT", 5, 0)
+        learnIcon:Hide()
+        row._learnIcon = learnIcon
+
         -- Source count text (#)
         local countText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-        countText:SetPoint("LEFT", skillText, "RIGHT", 8, 0)
+        countText:SetPoint("LEFT", skillText, "RIGHT", 22, 0)
         countText:SetWidth(26)
         countText:SetJustifyH("RIGHT")
         countText:SetWordWrap(false)
@@ -90,7 +104,7 @@ function RecipeBook:GetPooledRow(parent)
 
         -- Drop rate text (%) — anchored first so source can butt up against it
         local rateText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-        rateText:SetPoint("RIGHT", row, "RIGHT", -22, 0)
+        rateText:SetPoint("RIGHT", row, "RIGHT", -4, 0)
         rateText:SetWidth(40)
         rateText:SetJustifyH("RIGHT")
         rateText:SetWordWrap(false)
@@ -106,15 +120,6 @@ function RecipeBook:GetPooledRow(parent)
         sourceText:SetNonSpaceWrap(false)
         sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
         row._sourceText = sourceText
-
-        -- Waypoint arrow texture (right edge, rotated 45° for up-right)
-        local wpArrow = row:CreateTexture(nil, "OVERLAY")
-        wpArrow:SetSize(16, 16)
-        wpArrow:SetPoint("RIGHT", row, "RIGHT", -2, 0)
-        wpArrow:SetTexture(UI.ICON_ARROW)
-        wpArrow:SetRotation(math.rad(135))
-        wpArrow:Hide()
-        row._wpArrow = wpArrow
     end
 
     row:SetParent(parent)
@@ -138,7 +143,7 @@ function RecipeBook:RecycleRow(row)
     row._zoneName = nil
     row._isWorldDrop = nil
     row._headerSrcType = nil
-    if row._wpArrow then row._wpArrow:Hide() end
+    if row._learnIcon then row._learnIcon:Hide() end
     if row._toggleIcon then row._toggleIcon:Hide() end
     self.framePool[#self.framePool + 1] = row
 end
@@ -153,10 +158,10 @@ function RecipeBook:GetHeaderRow(parent)
     row._nameText:SetPoint("LEFT", row, "LEFT", 18, 0)
     row._nameText:SetPoint("RIGHT", row, "RIGHT", -4, 0)
     row._skillText:SetText("")
+    if row._learnIcon then row._learnIcon:Hide() end
     if row._countText then row._countText:SetText("") end
     if row._rateText then row._rateText:SetText("") end
     row._sourceText:SetText("")
-    row._wpArrow:Hide()
 
     -- Toggle icon (expand/collapse)
     if not row._toggleIcon then

@@ -7,12 +7,14 @@ local selectedProfession = nil
 local selectedContinent = nil
 local selectedZone = nil
 local hideKnown = false
+local hideUnlearnable = false
 local myFactionOnly = true
 local selectedPhase = nil -- nil = use maxPhase from settings
 local searchText = ""
 
 -- References to controls that need updating
 local hideKnownCheck = nil
+local hideUnlearnableCheck = nil
 local profDropdown = nil
 
 function RecipeBook:CreateMainFrame()
@@ -201,7 +203,20 @@ function RecipeBook:CreateMainFrame()
     end)
     frame._hideKnownCheck = hideKnownCheck
 
-    -- Initialize Hide Known state
+    -- Hide Unlearnable checkbox (to the left of Hide Known)
+    hideUnlearnableCheck = CreateFrame("CheckButton", "RecipeBookHideUnlearnable", frame, "UICheckButtonTemplate")
+    hideUnlearnableCheck:SetPoint("RIGHT", hideKnownCheck, "LEFT", -90, 0)
+    hideUnlearnableCheck:SetSize(20, 20)
+    _G["RecipeBookHideUnlearnableText"]:SetText("Hide Unlearnable")
+    _G["RecipeBookHideUnlearnableText"]:SetFontObject("RecipeBookFontSmall")
+    hideUnlearnableCheck:SetScript("OnClick", function(self)
+        hideUnlearnable = self:GetChecked()
+        RecipeBookCharDB.hideUnlearnable = hideUnlearnable
+        RecipeBook:RefreshRecipeList()
+    end)
+    frame._hideUnlearnableCheck = hideUnlearnableCheck
+
+    -- Initialize Hide Known / Hide Unlearnable state
     self:UpdateHideKnownState()
 
     -------------------------------------------------------------------
@@ -489,34 +504,31 @@ function RecipeBook:CreateMainFrame()
     headerSkill:SetText("Skill")
     headerSkill:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
+    local headerLearn = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    headerLearn:SetPoint("LEFT", hdrRef, "LEFT", 253, 0)
+    headerLearn:SetWidth(18)
+    headerLearn:SetJustifyH("CENTER")
+    headerLearn:SetText("L")
+    headerLearn:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
     local headerCount = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerCount:SetPoint("LEFT", hdrRef, "LEFT", 256, 0)
+    headerCount:SetPoint("LEFT", hdrRef, "LEFT", 274, 0)
     headerCount:SetWidth(26)
     headerCount:SetJustifyH("RIGHT")
     headerCount:SetText("#")
     headerCount:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerSource = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 290, 0)
+    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 308, 0)
     headerSource:SetText("Best Source")
     headerSource:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerRate = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerRate:SetPoint("RIGHT", hdrRef, "RIGHT", -30, 0)
+    headerRate:SetPoint("RIGHT", hdrRef, "RIGHT", -2, 0)
     headerRate:SetWidth(40)
     headerRate:SetJustifyH("RIGHT")
     headerRate:SetText("%")
     headerRate:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
-
-    local headerWP = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerWP:SetPoint("RIGHT", hdrRef, "RIGHT", -2, 0)
-    headerWP:SetJustifyH("RIGHT")
-    headerWP:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
-    if RecipeBook:HasAddressBook() and RecipeBook:HasTomTom() then
-        headerWP:SetText("WP")
-    else
-        headerWP:SetText("")
-    end
 
     -- Scroll frame
     local scrollFrame = CreateFrame("ScrollFrame", "RecipeBookScrollFrame", listPanel, "UIPanelScrollFrameTemplate")
@@ -556,11 +568,13 @@ function RecipeBook:SelectProfession(profID)
     self:RefreshRecipeList()
 end
 
--- Update Hide Known checkbox state based on selected profession
+-- Update Hide Known / Hide Unlearnable checkbox state based on selected profession
 function RecipeBook:UpdateHideKnownState()
     if not hideKnownCheck then return end
 
-    if selectedProfession and self:IsProfessionKnown(selectedProfession) then
+    local isKnownProf = selectedProfession and self:IsProfessionKnown(selectedProfession)
+
+    if isKnownProf then
         -- Known profession: enable checkbox, default to checked
         hideKnownCheck:Enable()
         _G["RecipeBookHideKnownText"]:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
@@ -579,6 +593,21 @@ function RecipeBook:UpdateHideKnownState()
         _G["RecipeBookHideKnownText"]:SetTextColor(UI.COLOR_DISABLED.r, UI.COLOR_DISABLED.g, UI.COLOR_DISABLED.b)
         hideKnownCheck:SetChecked(false)
         hideKnown = false
+    end
+
+    -- Hide Unlearnable: only meaningful for known professions with saved skill
+    if hideUnlearnableCheck then
+        if isKnownProf then
+            hideUnlearnableCheck:Enable()
+            _G["RecipeBookHideUnlearnableText"]:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+            hideUnlearnableCheck:SetChecked(RecipeBookCharDB.hideUnlearnable or false)
+            hideUnlearnable = RecipeBookCharDB.hideUnlearnable or false
+        else
+            hideUnlearnableCheck:Disable()
+            _G["RecipeBookHideUnlearnableText"]:SetTextColor(UI.COLOR_DISABLED.r, UI.COLOR_DISABLED.g, UI.COLOR_DISABLED.b)
+            hideUnlearnableCheck:SetChecked(false)
+            hideUnlearnable = false
+        end
     end
 end
 
@@ -634,6 +663,7 @@ function RecipeBook:GetFilterState()
         continent = filterContinent,
         zone = filterZone,
         hideKnown = hideKnown,
+        hideUnlearnable = hideUnlearnable,
         maxPhase = selectedPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
         playerFaction = playerFaction,
         searchText = searchText ~= "" and strlower(searchText) or nil,

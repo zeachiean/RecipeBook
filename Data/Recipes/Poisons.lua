@@ -2,6 +2,7 @@ RecipeBook = RecipeBook or {}; RecipeBook.recipeDB = RecipeBook.recipeDB or {}
 
 RecipeBook.recipeDB[2842] = {
 	[2835] = {
+		name = "Deadly Poison",
 		teaches = 2892,
 		isSpell = true,
 		requiredLevel = 30,
@@ -9,6 +10,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[2837] = {
+		name = "Deadly Poison II",
 		teaches = 2893,
 		isSpell = true,
 		requiredLevel = 38,
@@ -16,6 +18,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[3420] = {
+		name = "Crippling Poison",
 		teaches = 3775,
 		isSpell = true,
 		requiredLevel = 20,
@@ -23,6 +26,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[3421] = {
+		name = "Crippling Poison II",
 		teaches = 3776,
 		isSpell = true,
 		requiredLevel = 50,
@@ -30,6 +34,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[5763] = {
+		name = "Mind-numbing Poison",
 		teaches = 5237,
 		isSpell = true,
 		requiredLevel = 24,
@@ -37,6 +42,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[6510] = {
+		name = "Blinding Powder",
 		teaches = 5530,
 		isSpell = true,
 		requiredLevel = 34,
@@ -44,6 +50,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[8681] = {
+		name = "Instant Poison",
 		teaches = 6947,
 		isSpell = true,
 		requiredLevel = 20,
@@ -51,6 +58,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[8687] = {
+		name = "Instant Poison II",
 		teaches = 6949,
 		isSpell = true,
 		requiredLevel = 28,
@@ -58,6 +66,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[8691] = {
+		name = "Instant Poison III",
 		teaches = 6950,
 		isSpell = true,
 		requiredLevel = 36,
@@ -65,6 +74,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[8694] = {
+		name = "Mind-numbing Poison II",
 		teaches = 6951,
 		isSpell = true,
 		requiredLevel = 38,
@@ -72,6 +82,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11341] = {
+		name = "Instant Poison IV",
 		teaches = 8926,
 		isSpell = true,
 		requiredLevel = 44,
@@ -79,6 +90,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11342] = {
+		name = "Instant Poison V",
 		teaches = 8927,
 		isSpell = true,
 		requiredLevel = 52,
@@ -86,6 +98,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11343] = {
+		name = "Instant Poison VI",
 		teaches = 8928,
 		isSpell = true,
 		requiredLevel = 60,
@@ -93,6 +106,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11357] = {
+		name = "Deadly Poison III",
 		teaches = 8984,
 		isSpell = true,
 		requiredLevel = 46,
@@ -100,6 +114,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11358] = {
+		name = "Deadly Poison IV",
 		teaches = 8985,
 		isSpell = true,
 		requiredLevel = 54,
@@ -107,6 +122,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[11400] = {
+		name = "Mind-numbing Poison III",
 		teaches = 9186,
 		isSpell = true,
 		requiredLevel = 52,
@@ -114,6 +130,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[13220] = {
+		name = "Wound Poison",
 		teaches = 10918,
 		isSpell = true,
 		requiredLevel = 32,
@@ -121,6 +138,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[13228] = {
+		name = "Wound Poison II",
 		teaches = 10920,
 		isSpell = true,
 		requiredLevel = 40,
@@ -128,6 +146,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[13229] = {
+		name = "Wound Poison III",
 		teaches = 10921,
 		isSpell = true,
 		requiredLevel = 48,
@@ -135,6 +154,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[13230] = {
+		name = "Wound Poison IV",
 		teaches = 10922,
 		isSpell = true,
 		requiredLevel = 56,
@@ -142,6 +162,7 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[25347] = {
+		name = "Deadly Poison V",
 		teaches = 20844,
 		isSpell = true,
 		requiredLevel = 60,
@@ -149,6 +170,8 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26786] = {
+		name = "Anesthetic Poison",
+		difficulty = { 340, 355, 370, 385 },
 		teaches = 21835,
 		isSpell = true,
 		requiredLevel = 68,
@@ -156,6 +179,8 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26892] = {
+		name = "Instant Poison VII",
+		difficulty = { 365, 390, 415, 440 },
 		teaches = 21927,
 		isSpell = true,
 		requiredLevel = 68,
@@ -163,6 +188,8 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26969] = {
+		name = "Deadly Poison VI",
+		difficulty = { 345, 365, 385, 405 },
 		teaches = 22053,
 		isSpell = true,
 		requiredLevel = 62,
@@ -170,6 +197,8 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[27282] = {
+		name = "Deadly Poison VII",
+		difficulty = { 385, 405, 425, 445 },
 		teaches = 22054,
 		isSpell = true,
 		requiredLevel = 70,
@@ -177,6 +206,8 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[27283] = {
+		name = "Wound Poison V",
+		difficulty = { 345, 370, 395, 420 },
 		teaches = 22055,
 		isSpell = true,
 		requiredLevel = 64,
