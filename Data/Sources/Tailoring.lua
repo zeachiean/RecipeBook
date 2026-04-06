@@ -6631,6 +6631,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14471] = {
+		drop = {
+			[5861] = 1.9,
+		},
 	},
 	[14472] = {
 		vendor = {
@@ -6641,6 +6644,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14473] = {
+		drop = {
+			[7864] = 6.0,
+		},
 	},
 	[14474] = {
 		drop = {
@@ -6823,6 +6829,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14476] = {
+		drop = {
+			[5861] = 1.7,
+		},
 	},
 	[14477] = {
 		drop = {
@@ -7193,6 +7202,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14480] = {
+		drop = {
+			[8538] = 2.0,
+		},
 	},
 	[14481] = {
 		vendor = {
@@ -7203,6 +7215,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14482] = {
+		drop = {
+			[7037] = 1.5,
+		},
 	},
 	[14483] = {
 		vendor = {
@@ -7394,8 +7409,14 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14485] = {
+		drop = {
+			[8551] = 9.0,
+		},
 	},
 	[14486] = {
+		drop = {
+			[9026] = 32.0,
+		},
 	},
 	[14488] = {
 		vendor = {
@@ -7573,6 +7594,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14490] = {
+		drop = {
+			[7037] = 3.0,
+		},
 	},
 	[14491] = {
 		drop = {
@@ -7914,6 +7938,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14493] = {
+		drop = {
+			[7437] = 5.0,
+		},
 	},
 	[14494] = {
 		drop = {
@@ -8083,6 +8110,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14495] = {
+		drop = {
+			[10384] = 4.0,
+		},
 	},
 	[14496] = {
 		drop = {
@@ -8583,6 +8613,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14500] = {
+		drop = {
+			[8526] = 1.9,
+		},
 	},
 	[14504] = {
 		drop = {
@@ -8738,6 +8771,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14505] = {
+		drop = {
+			[8526] = 2.0,
+		},
 	},
 	[14506] = {
 		drop = {
@@ -9136,10 +9172,19 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[14512] = {
+		drop = {
+			[10812] = 7.0,
+		},
 	},
 	[14513] = {
+		drop = {
+			[9264] = 14.0,
+		},
 	},
 	[14514] = {
+		drop = {
+			[1853] = 9.0,
+		},
 	},
 	[14526] = {
 		vendor = {
@@ -9378,6 +9423,9 @@ RecipeBook.sourceDB[197] = {
 		},
 	},
 	[22309] = {
+		drop = {
+			[11487] = 27.0,
+		},
 	},
 	[22310] = {
 		vendor = {
@@ -9693,18 +9741,33 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Soulcloth Shoulders (drop: Pattern 21903, Karazhan)
 	[21903] = {
+		drop = {
+			[16406] = 2.0,
+		},
 	},
 	-- Soulcloth Vest (drop: Pattern 21904, Karazhan)
 	[21904] = {
+		drop = {
+			[16408] = 2.0,
+		},
 	},
 	-- Arcanoweave Bracers (drop: Pattern 21905, The Arcatraz)
 	[21905] = {
+		drop = {
+			[20869] = 3.0,
+		},
 	},
 	-- Arcanoweave Boots (drop: Pattern 21906, The Mechanar)
 	[21906] = {
+		drop = {
+			[19168] = 3.0,
+		},
 	},
 	-- Arcanoweave Robe (drop: Pattern 21907, The Mechanar)
 	[21907] = {
+		drop = {
+			[19220] = 5.0,
+		},
 	},
 	-- Spellcloth (vendor: Pattern 24316)
 	[24316] = {
@@ -9748,6 +9811,9 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Unyielding Bracers (drop: Pattern 35308)
 	[35308] = {
+		drop = {
+			[24664] = 1.0,
+		},
 	},
 	-- Bracers of Havok (world drop: Pattern 24297)
 	[24297] = {
@@ -9771,6 +9837,9 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Unyielding Girdle (drop: Pattern 35309)
 	[35309] = {
+		drop = {
+			[24664] = 1.0,
+		},
 	},
 	-- Girdle of Ruination (world drop: Pattern 24303)
 	[24303] = {
@@ -9794,21 +9863,39 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Whitemend Pants (drop: Pattern 24308, The Arcatraz)
 	[24308] = {
+		drop = {
+			[20885] = 15.0,
+		},
 	},
 	-- Spellstrike Pants (drop: Pattern 24309, Shadow Labyrinth)
 	[24309] = {
+		drop = {
+			[18708] = 15.0,
+		},
 	},
 	-- Battlecast Pants (drop: Pattern 24310, The Botanica)
 	[24310] = {
+		drop = {
+			[17978] = 15.0,
+		},
 	},
 	-- Whitemend Hood (drop: Pattern 24311, The Botanica)
 	[24311] = {
+		drop = {
+			[17977] = 15.0,
+		},
 	},
 	-- Spellstrike Hood (drop: Pattern 24312, The Shattered Halls)
 	[24312] = {
+		drop = {
+			[16807] = 15.0,
+		},
 	},
 	-- Battlecast Hood (drop: Pattern 24313, The Steamvault)
 	[24313] = {
+		drop = {
+			[17798] = 15.0,
+		},
 	},
 	-- Bag of Jewels (reputation: Pattern 24314, Consortium Honored)
 	[24314] = {

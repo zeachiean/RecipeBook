@@ -746,16 +746,6 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
-	[33149] = {
-		teaches = 25083,
-		requiredSkill = 300,
-		phase = 1,
-	},
-	[33150] = {
-		teaches = 25084,
-		requiredSkill = 300,
-		phase = 1,
-	},
 	[20736] = {
 		teaches = 25086,
 		requiredSkill = 300,
@@ -1104,17 +1094,19 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 350,
 		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Greater Agility
 	[33165] = {
 		teaches = 42620,
 		reputationFaction = 967,
 		reputationLevel = 8,
 		requiredSkill = 350,
-		phase = 3,
+		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Deathfrost
 	[35498] = {
 		teaches = 46578,
 		requiredSkill = 350,
-		phase = 1,
+		phase = 5,
 	},
 	[22534] = {
 		teaches = 27917,
@@ -1179,6 +1171,7 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 360,
 		phase = 1,
 	},
+	-- Formula: Enchant Chest - Dodge
 	[35500] = {
 		teaches = 46594,
 		reputationFaction = 1077,
@@ -1193,6 +1186,7 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 370,
 		phase = 1,
 	},
+	-- Formula: Enchant Boots - Surefooted
 	[22545] = {
 		teaches = 27954,
 		requiredSkill = 370,
@@ -1205,16 +1199,19 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 375,
 		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Mongoose
 	[22559] = {
 		teaches = 27984,
 		requiredSkill = 375,
 		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Sunfire
 	[22560] = {
 		teaches = 27981,
 		requiredSkill = 375,
 		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Soulfrost
 	[22561] = {
 		teaches = 27982,
 		requiredSkill = 375,
@@ -1225,11 +1222,13 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 375,
 		phase = 1,
 	},
+	-- Formula: Enchant Weapon - Executioner
 	[33307] = {
 		teaches = 42974,
 		requiredSkill = 375,
 		phase = 4,
 	},
+	-- Formula: Void Shatter
 	[34872] = {
 		teaches = 45765,
 		reputationFaction = 1077,
@@ -1237,6 +1236,7 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 375,
 		phase = 5,
 	},
+	-- Formula: Enchant Cloak - Greater Dodge
 	[35756] = {
 		teaches = 47051,
 		requiredSkill = 375,

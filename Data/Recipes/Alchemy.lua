@@ -8,36 +8,43 @@ RecipeBook.recipeDB[171] = {
 	},
 	[858] = {
 		teaches = 858,
+		isSpell = true,
 		requiredSkill = 55,
 		phase = 1,
 	},
 	[929] = {
 		teaches = 929,
+		isSpell = true,
 		requiredSkill = 110,
 		phase = 1,
 	},
 	[1710] = {
 		teaches = 1710,
+		isSpell = true,
 		requiredSkill = 155,
 		phase = 1,
 	},
 	[2454] = {
 		teaches = 2454,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[2455] = {
 		teaches = 2455,
+		isSpell = true,
 		requiredSkill = 25,
 		phase = 1,
 	},
 	[2456] = {
 		teaches = 2456,
+		isSpell = true,
 		requiredSkill = 40,
 		phase = 1,
 	},
 	[2458] = {
 		teaches = 2458,
+		isSpell = true,
 		requiredSkill = 50,
 		phase = 1,
 	},
@@ -53,26 +60,31 @@ RecipeBook.recipeDB[171] = {
 	},
 	[3382] = {
 		teaches = 3382,
+		isSpell = true,
 		requiredSkill = 15,
 		phase = 1,
 	},
 	[3383] = {
 		teaches = 3383,
+		isSpell = true,
 		requiredSkill = 90,
 		phase = 1,
 	},
 	[3385] = {
 		teaches = 3385,
+		isSpell = true,
 		requiredSkill = 120,
 		phase = 1,
 	},
 	[3388] = {
 		teaches = 3388,
+		isSpell = true,
 		requiredSkill = 125,
 		phase = 1,
 	},
 	[3389] = {
 		teaches = 3389,
+		isSpell = true,
 		requiredSkill = 130,
 		phase = 1,
 	},
@@ -98,11 +110,13 @@ RecipeBook.recipeDB[171] = {
 	},
 	[3823] = {
 		teaches = 3823,
+		isSpell = true,
 		requiredSkill = 165,
 		phase = 1,
 	},
 	[3827] = {
 		teaches = 3827,
+		isSpell = true,
 		requiredSkill = 160,
 		phase = 1,
 	},
@@ -123,6 +137,7 @@ RecipeBook.recipeDB[171] = {
 	},
 	[3928] = {
 		teaches = 3928,
+		isSpell = true,
 		requiredSkill = 215,
 		phase = 1,
 	},
@@ -153,11 +168,13 @@ RecipeBook.recipeDB[171] = {
 	},
 	[5996] = {
 		teaches = 5996,
+		isSpell = true,
 		requiredSkill = 90,
 		phase = 1,
 	},
 	[5997] = {
 		teaches = 5997,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
@@ -193,6 +210,7 @@ RecipeBook.recipeDB[171] = {
 	},
 	[6149] = {
 		teaches = 6149,
+		isSpell = true,
 		requiredSkill = 205,
 		phase = 1,
 	},
@@ -203,21 +221,25 @@ RecipeBook.recipeDB[171] = {
 	},
 	[6370] = {
 		teaches = 6370,
+		isSpell = true,
 		requiredSkill = 80,
 		phase = 1,
 	},
 	[6371] = {
 		teaches = 6371,
+		isSpell = true,
 		requiredSkill = 130,
 		phase = 1,
 	},
 	[6372] = {
 		teaches = 6372,
+		isSpell = true,
 		requiredSkill = 100,
 		phase = 1,
 	},
 	[6373] = {
 		teaches = 6373,
+		isSpell = true,
 		requiredSkill = 140,
 		phase = 1,
 	},
@@ -228,46 +250,55 @@ RecipeBook.recipeDB[171] = {
 	},
 	[8949] = {
 		teaches = 8949,
+		isSpell = true,
 		requiredSkill = 185,
 		phase = 1,
 	},
 	[8951] = {
 		teaches = 8951,
+		isSpell = true,
 		requiredSkill = 195,
 		phase = 1,
 	},
 	[8956] = {
 		teaches = 8956,
+		isSpell = true,
 		requiredSkill = 205,
 		phase = 1,
 	},
 	[9030] = {
 		teaches = 9030,
+		isSpell = true,
 		requiredSkill = 215,
 		phase = 1,
 	},
 	[9154] = {
 		teaches = 9154,
+		isSpell = true,
 		requiredSkill = 230,
 		phase = 1,
 	},
 	[9155] = {
 		teaches = 9155,
+		isSpell = true,
 		requiredSkill = 235,
 		phase = 1,
 	},
 	[9179] = {
 		teaches = 9179,
+		isSpell = true,
 		requiredSkill = 235,
 		phase = 1,
 	},
 	[9187] = {
 		teaches = 9187,
+		isSpell = true,
 		requiredSkill = 240,
 		phase = 1,
 	},
 	[9233] = {
 		teaches = 9233,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
@@ -333,6 +364,7 @@ RecipeBook.recipeDB[171] = {
 	},
 	[10592] = {
 		teaches = 10592,
+		isSpell = true,
 		requiredSkill = 200,
 		phase = 1,
 	},
@@ -343,6 +375,7 @@ RecipeBook.recipeDB[171] = {
 	},
 	[12190] = {
 		teaches = 12190,
+		isSpell = true,
 		requiredSkill = 230,
 		phase = 1,
 	},
@@ -353,6 +386,7 @@ RecipeBook.recipeDB[171] = {
 	},
 	[13423] = {
 		teaches = 13423,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
@@ -522,11 +556,13 @@ RecipeBook.recipeDB[171] = {
 	},
 	[18294] = {
 		teaches = 18294,
+		isSpell = true,
 		requiredSkill = 215,
 		phase = 1,
 	},
 	[19931] = {
 		teaches = 19931,
+		isSpell = true,
 		requiredSkill = 315,
 		phase = 1,
 	},
@@ -992,7 +1028,7 @@ RecipeBook.recipeDB[171] = {
 		requiredSkill = 375,
 		reputationFaction = 967,
 		reputationLevel = 6,
-		phase = 3,
+		phase = 1,
 	},
 	-- Phase 5: Shattered Sun Offensive Alchemist Stones
 	[35755] = {
@@ -1002,6 +1038,7 @@ RecipeBook.recipeDB[171] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Recipe: Guardian's Alchemist Stone
 	[35752] = {
 		teaches = 47046,
 		requiredSkill = 375,
@@ -1009,6 +1046,7 @@ RecipeBook.recipeDB[171] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Recipe: Redeemer's Alchemist Stone
 	[35754] = {
 		teaches = 47049,
 		requiredSkill = 375,
@@ -1016,6 +1054,7 @@ RecipeBook.recipeDB[171] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Recipe: Sorcerer's Alchemist Stone
 	[35753] = {
 		teaches = 47048,
 		requiredSkill = 375,

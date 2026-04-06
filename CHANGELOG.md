@@ -1,5 +1,10 @@
 # RecipeBook Changelog
 
+## v1.1.2
+
+### Fixes
+- Fixed incorrect phase and item data
+
 ## v1.1.1
 
 ### Fixes

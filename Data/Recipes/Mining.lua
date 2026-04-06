@@ -141,6 +141,7 @@ RecipeBook.recipeDB[186] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	-- Smelt Hardened Khorium
 	[46353] = {
 		icon = 133235,
 		teaches = 35128,

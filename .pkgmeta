@@ -12,7 +12,6 @@ ignore:
   - CLAUDE.md
   - .claude
   - tests
-  - tools
 
 externals:
   Libs/LibStub:

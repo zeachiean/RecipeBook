@@ -8,26 +8,31 @@ RecipeBook.recipeDB[129] = {
 	},
 	[2581] = {
 		teaches = 2581,
+		isSpell = true,
 		requiredSkill = 40,
 		phase = 1,
 	},
 	[3530] = {
 		teaches = 3530,
+		isSpell = true,
 		requiredSkill = 80,
 		phase = 1,
 	},
 	[3531] = {
 		teaches = 3531,
+		isSpell = true,
 		requiredSkill = 115,
 		phase = 1,
 	},
 	[6450] = {
 		teaches = 6450,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[6452] = {
 		teaches = 6452,
+		isSpell = true,
 		requiredSkill = 80,
 		phase = 1,
 	},
@@ -38,16 +43,19 @@ RecipeBook.recipeDB[129] = {
 	},
 	[8545] = {
 		teaches = 8545,
+		isSpell = true,
 		requiredSkill = 240,
 		phase = 1,
 	},
 	[14529] = {
 		teaches = 14529,
+		isSpell = true,
 		requiredSkill = 260,
 		phase = 1,
 	},
 	[14530] = {
 		teaches = 14530,
+		isSpell = true,
 		requiredSkill = 290,
 		phase = 1,
 	},

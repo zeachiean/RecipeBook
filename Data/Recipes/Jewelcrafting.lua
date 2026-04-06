@@ -326,15 +326,17 @@ RecipeBook.recipeDB[755] = {
 		requiredSkill = 365,
 		phase = 1,
 	},
+	-- Design: Coronet of Verdant Flame
 	[24172] = {
 		teaches = 31077,
 		requiredSkill = 370,
-		phase = 1,
+		phase = 3,
 	},
+	-- Design: Circlet of Arcane Might
 	[24173] = {
 		teaches = 31078,
 		requiredSkill = 370,
-		phase = 1,
+		phase = 3,
 	},
 	[24174] = {
 		teaches = 31062,
@@ -844,18 +846,21 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 1,
 	},
+	-- Design: The Frozen Eye
 	[31401] = {
 		teaches = 38503,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 3,
 	},
+	-- Design: The Natural Ward
 	[31402] = {
 		teaches = 38504,
 		requiredSkill = 375,
 		reputationFaction = 942,
 		reputationLevel = 8,
-		phase = 1,
+		phase = 3,
 	},
+	-- Design: Rigid Azure Moonstone
 	[31870] = {
 		teaches = 39451,
 		requiredSkill = 325,
@@ -871,6 +876,7 @@ RecipeBook.recipeDB[755] = {
 		requiredSkill = 325,
 		phase = 1,
 	},
+	-- Design: Veiled Shadow Draenite
 	[31873] = {
 		teaches = 39466,
 		requiredSkill = 325,
@@ -953,67 +959,77 @@ RecipeBook.recipeDB[755] = {
 		requiredSkill = 225,
 		phase = 1,
 	},
+	-- Design: Kailee's Rose
 	[33155] = {
 		teaches = 42588,
 		requiredSkill = 360,
 		reputationFaction = 935,
 		reputationLevel = 6,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Crimson Sun
 	[33156] = {
 		teaches = 42589,
 		requiredSkill = 360,
 		reputationFaction = 941,
 		reputationLevel = 7,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Falling Star
 	[33157] = {
 		teaches = 42590,
 		requiredSkill = 360,
 		reputationFaction = 1011,
 		reputationLevel = 7,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Stone of Blades
 	[33158] = {
 		teaches = 42591,
 		requiredSkill = 360,
 		reputationFaction = 989,
 		reputationLevel = 7,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Blood of Amber
 	[33159] = {
 		teaches = 42592,
 		requiredSkill = 360,
 		reputationFaction = 935,
 		reputationLevel = 6,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Facet of Eternity
 	[33160] = {
 		teaches = 42593,
 		requiredSkill = 360,
 		reputationFaction = 989,
 		reputationLevel = 7,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Don Julio's Heart
 	[33305] = {
 		teaches = 42558,
 		requiredSkill = 360,
 		reputationFaction = 941,
 		reputationLevel = 7,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Relentless Earthstorm Diamond
 	[33622] = {
 		teaches = 39961,
 		requiredSkill = 365,
 		reputationFaction = 941,
 		reputationLevel = 8,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Steady Talasite
 	[33783] = {
 		teaches = 43493,
 		requiredSkill = 350,
-		phase = 1,
+		phase = 4,
 	},
+	-- Design: Chaotic Skyfire Diamond
 	[34689] = {
 		teaches = 44794,
 		requiredSkill = 365,
@@ -1043,6 +1059,7 @@ RecipeBook.recipeDB[755] = {
 		requiredSkill = 290,
 		phase = 1,
 	},
+	-- Design: Shifting Shadowsong Amethyst
 	[35238] = {
 		teaches = 39729,
 		requiredSkill = 375,
@@ -1050,6 +1067,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Timeless Shadowsong Amethyst
 	[35239] = {
 		teaches = 39731,
 		requiredSkill = 375,
@@ -1057,6 +1075,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Glinting Shadowsong Amethyst
 	[35240] = {
 		teaches = 39730,
 		requiredSkill = 375,
@@ -1064,6 +1083,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Purified Shadowsong Amethyst
 	[35241] = {
 		teaches = 39732,
 		requiredSkill = 375,
@@ -1071,16 +1091,19 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 3,
 	},
+	-- Design: Shifting Shadowsong Amethyst
 	[35242] = {
 		teaches = 39728,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Sovereign Shadowsong Amethyst
 	[35243] = {
 		teaches = 39727,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Bold Crimson Spinel
 	[35244] = {
 		teaches = 39705,
 		requiredSkill = 375,
@@ -1088,6 +1111,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Delicate Crimson Spinel
 	[35245] = {
 		teaches = 39712,
 		requiredSkill = 375,
@@ -1095,6 +1119,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Delicate Crimson Spinel
 	[35246] = {
 		teaches = 39706,
 		requiredSkill = 375,
@@ -1102,11 +1127,13 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Flashing Crimson Spinel
 	[35247] = {
 		teaches = 39714,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Brilliant Crimson Spinel
 	[35248] = {
 		teaches = 39711,
 		requiredSkill = 375,
@@ -1114,6 +1141,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Subtle Lionseye
 	[35249] = {
 		teaches = 39713,
 		requiredSkill = 375,
@@ -1121,6 +1149,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Brilliant Crimson Spinel
 	[35250] = {
 		teaches = 39710,
 		requiredSkill = 375,
@@ -1128,6 +1157,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Purified Shadowsong Amethyst
 	[35251] = {
 		teaches = 39741,
 		requiredSkill = 375,
@@ -1135,6 +1165,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Regal Seaspray Emerald
 	[35252] = {
 		teaches = 39739,
 		requiredSkill = 375,
@@ -1142,6 +1173,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 3,
 	},
+	-- Design: Jagged Seaspray Emerald
 	[35253] = {
 		teaches = 39742,
 		requiredSkill = 375,
@@ -1149,6 +1181,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Radiant Seaspray Emerald
 	[35254] = {
 		teaches = 39740,
 		requiredSkill = 375,
@@ -1156,6 +1189,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Brilliant Crimson Spinel
 	[35255] = {
 		teaches = 39719,
 		requiredSkill = 375,
@@ -1163,6 +1197,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Smooth Lionseye
 	[35256] = {
 		teaches = 39722,
 		requiredSkill = 375,
@@ -1170,16 +1205,19 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Rigid Empyrean Sapphire
 	[35257] = {
 		teaches = 39725,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Mystic Lionseye
 	[35258] = {
 		teaches = 39724,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Rigid Empyrean Sapphire
 	[35259] = {
 		teaches = 39721,
 		requiredSkill = 375,
@@ -1187,6 +1225,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 3,
 	},
+	-- Design: Smooth Lionseye
 	[35260] = {
 		teaches = 39720,
 		requiredSkill = 375,
@@ -1194,6 +1233,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Subtle Lionseye
 	[35261] = {
 		teaches = 39723,
 		requiredSkill = 375,
@@ -1201,6 +1241,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Sparkling Empyrean Sapphire
 	[35262] = {
 		teaches = 39717,
 		requiredSkill = 375,
@@ -1208,6 +1249,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Solid Empyrean Sapphire
 	[35263] = {
 		teaches = 39715,
 		requiredSkill = 375,
@@ -1215,6 +1257,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Sparkling Empyrean Sapphire
 	[35264] = {
 		teaches = 39716,
 		requiredSkill = 375,
@@ -1222,11 +1265,13 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 5,
 		phase = 3,
 	},
+	-- Design: Stormy Empyrean Sapphire
 	[35265] = {
 		teaches = 39718,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Glinting Shadowsong Amethyst
 	[35266] = {
 		teaches = 39736,
 		requiredSkill = 375,
@@ -1234,11 +1279,13 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Inscribed Pyrestone
 	[35267] = {
 		teaches = 39733,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Reckless Pyrestone
 	[35268] = {
 		teaches = 39735,
 		requiredSkill = 375,
@@ -1246,6 +1293,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Potent Pyrestone
 	[35269] = {
 		teaches = 39734,
 		requiredSkill = 375,
@@ -1253,11 +1301,13 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 3,
 	},
+	-- Design: Veiled Shadowsong Amethyst
 	[35270] = {
 		teaches = 39737,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Design: Deadly Pyrestone
 	[35271] = {
 		teaches = 39738,
 		requiredSkill = 375,
@@ -1265,26 +1315,31 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 3,
 	},
+	-- Design: Solid Star of Elune
 	[35304] = {
 		teaches = 31092,
 		requiredSkill = 350,
 		phase = 1,
 	},
+	-- Design: Brilliant Living Ruby
 	[35305] = {
 		teaches = 31088,
 		requiredSkill = 350,
 		phase = 1,
 	},
+	-- Design: Delicate Living Ruby
 	[35306] = {
 		teaches = 31089,
 		requiredSkill = 350,
 		phase = 1,
 	},
+	-- Design: Rigid Star of Elune
 	[35307] = {
 		teaches = 31098,
 		requiredSkill = 350,
 		phase = 1,
 	},
+	-- Design: Quick Dawnstone
 	[35322] = {
 		teaches = 46403,
 		requiredSkill = 350,
@@ -1292,6 +1347,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Design: Reckless Noble Topaz
 	[35323] = {
 		teaches = 46404,
 		requiredSkill = 350,
@@ -1299,6 +1355,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Design: Forceful Talasite
 	[35325] = {
 		teaches = 46405,
 		requiredSkill = 350,
@@ -1306,6 +1363,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 8,
 		phase = 5,
 	},
+	-- Design: Eternal Earthstorm Diamond
 	[35502] = {
 		teaches = 46597,
 		requiredSkill = 370,
@@ -1313,6 +1371,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Ember Skyfire Diamond
 	[35505] = {
 		teaches = 46601,
 		requiredSkill = 370,
@@ -1320,36 +1379,43 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Amulet of Flowing Life
 	[35533] = {
 		teaches = 46126,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Hard Khorium Band
 	[35534] = {
 		teaches = 46124,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Hard Khorium Choker
 	[35535] = {
 		teaches = 46127,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Loop of Forged Power
 	[35536] = {
 		teaches = 46122,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Pendant of Sunfire
 	[35537] = {
 		teaches = 46125,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Ring of Flowing Life
 	[35538] = {
 		teaches = 46123,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Design: Figurine - Empyrean Tortoise
 	[35695] = {
 		teaches = 46775,
 		requiredSkill = 375,
@@ -1357,6 +1423,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Figurine - Khorium Boar
 	[35696] = {
 		teaches = 46776,
 		requiredSkill = 375,
@@ -1364,6 +1431,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Figurine - Crimson Serpent
 	[35697] = {
 		teaches = 46777,
 		requiredSkill = 375,
@@ -1371,6 +1439,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Figurine - Shadowsong Panther
 	[35698] = {
 		teaches = 46778,
 		requiredSkill = 375,
@@ -1378,6 +1447,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Figurine - Seaspray Albatross
 	[35699] = {
 		teaches = 46779,
 		requiredSkill = 375,
@@ -1385,6 +1455,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Regal Talasite
 	[35708] = {
 		teaches = 46803,
 		requiredSkill = 350,
@@ -1392,6 +1463,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 7,
 		phase = 5,
 	},
+	-- Design: Steady Seaspray Emerald
 	[35766] = {
 		teaches = 47054,
 		requiredSkill = 375,
@@ -1399,6 +1471,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 5,
 	},
+	-- Design: Reckless Pyrestone
 	[35767] = {
 		teaches = 47055,
 		requiredSkill = 375,
@@ -1406,6 +1479,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 5,
 	},
+	-- Design: Quick Lionseye
 	[35768] = {
 		teaches = 47056,
 		requiredSkill = 375,
@@ -1413,6 +1487,7 @@ RecipeBook.recipeDB[755] = {
 		reputationLevel = 6,
 		phase = 5,
 	},
+	-- Design: Forceful Seaspray Emerald
 	[35769] = {
 		teaches = 47053,
 		requiredSkill = 375,
@@ -1444,6 +1519,7 @@ RecipeBook.recipeDB[755] = {
 		requiredSkill = 265,
 		phase = 1,
 	},
+	-- Design: Purified Shadowsong Amethyst
 	[37504] = {
 		teaches = 48789,
 		requiredSkill = 375,

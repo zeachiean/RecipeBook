@@ -81,24 +81,6 @@ RecipeBook.PHASE_LABELS = {
     [5] = "Phase 5",
 }
 
--- Zone-to-phase overrides: instances whose recipes should be treated as
--- a later phase even when the recipe data lacks a phase tag.
-RecipeBook.ZONE_PHASE_OVERRIDES = {
-    -- Phase 2
-    ["Serpentshrine Cavern"] = 2,
-    ["Tempest Keep"]        = 2,  -- The Eye raid
-    -- Phase 3
-    ["Black Temple"]        = 3,
-    ["Hyjal Summit"]        = 3,
-    ["Mount Hyjal"]         = 3,
-    -- Phase 4
-    ["Zul'Aman"]            = 4,
-    -- Phase 5
-    ["Isle of Quel'Danas"]  = 5,
-    ["Magisters' Terrace"]  = 5,
-    ["Sunwell Plateau"]     = 5,
-}
-
 -- World drop NPC threshold
 RecipeBook.WORLD_DROP_THRESHOLD = 10
 
@@ -399,60 +381,13 @@ local function InitSavedVars()
 end
 
 -- Get the effective phase for a recipe.
--- Combines the MaNGOS-derived dataset lookup with zone-based inference and
--- returns the MAX of both signals. The dataset is unreliable for Jewelcrafting
--- designs in particular: many taught spells were tagged phase 0 (folded to 1)
--- upstream even though the recipe's source is clearly phase-gated content like
--- Hyjal Summit or Isle of Quel'Danas. Taking the max ensures a "later phase"
--- signal from any source wins.
+-- Each recipe has an explicit phase field (1-5) in recipeDB; this is the
+-- single source of truth.  Earlier versions used zone-based inference as a
+-- fallback, but all phases have been manually verified and hard-coded.
 function RecipeBook:GetRecipePhase(profID, recipeID)
     local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
     if not data then return 1 end
-
-    -- Per-recipe explicit phase is authoritative (all recipes now carry one,
-    -- sourced from RecipeMaster_TBC's hand-curated annotations).
-    if data.phase then return data.phase end
-
-    local maxPhase = 1
-
-    -- Zone-based inference from every source: any phase-gated zone bumps
-    -- the recipe up to that zone's phase.
-    local sources = self.sourceDB[profID] and self.sourceDB[profID][recipeID]
-    if sources then
-        local function bumpFromAreaIDs(areaIDs)
-            for _, areaID in ipairs(areaIDs) do
-                local zoneName = self:GetZoneNameForAreaID(areaID)
-                if zoneName and self.ZONE_PHASE_OVERRIDES[zoneName] then
-                    local p = self.ZONE_PHASE_OVERRIDES[zoneName]
-                    if p > maxPhase then maxPhase = p end
-                end
-            end
-        end
-        for srcType, srcData in pairs(sources) do
-            if srcType == "unique" and type(srcData) == "table" then
-                for _, uid in ipairs(srcData) do
-                    local entry = self.uniqueDB and self.uniqueDB[uid]
-                    if entry and entry.zones then bumpFromAreaIDs(entry.zones) end
-                end
-            elseif (srcType == "trainer" or srcType == "vendor"
-                    or srcType == "drop" or srcType == "pickpocket")
-                    and type(srcData) == "table" then
-                for npcID in pairs(srcData) do
-                    local npc = self.npcDB and self.npcDB[npcID]
-                    if npc and npc.zones then bumpFromAreaIDs(npc.zones) end
-                end
-            elseif srcType == "object" and type(srcData) == "table" then
-                for objID in pairs(srcData) do
-                    local obj = self.objectDB and self.objectDB[objID]
-                    if obj and obj.zones then bumpFromAreaIDs(obj.zones) end
-                end
-            elseif srcType == "worldDrop" and type(srcData) == "table" then
-                bumpFromAreaIDs(srcData)
-            end
-        end
-    end
-
-    return maxPhase
+    return data.phase or 1
 end
 
 -- Event frame

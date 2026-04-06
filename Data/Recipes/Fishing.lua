@@ -16,6 +16,7 @@ RecipeBook.recipeDB[356] = {
 		requiredSkill = 275,
 		phase = 1,
 	},
+	-- Honor Points
 	[43308] = {
 		teaches = 43308,
 		isSpell = true,

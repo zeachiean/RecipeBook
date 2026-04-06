@@ -8,61 +8,73 @@ RecipeBook.recipeDB[165] = {
 	},
 	[2302] = {
 		teaches = 2302,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[2303] = {
 		teaches = 2303,
+		isSpell = true,
 		requiredSkill = 15,
 		phase = 1,
 	},
 	[2304] = {
 		teaches = 2304,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[2308] = {
 		teaches = 2308,
+		isSpell = true,
 		requiredSkill = 85,
 		phase = 1,
 	},
 	[2309] = {
 		teaches = 2309,
+		isSpell = true,
 		requiredSkill = 55,
 		phase = 1,
 	},
 	[2310] = {
 		teaches = 2310,
+		isSpell = true,
 		requiredSkill = 60,
 		phase = 1,
 	},
 	[2313] = {
 		teaches = 2313,
+		isSpell = true,
 		requiredSkill = 100,
 		phase = 1,
 	},
 	[2314] = {
 		teaches = 2314,
+		isSpell = true,
 		requiredSkill = 120,
 		phase = 1,
 	},
 	[2315] = {
 		teaches = 2315,
+		isSpell = true,
 		requiredSkill = 100,
 		phase = 1,
 	},
 	[2316] = {
 		teaches = 2316,
+		isSpell = true,
 		requiredSkill = 110,
 		phase = 1,
 	},
 	[2318] = {
 		teaches = 2318,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[2319] = {
 		teaches = 2319,
+		isSpell = true,
 		requiredSkill = 100,
 		phase = 1,
 	},
@@ -88,86 +100,103 @@ RecipeBook.recipeDB[165] = {
 	},
 	[3719] = {
 		teaches = 3719,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[4231] = {
 		teaches = 4231,
+		isSpell = true,
 		requiredSkill = 35,
 		phase = 1,
 	},
 	[4233] = {
 		teaches = 4233,
+		isSpell = true,
 		requiredSkill = 100,
 		phase = 1,
 	},
 	[4234] = {
 		teaches = 4234,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[4236] = {
 		teaches = 4236,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[4237] = {
 		teaches = 4237,
+		isSpell = true,
 		requiredSkill = 25,
 		phase = 1,
 	},
 	[4239] = {
 		teaches = 4239,
+		isSpell = true,
 		requiredSkill = 55,
 		phase = 1,
 	},
 	[4242] = {
 		teaches = 4242,
+		isSpell = true,
 		requiredSkill = 75,
 		phase = 1,
 	},
 	[4243] = {
 		teaches = 4243,
+		isSpell = true,
 		requiredSkill = 85,
 		phase = 1,
 	},
 	[4246] = {
 		teaches = 4246,
+		isSpell = true,
 		requiredSkill = 80,
 		phase = 1,
 	},
 	[4247] = {
 		teaches = 4247,
+		isSpell = true,
 		requiredSkill = 145,
 		phase = 1,
 	},
 	[4249] = {
 		teaches = 4249,
+		isSpell = true,
 		requiredSkill = 125,
 		phase = 1,
 	},
 	[4251] = {
 		teaches = 4251,
+		isSpell = true,
 		requiredSkill = 130,
 		phase = 1,
 	},
 	[4253] = {
 		teaches = 4253,
+		isSpell = true,
 		requiredSkill = 135,
 		phase = 1,
 	},
 	[4257] = {
 		teaches = 4257,
+		isSpell = true,
 		requiredSkill = 160,
 		phase = 1,
 	},
 	[4259] = {
 		teaches = 4259,
+		isSpell = true,
 		requiredSkill = 180,
 		phase = 1,
 	},
 	[4265] = {
 		teaches = 4265,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
@@ -203,6 +232,7 @@ RecipeBook.recipeDB[165] = {
 	},
 	[4304] = {
 		teaches = 4304,
+		isSpell = true,
 		requiredSkill = 200,
 		phase = 1,
 	},
@@ -213,6 +243,7 @@ RecipeBook.recipeDB[165] = {
 	},
 	[5739] = {
 		teaches = 5739,
+		isSpell = true,
 		requiredSkill = 190,
 		phase = 1,
 	},
@@ -238,26 +269,31 @@ RecipeBook.recipeDB[165] = {
 	},
 	[5957] = {
 		teaches = 5957,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[5961] = {
 		teaches = 5961,
+		isSpell = true,
 		requiredSkill = 115,
 		phase = 1,
 	},
 	[5962] = {
 		teaches = 5962,
+		isSpell = true,
 		requiredSkill = 160,
 		phase = 1,
 	},
 	[5964] = {
 		teaches = 5964,
+		isSpell = true,
 		requiredSkill = 175,
 		phase = 1,
 	},
 	[5966] = {
 		teaches = 5966,
+		isSpell = true,
 		requiredSkill = 190,
 		phase = 1,
 	},
@@ -298,36 +334,43 @@ RecipeBook.recipeDB[165] = {
 	},
 	[7276] = {
 		teaches = 7276,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[7277] = {
 		teaches = 7277,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
 	[7278] = {
 		teaches = 7278,
+		isSpell = true,
 		requiredSkill = 30,
 		phase = 1,
 	},
 	[7279] = {
 		teaches = 7279,
+		isSpell = true,
 		requiredSkill = 30,
 		phase = 1,
 	},
 	[7281] = {
 		teaches = 7281,
+		isSpell = true,
 		requiredSkill = 70,
 		phase = 1,
 	},
 	[7282] = {
 		teaches = 7282,
+		isSpell = true,
 		requiredSkill = 95,
 		phase = 1,
 	},
 	[7285] = {
 		teaches = 7285,
+		isSpell = true,
 		requiredSkill = 120,
 		phase = 1,
 	},
@@ -348,6 +391,7 @@ RecipeBook.recipeDB[165] = {
 	},
 	[7348] = {
 		teaches = 7348,
+		isSpell = true,
 		requiredSkill = 125,
 		phase = 1,
 	},
@@ -378,31 +422,37 @@ RecipeBook.recipeDB[165] = {
 	},
 	[7371] = {
 		teaches = 7371,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[7372] = {
 		teaches = 7372,
+		isSpell = true,
 		requiredSkill = 150,
 		phase = 1,
 	},
 	[7374] = {
 		teaches = 7374,
+		isSpell = true,
 		requiredSkill = 175,
 		phase = 1,
 	},
 	[7377] = {
 		teaches = 7377,
+		isSpell = true,
 		requiredSkill = 180,
 		phase = 1,
 	},
 	[7378] = {
 		teaches = 7378,
+		isSpell = true,
 		requiredSkill = 185,
 		phase = 1,
 	},
 	[7387] = {
 		teaches = 7387,
+		isSpell = true,
 		requiredSkill = 195,
 		phase = 1,
 	},
@@ -438,96 +488,115 @@ RecipeBook.recipeDB[165] = {
 	},
 	[8170] = {
 		teaches = 8170,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
 	[8172] = {
 		teaches = 8172,
+		isSpell = true,
 		requiredSkill = 200,
 		phase = 1,
 	},
 	[8173] = {
 		teaches = 8173,
+		isSpell = true,
 		requiredSkill = 200,
 		phase = 1,
 	},
 	[8175] = {
 		teaches = 8175,
+		isSpell = true,
 		requiredSkill = 205,
 		phase = 1,
 	},
 	[8176] = {
 		teaches = 8176,
+		isSpell = true,
 		requiredSkill = 205,
 		phase = 1,
 	},
 	[8185] = {
 		teaches = 8185,
+		isSpell = true,
 		requiredSkill = 235,
 		phase = 1,
 	},
 	[8189] = {
 		teaches = 8189,
+		isSpell = true,
 		requiredSkill = 210,
 		phase = 1,
 	},
 	[8191] = {
 		teaches = 8191,
+		isSpell = true,
 		requiredSkill = 230,
 		phase = 1,
 	},
 	[8193] = {
 		teaches = 8193,
+		isSpell = true,
 		requiredSkill = 230,
 		phase = 1,
 	},
 	[8197] = {
 		teaches = 8197,
+		isSpell = true,
 		requiredSkill = 235,
 		phase = 1,
 	},
 	[8198] = {
 		teaches = 8198,
+		isSpell = true,
 		requiredSkill = 210,
 		phase = 1,
 	},
 	[8217] = {
 		teaches = 8217,
+		isSpell = true,
 		requiredSkill = 225,
 		phase = 1,
 	},
 	[8218] = {
 		teaches = 8218,
+		isSpell = true,
 		requiredSkill = 225,
 		phase = 1,
 	},
 	[8345] = {
 		teaches = 8345,
+		isSpell = true,
 		requiredSkill = 225,
 		phase = 1,
 	},
 	[8346] = {
 		teaches = 8346,
+		isSpell = true,
 		requiredSkill = 230,
 		phase = 1,
 	},
 	[8347] = {
 		teaches = 8347,
+		isSpell = true,
 		requiredSkill = 225,
 		phase = 1,
 	},
 	[8348] = {
 		teaches = 8348,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
 	[8349] = {
 		teaches = 8349,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
 	[8367] = {
 		teaches = 8367,
+		isSpell = true,
 		requiredSkill = 255,
 		phase = 1,
 	},
@@ -635,11 +704,13 @@ RecipeBook.recipeDB[165] = {
 	},
 	[15407] = {
 		teaches = 15407,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
 	[15564] = {
 		teaches = 15564,
+		isSpell = true,
 		requiredSkill = 250,
 		phase = 1,
 	},
@@ -963,6 +1034,7 @@ RecipeBook.recipeDB[165] = {
 	},
 	[18258] = {
 		teaches = 18258,
+		isSpell = true,
 		requiredSkill = 285,
 		phase = 1,
 	},
@@ -1106,11 +1178,13 @@ RecipeBook.recipeDB[165] = {
 	},
 	[20295] = {
 		teaches = 20295,
+		isSpell = true,
 		requiredSkill = 300,
 		phase = 1,
 	},
 	[20296] = {
 		teaches = 20296,
+		isSpell = true,
 		requiredSkill = 280,
 		phase = 1,
 	},
@@ -1295,89 +1369,104 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 330,
 		phase = 1,
 	},
+	-- Dragonscale Leatherworking
+	-- Ebon Netherscale Breastplate
 	[35575] = {
 		teaches = 35575,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Ebon Netherscale Belt
 	[35576] = {
 		teaches = 35576,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Ebon Netherscale Bracers
 	[35577] = {
 		teaches = 35577,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Netherstrike Breastplate
 	[35580] = {
 		teaches = 35580,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Netherstrike Belt
 	[35582] = {
 		teaches = 35582,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Netherstrike Bracers
 	[35584] = {
 		teaches = 35584,
 		isSpell = true,
 		specialization = 10658,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Tribal Leatherworking
+	-- Primalstrike Vest
 	[35589] = {
 		teaches = 35589,
 		isSpell = true,
 		specialization = 10657,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Primalstrike Belt
 	[35590] = {
 		teaches = 35590,
 		isSpell = true,
 		specialization = 10657,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Primalstrike Bracers
 	[35591] = {
 		teaches = 35591,
 		isSpell = true,
 		specialization = 10657,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Elemental Leatherworking
+	-- Windhawk Hauberk
 	[35585] = {
 		teaches = 35585,
 		isSpell = true,
 		specialization = 10660,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Windhawk Belt
 	[35587] = {
 		teaches = 35587,
 		isSpell = true,
 		specialization = 10660,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
+	-- Windhawk Bracers
 	[35588] = {
 		teaches = 35588,
 		isSpell = true,
 		specialization = 10660,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 5,
 	},
 	-- Vendor-sold patterns
 	[25726] = {
@@ -1771,14 +1860,14 @@ RecipeBook.recipeDB[165] = {
 		reputationFaction = 967,
 		reputationLevel = 8,
 		requiredSkill = 360,
-		phase = 1,
+		phase = 4,
 	},
 	[33205] = {
 		teaches = 42731,
 		reputationFaction = 967,
 		reputationLevel = 7,
 		requiredSkill = 365,
-		phase = 1,
+		phase = 4,
 	},
 	[29713] = {
 		teaches = 35538,
@@ -1802,6 +1891,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Bracers of Shackled Souls
 	[32430] = {
 		teaches = 40000,
 		reputationFaction = 1012,
@@ -1809,6 +1899,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Greaves of Shackled Souls
 	[32431] = {
 		teaches = 40001,
 		reputationFaction = 1012,
@@ -1816,6 +1907,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Waistguard of Shackled Souls
 	[32432] = {
 		teaches = 40002,
 		reputationFaction = 1012,
@@ -1823,6 +1915,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Redeemed Soul Cinch
 	[32436] = {
 		teaches = 40006,
 		reputationFaction = 1012,
@@ -1830,6 +1923,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Redeemed Soul Legguards
 	[32435] = {
 		teaches = 40005,
 		reputationFaction = 1012,
@@ -1837,6 +1931,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Redeemed Soul Moccasins
 	[32433] = {
 		teaches = 40003,
 		reputationFaction = 1012,
@@ -1844,6 +1939,7 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Redeemed Soul Wristguards
 	[32434] = {
 		teaches = 40004,
 		reputationFaction = 1012,
@@ -1880,12 +1976,12 @@ RecipeBook.recipeDB[165] = {
 	[29718] = {
 		teaches = 35544,
 		requiredSkill = 345,
-		phase = 1,
+		phase = 2,
 	},
 	[29714] = {
 		teaches = 35539,
 		requiredSkill = 350,
-		phase = 1,
+		phase = 2,
 	},
 	[25728] = {
 		teaches = 32485,
@@ -1984,36 +2080,43 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Belt of Deep Shadow
 	[30302] = {
 		teaches = 36351,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Belt of the Black Eagle
 	[30303] = {
 		teaches = 36352,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Monsoon Belt
 	[30304] = {
 		teaches = 36353,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Boots of Natural Grace
 	[30305] = {
 		teaches = 36355,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Boots of Utter Darkness
 	[30306] = {
 		teaches = 36357,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Boots of the Crimson Hawk
 	[30307] = {
 		teaches = 36358,
 		requiredSkill = 375,
 		phase = 2,
 	},
+	-- Pattern: Hurricane Boots
 	[30308] = {
 		teaches = 36359,
 		requiredSkill = 375,
@@ -2025,36 +2128,43 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Shoulders of Lightning Reflexes
 	[32749] = {
 		teaches = 41162,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Bracers of Renewed Life
 	[32744] = {
 		teaches = 41156,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Shoulderpads of Renewed Life
 	[32745] = {
 		teaches = 41157,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Swiftstrike Bracers
 	[32746] = {
 		teaches = 41158,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Swiftstrike Shoulders
 	[32747] = {
 		teaches = 41160,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Living Earth Bindings
 	[32750] = {
 		teaches = 41163,
 		requiredSkill = 375,
 		phase = 3,
 	},
+	-- Pattern: Living Earth Shoulders
 	[32751] = {
 		teaches = 41164,
 		requiredSkill = 375,
@@ -2066,36 +2176,43 @@ RecipeBook.recipeDB[165] = {
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Embrace of the Phoenix
 	[35217] = {
 		teaches = 46137,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Fletcher's Gloves of the Phoenix
 	[35213] = {
 		teaches = 46133,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Gloves of Immortal Dusk
 	[35214] = {
 		teaches = 46134,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Leather Chestguard of the Sun
 	[35216] = {
 		teaches = 46136,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Leather Gauntlets of the Sun
 	[35212] = {
 		teaches = 46132,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Sun-Drenched Scale Chestguard
 	[35219] = {
 		teaches = 46139,
 		requiredSkill = 365,
 		phase = 5,
 	},
+	-- Pattern: Sun-Drenched Scale Gloves
 	[35215] = {
 		teaches = 46135,
 		requiredSkill = 365,

@@ -91,19 +91,6 @@ function T.test_profession_count()
 end
 
 -- ============================================================
--- Zone phase overrides
--- ============================================================
-
-function T.test_zone_phase_overrides_exist()
-    assert_not_nil(RecipeBook.ZONE_PHASE_OVERRIDES, "ZONE_PHASE_OVERRIDES missing")
-    -- Spot-check known zones
-    assert_equal(5, RecipeBook.ZONE_PHASE_OVERRIDES["Sunwell Plateau"])
-    assert_equal(5, RecipeBook.ZONE_PHASE_OVERRIDES["Isle of Quel'Danas"])
-    assert_equal(3, RecipeBook.ZONE_PHASE_OVERRIDES["Hyjal Summit"])
-    assert_equal(3, RecipeBook.ZONE_PHASE_OVERRIDES["Black Temple"])
-end
-
--- ============================================================
 -- Anniversary-specific JC overrides (verified by user)
 -- ============================================================
 
@@ -138,7 +125,7 @@ function T.test_sunwell_recipes_kept_at_phase_5()
     assert_not_nil(d35311, "recipe 35311 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(eng, 35311), "35311 should be phase 5")
 
-    -- Tailoring: Unyielding Bracers/Girdle (35308/35309)
+    -- Tailoring: Unyielding Bracers (35308) and Girdle (35309) are both phase 5
     local d35308 = RecipeBook.recipeDB[tail][35308]
     assert_not_nil(d35308, "recipe 35308 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(tail, 35308), "35308 should be phase 5")

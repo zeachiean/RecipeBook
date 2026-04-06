@@ -8,31 +8,37 @@ RecipeBook.recipeDB[185] = {
 	},
 	[2679] = {
 		teaches = 2679,
+		isSpell = true,
 		requiredSkill = 45,
 		phase = 1,
 	},
 	[2680] = {
 		teaches = 2680,
+		isSpell = true,
 		requiredSkill = 10,
 		phase = 1,
 	},
 	[2681] = {
 		teaches = 2681,
+		isSpell = true,
 		requiredSkill = 45,
 		phase = 1,
 	},
 	[2683] = {
 		teaches = 2683,
+		isSpell = true,
 		requiredSkill = 75,
 		phase = 1,
 	},
 	[2684] = {
 		teaches = 2684,
+		isSpell = true,
 		requiredSkill = 50,
 		phase = 1,
 	},
 	[2687] = {
 		teaches = 2687,
+		isSpell = true,
 		requiredSkill = 80,
 		phase = 1,
 	},
@@ -165,11 +171,13 @@ RecipeBook.recipeDB[185] = {
 	},
 	[5525] = {
 		teaches = 5525,
+		isSpell = true,
 		requiredSkill = 50,
 		phase = 1,
 	},
 	[5527] = {
 		teaches = 5527,
+		isSpell = true,
 		requiredSkill = 125,
 		phase = 1,
 	},
@@ -225,6 +233,7 @@ RecipeBook.recipeDB[185] = {
 	},
 	[6888] = {
 		teaches = 6888,
+		isSpell = true,
 		requiredSkill = 1,
 		phase = 1,
 	},
@@ -235,6 +244,7 @@ RecipeBook.recipeDB[185] = {
 	},
 	[10841] = {
 		teaches = 10841,
+		isSpell = true,
 		requiredSkill = 175,
 		phase = 1,
 	},
@@ -375,6 +385,7 @@ RecipeBook.recipeDB[185] = {
 	},
 	[17222] = {
 		teaches = 17222,
+		isSpell = true,
 		requiredSkill = 200,
 		phase = 1,
 	},
@@ -403,6 +414,7 @@ RecipeBook.recipeDB[185] = {
 	},
 	[20452] = {
 		teaches = 20452,
+		isSpell = true,
 		requiredSkill = 285,
 		phase = 1,
 	},
@@ -540,46 +552,55 @@ RecipeBook.recipeDB[185] = {
 		requiredSkill = 335,
 		phase = 1,
 	},
+	-- Stewed Trout
 	[33048] = {
 		teaches = 42296,
 		requiredSkill = 335,
-		phase = 1,
+		phase = 4,
 	},
+	-- Fisherman's Feast
 	[33052] = {
 		teaches = 42302,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 4,
 	},
+	-- Hot Buttered Trout
 	[33053] = {
 		teaches = 42305,
 		requiredSkill = 375,
-		phase = 1,
+		phase = 4,
 	},
+	-- Recipe: Broiled Bloodfin
 	[33869] = {
 		teaches = 43761,
 		requiredSkill = 300,
 		phase = 4,
 	},
+	-- Recipe: Skullfish Soup
 	[33870] = {
 		teaches = 43707,
 		requiredSkill = 325,
 		phase = 4,
 	},
+	-- Recipe: Stormchops
 	[33871] = {
 		teaches = 43758,
 		requiredSkill = 300,
 		phase = 4,
 	},
+	-- Recipe: Spicy Hot Talbuk
 	[33873] = {
 		teaches = 43765,
 		requiredSkill = 325,
 		phase = 4,
 	},
+	-- Recipe: Kibler's Bits
 	[33875] = {
 		teaches = 43772,
 		requiredSkill = 300,
 		phase = 4,
 	},
+	-- Recipe: Delicious Chocolate Cake
 	[33925] = {
 		teaches = 43779,
 		requiredSkill = 1,

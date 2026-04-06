@@ -3071,6 +3071,9 @@ RecipeBook.sourceDB[171] = {
 		},
 	},
 	[13476] = {
+		drop = {
+			[7027] = 7.0,
+		},
 	},
 	[13477] = {
 		vendor = {
@@ -3593,6 +3596,9 @@ RecipeBook.sourceDB[171] = {
 		},
 	},
 	[13495] = {
+		drop = {
+			[7428] = 9.0,
+		},
 	},
 	[13496] = {
 		drop = {
@@ -3601,6 +3607,9 @@ RecipeBook.sourceDB[171] = {
 		},
 	},
 	[13497] = {
+		drop = {
+			[7437] = 7.0,
+		},
 	},
 	[13499] = {
 		drop = {
@@ -4191,18 +4200,33 @@ RecipeBook.sourceDB[171] = {
 	},
 	-- Major Arcane Protection Potion: Vir'aani Arcanist (20511), Nagrand
 	[22923] = {
+		drop = {
+			[20511] = 4.0,
+		},
 	},
 	-- Major Fire Protection Potion: Nethermancer Sepethrea (19221), The Mechanar
 	[22920] = {
+		drop = {
+			[19221] = 15.0,
+		},
 	},
 	-- Major Frost Protection Potion: Nexus-Prince Shaffar (18344), Mana-Tombs
 	[22921] = {
+		drop = {
+			[18344] = 15.0,
+		},
 	},
 	-- Major Holy Protection Potion: Abyssal Flamebringer (19973), Blade's Edge Mountains
 	[22925] = {
+		drop = {
+			[19973] = 4.0,
+		},
 	},
 	-- Major Shadow Protection Potion: Shadow Council Warlock (21302), Shadowmoon Valley
 	[22924] = {
+		drop = {
+			[21302] = 4.0,
+		},
 	},
 	-- Elixir of Empowerment: World drop (Outland)
 	[22926] = {
@@ -4214,6 +4238,9 @@ RecipeBook.sourceDB[171] = {
 	},
 	-- Ironshield Potion: Captain Skarloc (17862), Old Hillsbrad Foothills
 	[22927] = {
+		drop = {
+			[17862] = 10.0,
+		},
 	},
 	-- Discovery recipes have no traditional source (learned via crafting)
 	-- Flask of Blinding Light

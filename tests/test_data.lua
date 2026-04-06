@@ -64,6 +64,17 @@ function T.test_every_profession_has_source_data()
     end
 end
 
+function T.test_no_empty_source_entries()
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, sources in pairs(RecipeBook.sourceDB[pid]) do
+            local hasSource = false
+            for _ in pairs(sources) do hasSource = true; break end
+            assert_true(hasSource,
+                string.format("[%d][%d] has empty source block", pid, rid))
+        end
+    end
+end
+
 function T.test_source_types_are_valid()
     local valid = {
         trainer = true, vendor = true, quest = true,
@@ -199,6 +210,40 @@ function T.test_unique_sources_are_arrays()
                         string.format("[%d][%d] unique[%d] should be number", pid, rid, i))
                 end
             end
+        end
+    end
+end
+
+function T.test_no_duplicate_recipe_ids_within_profession()
+    for _, pid in ipairs(PROFESSIONS) do
+        local seen = {}
+        for rid in pairs(RecipeBook.recipeDB[pid]) do
+            assert_true(not seen[rid],
+                string.format("[%d][%d] duplicate recipe ID", pid, rid))
+            seen[rid] = true
+        end
+    end
+end
+
+function T.test_no_recipe_id_collisions_across_professions()
+    -- Recipe IDs must not collide across professions unless they are in
+    -- different namespaces (one is an item, the other a spell) or are
+    -- explicitly allowed (e.g. Gordok Ogre Suit needs both LW and Tailoring).
+    local ALLOWED = { [18258] = true }
+    local seen = {}    -- rid -> pid
+    local isSpell = {} -- rid -> bool
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            if seen[rid] and not ALLOWED[rid] then
+                -- Collision allowed only if one is item, other is spell
+                local prevSpell = isSpell[rid]
+                local curSpell = data.isSpell == true
+                assert_true(prevSpell ~= curSpell,
+                    string.format("[%d] same-namespace collision between profession %d and %d",
+                        rid, seen[rid], pid))
+            end
+            seen[rid] = pid
+            isSpell[rid] = data.isSpell == true
         end
     end
 end
