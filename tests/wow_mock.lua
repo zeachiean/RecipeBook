@@ -38,6 +38,8 @@ function MockWoW.reset()
     MockWoW._currentMapID = 1955
     MockWoW._areaNames = {}
     MockWoW._mapData = {}
+    MockWoW._factionStandings = {}
+    MockWoW._profSkill = 0
 
     -- Reset addon globals
     RecipeBook = nil
@@ -136,6 +138,16 @@ end
 
 function GetItemInfo(itemID)
     return nil
+end
+
+function GetFactionInfoByID(factionID)
+    local standing = MockWoW._factionStandings and MockWoW._factionStandings[factionID]
+    if not standing then return nil end
+    return "Faction", nil, standing
+end
+
+function GetCraftDisplaySkillLine()
+    return "Enchanting", MockWoW._profSkill or 0
 end
 
 function IsAddOnLoaded(name)
@@ -311,6 +323,16 @@ end
 
 function MockWoW.SetAreaName(areaID, name)
     MockWoW._areaNames[areaID] = name
+end
+
+function MockWoW.SetFactionStanding(factionID, standingID)
+    MockWoW._factionStandings[factionID] = standingID
+end
+
+function MockWoW.SetProfessionSkill(profID, skill)
+    if not RecipeBookCharDB then RecipeBookCharDB = {} end
+    if not RecipeBookCharDB.professionSkill then RecipeBookCharDB.professionSkill = {} end
+    RecipeBookCharDB.professionSkill[profID] = skill
 end
 
 function MockWoW.SetMapData(mapID, name, mapType, parentMapID)

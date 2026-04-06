@@ -3057,6 +3057,9 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[16045] = {
+		drop = {
+			[6195] = 0.5,
+		},
 	},
 	[16046] = {
 		vendor = {
@@ -3075,8 +3078,14 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[16048] = {
+		drop = {
+			[8897] = 2.0,
+		},
 	},
 	[16049] = {
+		drop = {
+			[8920] = 1.6,
+		},
 	},
 	[16050] = {
 		vendor = {
@@ -3255,10 +3264,19 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[16052] = {
+		drop = {
+			[10426] = 4.0,
+		},
 	},
 	[16053] = {
+		drop = {
+			[8900] = 0.9,
+		},
 	},
 	[16054] = {
+		drop = {
+			[7437] = 1.6,
+		},
 	},
 	[16055] = {
 		drop = {
@@ -3306,6 +3324,9 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[16056] = {
+		drop = {
+			[8561] = 1.0,
+		},
 	},
 	[17720] = {
 		item = {
@@ -3430,8 +3451,14 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[18653] = {
+		drop = {
+			[9499] = 19.0,
+		},
 	},
 	[18654] = {
+		drop = {
+			[8920] = 4.0,
+		},
 	},
 	[18655] = {
 		object = {
@@ -3447,10 +3474,19 @@ RecipeBook.sourceDB[202] = {
 		},
 	},
 	[18657] = {
+		drop = {
+			[10264] = 13.0,
+		},
 	},
 	[18658] = {
+		drop = {
+			[10426] = 5.0,
+		},
 	},
 	[18661] = {
+		drop = {
+			[8920] = 4.0,
+		},
 	},
 	[18984] = {
 		trainer = {
@@ -3675,6 +3711,9 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Felsteel Boomstick (mob drop)
 	[23800] = {
+		drop = {
+			[19960] = 4.0,
+		},
 	},
 	-- Schematic: Ornate Khorium Rifle (world drop Outland)
 	[23802] = {
@@ -3708,6 +3747,9 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Hyper-Vision Goggles (mob drop)
 	[23806] = {
+		drop = {
+			[19755] = 3.0,
+		},
 	},
 	-- Schematic: Adamantite Scope (vendor)
 	[23807] = {
@@ -3720,9 +3762,15 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Khorium Scope (mob drop)
 	[23808] = {
+		drop = {
+			[20207] = 3.0,
+		},
 	},
 	-- Schematic: Stabilized Eternium Scope (mob drop - Karazhan)
 	[23809] = {
+		drop = {
+			[16152] = 8.0,
+		},
 	},
 	-- Schematic: Crashin' Thrashin' Robot (world drop Outland)
 	[23810] = {
@@ -3803,12 +3851,21 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Healing Potion Injector (mob drop - Kael'thas Sunstrider)
 	[35310] = {
+		drop = {
+			[24664] = 7.0,
+		},
 	},
 	-- Schematic: Mana Potion Injector (mob drop - Kael'thas Sunstrider)
 	[35311] = {
+		drop = {
+			[24664] = 7.0,
+		},
 	},
 	-- Schematic: Rocket Boots Xtreme (mob drop - Mekgineer Steamrigger)
 	[23887] = {
+		drop = {
+			[17796] = 18.0,
+		},
 	},
 	-- The Bigger One (Goblin trainer)
 	[30558] = {
@@ -4038,6 +4095,9 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Adamantite Arrow Maker (mob drop - Sunfury Archer)
 	[33804] = {
+		drop = {
+			[20207] = 1.0,
+		},
 	},
 	-- Flying Machine (trainer)
 	[44155] = {
@@ -4110,5 +4170,8 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Rocket Boots Xtreme Lite (mob drop - Mechano-Lord Capacitus)
 	[35582] = {
+		drop = {
+			[19219] = 15.0,
+		},
 	},
 }

@@ -7,6 +7,7 @@ local selectedProfession = nil
 local selectedContinent = nil
 local selectedZone = nil
 local hideKnown = false
+local hideUnlearnable = false
 local myFactionOnly = true
 local selectedPhase = nil -- nil = use maxPhase from settings
 local searchText = ""
@@ -14,6 +15,7 @@ local listMode = "all" -- "all" | "wishlist" | "ignored"
 
 -- References to controls that need updating
 local hideKnownCheck = nil
+local hideUnlearnableCheck = nil
 local profDropdown = nil
 local charDropdown = nil
 
@@ -92,6 +94,13 @@ function RecipeBook:CreateMainFrame()
     local ttStatus = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     ttStatus:SetPoint("TOPRIGHT", abStatus, "TOPLEFT", -8, 0)
     frame._ttStatus = ttStatus
+
+    -- Version string (top left, same baseline as status indicators)
+    local versionText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    versionText:SetPoint("LEFT", frame, "LEFT", 12, 0)
+    versionText:SetPoint("TOP", abStatus, "TOP", 0, 0)
+    versionText:SetText("v" .. RecipeBook.VERSION .. " - " .. RecipeBook.RELEASE_DATE)
+    versionText:SetTextColor(0, 1, 0)
 
     -- Entry count (below status line)
     local countText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
@@ -237,7 +246,13 @@ function RecipeBook:CreateMainFrame()
 
             for _, prof in ipairs(knownProfs) do
                 local info = UIDropDownMenu_CreateInfo()
-                info.text = prof.name
+                local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
+                    and RecipeBookCharDB.professionSkill[prof.id]
+                if skill then
+                    info.text = prof.name .. "  |cffffffff(" .. skill .. ")|r"
+                else
+                    info.text = prof.name
+                end
                 info.value = prof.id
                 info.notCheckable = true
                 info.func = function()
@@ -272,8 +287,13 @@ function RecipeBook:CreateMainFrame()
     -- Restore selected profession
     if RecipeBookCharDB and RecipeBookCharDB.selectedProfession then
         selectedProfession = RecipeBookCharDB.selectedProfession
-        local name = RecipeBook.PROFESSION_NAMES[selectedProfession]
-        UIDropDownMenu_SetText(profDropdown, name or "Select...")
+        local name = RecipeBook.PROFESSION_NAMES[selectedProfession] or "Select..."
+        local skill = RecipeBookCharDB.professionSkill
+            and RecipeBookCharDB.professionSkill[selectedProfession]
+        if skill then
+            name = name .. "  |cffffffff(" .. skill .. ")|r"
+        end
+        UIDropDownMenu_SetText(profDropdown, name)
     else
         UIDropDownMenu_SetText(profDropdown, "Select...")
     end
@@ -308,7 +328,20 @@ function RecipeBook:CreateMainFrame()
     end)
     frame._hideKnownCheck = hideKnownCheck
 
-    -- Initialize Hide Known state
+    -- Hide Unlearnable checkbox (to the left of Hide Known)
+    hideUnlearnableCheck = CreateFrame("CheckButton", "RecipeBookHideUnlearnable", frame, "UICheckButtonTemplate")
+    hideUnlearnableCheck:SetPoint("RIGHT", hideKnownCheck, "LEFT", -90, 0)
+    hideUnlearnableCheck:SetSize(20, 20)
+    _G["RecipeBookHideUnlearnableText"]:SetText("Hide Unlearnable")
+    _G["RecipeBookHideUnlearnableText"]:SetFontObject("RecipeBookFontSmall")
+    hideUnlearnableCheck:SetScript("OnClick", function(self)
+        hideUnlearnable = self:GetChecked()
+        RecipeBookCharDB.hideUnlearnable = hideUnlearnable
+        RecipeBook:RefreshRecipeList()
+    end)
+    frame._hideUnlearnableCheck = hideUnlearnableCheck
+
+    -- Initialize Hide Known / Hide Unlearnable state
     self:UpdateHideKnownState()
 
     -------------------------------------------------------------------
@@ -596,34 +629,31 @@ function RecipeBook:CreateMainFrame()
     headerSkill:SetText("Skill")
     headerSkill:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
+    local headerLearn = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    headerLearn:SetPoint("LEFT", hdrRef, "LEFT", 253, 0)
+    headerLearn:SetWidth(18)
+    headerLearn:SetJustifyH("CENTER")
+    headerLearn:SetText("L")
+    headerLearn:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
     local headerCount = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerCount:SetPoint("LEFT", hdrRef, "LEFT", 256, 0)
+    headerCount:SetPoint("LEFT", hdrRef, "LEFT", 274, 0)
     headerCount:SetWidth(26)
     headerCount:SetJustifyH("RIGHT")
     headerCount:SetText("#")
     headerCount:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerSource = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 290, 0)
+    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 308, 0)
     headerSource:SetText("Best Source")
     headerSource:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerRate = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerRate:SetPoint("RIGHT", hdrRef, "RIGHT", -30, 0)
+    headerRate:SetPoint("RIGHT", hdrRef, "RIGHT", -2, 0)
     headerRate:SetWidth(40)
     headerRate:SetJustifyH("RIGHT")
     headerRate:SetText("%")
     headerRate:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
-
-    local headerWP = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerWP:SetPoint("RIGHT", hdrRef, "RIGHT", -2, 0)
-    headerWP:SetJustifyH("RIGHT")
-    headerWP:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
-    if RecipeBook:HasAddressBook() and RecipeBook:HasTomTom() then
-        headerWP:SetText("WP")
-    else
-        headerWP:SetText("")
-    end
 
     -- Scroll frame
     local scrollFrame = CreateFrame("ScrollFrame", "RecipeBookScrollFrame", listPanel, "UIPanelScrollFrameTemplate")
@@ -658,16 +688,24 @@ end
 function RecipeBook:SelectProfession(profID)
     selectedProfession = profID
     RecipeBookCharDB.selectedProfession = profID
-    UIDropDownMenu_SetText(profDropdown, self.PROFESSION_NAMES[profID] or "Select...")
+    local name = self.PROFESSION_NAMES[profID] or "Select..."
+    local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
+        and RecipeBookCharDB.professionSkill[profID]
+    if skill then
+        name = name .. "  |cffffffff(" .. skill .. ")|r"
+    end
+    UIDropDownMenu_SetText(profDropdown, name)
     self:UpdateHideKnownState()
     self:RefreshRecipeList()
 end
 
--- Update Hide Known checkbox state based on selected profession
+-- Update Hide Known / Hide Unlearnable checkbox state based on selected profession
 function RecipeBook:UpdateHideKnownState()
     if not hideKnownCheck then return end
 
-    if selectedProfession and self:IsProfessionKnown(selectedProfession) then
+    local isKnownProf = selectedProfession and self:IsProfessionKnown(selectedProfession)
+
+    if isKnownProf then
         -- Known profession: enable checkbox, default to checked
         hideKnownCheck:Enable()
         _G["RecipeBookHideKnownText"]:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
@@ -686,6 +724,21 @@ function RecipeBook:UpdateHideKnownState()
         _G["RecipeBookHideKnownText"]:SetTextColor(UI.COLOR_DISABLED.r, UI.COLOR_DISABLED.g, UI.COLOR_DISABLED.b)
         hideKnownCheck:SetChecked(false)
         hideKnown = false
+    end
+
+    -- Hide Unlearnable: only meaningful for known professions with saved skill
+    if hideUnlearnableCheck then
+        if isKnownProf then
+            hideUnlearnableCheck:Enable()
+            _G["RecipeBookHideUnlearnableText"]:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+            hideUnlearnableCheck:SetChecked(RecipeBookCharDB.hideUnlearnable or false)
+            hideUnlearnable = RecipeBookCharDB.hideUnlearnable or false
+        else
+            hideUnlearnableCheck:Disable()
+            _G["RecipeBookHideUnlearnableText"]:SetTextColor(UI.COLOR_DISABLED.r, UI.COLOR_DISABLED.g, UI.COLOR_DISABLED.b)
+            hideUnlearnableCheck:SetChecked(false)
+            hideUnlearnable = false
+        end
     end
 end
 
@@ -741,6 +794,7 @@ function RecipeBook:GetFilterState()
         continent = filterContinent,
         zone = filterZone,
         hideKnown = hideKnown,
+        hideUnlearnable = hideUnlearnable,
         maxPhase = selectedPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
         playerFaction = playerFaction,
         searchText = searchText ~= "" and strlower(searchText) or nil,

@@ -5786,6 +5786,9 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[11610] = {
+		drop = {
+			[9028] = 92.0,
+		},
 	},
 	[11611] = {
 		drop = {
@@ -5794,6 +5797,9 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[11612] = {
+		drop = {
+			[9543] = 10.0,
+		},
 	},
 	[11614] = {
 		object = {
@@ -7841,8 +7847,14 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[12706] = {
+		drop = {
+			[4366] = 6.0,
+		},
 	},
 	[12707] = {
+		drop = {
+			[1836] = 11.0,
+		},
 	},
 	[12711] = {
 		drop = {
@@ -7959,6 +7971,9 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[12714] = {
+		drop = {
+			[4364] = 3.0,
+		},
 	},
 	[12715] = {
 		quest = {
@@ -8026,6 +8041,9 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[12719] = {
+		drop = {
+			[1885] = 100.0,
+		},
 	},
 	[12725] = {
 		quest = {
@@ -8107,6 +8125,9 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[12828] = {
+		drop = {
+			[10119] = 38.0,
+		},
 	},
 	[12830] = {
 		object = {
@@ -8114,18 +8135,39 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[12833] = {
+		drop = {
+			[10438] = 9.0,
+		},
 	},
 	[12834] = {
+		drop = {
+			[10899] = 10.0,
+		},
 	},
 	[12835] = {
+		drop = {
+			[9736] = 6.0,
+		},
 	},
 	[12836] = {
+		drop = {
+			[1844] = 100.0,
+		},
 	},
 	[12837] = {
+		drop = {
+			[10899] = 10.0,
+		},
 	},
 	[12838] = {
+		drop = {
+			[9596] = 6.0,
+		},
 	},
 	[12839] = {
+		drop = {
+			[10997] = 0.4,
+		},
 	},
 	[15869] = {
 		trainer = {
@@ -8885,42 +8927,81 @@ RecipeBook.sourceDB[164] = {
 	},
 	-- Drop: Felsteel Gloves (Auchenai Monk, Auchenai Crypts)
 	[23605] = {
+		drop = {
+			[18497] = 3.0,
+		},
 	},
 	-- Drop: Felsteel Leggings (Unchained Doombringer, The Arcatraz)
 	[23606] = {
+		drop = {
+			[20900] = 4.0,
+		},
 	},
 	-- Drop: Felsteel Helm (Cabal Fanatic, Shadow Labyrinth)
 	[23607] = {
+		drop = {
+			[18830] = 3.0,
+		},
 	},
 	-- Drop: Khorium Belt (Murkblood Raider, Nagrand)
 	[23608] = {
+		drop = {
+			[18203] = 2.0,
+		},
 	},
 	-- Drop: Khorium Pants (Deathforge Guardian, Shadowmoon Valley)
 	[23609] = {
+		drop = {
+			[20878] = 2.0,
+		},
 	},
 	-- Drop: Khorium Boots (Disembodied Protector, Netherstorm)
 	[23610] = {
+		drop = {
+			[18873] = 2.0,
+		},
 	},
 	-- Drop: Ragesteel Gloves (Boulderfist Warrior, Nagrand)
 	[23611] = {
+		drop = {
+			[17136] = 2.0,
+		},
 	},
 	-- Drop: Ragesteel Helm (Anger Guard, Blade's Edge Mountains)
 	[23612] = {
+		drop = {
+			[16952] = 2.0,
+		},
 	},
 	-- Drop: Ragesteel Shoulders (Enraged Earth Spirit, Shadowmoon Valley)
 	[33174] = {
+		drop = {
+			[21050] = 2.0,
+		},
 	},
 	-- Drop: Ragesteel Breastplate (Ashtongue Warrior, Shadowmoon Valley)
 	[23613] = {
+		drop = {
+			[21454] = 2.0,
+		},
 	},
 	-- Drop: Swiftsteel Gloves (Nexus Stalker, Mana-Tombs)
 	[23615] = {
+		drop = {
+			[18314] = 3.0,
+		},
 	},
 	-- Drop: Earthpeace Breastplate (High Botanist Freywinn, The Botanica)
 	[23617] = {
+		drop = {
+			[17975] = 15.0,
+		},
 	},
 	-- Drop: Greater Ward of Shielding (Sunfury Bloodwarder, Netherstorm)
 	[23639] = {
+		drop = {
+			[18853] = 1.0,
+		},
 	},
 	-- Drop: World drop 365 weapons
 	[23629] = {
@@ -8967,8 +9048,14 @@ RecipeBook.sourceDB[164] = {
 		drop = {},
 	},
 	[23622] = {
+		drop = {
+			[22016] = 1.0,
+		},
 	},
 	[23623] = {
+		drop = {
+			[18312] = 1.0,
+		},
 	},
 	[23624] = {
 		drop = {},

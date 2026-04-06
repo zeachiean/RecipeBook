@@ -2,6 +2,8 @@ RecipeBook = RecipeBook or {}; RecipeBook.recipeDB = RecipeBook.recipeDB or {}
 
 RecipeBook.recipeDB[186] = {
 	[2657] = {
+		name = "Smelt Copper",
+		difficulty = { 0, 25, 47, 70 },
 		icon = 133216,
 		teaches = 2840,
 		isSpell = true,
@@ -9,6 +11,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[2658] = {
+		name = "Smelt Silver",
+		difficulty = { 75, 100, 112, 125 },
 		icon = 133215,
 		teaches = 2842,
 		isSpell = true,
@@ -16,6 +20,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[2659] = {
+		name = "Smelt Bronze",
+		difficulty = { 65, 65, 90, 115 },
 		icon = 133227,
 		teaches = 2841,
 		isSpell = true,
@@ -23,6 +29,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[3304] = {
+		name = "Smelt Tin",
+		difficulty = { 0, 0, 65, 75 },
 		icon = 133219,
 		teaches = 3576,
 		isSpell = true,
@@ -30,6 +38,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[3307] = {
+		name = "Smelt Iron",
+		difficulty = { 125, 130, 135, 140 },
 		icon = 133232,
 		teaches = 3575,
 		isSpell = true,
@@ -37,6 +47,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[3308] = {
+		name = "Smelt Gold",
+		difficulty = { 155, 170, 177, 185 },
 		icon = 133217,
 		teaches = 3577,
 		isSpell = true,
@@ -44,6 +56,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[3569] = {
+		name = "Smelt Steel",
+		difficulty = { 165, 165, 165, 165 },
 		icon = 133234,
 		teaches = 3859,
 		isSpell = true,
@@ -51,6 +65,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[10097] = {
+		name = "Smelt Mithril",
+		difficulty = { 175, 175, 175, 175 },
 		icon = 133220,
 		teaches = 3860,
 		isSpell = true,
@@ -58,6 +74,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[10098] = {
+		name = "Smelt Truesilver",
+		difficulty = { 0, 230, 230, 230 },
 		icon = 133222,
 		teaches = 6037,
 		isSpell = true,
@@ -65,6 +83,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[14891] = {
+		name = "Smelt Dark Iron",
+		difficulty = { 0, 230, 230, 230 },
 		icon = 133233,
 		teaches = 11371,
 		isSpell = true,
@@ -72,6 +92,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[16153] = {
+		name = "Smelt Thorium",
+		difficulty = { 250, 250, 250, 250 },
 		icon = 133221,
 		teaches = 12359,
 		isSpell = true,
@@ -79,6 +101,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[22967] = {
+		name = "Smelt Elementium",
+		difficulty = { 0, 310, 315, 320 },
 		icon = 133235,
 		teaches = 17771,
 		isSpell = true,
@@ -86,6 +110,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29356] = {
+		name = "Smelt Fel Iron",
+		difficulty = { 300, 300, 307, 315 },
 		icon = 133230,
 		teaches = 23445,
 		isSpell = true,
@@ -93,6 +119,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29358] = {
+		name = "Smelt Adamantite",
+		difficulty = { 325, 325, 332, 340 },
 		icon = 133224,
 		teaches = 23446,
 		isSpell = true,
@@ -100,6 +128,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29359] = {
+		name = "Smelt Eternium",
+		difficulty = { 350, 350, 357, 365 },
 		icon = 133229,
 		teaches = 23447,
 		isSpell = true,
@@ -107,6 +137,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29360] = {
+		name = "Smelt Felsteel",
+		difficulty = { 350, 355, 367, 380 },
 		icon = 133231,
 		teaches = 23448,
 		isSpell = true,
@@ -114,6 +146,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29361] = {
+		name = "Smelt Khorium",
+		difficulty = { 375, 375, 375, 375 },
 		icon = 133223,
 		teaches = 23449,
 		isSpell = true,
@@ -121,6 +155,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[29686] = {
+		name = "Smelt Hardened Adamantite",
+		difficulty = { 375, 375, 375, 375 },
 		icon = 133226,
 		teaches = 23573,
 		isSpell = true,
@@ -128,6 +164,8 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[35750] = {
+		name = "Smelt Mote of Earth",
+		difficulty = { 300, 300, 300, 300 },
 		icon = 132838,
 		teaches = 22573,
 		isSpell = true,
@@ -135,13 +173,18 @@ RecipeBook.recipeDB[186] = {
 		phase = 1,
 	},
 	[35751] = {
+		name = "Smelt Mote of Fire",
+		difficulty = { 300, 300, 300, 300 },
 		icon = 132839,
 		teaches = 22574,
 		isSpell = true,
 		requiredSkill = 300,
 		phase = 1,
 	},
+	-- Smelt Hardened Khorium
 	[46353] = {
+		name = "Smelt Hardened Khorium",
+		difficulty = { 375, 375, 375, 375 },
 		icon = 133235,
 		teaches = 35128,
 		isSpell = true,

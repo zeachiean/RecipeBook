@@ -34959,4 +34959,661 @@ RecipeBook.npcDB = {
 			3522,
 		},
 	},
+	[1844] = {
+		names = {
+			deDE = "Großknecht Marcrid",
+			enUS = "Foreman Marcrid",
+			esES = "Supervisor Marcrid",
+			esMX = "Supervisor Marcrid",
+			frFR = "Contremaître Marcrid",
+			koKR = "현장감독 마크리드",
+			ptBR = "Encarregado Marcrid",
+			ruRU = "Штейгер Маркрид",
+			zhCN = "工头玛希瑞德",
+			zhTW = "工頭瑪希瑞德",
+		},
+		zones = {
+			28,
+		},
+	},
+	[6138] = {
+		names = {
+			deDE = "Arkkoranorakel",
+			enUS = "Arkkoran Oracle",
+			esES = "Oráculo Arkkoran",
+			esMX = "Oráculo Arkkoran",
+			frFR = "Oracle Arkkoran",
+			koKR = "아크코란멀록 점쟁이",
+			ptBR = "Oráculo Arkkoran",
+			ruRU = "Аркоранский Оракул",
+			zhCN = "亚考兰智者",
+			zhTW = "亞考蘭智者",
+		},
+		zones = {
+			16,
+		},
+	},
+	[8538] = {
+		names = {
+			deDE = "Ungesehener Diener",
+			enUS = "Unseen Servant",
+			esES = "Sirviente No Visto",
+			esMX = "Sirviente No Visto",
+			frFR = "Serviteur Invisible",
+			koKR = "보이지 않는 하수인",
+			ptBR = "Serviçal Evanescente",
+			ruRU = "Незримый Слуга",
+			zhCN = "无影仆从",
+			zhTW = "無影僕從",
+		},
+		zones = {
+			139,
+		},
+	},
+	[8561] = {
+		names = {
+			deDE = "Schattenjäger Der Moosschinder",
+			enUS = "Mossflayer Shadowhunter",
+			esES = "Cazasombras Fustamusgo",
+			esMX = "Cazasombras Fustamusgo",
+			frFR = "Chasseur Des Ténèbres Mossflayer",
+			koKR = "이끼껍질부족 어둠사냥꾼",
+			ptBR = "Caçador Furtivo Esfolamusgo",
+			ruRU = "Темный Охотник Из Племени Моходеров",
+			zhCN = "烂苔暗影猎手",
+			zhTW = "爛苔暗影獵手",
+		},
+		zones = {
+			139,
+		},
+	},
+	[9543] = {
+		names = {
+			enUS = "Ribbly Screwspigot",
+			esES = "Ribbly Llavenrosca",
+			esMX = "Ribbly Llavenrosca",
+			koKR = "리블리 스크류스피곳",
+			ptBR = "Ribas Parafuseta",
+			ruRU = "Риббли Крутипроб",
+			zhCN = "雷布里 斯库比格特",
+			zhTW = "雷布裏 斯庫比格特",
+		},
+		zones = {
+			1584,
+		},
+	},
+	[9596] = {
+		names = {
+			deDE = "Bannok Grimmaxt",
+			enUS = "Bannok Grimaxe",
+			esES = "Bannok Hachamacabra",
+			esMX = "Bannok Hachamacabra",
+			koKR = "반노크 그림액스",
+			ptBR = "Bannok Sinistracha",
+			ruRU = "Баннок Люторез",
+			zhCN = "班诺克 巨斧",
+			zhTW = "班諾剋 巨斧",
+		},
+		zones = {
+			1583,
+		},
+	},
+	[10119] = {
+		names = {
+			enUS = "Volchan",
+			koKR = "볼찬",
+			ruRU = "Волхан",
+			zhCN = "沃尔查",
+			zhTW = "沃爾查",
+		},
+		zones = {
+			46,
+			44,
+		},
+	},
+	[15275] = {
+		names = {
+			deDE = "Imperator Veknilash",
+			enUS = "Emperor Veknilash",
+			esES = "Emperador Veknilash",
+			esMX = "Emperador Veknilash",
+			frFR = "Empereur Veknilash",
+			koKR = "제왕 베크닐라쉬",
+			ptBR = "Imperador Vek'nilash",
+			ruRU = "Император Векнилаш",
+			zhCN = "维克尼拉斯大帝",
+			zhTW = "維剋尼拉斯大帝",
+		},
+		zones = {
+			3428,
+		},
+	},
+	[15687] = {
+		names = {
+			enUS = "Moroes",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[15688] = {
+		names = {
+			enUS = "Terestian Illhoof",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16152] = {
+		names = {
+			enUS = "Attumen the Huntsman",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16406] = {
+		names = {
+			enUS = "Phantom Attendant",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16408] = {
+		names = {
+			enUS = "Phantom Valet",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16472] = {
+		names = {
+			enUS = "Phantom Stagehand",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16524] = {
+		names = {
+			enUS = "Shade of Aran",
+		},
+		zones = {
+			3457,
+		},
+	},
+	[16807] = {
+		names = {
+			enUS = "Grand Warlock Nethekurse",
+		},
+		zones = {
+			3714,
+		},
+	},
+	[16810] = {
+		names = {
+			enUS = "Bonechewer Backbreaker",
+		},
+		zones = {
+			3519,
+		},
+	},
+	[16952] = {
+		names = {
+			enUS = "Anger Guard",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[17136] = {
+		names = {
+			enUS = "Boulderfist Warrior",
+		},
+		zones = {
+			3518,
+		},
+	},
+	[17465] = {
+		names = {
+			enUS = "Shattered Hand Centurion",
+		},
+		zones = {
+			3714,
+		},
+	},
+	[17722] = {
+		names = {
+			enUS = "Coilfang Sorceress",
+		},
+		zones = {
+			3715,
+		},
+	},
+	[17796] = {
+		names = {
+			enUS = "Mekgineer Steamrigger",
+		},
+		zones = {
+			3715,
+		},
+	},
+	[17797] = {
+		names = {
+			enUS = "Hydromancer Thespia",
+		},
+		zones = {
+			3715,
+		},
+	},
+	[17798] = {
+		names = {
+			enUS = "Warlord Kalithresh",
+		},
+		zones = {
+			3715,
+		},
+	},
+	[17803] = {
+		names = {
+			enUS = "Coilfang Oracle",
+		},
+		zones = {
+			3715,
+		},
+	},
+	[17826] = {
+		names = {
+			enUS = "Swamplord Musel'ek",
+		},
+		zones = {
+			3716,
+		},
+	},
+	[17879] = {
+		names = {
+			enUS = "Chrono Lord Deja",
+		},
+		zones = {
+			2366,
+		},
+	},
+	[17975] = {
+		names = {
+			enUS = "High Botanist Freywinn",
+		},
+		zones = {
+			3847,
+		},
+	},
+	[17977] = {
+		names = {
+			enUS = "Warp Splinter",
+		},
+		zones = {
+			3847,
+		},
+	},
+	[17978] = {
+		names = {
+			enUS = "Thorngrin the Tender",
+		},
+		zones = {
+			3847,
+		},
+	},
+	[18203] = {
+		names = {
+			enUS = "Murkblood Raider",
+		},
+		zones = {
+			3518,
+		},
+	},
+	[18312] = {
+		names = {
+			enUS = "Ethereal Spellbinder",
+		},
+		zones = {
+			3792,
+		},
+	},
+	[18314] = {
+		names = {
+			enUS = "Nexus Stalker",
+		},
+		zones = {
+			3792,
+		},
+	},
+	[18317] = {
+		names = {
+			enUS = "Ethereal Priest",
+		},
+		zones = {
+			3792,
+		},
+	},
+	[18322] = {
+		names = {
+			enUS = "Sethekk Ravenguard",
+		},
+		zones = {
+			3791,
+		},
+	},
+	[18344] = {
+		names = {
+			enUS = "Nexus-Prince Shaffar",
+		},
+		zones = {
+			3792,
+		},
+	},
+	[18422] = {
+		names = {
+			enUS = "Sunseeker Botanist",
+		},
+		zones = {
+			3847,
+		},
+	},
+	[18472] = {
+		names = {
+			enUS = "Darkweaver Syth",
+		},
+		zones = {
+			3791,
+		},
+	},
+	[18497] = {
+		names = {
+			enUS = "Auchenai Monk",
+		},
+		zones = {
+			3790,
+		},
+	},
+	[18521] = {
+		names = {
+			enUS = "Raging Skeleton",
+		},
+		zones = {
+			3790,
+		},
+	},
+	[18667] = {
+		names = {
+			enUS = "Blackheart the Inciter",
+		},
+		zones = {
+			3789,
+		},
+	},
+	[18708] = {
+		names = {
+			enUS = "Murmur",
+		},
+		zones = {
+			3789,
+		},
+	},
+	[18731] = {
+		names = {
+			enUS = "Ambassador Hellmaw",
+		},
+		zones = {
+			3789,
+		},
+	},
+	[18796] = {
+		names = {
+			enUS = "Fel Overseer",
+		},
+		zones = {
+			3789,
+		},
+	},
+	[18830] = {
+		names = {
+			enUS = "Cabal Fanatic",
+		},
+		zones = {
+			3789,
+		},
+	},
+	[18853] = {
+		names = {
+			enUS = "Sunfury Bloodwarder",
+		},
+		zones = {
+			3523,
+		},
+	},
+	[18866] = {
+		names = {
+			enUS = "Mageslayer",
+		},
+		zones = {
+			3523,
+		},
+	},
+	[18873] = {
+		names = {
+			enUS = "Disembodied Protector",
+		},
+		zones = {
+			3523,
+		},
+	},
+	[19168] = {
+		names = {
+			enUS = "Sunseeker Astromage",
+		},
+		zones = {
+			3849,
+		},
+	},
+	[19219] = {
+		names = {
+			enUS = "Mechano-Lord Capacitus",
+		},
+		zones = {
+			3849,
+		},
+	},
+	[19220] = {
+		names = {
+			enUS = "Pathaleon the Calculator",
+		},
+		zones = {
+			3849,
+		},
+	},
+	[19221] = {
+		names = {
+			enUS = "Nethermancer Sepethrea",
+		},
+		zones = {
+			3849,
+		},
+	},
+	[19826] = {
+		names = {
+			enUS = "Dark Conclave Shadowmancer",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[19952] = {
+		names = {
+			enUS = "Bloodmaul Geomancer",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[19960] = {
+		names = {
+			enUS = "Doomforge Engineer",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[19973] = {
+		names = {
+			enUS = "Abyssal Flamebringer",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[19984] = {
+		names = {
+			enUS = "Vekh'nir Dreadhawk",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[20136] = {
+		names = {
+			enUS = "Sunfury Researcher",
+		},
+		zones = {
+			3523,
+		},
+	},
+	[20207] = {
+		names = {
+			enUS = "Sunfury Bowman",
+		},
+		zones = {
+			3523,
+		},
+	},
+	[20511] = {
+		names = {
+			enUS = "Ilsa Blusterbrew",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[20869] = {
+		names = {
+			enUS = "Arcatraz Sentinel",
+		},
+		zones = {
+			3848,
+		},
+	},
+	[20880] = {
+		names = {
+			enUS = "Eredar Deathbringer",
+		},
+		zones = {
+			3848,
+		},
+	},
+	[20885] = {
+		names = {
+			enUS = "Dalliah the Doomsayer",
+		},
+		zones = {
+			3848,
+		},
+	},
+	[20900] = {
+		names = {
+			enUS = "Unchained Doombringer",
+		},
+		zones = {
+			3848,
+		},
+	},
+	[21050] = {
+		names = {
+			enUS = "Enraged Earth Spirit",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[21104] = {
+		names = {
+			enUS = "Rift Keeper",
+		},
+		zones = {
+			2366,
+		},
+	},
+	[21302] = {
+		names = {
+			enUS = "Shadow Council Warlock",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[21454] = {
+		names = {
+			enUS = "Ashtongue Warrior",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[22016] = {
+		names = {
+			enUS = "Eclipsion Soldier",
+		},
+		zones = {
+			3520,
+		},
+	},
+	[22243] = {
+		names = {
+			enUS = "Bash'ir Arcanist",
+		},
+		zones = {
+			3522,
+		},
+	},
+	[23574] = {
+		names = {
+			enUS = "Akil'zon",
+		},
+		zones = {
+			3805,
+		},
+	},
+	[24560] = {
+		names = {
+			enUS = "Priestess Delrissa",
+		},
+		zones = {
+			4131,
+		},
+	},
+	[24664] = {
+		names = {
+			enUS = "Kael'thas Sunstrider",
+		},
+		zones = {
+			4131,
+		},
+	},
+	[25740] = {
+		names = {
+			enUS = "Ahune",
+		},
+		zones = {
+			3717,
+		},
+	},
 }

@@ -1,6 +1,7 @@
 RecipeBook = RecipeBook or {}
 
-RecipeBook.VERSION = "1.1.0"
+RecipeBook.VERSION = "1.2.0"
+RecipeBook.RELEASE_DATE = "April 6, 2026"
 RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
 
@@ -81,30 +82,8 @@ RecipeBook.PHASE_LABELS = {
     [5] = "Phase 5",
 }
 
--- Zone-to-phase overrides: instances whose recipes should be treated as
--- a later phase even when the recipe data lacks a phase tag.
-RecipeBook.ZONE_PHASE_OVERRIDES = {
-    -- Phase 2
-    ["Serpentshrine Cavern"] = 2,
-    ["Tempest Keep"]        = 2,  -- The Eye raid
-    -- Phase 3
-    ["Black Temple"]        = 3,
-    ["Hyjal Summit"]        = 3,
-    ["Mount Hyjal"]         = 3,
-    -- Phase 4
-    ["Zul'Aman"]            = 4,
-    -- Phase 5
-    ["Isle of Quel'Danas"]  = 5,
-    ["Magisters' Terrace"]  = 5,
-    ["Sunwell Plateau"]     = 5,
-}
-
 -- World drop NPC threshold
 RecipeBook.WORLD_DROP_THRESHOLD = 10
-
--- Recipe name/link/icon caches
-RecipeBook.recipeNames = {}
-RecipeBook.recipeIcons = {}
 
 -- Item name cache (for "item" source type)
 RecipeBook.itemNames = {}
@@ -112,75 +91,35 @@ RecipeBook.itemNames = {}
 -- Active waypoint tracking
 RecipeBook.activeWaypoint = nil    -- { npcName, zoneName }
 
--- Prefixes to strip from recipe item names
-local RECIPE_PREFIXES = {
-    "Recipe: ", "Plans: ", "Formula: ", "Schematic: ",
-    "Pattern: ", "Manual: ", "Design: ",
-}
+-- Pre-cache recipe item data so tooltips (SetItemByID) work immediately.
+-- Only requests non-isSpell recipe items (physical recipe items).
+-- isSpell recipes use spell: hyperlink tooltips instead.
+-- Batches requests to avoid flooding the client on login.
+function RecipeBook:PrecacheRecipeItems()
+    if not C_Item or not C_Item.RequestLoadItemDataByID then return end
 
-local function StripRecipePrefix(name)
-    if not name then return nil end
-    for _, prefix in ipairs(RECIPE_PREFIXES) do
-        if name:sub(1, #prefix) == prefix then
-            return name:sub(#prefix + 1)
-        end
-    end
-    return name
-end
-
--- Cache recipe names asynchronously
-function RecipeBook:CacheRecipeNames()
+    local queue = {}
     for profID, recipes in pairs(self.recipeDB) do
-        if not self.recipeNames[profID] then
-            self.recipeNames[profID] = {}
-        end
-        if not self.recipeIcons[profID] then
-            self.recipeIcons[profID] = {}
-        end
-
         for recipeID, data in pairs(recipes) do
-            -- Engineering (202): recipeDB keys came from spell data. When
-            -- teaches == recipeID, the key is a spell id — some collide with
-            -- unrelated items (e.g. spell 30311 = Adamantite Grenade create,
-            -- item 30311 = Warp Slicer). Resolve via spell. Schematic-keyed
-            -- entries (teaches != recipeID) still fall through to item lookup.
-            if profID == 202 and not data.isSpell and data.teaches == recipeID then
-                local name, _, icon = GetSpellInfo(recipeID)
-                if name then
-                    self.recipeNames[profID][recipeID] = name
-                    self.recipeIcons[profID][recipeID] = icon
-                end
-            elseif data.isSpell then
-                -- Mining (186) and Poisons (40): `teaches` is an ITEM id,
-                -- not a spell id. Spell lookup collides with unrelated
-                -- spells (e.g. 3569 → "Azure Silk Vest"). Resolve via item.
-                if (profID == 186 or profID == 40) and data.teaches then
-                    local iname, _, _, _, _, _, _, _, _, iicon = C_Item.GetItemInfo(data.teaches)
-                    if iname then
-                        if profID == 186 then
-                            iname = "Smelt " .. iname:gsub(" Bar$", "")
-                        end
-                        self.recipeNames[profID][recipeID] = iname
-                        self.recipeIcons[profID][recipeID] = iicon
-                    elseif C_Item.RequestLoadItemDataByID then
-                        C_Item.RequestLoadItemDataByID(data.teaches)
-                    end
-                else
-                    local name, _, icon = GetSpellInfo(data.teaches)
-                    if name then
-                        self.recipeNames[profID][recipeID] = name
-                        self.recipeIcons[profID][recipeID] = icon
-                    end
-                end
-            else
-                local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(recipeID)
-                if name then
-                    self.recipeNames[profID][recipeID] = StripRecipePrefix(name)
-                    self.recipeIcons[profID][recipeID] = icon
-                end
+            if not data.isSpell then
+                queue[#queue + 1] = recipeID
             end
         end
     end
+
+    local BATCH_SIZE = 50
+    local i = 1
+    local function ProcessBatch()
+        local limit = math.min(i + BATCH_SIZE - 1, #queue)
+        for j = i, limit do
+            C_Item.RequestLoadItemDataByID(queue[j])
+        end
+        i = limit + 1
+        if i <= #queue then
+            C_Timer.After(0.1, ProcessBatch)
+        end
+    end
+    ProcessBatch()
 end
 
 -- Cache item names for "item" source type
@@ -200,69 +139,11 @@ function RecipeBook:CacheItemSourceNames()
     end
 end
 
--- Get display name for a recipe (with fallback)
+-- Get display name for a recipe
 function RecipeBook:GetRecipeName(profID, recipeID)
-    local cached = self.recipeNames[profID] and self.recipeNames[profID][recipeID]
-    if cached then return cached end
-
     local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
     if not data then return "Unknown Recipe" end
-
-    -- Engineering (202): when teaches == recipeID, the key is a spell id
-    -- (see CacheRecipeNames comment). Resolve via spell lookup.
-    if profID == 202 and not data.isSpell and data.teaches == recipeID then
-        local name = GetSpellInfo(recipeID)
-        if name then
-            if not self.recipeNames[profID] then self.recipeNames[profID] = {} end
-            self.recipeNames[profID][recipeID] = name
-            return name
-        end
-        return "Loading..."
-    end
-
-    if data.isSpell then
-        -- Mining (186) and Poisons (40) store the crafted ITEM id in
-        -- `teaches`, not a spell id. Several of their recipeIDs collide
-        -- with unrelated spell IDs in TBC Classic (e.g. GetSpellInfo(2658)
-        -- returns "Poisons" instead of "Smelt Silver"), so spell lookup is
-        -- unreliable. Resolve these via the crafted item instead.
-        if (profID == 186 or profID == 40) and data.teaches then
-            local itemName = C_Item.GetItemInfo(data.teaches)
-            if itemName then
-                if profID == 186 then
-                    -- Display as "Smelt <Metal>" rather than "<Metal> Bar".
-                    itemName = "Smelt " .. itemName:gsub(" Bar$", "")
-                end
-                if not self.recipeNames[profID] then self.recipeNames[profID] = {} end
-                self.recipeNames[profID][recipeID] = itemName
-                return itemName
-            end
-            -- Not loaded yet — request and return placeholder. The
-            -- GET_ITEM_INFO_RECEIVED handler will refresh once available.
-            if C_Item.RequestLoadItemDataByID then
-                C_Item.RequestLoadItemDataByID(data.teaches)
-            end
-            return "Loading..."
-        end
-
-        -- Other professions: isSpell recipes have teaches == recipeID.
-        local name = GetSpellInfo(recipeID) or (data.teaches and GetSpellInfo(data.teaches))
-        if name then
-            if not self.recipeNames[profID] then self.recipeNames[profID] = {} end
-            self.recipeNames[profID][recipeID] = name
-            return name
-        end
-    else
-        local name = C_Item.GetItemInfo(recipeID)
-        if name then
-            name = StripRecipePrefix(name)
-            if not self.recipeNames[profID] then self.recipeNames[profID] = {} end
-            self.recipeNames[profID][recipeID] = name
-            return name
-        end
-    end
-
-    return "Loading..."
+    return data.name or "Unknown Recipe"
 end
 
 -- Get display name for an NPC
@@ -484,6 +365,15 @@ StaticPopupDialogs["RECIPEBOOK_RESCAN_PROFESSIONS"] = {
     preferredIndex = 3,
 }
 
+StaticPopupDialogs["RECIPEBOOK_SKILL_RESCAN"] = {
+    text = "RecipeBook: Profession skill levels are missing.\n\nPlease open each of your profession windows once so RecipeBook can detect your skill levels.",
+    button1 = OKAY,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+
 -- Initialize saved variables with defaults.
 -- Returns true if a one-shot migration wiped known-recipe state (caller should
 -- prompt the user to reopen their profession windows).
@@ -506,8 +396,14 @@ local function InitSavedVars()
     if not RecipeBookCharDB then
         RecipeBookCharDB = {}
     end
+    if not RecipeBookCharDB.professionSkill then
+        RecipeBookCharDB.professionSkill = {}
+    end
     if RecipeBookCharDB.hideKnown == nil then
         RecipeBookCharDB.hideKnown = false
+    end
+    if RecipeBookCharDB.hideUnlearnable == nil then
+        RecipeBookCharDB.hideUnlearnable = false
     end
     if not RecipeBookCharDB.collapsedSources then
         RecipeBookCharDB.collapsedSources = {}
@@ -548,60 +444,13 @@ local function InitSavedVars()
 end
 
 -- Get the effective phase for a recipe.
--- Combines the MaNGOS-derived dataset lookup with zone-based inference and
--- returns the MAX of both signals. The dataset is unreliable for Jewelcrafting
--- designs in particular: many taught spells were tagged phase 0 (folded to 1)
--- upstream even though the recipe's source is clearly phase-gated content like
--- Hyjal Summit or Isle of Quel'Danas. Taking the max ensures a "later phase"
--- signal from any source wins.
+-- Each recipe has an explicit phase field (1-5) in recipeDB; this is the
+-- single source of truth.  Earlier versions used zone-based inference as a
+-- fallback, but all phases have been manually verified and hard-coded.
 function RecipeBook:GetRecipePhase(profID, recipeID)
     local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
     if not data then return 1 end
-
-    -- Per-recipe explicit phase is authoritative (all recipes now carry one,
-    -- sourced from RecipeMaster_TBC's hand-curated annotations).
-    if data.phase then return data.phase end
-
-    local maxPhase = 1
-
-    -- Zone-based inference from every source: any phase-gated zone bumps
-    -- the recipe up to that zone's phase.
-    local sources = self.sourceDB[profID] and self.sourceDB[profID][recipeID]
-    if sources then
-        local function bumpFromAreaIDs(areaIDs)
-            for _, areaID in ipairs(areaIDs) do
-                local zoneName = self:GetZoneNameForAreaID(areaID)
-                if zoneName and self.ZONE_PHASE_OVERRIDES[zoneName] then
-                    local p = self.ZONE_PHASE_OVERRIDES[zoneName]
-                    if p > maxPhase then maxPhase = p end
-                end
-            end
-        end
-        for srcType, srcData in pairs(sources) do
-            if srcType == "unique" and type(srcData) == "table" then
-                for _, uid in ipairs(srcData) do
-                    local entry = self.uniqueDB and self.uniqueDB[uid]
-                    if entry and entry.zones then bumpFromAreaIDs(entry.zones) end
-                end
-            elseif (srcType == "trainer" or srcType == "vendor"
-                    or srcType == "drop" or srcType == "pickpocket")
-                    and type(srcData) == "table" then
-                for npcID in pairs(srcData) do
-                    local npc = self.npcDB and self.npcDB[npcID]
-                    if npc and npc.zones then bumpFromAreaIDs(npc.zones) end
-                end
-            elseif srcType == "object" and type(srcData) == "table" then
-                for objID in pairs(srcData) do
-                    local obj = self.objectDB and self.objectDB[objID]
-                    if obj and obj.zones then bumpFromAreaIDs(obj.zones) end
-                end
-            elseif srcType == "worldDrop" and type(srcData) == "table" then
-                bumpFromAreaIDs(srcData)
-            end
-        end
-    end
-
-    return maxPhase
+    return data.phase or 1
 end
 
 -- Event frame
@@ -611,17 +460,27 @@ eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 eventFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_ENTERING_WORLD" then
-        local wiped = InitSavedVars()
-        if wiped then
-            -- Defer slightly so the popup isn't eaten by other login UI.
-            C_Timer.After(2, function()
-                StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
-            end)
+        InitSavedVars()
+        -- Check if any known profession is missing a saved skill level
+        local myData = RecipeBook:GetMyCharData()
+        if myData and myData.knownProfessions then
+            local missing = false
+            for profID in pairs(myData.knownProfessions) do
+                if not RecipeBookCharDB.professionSkill[profID] then
+                    missing = true
+                    break
+                end
+            end
+            if missing then
+                C_Timer.After(2, function()
+                    StaticPopup_Show("RECIPEBOOK_SKILL_RESCAN")
+                end)
+            end
         end
         RecipeBook:BuildMapLookup()
         RecipeBook:BuildAreaToZoneLookup()
         RecipeBook:BuildContinentZoneMap()
-        RecipeBook:CacheRecipeNames()
+        RecipeBook:PrecacheRecipeItems()
         RecipeBook:CacheItemSourceNames()
         RecipeBook:RegisterTrackingEvents(self)
         RecipeBook:CreateMinimapButton()
@@ -643,46 +502,23 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
     elseif event == "GET_ITEM_INFO_RECEIVED" then
         local itemID, success = ...
         if success then
-            -- Mining/Poisons: the received itemID may be a `teaches` value.
-            -- Map it back to any recipe that references it.
-            for _, pid in ipairs({ 186, 40 }) do
-                local recipes = RecipeBook.recipeDB[pid]
-                if recipes then
-                    for rid, rdata in pairs(recipes) do
-                        if rdata.isSpell and rdata.teaches == itemID then
-                            local iname = C_Item.GetItemInfo(itemID)
-                            if iname then
-                                if pid == 186 then
-                                    iname = "Smelt " .. iname:gsub(" Bar$", "")
-                                end
-                                if not RecipeBook.recipeNames[pid] then
-                                    RecipeBook.recipeNames[pid] = {}
-                                end
-                                RecipeBook.recipeNames[pid][rid] = iname
-                            end
-                        end
-                    end
-                end
-            end
-            for profID, recipes in pairs(RecipeBook.recipeDB) do
-                if recipes[itemID] then
-                    local name = C_Item.GetItemInfo(itemID)
-                    if name then
-                        if not RecipeBook.recipeNames[profID] then
-                            RecipeBook.recipeNames[profID] = {}
-                        end
-                        RecipeBook.recipeNames[profID][itemID] = StripRecipePrefix(name)
-                    end
-                end
-            end
             if RecipeBook.itemNames[itemID] == nil then
                 local name = C_Item.GetItemInfo(itemID)
                 if name then
                     RecipeBook.itemNames[itemID] = name
                 end
             end
+            -- Debounce: coalesce rapid-fire item loads into one refresh
             if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
-                RecipeBook:RefreshRecipeList()
+                if not RecipeBook._refreshPending then
+                    RecipeBook._refreshPending = true
+                    C_Timer.After(0.2, function()
+                        RecipeBook._refreshPending = nil
+                        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+                            RecipeBook:RefreshRecipeList()
+                        end
+                    end)
+                end
             end
         end
     end
@@ -704,10 +540,39 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         else
             RecipeBook:Print("Usage: /rb phase <1-5> (current: " .. (RecipeBookDB.currentPhase or 1) .. ")")
         end
-    elseif msg == "wipeknown" then
-        RecipeBookCharDB.knownProfessions = {}
-        RecipeBookCharDB.knownRecipes = {}
-        RecipeBook:Print("Known-recipe cache wiped.")
+    elseif msg == "clearcache" then
+        wipe(RecipeBook.itemNames)
+        RecipeBook._refreshPending = nil
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:ClearRenderCaches()
+            RecipeBook:CleanupSourcesPopup()
+            RecipeBook:ClearTeachesCache()
+            wipe(RecipeBook.framePool)
+        end
+        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:CacheItemSourceNames()
+        RecipeBook:Print("Caches cleared.")
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    elseif msg == "clearall" then
+        wipe(RecipeBook.itemNames)
+        RecipeBook._refreshPending = nil
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:ClearRenderCaches()
+            RecipeBook:CleanupSourcesPopup()
+            RecipeBook:ClearTeachesCache()
+            wipe(RecipeBook.framePool)
+        end
+        RecipeBookCharDB.professionSkill = {}
+        local myData = RecipeBook:GetMyCharData()
+        if myData then
+            wipe(myData.knownProfessions)
+            wipe(myData.knownRecipes)
+        end
+        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:CacheItemSourceNames()
+        RecipeBook:Print("All caches and known-recipe data cleared.")
         StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
@@ -724,34 +589,15 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
     end
 end
 
--- Release runtime caches when the main window is closed.
--- Static data tables (recipeDB, sourceDB, npcDB, etc.) are kept — they're
--- loaded once from Lua files and cannot be rebuilt without /reload.
+-- Release UI-specific state when the main window is closed.
+-- Recipe name/icon caches and map lookups are session-stable (built once
+-- at login) and kept across open/close cycles to avoid a costly rebuild.
 function RecipeBook:OnClose()
-    -- UI row frames and render caches
+    -- UI row frames and render caches (cheap to rebuild on next open)
     self:ClearRenderCaches()
     self:CleanupSourcesPopup()
-
-    -- Name / icon / quality caches (rebuilt lazily or on next open)
-    wipe(self.recipeNames)
-    wipe(self.recipeIcons)
-    wipe(self.itemNames)
-
-    -- Map and lookup caches
-    self:ClearMapCaches()
     self:ClearTeachesCache()
-
-    -- Return pooled frames (can't truly free frames, but release references)
     wipe(self.framePool)
-end
-
--- Rebuild caches when the main window is opened.
-function RecipeBook:OnOpen()
-    self:BuildMapLookup()
-    self:BuildAreaToZoneLookup()
-    self:BuildContinentZoneMap()
-    self:CacheRecipeNames()
-    self:CacheItemSourceNames()
 end
 
 function RecipeBook:Toggle()
@@ -762,7 +608,6 @@ function RecipeBook:Toggle()
     if self.mainFrame:IsShown() then
         self.mainFrame:Hide()
     else
-        self:OnOpen()
         self.mainFrame:Show()
         self:RefreshRecipeList()
     end

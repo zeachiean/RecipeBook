@@ -8,6 +8,25 @@
 - Show filter (All / Wishlist / Ignored) to browse only a single list
 - Hide Known toggle renamed to Hide Known/Ignored and now hides both
 
+## v1.2.0
+
+### New Features
+- Now tracking learniability with a Hide Unlearnable filter for known professions
+
+### Improvements
+- Large-scale data remapping to solve bad Trainer/Spell/Item IDs
+- Eliminated login lag caused by mass item data requests
+
+## v1.1.2
+
+### Fixes
+- Fixed incorrect phase and item data
+
+## v1.1.1
+
+### Fixes
+- Updated loading sequence to fix bad lag on first open.
+
 ## v1.1.0
 
 ### New Features

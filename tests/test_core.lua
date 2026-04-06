@@ -91,19 +91,6 @@ function T.test_profession_count()
 end
 
 -- ============================================================
--- Zone phase overrides
--- ============================================================
-
-function T.test_zone_phase_overrides_exist()
-    assert_not_nil(RecipeBook.ZONE_PHASE_OVERRIDES, "ZONE_PHASE_OVERRIDES missing")
-    -- Spot-check known zones
-    assert_equal(5, RecipeBook.ZONE_PHASE_OVERRIDES["Sunwell Plateau"])
-    assert_equal(5, RecipeBook.ZONE_PHASE_OVERRIDES["Isle of Quel'Danas"])
-    assert_equal(3, RecipeBook.ZONE_PHASE_OVERRIDES["Hyjal Summit"])
-    assert_equal(3, RecipeBook.ZONE_PHASE_OVERRIDES["Black Temple"])
-end
-
--- ============================================================
 -- Anniversary-specific JC overrides (verified by user)
 -- ============================================================
 
@@ -138,7 +125,7 @@ function T.test_sunwell_recipes_kept_at_phase_5()
     assert_not_nil(d35311, "recipe 35311 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(eng, 35311), "35311 should be phase 5")
 
-    -- Tailoring: Unyielding Bracers/Girdle (35308/35309)
+    -- Tailoring: Unyielding Bracers (35308) and Girdle (35309) are both phase 5
     local d35308 = RecipeBook.recipeDB[tail][35308]
     assert_not_nil(d35308, "recipe 35308 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(tail, 35308), "35308 should be phase 5")
@@ -146,6 +133,113 @@ function T.test_sunwell_recipes_kept_at_phase_5()
     local d35309 = RecipeBook.recipeDB[tail][35309]
     assert_not_nil(d35309, "recipe 35309 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(tail, 35309), "35309 should be phase 5")
+end
+
+-- ============================================================
+-- IsRecipeLearnable
+-- ============================================================
+
+local function initCharDB()
+    RecipeBookCharDB = RecipeBookCharDB or {}
+    RecipeBookCharDB.professionSkill = RecipeBookCharDB.professionSkill or {}
+    -- Ensure global characters store exists for the mock player
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.characters = RecipeBookDB.characters or {}
+    local charKey = RecipeBook:GetMyCharKey()
+    local charData = RecipeBook:GetOrCreateCharData(charKey, UnitName("player"), GetRealmName())
+    return charData
+end
+
+function T.test_learnable_requires_known_profession()
+    local charData = initCharDB()
+    -- Pick a Cooking recipe with low skill requirement
+    local cooking = 185
+    local rid, data
+    for id, d in pairs(RecipeBook.recipeDB[cooking]) do
+        if d.requiredSkill and d.requiredSkill <= 50 then
+            rid, data = id, d; break
+        end
+    end
+    assert_not_nil(rid, "should find a low-skill Cooking recipe")
+
+    -- Profession not known → not learnable
+    assert_equal(false, RecipeBook:IsRecipeLearnable(cooking, rid),
+        "should not be learnable when profession unknown")
+
+    -- Mark profession known with sufficient skill
+    charData.knownProfessions[cooking] = true
+    MockWoW.SetProfessionSkill(cooking, 375)
+
+    assert_equal(true, RecipeBook:IsRecipeLearnable(cooking, rid),
+        "should be learnable when profession known and skill sufficient")
+end
+
+function T.test_learnable_false_when_already_known()
+    local charData = initCharDB()
+    local cooking = 185
+    local rid
+    for id, d in pairs(RecipeBook.recipeDB[cooking]) do
+        if d.requiredSkill and d.requiredSkill <= 50 then
+            rid = id; break
+        end
+    end
+    assert_not_nil(rid)
+
+    charData.knownProfessions[cooking] = true
+    MockWoW.SetProfessionSkill(cooking, 375)
+    charData.knownRecipes[cooking] = { [rid] = true }
+
+    assert_equal(false, RecipeBook:IsRecipeLearnable(cooking, rid),
+        "known recipe should not be learnable")
+end
+
+function T.test_learnable_skill_too_low()
+    local charData = initCharDB()
+    local cooking = 185
+    -- Find a recipe requiring skill > 100
+    local rid
+    for id, d in pairs(RecipeBook.recipeDB[cooking]) do
+        if d.requiredSkill and d.requiredSkill > 100 then
+            rid = id; break
+        end
+    end
+    assert_not_nil(rid, "should find a high-skill Cooking recipe")
+
+    charData.knownProfessions[cooking] = true
+    MockWoW.SetProfessionSkill(cooking, 50)
+
+    assert_equal(false, RecipeBook:IsRecipeLearnable(cooking, rid),
+        "should not be learnable when skill too low")
+end
+
+function T.test_learnable_reputation_check()
+    local charData = initCharDB()
+    -- Find a recipe with a reputation requirement
+    local found_pid, found_rid, found_data
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            if data.reputationFaction and data.reputationLevel then
+                found_pid, found_rid, found_data = pid, rid, data
+                break
+            end
+        end
+        if found_pid then break end
+    end
+    assert_not_nil(found_pid, "should find a rep-gated recipe")
+
+    charData.knownProfessions[found_pid] = true
+    MockWoW.SetProfessionSkill(found_pid, 375)
+
+    -- Insufficient reputation
+    MockWoW.SetFactionStanding(found_data.reputationFaction, found_data.reputationLevel - 1)
+    assert_equal(false, RecipeBook:IsRecipeLearnable(found_pid, found_rid),
+        "should not be learnable with insufficient rep")
+
+    -- Sufficient reputation
+    MockWoW.SetFactionStanding(found_data.reputationFaction, found_data.reputationLevel)
+    assert_equal(true, RecipeBook:IsRecipeLearnable(found_pid, found_rid),
+        "should be learnable with sufficient rep")
 end
 
 return T

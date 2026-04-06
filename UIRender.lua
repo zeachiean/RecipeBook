@@ -47,14 +47,13 @@ local function OnRecipeEnter(self)
     end
 
     if not data.isSpell then
+        -- Recipe item: show the item tooltip directly
         GameTooltip:SetItemByID(self._recipeID)
     else
-        local name, _, icon = GetSpellInfo(self._recipeID)
-        if not name and data.teaches then
-            name, _, icon = GetSpellInfo(data.teaches)
-        end
-        if name then
-            GameTooltip:AddLine(name, 1, 1, 1)
+        -- isSpell: try spell hyperlink (shows crafting tooltip with reagents)
+        local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, "spell:" .. self._recipeID)
+        if not ok then
+            GameTooltip:AddLine(data.name or "Unknown Recipe", 1, 1, 1)
         end
     end
 
@@ -770,6 +769,12 @@ local function BuildDisplayData(filters)
                 dominated = true
             end
         end
+        -- Hide unlearnable
+        if not dominated and filters.hideUnlearnable
+            and not RecipeBook:IsRecipeKnown(profID, recipeID)
+            and not RecipeBook:IsRecipeLearnable(profID, recipeID) then
+            dominated = true
+        end
         -- Faction filter
         if not dominated and not RecipePassesFactionFilter(profID, recipeID, filters.playerFaction) then
             dominated = true
@@ -790,6 +795,7 @@ local function BuildDisplayData(filters)
             local summaries = GetAllSourceSummaries(profID, recipeID, filters.zone, filters.continent)
             local count = GetSourceCount(profID, recipeID, filters.playerFaction)
             local isKnown = RecipeBook:IsRecipeKnown(profID, recipeID)
+            local isLearnable = not isKnown and RecipeBook:IsRecipeLearnable(profID, recipeID)
             for _, s in ipairs(summaries) do
                 local srcType, srcID, srcName, srcZone, isWorldDrop, dropRate = s[1], s[2], s[3], s[4], s[5], s[6]
                 groups[srcType][#groups[srcType] + 1] = {
@@ -805,6 +811,8 @@ local function BuildDisplayData(filters)
                     isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey),
                     isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey),
                     isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey),
+                    isLearnable = isLearnable,
+                    difficulty = data.difficulty,
                 }
             end
         end
@@ -931,8 +939,44 @@ function RecipeBook:RefreshRecipeList()
                         row._nameText:SetTextColor(qc.r, qc.g, qc.b)
                     end
 
-                    -- Skill level
+                    -- Learnable indicator
+                    if row._learnIcon then
+                        if entry.isKnown then
+                            row._learnIcon:Hide()
+                        elseif entry.isLearnable then
+                            row._learnIcon:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-Ready")
+                            row._learnIcon:Show()
+                        else
+                            row._learnIcon:SetTexture("Interface\\RAIDFRAME\\ReadyCheck-NotReady")
+                            row._learnIcon:Show()
+                        end
+                    end
+
+                    -- Skill level (colored by crafting difficulty)
                     row._skillText:SetText(tostring(entry.requiredSkill))
+                    local skillColor = UI.COLOR_SKILL
+                    local diff = entry.difficulty
+                    local playerSkill = RecipeBookCharDB
+                        and RecipeBookCharDB.professionSkill
+                        and RecipeBookCharDB.professionSkill[filters.professionID]
+                    if not playerSkill then
+                        skillColor = { r = 1.0, g = 0.2, b = 0.2 }
+                    elseif diff and playerSkill then
+                        if playerSkill < diff[1] then
+                            skillColor = { r = 1.0, g = 0.2, b = 0.2 }
+                        elseif playerSkill < diff[2] then
+                            skillColor = UI.COLOR_ORANGE
+                        elseif playerSkill < diff[3] then
+                            skillColor = UI.COLOR_YELLOW
+                        elseif playerSkill < diff[4] then
+                            skillColor = UI.COLOR_GREEN
+                        elseif not entry.isKnown then
+                            skillColor = UI.COLOR_NORMAL
+                        else
+                            skillColor = UI.COLOR_GRAY
+                        end
+                    end
+                    row._skillText:SetTextColor(skillColor.r, skillColor.g, skillColor.b)
 
                     -- Source count
                     if row._countText then
@@ -1004,18 +1048,9 @@ function RecipeBook:RefreshRecipeList()
                             end
                         end
 
-                        -- Show arrow; highlight if this is the active waypoint
-                        row._wpArrow:Show()
-                        local wp = self.activeWaypoint
-                        if wp and wp.npcName == row._npcName and wp.zoneName == row._zoneName then
-                            row._wpArrow:SetVertexColor(1, 1, 0, 1)  -- Gold = active
-                        else
-                            row._wpArrow:SetVertexColor(UI.COLOR_WAYPOINT.r, UI.COLOR_WAYPOINT.g, UI.COLOR_WAYPOINT.b, 0.6)
-                        end
                     else
                         row._npcName = nil
                         row._zoneName = nil
-                        row._wpArrow:Hide()
                     end
 
                     -- Set handlers

@@ -57,9 +57,21 @@ function RecipeBook:ScanProfessionWindow()
     local profID, isEnchanting = GetDisplayedProfessionID()
     if not profID then return end
 
-    -- Mark this profession as known
+    -- Mark this profession as known on the global character entry
     charData.knownProfessions[profID] = true
     charData.lastScanned = time()
+
+    -- Capture current skill level in per-character DB (used by IsRecipeLearnable)
+    if not RecipeBookCharDB.professionSkill then
+        RecipeBookCharDB.professionSkill = {}
+    end
+    if isEnchanting then
+        local _, currentSkill = GetCraftDisplaySkillLine()
+        RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
+    else
+        local _, currentSkill = GetTradeSkillLine()
+        RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
+    end
 
     -- Ensure we have a recipe table for this profession
     if not self.recipeDB[profID] then return end
@@ -180,6 +192,35 @@ function RecipeBook:IsRecipeKnown(profID, recipeID, charKey)
     local profRecipes = entry.knownRecipes[profID]
     if not profRecipes then return false end
     return profRecipes[recipeID] == true
+end
+
+-- Check whether the player meets all requirements to learn a recipe:
+--   1. Profession is known
+--   2. Recipe is not already known
+--   3. Profession skill >= requiredSkill
+--   4. Reputation standing >= reputationLevel (if required)
+function RecipeBook:IsRecipeLearnable(profID, recipeID)
+    if not self:IsProfessionKnown(profID) then return false end
+    if self:IsRecipeKnown(profID, recipeID) then return false end
+
+    local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
+    if not data then return false end
+
+    -- Skill check
+    local playerSkill = RecipeBookCharDB
+        and RecipeBookCharDB.professionSkill
+        and RecipeBookCharDB.professionSkill[profID]
+    if not playerSkill then return false end
+    if data.requiredSkill and playerSkill < data.requiredSkill then return false end
+
+    -- Reputation check
+    if data.reputationFaction and data.reputationLevel then
+        if not GetFactionInfoByID then return false end
+        local _, _, standingID = GetFactionInfoByID(data.reputationFaction)
+        if not standingID or standingID < data.reputationLevel then return false end
+    end
+
+    return true
 end
 
 function RecipeBook:RegisterTrackingEvents(eventFrame)
