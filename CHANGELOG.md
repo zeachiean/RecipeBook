@@ -1,11 +1,16 @@
 # RecipeBook Changelog
 
-## Unreleased
+## v1.1.0
 
-- Right-click a recipe with drop/pickpocket sources to open a popup listing every creature that drops it, with zone and drop rate. Click any NPC in the popup to set it as your AddressBook waypoint target.
-- Replaced MaNGOS-derived phase data with RecipeMaster TBC's hand-curated annotations across all 12 professions
-- Jewelcrafting world-drop designs now show drop zones (scraped from Wowhead) and work with zone/continent filtering
-- Fixed phase dropdown only being clickable on the right side of each entry
+### New Features
+- Added "All Sources" popup — right-click any recipe to see every source with waypoint support
+- Added JC world drop zone data — Jewelcrafting designs now show specific drop zones instead of just "World Drop"
+
+### Improvements
+- Large-scale reduction in unused data and streamlining of memory usage.
+
+### Fixes
+- Fixed recipe phase accuracy for numerous recipes across all professions
 
 ## v1.0.0 - Initial Release
 

@@ -11,6 +11,8 @@ ignore:
   - screenshots
   - CLAUDE.md
   - .claude
+  - tests
+  - tools
 
 externals:
   Libs/LibStub:
