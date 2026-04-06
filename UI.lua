@@ -132,7 +132,13 @@ function RecipeBook:CreateMainFrame()
 
             for _, prof in ipairs(knownProfs) do
                 local info = UIDropDownMenu_CreateInfo()
-                info.text = prof.name
+                local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
+                    and RecipeBookCharDB.professionSkill[prof.id]
+                if skill then
+                    info.text = prof.name .. "  |cffffffff(" .. skill .. ")|r"
+                else
+                    info.text = prof.name
+                end
                 info.value = prof.id
                 info.notCheckable = true
                 info.func = function()
@@ -167,8 +173,13 @@ function RecipeBook:CreateMainFrame()
     -- Restore selected profession
     if RecipeBookCharDB and RecipeBookCharDB.selectedProfession then
         selectedProfession = RecipeBookCharDB.selectedProfession
-        local name = RecipeBook.PROFESSION_NAMES[selectedProfession]
-        UIDropDownMenu_SetText(profDropdown, name or "Select...")
+        local name = RecipeBook.PROFESSION_NAMES[selectedProfession] or "Select..."
+        local skill = RecipeBookCharDB.professionSkill
+            and RecipeBookCharDB.professionSkill[selectedProfession]
+        if skill then
+            name = name .. "  |cffffffff(" .. skill .. ")|r"
+        end
+        UIDropDownMenu_SetText(profDropdown, name)
     else
         UIDropDownMenu_SetText(profDropdown, "Select...")
     end
@@ -563,7 +574,13 @@ end
 function RecipeBook:SelectProfession(profID)
     selectedProfession = profID
     RecipeBookCharDB.selectedProfession = profID
-    UIDropDownMenu_SetText(profDropdown, self.PROFESSION_NAMES[profID] or "Select...")
+    local name = self.PROFESSION_NAMES[profID] or "Select..."
+    local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
+        and RecipeBookCharDB.professionSkill[profID]
+    if skill then
+        name = name .. "  |cffffffff(" .. skill .. ")|r"
+    end
+    UIDropDownMenu_SetText(profDropdown, name)
     self:UpdateHideKnownState()
     self:RefreshRecipeList()
 end

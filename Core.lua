@@ -93,15 +93,32 @@ RecipeBook.activeWaypoint = nil    -- { npcName, zoneName }
 -- Pre-cache recipe item data so tooltips (SetItemByID) work immediately.
 -- Only requests non-isSpell recipe items (physical recipe items).
 -- isSpell recipes use spell: hyperlink tooltips instead.
+-- Batches requests to avoid flooding the client on login.
 function RecipeBook:PrecacheRecipeItems()
     if not C_Item or not C_Item.RequestLoadItemDataByID then return end
+
+    local queue = {}
     for profID, recipes in pairs(self.recipeDB) do
         for recipeID, data in pairs(recipes) do
             if not data.isSpell then
-                C_Item.RequestLoadItemDataByID(recipeID)
+                queue[#queue + 1] = recipeID
             end
         end
     end
+
+    local BATCH_SIZE = 50
+    local i = 1
+    local function ProcessBatch()
+        local limit = math.min(i + BATCH_SIZE - 1, #queue)
+        for j = i, limit do
+            C_Item.RequestLoadItemDataByID(queue[j])
+        end
+        i = limit + 1
+        if i <= #queue then
+            C_Timer.After(0.1, ProcessBatch)
+        end
+    end
+    ProcessBatch()
 end
 
 -- Cache item names for "item" source type
@@ -345,8 +362,17 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
                     RecipeBook.itemNames[itemID] = name
                 end
             end
+            -- Debounce: coalesce rapid-fire item loads into one refresh
             if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
-                RecipeBook:RefreshRecipeList()
+                if not RecipeBook._refreshPending then
+                    RecipeBook._refreshPending = true
+                    C_Timer.After(0.2, function()
+                        RecipeBook._refreshPending = nil
+                        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+                            RecipeBook:RefreshRecipeList()
+                        end
+                    end)
+                end
             end
         end
     end
@@ -368,11 +394,36 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         else
             RecipeBook:Print("Usage: /rb phase <1-5> (current: " .. (RecipeBookDB.currentPhase or 1) .. ")")
         end
-    elseif msg == "wipeknown" then
+    elseif msg == "clearcache" then
+        wipe(RecipeBook.itemNames)
+        RecipeBook._refreshPending = nil
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:ClearRenderCaches()
+            RecipeBook:CleanupSourcesPopup()
+            RecipeBook:ClearTeachesCache()
+            wipe(RecipeBook.framePool)
+        end
+        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:CacheItemSourceNames()
+        RecipeBook:Print("Caches cleared.")
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    elseif msg == "clearall" then
+        wipe(RecipeBook.itemNames)
+        RecipeBook._refreshPending = nil
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:ClearRenderCaches()
+            RecipeBook:CleanupSourcesPopup()
+            RecipeBook:ClearTeachesCache()
+            wipe(RecipeBook.framePool)
+        end
         RecipeBookCharDB.knownProfessions = {}
         RecipeBookCharDB.knownRecipes = {}
         RecipeBookCharDB.professionSkill = {}
-        RecipeBook:Print("Known-recipe cache wiped.")
+        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:CacheItemSourceNames()
+        RecipeBook:Print("All caches and known-recipe data cleared.")
         StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
