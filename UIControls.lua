@@ -81,10 +81,28 @@ function RecipeBook:GetPooledRow(parent)
         skillText:SetTextColor(UI.COLOR_SKILL.r, UI.COLOR_SKILL.g, UI.COLOR_SKILL.b)
         row._skillText = skillText
 
+        -- Source count text (#)
+        local countText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+        countText:SetPoint("LEFT", skillText, "RIGHT", 8, 0)
+        countText:SetWidth(26)
+        countText:SetJustifyH("RIGHT")
+        countText:SetWordWrap(false)
+        countText:SetTextColor(UI.COLOR_SKILL.r, UI.COLOR_SKILL.g, UI.COLOR_SKILL.b)
+        row._countText = countText
+
+        -- Drop rate text (%) — anchored first so source can butt up against it
+        local rateText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+        rateText:SetPoint("RIGHT", row, "RIGHT", -22, 0)
+        rateText:SetWidth(40)
+        rateText:SetJustifyH("RIGHT")
+        rateText:SetWordWrap(false)
+        rateText:SetTextColor(UI.COLOR_SKILL.r, UI.COLOR_SKILL.g, UI.COLOR_SKILL.b)
+        row._rateText = rateText
+
         -- Source text (NPC name + zone)
         local sourceText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-        sourceText:SetPoint("LEFT", skillText, "RIGHT", 8, 0)
-        sourceText:SetPoint("RIGHT", row, "RIGHT", -20, 0)
+        sourceText:SetPoint("LEFT", countText, "RIGHT", 8, 0)
+        sourceText:SetPoint("RIGHT", rateText, "LEFT", -4, 0)
         sourceText:SetJustifyH("LEFT")
         sourceText:SetWordWrap(false)
         sourceText:SetNonSpaceWrap(false)
@@ -137,6 +155,8 @@ function RecipeBook:GetHeaderRow(parent)
     row._nameText:SetPoint("LEFT", row, "LEFT", 18, 0)
     row._nameText:SetPoint("RIGHT", row, "RIGHT", -4, 0)
     row._skillText:SetText("")
+    if row._countText then row._countText:SetText("") end
+    if row._rateText then row._rateText:SetText("") end
     row._sourceText:SetText("")
     row._wpArrow:Hide()
 

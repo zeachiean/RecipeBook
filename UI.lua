@@ -285,10 +285,12 @@ function RecipeBook:CreateMainFrame()
     factionCheck:SetSize(20, 20)
     factionCheck:SetChecked(true)
     myFactionOnly = true
+    RecipeBook.myFactionOnly = true
     _G["RecipeBookFactionFilterText"]:SetText("My Faction")
     _G["RecipeBookFactionFilterText"]:SetFontObject("RecipeBookFontSmall")
     factionCheck:SetScript("OnClick", function(self)
         myFactionOnly = self:GetChecked()
+        RecipeBook.myFactionOnly = myFactionOnly
         RecipeBook:RefreshRecipeList()
     end)
 
@@ -521,8 +523,12 @@ function RecipeBook:CreateMainFrame()
     frame._phaseDropdown = phaseDropdown
 
     local function PhaseDropdown_Init(self, level)
+        -- Classic UIDropDownMenu quirk: info.minWidth widens the menu and
+        -- highlight bar but the button's click hitbox tracks the text's
+        -- rendered width. Pad text with spaces so single-digit numbers get
+        -- a full-row hitbox.
         local info = UIDropDownMenu_CreateInfo()
-        info.text = "All"
+        info.text = "       All       "
         info.notCheckable = true
         info.func = function()
             selectedPhase = nil
@@ -533,7 +539,7 @@ function RecipeBook:CreateMainFrame()
 
         for p = 1, 5 do
             info = UIDropDownMenu_CreateInfo()
-            info.text = tostring(p)
+            info.text = "         " .. tostring(p) .. "         "
             info.value = p
             info.notCheckable = true
             info.func = function()
@@ -590,10 +596,24 @@ function RecipeBook:CreateMainFrame()
     headerSkill:SetText("Skill")
     headerSkill:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
+    local headerCount = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    headerCount:SetPoint("LEFT", hdrRef, "LEFT", 256, 0)
+    headerCount:SetWidth(26)
+    headerCount:SetJustifyH("RIGHT")
+    headerCount:SetText("#")
+    headerCount:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
     local headerSource = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 256, 0)
-    headerSource:SetText("Source")
+    headerSource:SetPoint("LEFT", hdrRef, "LEFT", 290, 0)
+    headerSource:SetText("Best Source")
     headerSource:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
+    local headerRate = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    headerRate:SetPoint("RIGHT", hdrRef, "RIGHT", -30, 0)
+    headerRate:SetWidth(40)
+    headerRate:SetJustifyH("RIGHT")
+    headerRate:SetText("%")
+    headerRate:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerWP = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     headerWP:SetPoint("RIGHT", hdrRef, "RIGHT", -2, 0)

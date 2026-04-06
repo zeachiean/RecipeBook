@@ -168,6 +168,10 @@ function RecipeBook:ScanProfessionWindow()
     end
 end
 
+function RecipeBook:ClearTeachesCache()
+    wipe(teachesLookups)
+end
+
 function RecipeBook:IsRecipeKnown(profID, recipeID, charKey)
     charKey = charKey or self:GetViewedCharKey()
     if not charKey or not RecipeBookDB.characters then return false end

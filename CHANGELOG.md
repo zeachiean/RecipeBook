@@ -8,6 +8,18 @@
 - Show filter (All / Wishlist / Ignored) to browse only a single list
 - Hide Known toggle renamed to Hide Known/Ignored and now hides both
 
+## v1.1.0
+
+### New Features
+- Added "All Sources" popup — right-click any recipe to see every source with waypoint support
+- Added JC world drop zone data — Jewelcrafting designs now show specific drop zones instead of just "World Drop"
+
+### Improvements
+- Large-scale reduction in unused data and streamlining of memory usage.
+
+### Fixes
+- Fixed recipe phase accuracy for numerous recipes across all professions
+
 ## v1.0.0 - Initial Release
 
 - Browse all TBC profession recipes grouped by source type (Trainer, Vendor, Quest, Drop, etc.)

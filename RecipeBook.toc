@@ -2,7 +2,7 @@
 ## Title: RecipeBook
 ## Notes: Recipe and profession browser with source tracking and waypoint integration.
 ## Author: Breakbone - Dreamscythe
-## Version: 1.0.0
+## Version: 1.1.0
 ## X-License: All Rights Reserved
 ## X-Curse-Project-ID: 1504542
 ## OptionalDeps: AddressBook, TomTom
@@ -44,7 +44,6 @@ Data\NPCs.lua
 Data\Objects.lua
 Data\Quests.lua
 Data\Unique.lua
-Data\Phases.lua
 
 MapResolver.lua
 RecipeTracker.lua
@@ -52,4 +51,5 @@ Core.lua
 UIControls.lua
 UI.lua
 UIRender.lua
+UIDropSources.lua
 MinimapButton.lua

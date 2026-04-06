@@ -49,18 +49,50 @@ local function OnRecipeEnter(self)
     if not data.isSpell then
         GameTooltip:SetItemByID(self._recipeID)
     else
-        local name, _, icon = GetSpellInfo(data.teaches)
+        local name, _, icon = GetSpellInfo(self._recipeID)
+        if not name and data.teaches then
+            name, _, icon = GetSpellInfo(data.teaches)
+        end
         if name then
             GameTooltip:AddLine(name, 1, 1, 1)
         end
     end
 
     GameTooltip:AddLine(" ")
-    if self._sourceType and self._sourceID then
+    if self._sourceType then
         local srcLabel = RecipeBook.SOURCE_LABELS[self._sourceType] or self._sourceType
         GameTooltip:AddLine("Source: " .. srcLabel, UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
-        if self._sourceType == "trainer" then
+        if self._sourceType == "discovery" then
+            GameTooltip:AddLine("Learned via crafting", 1, 1, 1)
+
+        elseif self._sourceType == "worldDrop" then
+            GameTooltip:AddLine("Drops from world mobs", UI.COLOR_WORLDDROP.r, UI.COLOR_WORLDDROP.g, UI.COLOR_WORLDDROP.b)
+            local wdData = RecipeBook.sourceDB[self._profID]
+                and RecipeBook.sourceDB[self._profID][self._recipeID]
+                and RecipeBook.sourceDB[self._profID][self._recipeID].worldDrop
+            if type(wdData) == "table" and #wdData > 0 then
+                local zoneSet = {}
+                for _, areaID in ipairs(wdData) do
+                    local zn = RecipeBook:GetZoneNameForAreaID(areaID)
+                    if zn then zoneSet[zn] = true end
+                end
+                local zones = {}
+                for z in pairs(zoneSet) do zones[#zones + 1] = z end
+                table.sort(zones)
+                local max = 6
+                for i = 1, math.min(max, #zones) do
+                    GameTooltip:AddLine("  " .. zones[i], 0.8, 0.8, 0.8)
+                end
+                if #zones > max then
+                    GameTooltip:AddLine(("  ...and %d more"):format(#zones - max), 0.6, 0.6, 0.6)
+                end
+            end
+
+        elseif self._sourceType == "trainer" and not self._sourceID then
+            GameTooltip:AddLine("Learned from a profession trainer", 1, 1, 1)
+
+        elseif self._sourceType == "trainer" then
             local npcName = RecipeBook:GetNPCName(self._sourceID)
             local zone = RecipeBook:GetFirstZoneForNPC(self._sourceID)
             GameTooltip:AddLine(npcName .. (zone and (" - " .. zone) or ""), 1, 1, 1)
@@ -100,9 +132,17 @@ local function OnRecipeEnter(self)
             end
 
         elseif self._sourceType == "quest" then
-            GameTooltip:AddLine("Quest #" .. self._sourceID, 1, 1, 1)
             local questData = RecipeBook.questDB and RecipeBook.questDB[self._sourceID]
+            local title = questData and questData.name or ("Quest #" .. self._sourceID)
+            GameTooltip:AddLine(title, 1, 1, 1)
             if questData then
+                if questData.startNPC then
+                    local npcName = RecipeBook:GetNPCName(questData.startNPC)
+                    local zone = RecipeBook:GetFirstZoneForNPC(questData.startNPC)
+                    if npcName then
+                        GameTooltip:AddLine("From: " .. npcName .. (zone and (" - " .. zone) or ""), 0.9, 0.9, 0.9)
+                    end
+                end
                 if questData.faction then
                     GameTooltip:AddLine("Faction: " .. questData.faction, 0.7, 0.7, 0.7)
                 end
@@ -142,7 +182,10 @@ local function OnRecipeEnter(self)
         end
     end
 
-    -- Shift-click hint
+    -- Interaction hints
+    if RecipeBook:RecipeHasAnySources(self._profID, self._recipeID) then
+        GameTooltip:AddLine("Right-click to view all sources", 0.5, 0.5, 0.5)
+    end
     GameTooltip:AddLine("Shift-click to link in chat", 0.5, 0.5, 0.5)
 
     -- Known status
@@ -283,7 +326,8 @@ local function SourcePassesZoneFilter(sourceType, sourceID, filterZone, filterCo
     elseif sourceType == "unique" then
         local entry = RecipeBook.uniqueDB and RecipeBook.uniqueDB[sourceID]
         if entry then zones = entry.zones end
-    elseif sourceType == "fishing" then
+    elseif sourceType == "fishing" or sourceType == "worldDrop" then
+        -- Both key on area IDs directly.
         local zoneName = RecipeBook:GetZoneNameForAreaID(sourceID)
         if not zoneName then return false end
         if filterZone and zoneName ~= filterZone then return false end
@@ -292,11 +336,20 @@ local function SourcePassesZoneFilter(sourceType, sourceID, filterZone, filterCo
             if cont ~= filterContinent then return false end
         end
         return true
-    elseif sourceType == "quest" or sourceType == "item" then
-        return true
+    elseif sourceType == "quest" then
+        -- Resolve quest to its start NPC's zones (from Questie data).
+        local quest = RecipeBook.questDB and RecipeBook.questDB[sourceID]
+        if quest and quest.startNPC then
+            local npc = RecipeBook.npcDB and RecipeBook.npcDB[quest.startNPC]
+            if npc then zones = npc.zones end
+        end
+    elseif sourceType == "item" then
+        -- No zone info for items: can't prove a filter match.
+        return false
     end
 
-    if not zones then return not filterZone end
+    -- No zone data on the entity: can't prove it matches, so reject.
+    if not zones then return false end
 
     for _, areaID in ipairs(zones) do
         local zoneName = RecipeBook:GetZoneNameForAreaID(areaID)
@@ -319,16 +372,25 @@ local function RecipePassesZoneFilter(profID, recipeID, filterZone, filterContin
     if not sources then return true end
 
     for srcType, srcData in pairs(sources) do
-        if srcType == "unique" then
-            for _, uid in ipairs(srcData) do
-                if SourcePassesZoneFilter("unique", uid, filterZone, filterContinent) then
-                    return true
+        if type(srcData) == "table" then
+            if srcType == "unique" then
+                for _, uid in ipairs(srcData) do
+                    if SourcePassesZoneFilter("unique", uid, filterZone, filterContinent) then
+                        return true
+                    end
                 end
-            end
-        else
-            for srcID in pairs(srcData) do
-                if SourcePassesZoneFilter(srcType, srcID, filterZone, filterContinent) then
-                    return true
+            elseif srcType == "worldDrop" then
+                -- Array of areaIDs (may be empty if scrape found nothing).
+                for _, areaID in ipairs(srcData) do
+                    if SourcePassesZoneFilter("worldDrop", areaID, filterZone, filterContinent) then
+                        return true
+                    end
+                end
+            else
+                for srcID in pairs(srcData) do
+                    if SourcePassesZoneFilter(srcType, srcID, filterZone, filterContinent) then
+                        return true
+                    end
                 end
             end
         end
@@ -337,17 +399,52 @@ local function RecipePassesZoneFilter(profID, recipeID, filterZone, filterContin
     return false
 end
 
--- Build the best single-source summary for a recipe row
-local function GetBestSourceSummary(profID, recipeID)
-    local sources = RecipeBook.sourceDB[profID] and RecipeBook.sourceDB[profID][recipeID]
-    if not sources then
-        -- No source data at all — default to Trainer (common for basic learned recipes)
-        return "trainer", nil, "Trainer", nil, false
+-- Count the total number of distinct source entities for a recipe,
+-- excluding opposite-faction trainers/vendors/quests when filtered.
+local function GetSourceCount(profID, recipeID, factionFilter)
+    local sources = RecipeBook.sourceDB and RecipeBook.sourceDB[profID]
+        and RecipeBook.sourceDB[profID][recipeID]
+    if not sources then return 0 end
+    local playerFaction = factionFilter
+    local n = 0
+    for srcType, srcData in pairs(sources) do
+        if type(srcData) == "table" then
+            if srcType == "unique" then
+                for _ in ipairs(srcData) do n = n + 1 end
+            elseif srcType == "worldDrop" then
+                n = n + 1
+            elseif srcType == "trainer" or srcType == "vendor" then
+                for npcID in pairs(srcData) do
+                    local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
+                    if not playerFaction or not npc or not npc.faction
+                        or npc.faction == playerFaction then
+                        n = n + 1
+                    end
+                end
+            elseif srcType == "quest" then
+                for questID in pairs(srcData) do
+                    local q = RecipeBook.questDB and RecipeBook.questDB[questID]
+                    if not playerFaction or not q or not q.faction
+                        or q.faction == playerFaction then
+                        n = n + 1
+                    end
+                end
+            else
+                for _ in pairs(srcData) do n = n + 1 end
+            end
+        elseif srcData == true then
+            n = n + 1
+        end
     end
+    return n
+end
 
-    for _, srcType in ipairs(RecipeBook.SOURCE_ORDER) do
-        local srcData = sources[srcType]
-        if srcData then
+-- Expose for testing
+RecipeBook.GetSourceCount = GetSourceCount
+
+-- Pick the best source for a single source type; returns the same 6-tuple as
+-- GetBestSourceSummary, or nil if nothing in this type matches the filter.
+local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, passes)
             if srcType == "unique" then
                 if #srcData > 0 then
                     local uid = srcData[1]
@@ -355,87 +452,222 @@ local function GetBestSourceSummary(profID, recipeID)
                         -- Crafted by another profession — find which one
                         local craftedBy = RecipeBook:FindCraftingProfession(profID, recipeID)
                         local craftLabel = craftedBy and RecipeBook.PROFESSION_NAMES[craftedBy] or "Crafted"
-                        return srcType, uid, craftLabel, nil, false
+                        return srcType, uid, craftLabel, nil, false, nil
                     end
-                    local name = RecipeBook:GetUniqueName(uid)
-                    local zone = RecipeBook:GetFirstZoneForUnique(uid)
-                    return srcType, uid, name, zone, false
+                    if passes("unique", uid) then
+                        local name = RecipeBook:GetUniqueName(uid)
+                        local zone = RecipeBook:GetFirstZoneForUnique(uid)
+                        return srcType, uid, name, zone, false, nil
+                    end
                 end
             elseif srcType == "drop" or srcType == "pickpocket" then
-                local count = 0
-                for _ in pairs(srcData) do count = count + 1 end
-                if count >= RecipeBook.WORLD_DROP_THRESHOLD then
-                    return srcType, nil, "World Drop", nil, true
+                -- Pick the best NPC among those matching the filter: highest
+                -- drop rate, tiebreak by name.
+                local bestID, bestRate, bestName
+                for npcID, rate in pairs(srcData) do
+                    if passes(srcType, npcID) then
+                        local r = type(rate) == "number" and rate or -1
+                        local name = RecipeBook:GetNPCName(npcID)
+                        if not bestID
+                            or r > bestRate
+                            or (r == bestRate and name < bestName) then
+                            bestID = npcID
+                            bestRate = r
+                            bestName = name
+                        end
+                    end
                 end
-                for npcID in pairs(srcData) do
-                    local name = RecipeBook:GetNPCName(npcID)
-                    local zone = RecipeBook:GetFirstZoneForNPC(npcID)
-                    return srcType, npcID, name, zone, false
+                if bestID then
+                    local zone = RecipeBook:GetFirstZoneForNPC(bestID)
+                    local rateOut = (bestRate and bestRate >= 0) and bestRate or nil
+                    return srcType, bestID, bestName, zone, false, rateOut
                 end
             elseif srcType == "trainer" then
-                -- Trainers: just show "Trainer" — use AB to find nearest
-                -- sourceID = nil signals the waypoint handler to search by profession
-                return srcType, nil, "Trainer", nil, false
+                -- Trainers: just show "Trainer" — use AB to find nearest.
+                -- sourceID = nil signals the waypoint handler to search by profession.
+                -- When a filter is active, require at least one trainer NPC in zone.
+                if not hasFilter then
+                    return srcType, nil, "Trainer", nil, false, nil
+                end
+                for npcID in pairs(srcData) do
+                    if passes("trainer", npcID) then
+                        return srcType, nil, "Trainer", nil, false, nil
+                    end
+                end
             elseif srcType == "vendor" then
-                -- Vendors: show specific NPC, prefer player faction
+                -- Vendors: show specific NPC, prefer player faction, require filter match.
                 local _, playerFaction = UnitFactionGroup("player")
                 local fallbackID = nil
                 for npcID in pairs(srcData) do
-                    local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
-                    local npcFaction = npc and npc.faction
-                    if npcFaction == playerFaction or not npcFaction then
-                        local name = RecipeBook:GetNPCName(npcID)
-                        local zone = RecipeBook:GetFirstZoneForNPC(npcID)
-                        return srcType, npcID, name, zone, false
+                    if passes("vendor", npcID) then
+                        local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
+                        local npcFaction = npc and npc.faction
+                        if npcFaction == playerFaction or not npcFaction then
+                            local name = RecipeBook:GetNPCName(npcID)
+                            local zone = RecipeBook:GetFirstZoneForNPC(npcID)
+                            return srcType, npcID, name, zone, false, nil
+                        end
+                        if not fallbackID then fallbackID = npcID end
                     end
-                    if not fallbackID then fallbackID = npcID end
                 end
                 if fallbackID then
                     local name = RecipeBook:GetNPCName(fallbackID)
                     local zone = RecipeBook:GetFirstZoneForNPC(fallbackID)
-                    return srcType, fallbackID, name, zone, false
+                    return srcType, fallbackID, name, zone, false, nil
                 end
             elseif srcType == "quest" then
-                -- Prefer quest matching player faction
                 local _, playerFaction = UnitFactionGroup("player")
-                local bestQuestID, bestFactionStr = nil, ""
-                for questID in pairs(srcData) do
-                    local questData = RecipeBook.questDB and RecipeBook.questDB[questID]
-                    local qFaction = questData and questData.faction
-                    if qFaction == playerFaction or not qFaction then
-                        -- Perfect match or neutral — use immediately
-                        local fStr = qFaction and (" (" .. qFaction .. ")") or ""
-                        return srcType, questID, "Quest" .. fStr, nil, false
+                local function questFaction(qd)
+                    if not qd then return nil end
+                    if qd.faction then return qd.faction end
+                    -- Fall back to the start NPC's faction
+                    if qd.startNPC then
+                        local npc = RecipeBook.npcDB and RecipeBook.npcDB[qd.startNPC]
+                        if npc and npc.faction then return npc.faction end
                     end
-                    if not bestQuestID then
-                        bestQuestID = questID
-                        bestFactionStr = qFaction and (" (" .. qFaction .. ")") or ""
+                    return nil
+                end
+                local function questDisplay(questID)
+                    local qd = RecipeBook.questDB and RecipeBook.questDB[questID]
+                    local name = qd and qd.name or ("Quest #" .. questID)
+                    local zone = nil
+                    if qd and qd.startNPC then
+                        zone = RecipeBook:GetFirstZoneForNPC(qd.startNPC)
+                    end
+                    return name, zone
+                end
+                -- Prefer a quest that passes the zone filter and matches faction.
+                for questID in pairs(srcData) do
+                    if passes("quest", questID) then
+                        local qd = RecipeBook.questDB and RecipeBook.questDB[questID]
+                        local qFaction = questFaction(qd)
+                        if qFaction == playerFaction or not qFaction then
+                            local name, zone = questDisplay(questID)
+                            return srcType, questID, name, zone, false, nil
+                        end
                     end
                 end
-                if bestQuestID then
-                    return srcType, bestQuestID, "Quest" .. bestFactionStr, nil, false
+                -- Fall back to any quest when no filter is set.
+                if not hasFilter then
+                    local bestQuestID = nil
+                    for questID in pairs(srcData) do
+                        local qd = RecipeBook.questDB and RecipeBook.questDB[questID]
+                        local qFaction = questFaction(qd)
+                        if qFaction == playerFaction or not qFaction then
+                            local name, zone = questDisplay(questID)
+                            return srcType, questID, name, zone, false, nil
+                        end
+                        if not bestQuestID then bestQuestID = questID end
+                    end
+                    if bestQuestID then
+                        local name, zone = questDisplay(bestQuestID)
+                        return srcType, bestQuestID, name, zone, false, nil
+                    end
                 end
             elseif srcType == "object" then
                 for objID in pairs(srcData) do
-                    local name = RecipeBook:GetObjectName(objID)
-                    local zone = RecipeBook:GetFirstZoneForObject(objID)
-                    return srcType, objID, name, zone, false
+                    if passes("object", objID) then
+                        local name = RecipeBook:GetObjectName(objID)
+                        local zone = RecipeBook:GetFirstZoneForObject(objID)
+                        return srcType, objID, name, zone, false, nil
+                    end
                 end
             elseif srcType == "fishing" then
                 for areaID in pairs(srcData) do
-                    local zone = RecipeBook:GetZoneNameForAreaID(areaID)
-                    return srcType, areaID, "Fishing", zone, false
+                    if passes("fishing", areaID) then
+                        local zone = RecipeBook:GetZoneNameForAreaID(areaID)
+                        return srcType, areaID, "Fishing", zone, false, nil
+                    end
                 end
             elseif srcType == "item" then
-                for itemID in pairs(srcData) do
-                    local name = RecipeBook.itemNames[itemID] or ("Item #" .. itemID)
-                    return srcType, itemID, name, nil, false
+                -- Items carry no zone data; only show if no filter is active.
+                if not hasFilter then
+                    for itemID in pairs(srcData) do
+                        local name = RecipeBook.itemNames[itemID] or ("Item #" .. itemID)
+                        return srcType, itemID, name, nil, false, nil
+                    end
                 end
+            elseif srcType == "discovery" then
+                -- Discovery recipes (Alchemy mastery): learned via crafting,
+                -- no NPC/zone. Only show when no zone filter is active.
+                if not hasFilter and srcData == true then
+                    return srcType, nil, "Discovery", nil, false, nil
+                end
+            elseif srcType == "worldDrop" then
+                -- World-drop recipes (Jewelcrafting). May be:
+                --  * true — legacy flag, no zone data scraped
+                --  * { areaID, ... } — scraped drop zones from Wowhead
+                if srcData == true then
+                    if not hasFilter then
+                        return srcType, nil, "World Drop", nil, true, nil
+                    end
+                elseif type(srcData) == "table" then
+                    for _, areaID in ipairs(srcData) do
+                        if passes("worldDrop", areaID) then
+                            local zone = RecipeBook:GetZoneNameForAreaID(areaID)
+                            return srcType, areaID, "World Drop", zone, true, nil
+                        end
+                    end
+                    -- No zone filter — surface with the first known zone if any.
+                    if not hasFilter then
+                        local firstZone = nil
+                        for _, areaID in ipairs(srcData) do
+                            firstZone = RecipeBook:GetZoneNameForAreaID(areaID)
+                            if firstZone then break end
+                        end
+                        return srcType, nil, "World Drop", firstZone, true, nil
+                    end
+                end
+            end
+    return nil
+end
+
+-- Build the best single-source summary for a recipe row (first match across
+-- all source types in SOURCE_ORDER).
+local function GetBestSourceSummary(profID, recipeID, filterZone, filterContinent)
+    local sources = RecipeBook.sourceDB[profID] and RecipeBook.sourceDB[profID][recipeID]
+    if not sources then
+        -- No source data at all — default to Trainer (common for basic learned recipes)
+        return "trainer", nil, "Trainer", nil, false
+    end
+    local hasFilter = filterZone or filterContinent
+    local function passes(srcType, srcID)
+        if not hasFilter then return true end
+        return SourcePassesZoneFilter(srcType, srcID, filterZone, filterContinent)
+    end
+    for _, srcType in ipairs(RecipeBook.SOURCE_ORDER) do
+        local srcData = sources[srcType]
+        if srcData then
+            local a, b, c, d, e, f = BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, passes)
+            if a then return a, b, c, d, e, f end
+        end
+    end
+    return nil, nil, nil, nil, false, nil
+end
+
+-- Build one summary per source type for a recipe (for multi-category display).
+-- Returns an array of 6-tuples, in SOURCE_ORDER.
+local function GetAllSourceSummaries(profID, recipeID, filterZone, filterContinent)
+    local sources = RecipeBook.sourceDB[profID] and RecipeBook.sourceDB[profID][recipeID]
+    if not sources then
+        return { { "trainer", nil, "Trainer", nil, false, nil } }
+    end
+    local hasFilter = filterZone or filterContinent
+    local function passes(srcType, srcID)
+        if not hasFilter then return true end
+        return SourcePassesZoneFilter(srcType, srcID, filterZone, filterContinent)
+    end
+    local out = {}
+    for _, srcType in ipairs(RecipeBook.SOURCE_ORDER) do
+        local srcData = sources[srcType]
+        if srcData then
+            local a, b, c, d, e, f = BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, passes)
+            if a then
+                out[#out + 1] = { a, b, c, d, e, f }
             end
         end
     end
-
-    return nil, nil, nil, nil, false
+    return out
 end
 
 -- Check if a recipe has any source accessible to the player's faction
@@ -466,11 +698,16 @@ local function RecipePassesFactionFilter(profID, recipeID, playerFaction)
             for questID in pairs(srcData) do
                 local quest = RecipeBook.questDB and RecipeBook.questDB[questID]
                 if quest then
-                    if not quest.faction then
+                    local qFaction = quest.faction
+                    if not qFaction and quest.startNPC then
+                        local npc = RecipeBook.npcDB and RecipeBook.npcDB[quest.startNPC]
+                        qFaction = npc and npc.faction or nil
+                    end
+                    if not qFaction then
                         return true  -- Neutral quest
                     end
                     hasAnyFactionSource = true
-                    if quest.faction == playerFaction then
+                    if qFaction == playerFaction then
                         return true
                     end
                 end
@@ -544,21 +781,25 @@ local function BuildDisplayData(filters)
         end
 
         if not dominated then
-            local srcType, srcID, srcName, srcZone, isWorldDrop = GetBestSourceSummary(profID, recipeID)
-            if srcType then
-                local entry = {
+            local summaries = GetAllSourceSummaries(profID, recipeID, filters.zone, filters.continent)
+            local count = GetSourceCount(profID, recipeID, filters.playerFaction)
+            local isKnown = RecipeBook:IsRecipeKnown(profID, recipeID)
+            for _, s in ipairs(summaries) do
+                local srcType, srcID, srcName, srcZone, isWorldDrop, dropRate = s[1], s[2], s[3], s[4], s[5], s[6]
+                groups[srcType][#groups[srcType] + 1] = {
                     recipeID = recipeID,
                     requiredSkill = data.requiredSkill or 0,
                     sourceType = srcType,
                     sourceID = srcID,
                     sourceName = srcName,
                     sourceZone = srcZone,
+                    sourceCount = count,
+                    dropRate = dropRate,
                     isWorldDrop = isWorldDrop,
                     isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey),
                     isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey),
                     isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey),
                 }
-                groups[srcType][#groups[srcType] + 1] = entry
             end
         end
     end
@@ -576,6 +817,14 @@ local function BuildDisplayData(filters)
     end
 
     return groups
+end
+
+function RecipeBook:ClearRenderCaches()
+    wipe(recipeQualityCache)
+    for _, row in ipairs(displayedRows) do
+        self:RecycleRow(row)
+    end
+    wipe(displayedRows)
 end
 
 -- Refresh the recipe list display
@@ -679,27 +928,41 @@ function RecipeBook:RefreshRecipeList()
                     -- Skill level
                     row._skillText:SetText(tostring(entry.requiredSkill))
 
-                    -- Source summary
+                    -- Source count
+                    if row._countText then
+                        row._countText:SetText(tostring(entry.sourceCount or 0))
+                    end
+
+                    -- Source summary (always show the chosen best NPC)
                     local sourceStr = entry.sourceName or ""
                     if entry.sourceZone then
                         sourceStr = sourceStr .. " |cff999999(" .. entry.sourceZone .. ")|r"
                     end
-                    if entry.isWorldDrop then
-                        row._sourceText:SetText(sourceStr)
-                        row._sourceText:SetTextColor(UI.COLOR_WORLDDROP.r, UI.COLOR_WORLDDROP.g, UI.COLOR_WORLDDROP.b)
-                    else
-                        row._sourceText:SetText(sourceStr)
-                        row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
+                    row._sourceText:SetText(sourceStr)
+                    row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
+
+                    -- Drop rate %
+                    if row._rateText then
+                        if entry.dropRate then
+                            row._rateText:SetText(string.format("%.1f%%", entry.dropRate))
+                        else
+                            row._rateText:SetText("")
+                        end
                     end
 
                     -- Waypoint arrow
-                    local canWaypoint = not entry.isWorldDrop
-                        and RecipeBook:HasAddressBook() and RecipeBook:HasTomTom()
+                    local questHasStartNPC = false
+                    if entry.sourceType == "quest" and entry.sourceID then
+                        local qd = RecipeBook.questDB and RecipeBook.questDB[entry.sourceID]
+                        if qd and qd.startNPC then questHasStartNPC = true end
+                    end
+                    local canWaypoint = RecipeBook:HasAddressBook() and RecipeBook:HasTomTom()
                         and (entry.sourceType == "trainer"  -- trainers use AB search
                             or (entry.sourceID and entry.sourceID ~= 0
                                 and (entry.sourceType == "vendor"
                                     or entry.sourceType == "drop" or entry.sourceType == "pickpocket"
-                                    or entry.sourceType == "object" or entry.sourceType == "unique")))
+                                    or entry.sourceType == "object" or entry.sourceType == "unique"))
+                            or questHasStartNPC)
 
                     -- Store data on row for handlers
                     row._recipeID = entry.recipeID
@@ -715,7 +978,7 @@ function RecipeBook:RefreshRecipeList()
                         if entry.sourceType == "trainer" then
                             -- For trainers, search AB by profession name
                             local profName = RecipeBook.PROFESSION_NAMES[filters.professionID]
-                            row._npcName = profName
+                            row._npcName = profName .. " Trainer"
                             row._zoneName = nil
                         elseif entry.sourceType == "vendor"
                             or entry.sourceType == "drop" or entry.sourceType == "pickpocket" then
@@ -727,6 +990,12 @@ function RecipeBook:RefreshRecipeList()
                         elseif entry.sourceType == "unique" then
                             row._npcName = self:GetUniqueName(entry.sourceID)
                             row._zoneName = self:GetFirstZoneForUnique(entry.sourceID)
+                        elseif entry.sourceType == "quest" then
+                            local qd = RecipeBook.questDB and RecipeBook.questDB[entry.sourceID]
+                            if qd and qd.startNPC then
+                                row._npcName = self:GetNPCName(qd.startNPC)
+                                row._zoneName = self:GetFirstZoneForNPC(qd.startNPC)
+                            end
                         end
 
                         -- Show arrow; highlight if this is the active waypoint
@@ -768,5 +1037,10 @@ function RecipeBook:RefreshRecipeList()
         self.mainFrame._countText:SetText(
             totalShown .. " shown | " .. totalKnown .. "/" .. totalRecipes .. " known"
         )
+    end
+
+    -- Refresh the sources popup if it's open
+    if self.IsSourcesPopupShown and self:IsSourcesPopupShown() then
+        self:RefreshSourcesPopup()
     end
 end

@@ -7,9 +7,12 @@ ignore:
   - .gitignore
   - .pkgmeta
   - art
+  - screenshot.png
   - screenshots
   - CLAUDE.md
   - .claude
+  - tests
+  - tools
 
 externals:
   Libs/LibStub:

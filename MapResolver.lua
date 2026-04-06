@@ -64,12 +64,18 @@ function RecipeBook:BuildAreaToZoneLookup()
         end
     end
 
-    -- Also collect fishing source keys (they ARE area IDs)
+    -- Also collect fishing source keys (they ARE area IDs) and worldDrop
+    -- area-ID lists (JC designs patched from Wowhead's dropped-by listview).
     if self.sourceDB then
         for profID, recipes in pairs(self.sourceDB) do
             for recipeID, sources in pairs(recipes) do
                 if sources.fishing then
                     for areaID in pairs(sources.fishing) do
+                        areaIDs[areaID] = true
+                    end
+                end
+                if type(sources.worldDrop) == "table" then
+                    for _, areaID in ipairs(sources.worldDrop) do
                         areaIDs[areaID] = true
                     end
                 end
@@ -225,6 +231,14 @@ function RecipeBook:GetContinentForZone(zoneName)
     return zoneToContinent[zoneName]
 end
 
+function RecipeBook:ClearMapCaches()
+    wipe(areaToZone)
+    wipe(zoneToContinent)
+    wipe(continentZones)
+    wipe(continentList)
+    zoneLookup = nil
+end
+
 function RecipeBook:GetCurrentZoneName()
     local mapID = C_Map.GetBestMapForUnit("player")
     if not mapID then return nil end
@@ -276,6 +290,11 @@ function RecipeBook:GetZonesWithSources(profID)
                 end
             elseif srcType == "fishing" then
                 for areaID in pairs(srcData) do
+                    local name = areaToZone[areaID]
+                    if name then zoneSet[name] = true end
+                end
+            elseif srcType == "worldDrop" and type(srcData) == "table" then
+                for _, areaID in ipairs(srcData) do
                     local name = areaToZone[areaID]
                     if name then zoneSet[name] = true end
                 end
