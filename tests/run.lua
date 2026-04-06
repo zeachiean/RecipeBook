@@ -118,9 +118,13 @@ local function run_test_file(filepath)
         table.sort(test_funcs)
     end
 
+    local setup_fn = type(mod) == "table" and type(mod.setup) == "function" and mod.setup or nil
+
     for _, name in ipairs(test_funcs) do
         -- Reset mocks between tests
         if MockWoW and MockWoW.reset then MockWoW.reset() end
+        -- Per-test setup hook (e.g. initialize saved variables)
+        if setup_fn then setup_fn() end
 
         local test_ok, test_err = pcall(mod[name])
         if test_ok then

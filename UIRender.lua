@@ -184,7 +184,7 @@ local function OnRecipeEnter(self)
 
     -- Interaction hints
     if RecipeBook:RecipeHasAnySources(self._profID, self._recipeID) then
-        GameTooltip:AddLine("Right-click to view all sources", 0.5, 0.5, 0.5)
+        GameTooltip:AddLine("Right-click for options", 0.5, 0.5, 0.5)
     end
     GameTooltip:AddLine("Shift-click to link in chat", 0.5, 0.5, 0.5)
 
@@ -242,6 +242,12 @@ local function ShowRecipeContextMenu(row)
             func = function()
                 RecipeBook:ToggleRecipeIgnored(profID, recipeID)
                 RecipeBook:RefreshRecipeList()
+            end,
+        },
+        {
+            text = "Show All Sources",
+            func = function()
+                RecipeBook:ShowSourcesPopup(profID, recipeID)
             end,
         },
         { text = "Cancel", func = function() end },

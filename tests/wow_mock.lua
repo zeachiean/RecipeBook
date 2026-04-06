@@ -296,6 +296,10 @@ SlashCmdList = SlashCmdList or {}
 function UIDropDownMenu_CreateInfo() return {} end
 function UIDropDownMenu_AddButton() end
 function UIDropDownMenu_SetText() end
+function UIDropDownMenu_Initialize() end
+function ToggleDropDownMenu() end
+function ChatEdit_InsertLink() end
+function IsShiftKeyDown() return false end
 
 -- ============================================================
 -- HELPER: set mock state
