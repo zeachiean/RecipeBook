@@ -17,13 +17,13 @@ end
 function T.test_recipes_have_required_fields()
     for _, pid in ipairs(PROFESSIONS) do
         for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            assert_not_nil(data.phase,
+                string.format("[%d][%d] missing phase", pid, rid))
             -- Skill-tier unlock items (teaches = "Expert"/"Artisan"/"Master")
-            -- and pure spell entries (isSpell = true) have no difficulty.
-            if type(data.teaches) ~= "string" and not data.isSpell then
-                assert_not_nil(data.difficulty,
-                    string.format("[%d][%d] missing difficulty", pid, rid))
-                assert_true(type(data.difficulty) == "table",
-                    string.format("[%d][%d] difficulty should be table", pid, rid))
+            -- don't need requiredSkill.
+            if type(data.teaches) ~= "string" then
+                assert_not_nil(data.requiredSkill,
+                    string.format("[%d][%d] missing requiredSkill", pid, rid))
             end
         end
     end

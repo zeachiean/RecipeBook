@@ -289,15 +289,6 @@ RecipeBook.objectDB = {
 			1337,
 		},
 	},
-	[141596] = {
-		names = {
-			enUS = "Witch Doctors Chest",
-		},
-		zones = {
-			2597,
-			1176,
-		},
-	},
 	[141979] = {
 		names = {
 			enUS = "Ancient Treasure",
@@ -485,14 +476,6 @@ RecipeBook.objectDB = {
 		},
 		zones = {
 			141,
-		},
-	},
-	[415614] = {
-		names = {
-			enUS = "Mysterious Formulae",
-		},
-		zones = {
-			719,
 		},
 	},
 }

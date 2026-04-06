@@ -2,7 +2,6 @@ RecipeBook = RecipeBook or {}
 
 RecipeBook.uniqueDB = {
 	[8696] = {
-		level = "36",
 		names = {
 			enUS = "Henry Stern",
 		},
@@ -11,8 +10,6 @@ RecipeBook.uniqueDB = {
 		},
 	},
 	[8983] = {
-		classification = "Elite",
-		level = "57",
 		names = {
 			enUS = "Golem Lord Argelmach",
 		},
@@ -21,8 +18,6 @@ RecipeBook.uniqueDB = {
 		},
 	},
 	[9037] = {
-		classification = "Elite",
-		level = "56",
 		names = {
 			enUS = "Gloomrel",
 		},
@@ -31,8 +26,6 @@ RecipeBook.uniqueDB = {
 		},
 	},
 	[10503] = {
-		classification = "Elite",
-		level = "61",
 		names = {
 			enUS = "Jandice Barov",
 		},
@@ -41,8 +34,6 @@ RecipeBook.uniqueDB = {
 		},
 	},
 	[11340] = {
-		classification = "Elite",
-		level = "61",
 		names = {
 			enUS = "Hakkari Blood Priest",
 		},
@@ -51,23 +42,11 @@ RecipeBook.uniqueDB = {
 		},
 	},
 	[14401] = {
-		classification = "Elite",
-		level = "60",
 		names = {
 			enUS = "Master Elemental Shaper Krixix",
 		},
 		zones = {
 			2677,
-		},
-	},
-	[16365] = {
-		classification = "Elite",
-		level = "60",
-		names = {
-			enUS = "Master Craftsman Omarion",
-		},
-		zones = {
-			3456,
 		},
 	},
 }

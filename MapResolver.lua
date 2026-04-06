@@ -231,6 +231,14 @@ function RecipeBook:GetContinentForZone(zoneName)
     return zoneToContinent[zoneName]
 end
 
+function RecipeBook:ClearMapCaches()
+    wipe(areaToZone)
+    wipe(zoneToContinent)
+    wipe(continentZones)
+    wipe(continentList)
+    zoneLookup = nil
+end
+
 function RecipeBook:GetCurrentZoneName()
     local mapID = C_Map.GetBestMapForUnit("player")
     if not mapID then return nil end

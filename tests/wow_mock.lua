@@ -354,7 +354,6 @@ function MockWoW._loadAddonFiles()
     dofile("Data/Objects.lua")
     dofile("Data/Quests.lua")
     dofile("Data/Unique.lua")
-    dofile("Data/Phases.lua")
 
     -- Logic files
     dofile("MapResolver.lua")

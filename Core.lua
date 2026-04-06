@@ -409,19 +409,11 @@ function RecipeBook:GetRecipePhase(profID, recipeID)
     local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
     if not data then return 1 end
 
-    -- Per-recipe explicit phase is authoritative. Currently sourced from
-    -- RecipeMaster_TBC's hand-curated annotations for Jewelcrafting; other
-    -- professions fall through to dataset + zone inference.
+    -- Per-recipe explicit phase is authoritative (all recipes now carry one,
+    -- sourced from RecipeMaster_TBC's hand-curated annotations).
     if data.phase then return data.phase end
 
     local maxPhase = 1
-
-    -- Dataset lookup (spell-keyed and item-keyed)
-    local spellPhase = data.teaches and self.recipeSpellPhases
-        and self.recipeSpellPhases[data.teaches]
-    if spellPhase and spellPhase > maxPhase then maxPhase = spellPhase end
-    local itemPhase = self.recipePhases and self.recipePhases[recipeID]
-    if itemPhase and itemPhase > maxPhase then maxPhase = itemPhase end
 
     -- Zone-based inference from every source: any phase-gated zone bumps
     -- the recipe up to that zone's phase.
@@ -583,13 +575,45 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
     end
 end
 
+-- Release runtime caches when the main window is closed.
+-- Static data tables (recipeDB, sourceDB, npcDB, etc.) are kept — they're
+-- loaded once from Lua files and cannot be rebuilt without /reload.
+function RecipeBook:OnClose()
+    -- UI row frames and render caches
+    self:ClearRenderCaches()
+    self:CleanupSourcesPopup()
+
+    -- Name / icon / quality caches (rebuilt lazily or on next open)
+    wipe(self.recipeNames)
+    wipe(self.recipeIcons)
+    wipe(self.itemNames)
+
+    -- Map and lookup caches
+    self:ClearMapCaches()
+    self:ClearTeachesCache()
+
+    -- Return pooled frames (can't truly free frames, but release references)
+    wipe(self.framePool)
+end
+
+-- Rebuild caches when the main window is opened.
+function RecipeBook:OnOpen()
+    self:BuildMapLookup()
+    self:BuildAreaToZoneLookup()
+    self:BuildContinentZoneMap()
+    self:CacheRecipeNames()
+    self:CacheItemSourceNames()
+end
+
 function RecipeBook:Toggle()
     if not self.mainFrame then
         self:CreateMainFrame()
+        self.mainFrame:HookScript("OnHide", function() self:OnClose() end)
     end
     if self.mainFrame:IsShown() then
         self.mainFrame:Hide()
     else
+        self:OnOpen()
         self.mainFrame:Show()
         self:RefreshRecipeList()
     end

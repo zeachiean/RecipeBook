@@ -83,7 +83,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[61] = {
-		classification = "Rare",
 		level = "11",
 		names = {
 			enUS = "Thuros Lightfingers",
@@ -154,16 +153,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			40,
-		},
-	},
-	[99] = {
-		classification = "Rare",
-		level = "10",
-		names = {
-			enUS = "Morgaine The Sly",
-		},
-		zones = {
-			12,
 		},
 	},
 	[113] = {
@@ -311,7 +300,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[193] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Blue Dragonspawn",
@@ -467,7 +455,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[314] = {
-		classification = "Elite",
 		level = "31",
 		names = {
 			enUS = "Eliza",
@@ -504,7 +491,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[334] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Gathilzogg",
@@ -514,7 +500,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[335] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Singe",
@@ -561,7 +546,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[412] = {
-		classification = "Elite",
 		level = "35",
 		names = {
 			enUS = "Stitches",
@@ -679,7 +663,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[436] = {
-		classification = "Elite",
 		level = "22 - 23",
 		names = {
 			enUS = "Blackrock Shadowcaster",
@@ -744,7 +727,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[448] = {
-		classification = "Elite",
 		level = "11",
 		names = {
 			enUS = "Hogger",
@@ -824,7 +806,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[471] = {
-		classification = "Rare",
 		level = "10",
 		names = {
 			enUS = "Mother Fang",
@@ -906,7 +887,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[486] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Tharilzun",
@@ -961,7 +941,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[506] = {
-		classification = "Rare",
 		level = "18",
 		names = {
 			enUS = "Sergeant Brashclaw",
@@ -971,7 +950,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[507] = {
-		classification = "Rare",
 		level = "32",
 		names = {
 			enUS = "Fenros",
@@ -1036,7 +1014,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[520] = {
-		classification = "Rare",
 		level = "19",
 		names = {
 			enUS = "Brack",
@@ -1046,7 +1023,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[521] = {
-		classification = "Rare",
 		level = "23",
 		names = {
 			enUS = "Lupos",
@@ -1056,7 +1032,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[522] = {
-		classification = "Elite",
 		level = "35",
 		names = {
 			enUS = "Morladim",
@@ -1256,7 +1231,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[594] = {
-		classification = "Elite",
 		level = "15 - 16",
 		names = {
 			enUS = "Defias Henchman",
@@ -1293,7 +1267,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[599] = {
-		classification = "Rare Elite",
 		level = "18",
 		names = {
 			enUS = "Marisa Dupaige",
@@ -1321,7 +1294,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[619] = {
-		classification = "Elite",
 		level = "15 - 16",
 		names = {
 			enUS = "Defias Conjurer",
@@ -1331,7 +1303,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[622] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Goblin Engineer",
@@ -1341,7 +1312,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[623] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Skeletal Miner",
@@ -1351,7 +1321,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[624] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Undead Excavator",
@@ -1361,7 +1330,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[625] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Undead Dynamiter",
@@ -1371,7 +1339,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[626] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Foreman Thistlenettle",
@@ -1390,7 +1357,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[634] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Defias Overseer",
@@ -1400,7 +1366,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[636] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Defias Blackguard",
@@ -1410,7 +1375,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[639] = {
-		classification = "Rare Elite",
 		level = "21",
 		names = {
 			enUS = "Edwin Vancleef",
@@ -1420,7 +1384,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[641] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Goblin Woodcarver",
@@ -1430,7 +1393,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[642] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Sneeds Shredder",
@@ -1440,7 +1402,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[643] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Sneed",
@@ -1450,7 +1411,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[644] = {
-		classification = "Elite",
 		level = "19",
 		names = {
 			enUS = "Rhahkzor",
@@ -1460,7 +1420,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[645] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Cookie",
@@ -1470,7 +1429,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[646] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Mr Smite",
@@ -1480,7 +1438,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[647] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Captain Greenskin",
@@ -1490,7 +1447,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[657] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Defias Pirate",
@@ -1571,15 +1527,6 @@ RecipeBook.npcDB = {
 			33,
 		},
 	},
-	[676] = {
-		level = "41 - 42",
-		names = {
-			enUS = "Venture Co Surveyor",
-		},
-		zones = {
-			33,
-		},
-	},
 	[677] = {
 		level = "40 - 41",
 		names = {
@@ -1590,7 +1537,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[678] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Moshogg Mauler",
@@ -1600,7 +1546,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[679] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Moshogg Shaman",
@@ -1610,7 +1555,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[680] = {
-		classification = "Elite",
 		level = "45",
 		names = {
 			enUS = "Moshogg Lord",
@@ -1792,7 +1736,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[709] = {
-		classification = "Elite",
 		level = "41 - 42",
 		names = {
 			enUS = "Moshogg Warmonger",
@@ -1802,7 +1745,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[710] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Moshogg Spellcrafter",
@@ -1839,7 +1781,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[730] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Tethis",
@@ -1849,7 +1790,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[731] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "King Bangalash",
@@ -2185,7 +2125,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[813] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Colonel Kurzen",
@@ -2195,7 +2134,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[818] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Maizoth",
@@ -2333,7 +2271,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[871] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Saltscale Warrior",
@@ -2343,7 +2280,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[873] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Saltscale Oracle",
@@ -2353,7 +2289,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[875] = {
-		classification = "Elite",
 		level = "37",
 		names = {
 			enUS = "Saltscale Tide Lord",
@@ -2363,7 +2298,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[877] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Saltscale Forager",
@@ -2373,7 +2307,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[879] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Saltscale Hunter",
@@ -2623,15 +2556,6 @@ RecipeBook.npcDB = {
 		level = "32 - 33",
 		names = {
 			enUS = "Kurzen War Tiger",
-		},
-		zones = {
-			33,
-		},
-	},
-	[977] = {
-		level = "32 - 33",
-		names = {
-			enUS = "Kurzen War Panther",
 		},
 		zones = {
 			33,
@@ -2963,7 +2887,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1045] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Red Dragonspawn",
@@ -2973,7 +2896,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1046] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Red Wyrmkin",
@@ -2983,7 +2905,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1047] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Red Scalebane",
@@ -2993,7 +2914,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1048] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Scalebane Lieutenant",
@@ -3003,7 +2923,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1049] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Wyrmkin Firebrand",
@@ -3013,7 +2932,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1050] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Scalebane Royal Guard",
@@ -3023,7 +2941,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1051] = {
-		classification = "Elite",
 		level = "27 - 28",
 		names = {
 			enUS = "Dark Iron Dwarf",
@@ -3033,7 +2950,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1052] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Dark Iron Saboteur",
@@ -3044,7 +2960,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1053] = {
-		classification = "Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Dark Iron Tunneler",
@@ -3054,7 +2969,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1054] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Dark Iron Demolitionist",
@@ -3082,7 +2996,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1060] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Mogh The Undying",
@@ -3255,7 +3168,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1112] = {
-		classification = "Rare",
 		level = "24",
 		names = {
 			enUS = "Leech Widow",
@@ -3310,7 +3222,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1119] = {
-		classification = "Rare",
 		level = "12",
 		names = {
 			enUS = "Hammerspine",
@@ -3355,24 +3266,6 @@ RecipeBook.npcDB = {
 			1,
 		},
 	},
-	[1124] = {
-		level = "9 - 10",
-		names = {
-			enUS = "Frostmane Shadowcaster",
-		},
-		zones = {
-			1,
-		},
-	},
-	[1125] = {
-		level = "5 - 6",
-		names = {
-			enUS = "Crag Boar",
-		},
-		zones = {
-			1,
-		},
-	},
 	[1126] = {
 		level = "6 - 7",
 		names = {
@@ -3395,15 +3288,6 @@ RecipeBook.npcDB = {
 		level = "5 - 6",
 		names = {
 			enUS = "Young Black Bear",
-		},
-		zones = {
-			1,
-		},
-	},
-	[1131] = {
-		level = "7 - 8",
-		names = {
-			enUS = "Winter Wolf",
 		},
 		zones = {
 			1,
@@ -3666,7 +3550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1178] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Mogrosh Ogre",
@@ -3676,7 +3559,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1179] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Mogrosh Enforcer",
@@ -3686,7 +3568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1180] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Mogrosh Brute",
@@ -3696,7 +3577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1181] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Mogrosh Shaman",
@@ -3706,7 +3586,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1183] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Mogrosh Mystic",
@@ -3842,7 +3721,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1200] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Morbent Fel",
@@ -3897,7 +3775,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1210] = {
-		classification = "Elite",
 		level = "22",
 		names = {
 			enUS = "Choksul",
@@ -3944,7 +3821,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1225] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Ol Sooty",
@@ -4039,7 +3915,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1271] = {
-		classification = "Elite",
 		level = "11",
 		names = {
 			enUS = "Old Icebeard",
@@ -4138,7 +4013,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1364] = {
-		classification = "Elite",
 		level = "34",
 		names = {
 			enUS = "Balgaras The Foul",
@@ -4197,7 +4071,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1388] = {
-		classification = "Elite",
 		level = "11",
 		names = {
 			enUS = "Vagash",
@@ -4261,7 +4134,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1425] = {
-		classification = "Rare",
 		level = "15",
 		names = {
 			enUS = "Grizlak",
@@ -4395,7 +4267,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1492] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Gorlash",
@@ -4405,7 +4276,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1493] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Mokrash",
@@ -4415,7 +4285,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1494] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Negolash",
@@ -4533,7 +4402,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1531] = {
-		classification = "Rare",
 		level = "6 - 7",
 		names = {
 			enUS = "Lost Soul",
@@ -4659,15 +4527,6 @@ RecipeBook.npcDB = {
 			85,
 		},
 	},
-	[1549] = {
-		level = "9 - 10",
-		names = {
-			enUS = "Ravenous Darkhound",
-		},
-		zones = {
-			85,
-		},
-	},
 	[1550] = {
 		level = "41 - 42",
 		names = {
@@ -4723,7 +4582,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1559] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "King Mukla",
@@ -4860,7 +4718,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1663] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Dextren Ward",
@@ -4888,7 +4745,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1666] = {
-		classification = "Elite",
 		level = "27",
 		names = {
 			enUS = "Kam Deepfury",
@@ -4904,15 +4760,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			40,
-		},
-	},
-	[1674] = {
-		level = "6 - 7",
-		names = {
-			enUS = "Rot Hide Gnoll",
-		},
-		zones = {
-			85,
 		},
 	},
 	[1675] = {
@@ -4983,7 +4830,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1696] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Targorr The Dread",
@@ -5033,7 +4879,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1706] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Defias Prisoner",
@@ -5043,7 +4888,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1707] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Defias Captive",
@@ -5053,7 +4897,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1708] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Defias Inmate",
@@ -5063,7 +4906,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1711] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Defias Convict",
@@ -5082,7 +4924,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1715] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Defias Insurgent",
@@ -5092,7 +4933,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1716] = {
-		classification = "Elite",
 		level = "29",
 		names = {
 			enUS = "Bazil Thredd",
@@ -5102,7 +4942,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1717] = {
-		classification = "Elite",
 		level = "28",
 		names = {
 			enUS = "Hamhock",
@@ -5121,7 +4960,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1720] = {
-		classification = "Rare Elite",
 		level = "26",
 		names = {
 			enUS = "Bruegal Ironknuckle",
@@ -5131,7 +4969,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1725] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Defias Watchman",
@@ -5141,7 +4978,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1726] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Defias Magician",
@@ -5160,7 +4996,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1729] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Defias Evoker",
@@ -5170,7 +5005,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1731] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Goblin Craftsman",
@@ -5180,7 +5014,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1732] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Defias Squallshaper",
@@ -5218,7 +5051,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1763] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Gilnid",
@@ -5235,15 +5067,6 @@ RecipeBook.npcDB = {
 		zones = {
 			130,
 			85,
-		},
-	},
-	[1766] = {
-		level = "11 - 12",
-		names = {
-			enUS = "Mottled Worg",
-		},
-		zones = {
-			130,
 		},
 	},
 	[1767] = {
@@ -5382,7 +5205,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1788] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Skeletal Warlord",
@@ -5473,7 +5295,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1805] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Flesh Golem",
@@ -5594,7 +5415,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1827] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Scarlet Sentinel",
@@ -5613,7 +5433,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1832] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Scarlet Magus",
@@ -5632,7 +5451,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1834] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Scarlet Paladin",
@@ -5651,7 +5469,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1836] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Scarlet Cavalier",
@@ -5661,20 +5478,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1843] = {
-		classification = "Rare Elite",
 		level = "62",
 		names = {
 			enUS = "Foreman Jerris",
-		},
-		zones = {
-			28,
-		},
-	},
-	[1844] = {
-		classification = "Rare",
-		level = "58",
-		names = {
-			enUS = "Foreman Marcrid",
 		},
 		zones = {
 			28,
@@ -5690,7 +5496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1846] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "High Protector Lorik",
@@ -5700,7 +5505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1852] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Araj The Summoner",
@@ -5710,7 +5514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1853] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Darkmaster Gandling",
@@ -5793,7 +5596,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1885] = {
-		classification = "Rare",
 		level = "58 - 59",
 		names = {
 			enUS = "Scarlet Smith",
@@ -5832,7 +5634,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1891] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "13 - 14",
 		names = {
@@ -5843,7 +5644,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1892] = {
-		classification = "Elite",
 		level = "13 - 14",
 		names = {
 			enUS = "Moonrage Watcher",
@@ -5853,7 +5653,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1893] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Moonrage Sentry",
@@ -5863,7 +5662,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1894] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "14 - 15",
 		names = {
@@ -5874,7 +5672,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1895] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "14 - 15",
 		names = {
@@ -5885,7 +5682,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1896] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Moonrage Elder",
@@ -6007,7 +5803,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1936] = {
-		classification = "Rare",
 		level = "8",
 		names = {
 			enUS = "Farmer Solliden",
@@ -6062,7 +5857,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[1947] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Thule Ravenclaw",
@@ -6102,15 +5896,6 @@ RecipeBook.npcDB = {
 		level = "18 - 19",
 		names = {
 			enUS = "Elder Lake Creeper",
-		},
-		zones = {
-			130,
-		},
-	},
-	[1957] = {
-		level = "16 - 17",
-		names = {
-			enUS = "Vile Fin Shorecreeper",
 		},
 		zones = {
 			130,
@@ -6534,7 +6319,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2060] = {
-		classification = "Elite",
 		level = "12",
 		names = {
 			enUS = "Councilman Smithers",
@@ -6543,18 +6327,7 @@ RecipeBook.npcDB = {
 			130,
 		},
 	},
-	[2062] = {
-		classification = "Elite",
-		level = "13",
-		names = {
-			enUS = "Councilman Hendricks",
-		},
-		zones = {
-			130,
-		},
-	},
 	[2063] = {
-		classification = "Elite",
 		level = "13",
 		names = {
 			enUS = "Councilman Wilhelm",
@@ -6564,7 +6337,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2064] = {
-		classification = "Elite",
 		level = "13",
 		names = {
 			enUS = "Councilman Hartin",
@@ -6574,7 +6346,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2066] = {
-		classification = "Elite",
 		level = "13",
 		names = {
 			enUS = "Councilman Higarth",
@@ -6584,7 +6355,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2067] = {
-		classification = "Elite",
 		level = "13",
 		names = {
 			enUS = "Councilman Brunswick",
@@ -6594,7 +6364,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2068] = {
-		classification = "Elite",
 		level = "15",
 		names = {
 			enUS = "Lord Mayor Morrison",
@@ -6640,7 +6409,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2091] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Chieftain Nekrosh",
@@ -6668,7 +6436,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2106] = {
-		classification = "Elite",
 		level = "16",
 		names = {
 			enUS = "Apothecary Berard",
@@ -6807,7 +6574,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2166] = {
-		classification = "Elite",
 		level = "9",
 		names = {
 			enUS = "Oakenscowl",
@@ -6943,7 +6709,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2184] = {
-		classification = "Rare",
 		level = "17",
 		names = {
 			enUS = "Lady Moongazer",
@@ -6962,7 +6727,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2186] = {
-		classification = "Rare",
 		level = "16",
 		names = {
 			enUS = "Carnivous The Breaker",
@@ -6999,7 +6763,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2191] = {
-		classification = "Rare",
 		level = "14",
 		names = {
 			enUS = "Licillin",
@@ -7279,7 +7042,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2254] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Crushridge Mauler",
@@ -7289,7 +7051,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2255] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Crushridge Mage",
@@ -7299,7 +7060,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2256] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Crushridge Enforcer",
@@ -7309,7 +7069,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2257] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Mugthol",
@@ -7427,7 +7186,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2287] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Crushridge Warmonger",
@@ -7437,7 +7195,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2304] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "32",
 		names = {
@@ -7615,7 +7372,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2344] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "28 - 29",
 		names = {
@@ -7626,7 +7382,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2345] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "29 - 30",
 		names = {
@@ -7637,7 +7392,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2346] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "29 - 30",
 		names = {
@@ -8008,7 +7762,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2416] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Crushridge Plunderer",
@@ -8018,7 +7771,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2417] = {
-		classification = "Elite",
 		level = "39",
 		names = {
 			enUS = "Grelborg The Miser",
@@ -8028,7 +7780,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2420] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "Targ",
@@ -8038,7 +7789,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2421] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Muckrake",
@@ -8048,7 +7798,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2422] = {
-		classification = "Elite",
 		level = "39",
 		names = {
 			enUS = "Glommus",
@@ -8150,7 +7899,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2452] = {
-		classification = "Rare",
 		level = "36",
 		names = {
 			enUS = "Skhowl",
@@ -8160,7 +7908,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2478] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "19 - 21",
 		names = {
@@ -8186,15 +7933,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			10,
-		},
-	},
-	[2482] = {
-		level = "43",
-		names = {
-			enUS = "Zarena Cromwind",
-		},
-		zones = {
-			33,
 		},
 	},
 	[2483] = {
@@ -8235,7 +7973,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2529] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Son Of Arugal",
@@ -8275,15 +8012,6 @@ RecipeBook.npcDB = {
 		level = "43 - 44",
 		names = {
 			enUS = "Jon Jon The Crow",
-		},
-		zones = {
-			33,
-		},
-	},
-	[2537] = {
-		level = "43 - 44",
-		names = {
-			enUS = "Chucky Ten Thumbs",
 		},
 		zones = {
 			33,
@@ -8352,15 +8080,6 @@ RecipeBook.npcDB = {
 			33,
 		},
 	},
-	[2552] = {
-		level = "30 - 31",
-		names = {
-			enUS = "Witherbark Troll",
-		},
-		zones = {
-			45,
-		},
-	},
 	[2553] = {
 		level = "31 - 32",
 		names = {
@@ -8407,7 +8126,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2558] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Witherbark Berserker",
@@ -8498,7 +8216,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2569] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Boulderfist Mauler",
@@ -8508,7 +8225,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2570] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Boulderfist Shaman",
@@ -8518,7 +8234,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2571] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Boulderfist Lord",
@@ -8602,7 +8317,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2583] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "37 - 38",
 		names = {
@@ -8613,7 +8327,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2584] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "38 - 39",
 		names = {
@@ -8624,7 +8337,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2585] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "39 - 40",
 		names = {
@@ -8653,7 +8365,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2588] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Syndicate Prowler",
@@ -8672,7 +8383,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2590] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Syndicate Conjuror",
@@ -8682,7 +8392,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2591] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Syndicate Magus",
@@ -8719,7 +8428,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2597] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Lord Falconcrest",
@@ -8729,7 +8437,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2602] = {
-		classification = "Rare Elite",
 		level = "39",
 		names = {
 			enUS = "Ruul Onestone",
@@ -8738,18 +8445,7 @@ RecipeBook.npcDB = {
 			45,
 		},
 	},
-	[2606] = {
-		classification = "Rare",
-		level = "37",
-		names = {
-			enUS = "Nimar The Slayer",
-		},
-		zones = {
-			45,
-		},
-	},
 	[2611] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Fozruk",
@@ -8834,7 +8530,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2641] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Vilebranch Headhunter",
@@ -8844,7 +8539,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2642] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Vilebranch Shadowcaster",
@@ -8854,7 +8548,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2643] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Vilebranch Berserker",
@@ -8864,7 +8557,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2644] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Vilebranch Hideskinner",
@@ -8874,7 +8566,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2645] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Vilebranch Shadow Hunter",
@@ -8884,7 +8575,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2646] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Vilebranch Blood Drinker",
@@ -8894,7 +8584,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2647] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Vilebranch Soul Eater",
@@ -8904,7 +8593,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2648] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Vilebranch Amanzasi Guard",
@@ -9081,7 +8769,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2681] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Vilebranch Raiding Wolf",
@@ -9280,15 +8967,6 @@ RecipeBook.npcDB = {
 			3,
 		},
 	},
-	[2719] = {
-		level = "44 - 45",
-		names = {
-			enUS = "Dustbelcher Lord",
-		},
-		zones = {
-			3,
-		},
-	},
 	[2720] = {
 		level = "43 - 44",
 		names = {
@@ -9328,7 +9006,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2726] = {
-		classification = "Elite",
 		level = "43 - 45",
 		names = {
 			enUS = "Scorched Guardian",
@@ -9420,7 +9097,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2738] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "36 - 37",
 		names = {
@@ -9467,7 +9143,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2748] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Archaedas",
@@ -9477,7 +9152,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2755] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Myzrael",
@@ -9514,7 +9188,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2763] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Thenan",
@@ -9524,7 +9197,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2773] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Orkalar",
@@ -9533,19 +9205,7 @@ RecipeBook.npcDB = {
 			45,
 		},
 	},
-	[2780] = {
-		classification = "Elite",
-		faction = "Alliance",
-		level = "41",
-		names = {
-			enUS = "Caretaker Nevlin",
-		},
-		zones = {
-			45,
-		},
-	},
 	[2781] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "41",
 		names = {
@@ -9556,7 +9216,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2783] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Marez Cowl",
@@ -9584,7 +9243,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2794] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "38",
 		names = {
@@ -9797,7 +9455,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2892] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Stonevault Seer",
@@ -9906,7 +9563,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[2937] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Dagun The Ravenous",
@@ -10286,26 +9942,6 @@ RecipeBook.npcDB = {
 			215,
 		},
 	},
-	[3056] = {
-		classification = "Rare",
-		level = "12",
-		names = {
-			enUS = "Ghost Howl",
-		},
-		zones = {
-			215,
-			1638,
-		},
-	},
-	[3058] = {
-		level = "11",
-		names = {
-			enUS = "Arrachea",
-		},
-		zones = {
-			215,
-		},
-	},
 	[3067] = {
 		faction = "Horde",
 		level = "12",
@@ -10553,17 +10189,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			14,
-		},
-	},
-	[3126] = {
-		level = "7 - 8",
-		names = {
-			enUS = "Armored Scorpid",
-		},
-		zones = {
-			14,
-			1637,
-			17,
 		},
 	},
 	[3127] = {
@@ -11117,7 +10742,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3270] = {
-		classification = "Rare Elite",
 		level = "15",
 		names = {
 			enUS = "Elder Mystic Razorsnout",
@@ -11610,7 +11234,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3398] = {
-		classification = "Rare Elite",
 		level = "20",
 		names = {
 			enUS = "Gesharahan",
@@ -11869,7 +11492,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3470] = {
-		classification = "Rare",
 		level = "15",
 		names = {
 			enUS = "Rathorian",
@@ -12049,7 +11671,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3528] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "14 - 15",
 		names = {
@@ -12060,7 +11681,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3530] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "14 - 15",
 		names = {
@@ -12071,7 +11691,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3531] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Moonrage Tailor",
@@ -12081,7 +11700,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3532] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "14 - 15",
 		names = {
@@ -12092,7 +11710,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3533] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Moonrage Leatherworker",
@@ -12171,7 +11788,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3586] = {
-		classification = "Rare Elite",
 		level = "19",
 		names = {
 			enUS = "Miner Johnson",
@@ -12221,7 +11837,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3630] = {
-		classification = "Elite",
 		level = "15 - 16",
 		names = {
 			enUS = "Deviate Coiler",
@@ -12231,7 +11846,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3631] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Deviate Stinglash",
@@ -12241,7 +11855,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3632] = {
-		classification = "Elite",
 		level = "15 - 16",
 		names = {
 			enUS = "Deviate Creeper",
@@ -12251,7 +11864,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3633] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Deviate Slayer",
@@ -12261,7 +11873,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3634] = {
-		classification = "Elite",
 		level = "15 - 17",
 		names = {
 			enUS = "Deviate Stalker",
@@ -12271,7 +11882,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3636] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Deviate Ravager",
@@ -12281,7 +11891,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3637] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Deviate Guardian",
@@ -12291,7 +11900,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3638] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Devouring Ectoplasm",
@@ -12301,7 +11909,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3640] = {
-		classification = "Elite",
 		level = "17 - 18",
 		names = {
 			enUS = "Evolving Ectoplasm",
@@ -12311,7 +11918,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3641] = {
-		classification = "Elite",
 		level = "16 - 17",
 		names = {
 			enUS = "Deviate Lurker",
@@ -12321,7 +11927,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3652] = {
-		classification = "Rare Elite",
 		level = "19",
 		names = {
 			enUS = "Trigore The Lasher",
@@ -12331,7 +11936,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3653] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Kresh",
@@ -12341,7 +11945,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3654] = {
-		classification = "Elite",
 		level = "22",
 		names = {
 			enUS = "Mutanus The Devourer",
@@ -12351,7 +11954,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3655] = {
-		classification = "Elite",
 		level = "18",
 		names = {
 			enUS = "Mad Magglish",
@@ -12388,7 +11990,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3669] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Lord Cobrahn",
@@ -12398,7 +11999,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3670] = {
-		classification = "Elite",
 		level = "21",
 		names = {
 			enUS = "Lord Pythas",
@@ -12408,7 +12008,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3671] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Lady Anacondra",
@@ -12418,7 +12017,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3672] = {
-		classification = "Rare Elite",
 		level = "20",
 		names = {
 			enUS = "Boahn",
@@ -12428,7 +12026,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3674] = {
-		classification = "Elite",
 		level = "21",
 		names = {
 			enUS = "Skum",
@@ -12793,15 +12390,6 @@ RecipeBook.npcDB = {
 			331,
 		},
 	},
-	[3774] = {
-		level = "22 - 23",
-		names = {
-			enUS = "Felslayer",
-		},
-		zones = {
-			331,
-		},
-	},
 	[3780] = {
 		level = "21 - 23",
 		names = {
@@ -13099,7 +12687,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3840] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Druid Of The Fang",
@@ -13109,7 +12696,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3849] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "18",
 		names = {
@@ -13120,7 +12706,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3850] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "18",
 		names = {
@@ -13131,7 +12716,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3851] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Shadowfang Whitescalp",
@@ -13141,7 +12725,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3853] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Shadowfang Moonwalker",
@@ -13151,7 +12734,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3854] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Shadowfang Wolfguard",
@@ -13161,7 +12743,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3855] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Shadowfang Darksoul",
@@ -13171,7 +12752,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3857] = {
-		classification = "Elite",
 		level = "21 - 22",
 		names = {
 			enUS = "Shadowfang Glutton",
@@ -13181,7 +12761,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3859] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Shadowfang Ragetooth",
@@ -13191,7 +12770,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3861] = {
-		classification = "Elite",
 		level = "18 - 25",
 		names = {
 			enUS = "Bleak Worg",
@@ -13201,7 +12779,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3862] = {
-		classification = "Elite",
 		level = "18 - 25",
 		names = {
 			enUS = "Slavering Worg",
@@ -13211,7 +12788,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3863] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Lupine Horror",
@@ -13221,7 +12797,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3864] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Fel Steed",
@@ -13231,7 +12806,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3865] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Shadow Charger",
@@ -13241,7 +12815,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3866] = {
-		classification = "Elite",
 		level = "22 - 23",
 		names = {
 			enUS = "Vile Bat",
@@ -13251,7 +12824,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3868] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Blood Seeker",
@@ -13261,7 +12833,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3872] = {
-		classification = "Rare Elite",
 		level = "25",
 		names = {
 			enUS = "Deathsworn Captain",
@@ -13271,7 +12842,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3873] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Tormented Officer",
@@ -13281,7 +12851,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3875] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Haunted Servitor",
@@ -13291,7 +12860,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3877] = {
-		classification = "Elite",
 		level = "21 - 22",
 		names = {
 			enUS = "Wailing Guardsman",
@@ -13320,7 +12888,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3886] = {
-		classification = "Elite",
 		level = "22",
 		names = {
 			enUS = "Razorclaw The Butcher",
@@ -13330,7 +12897,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3887] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Baron Silverlaine",
@@ -13358,7 +12924,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3914] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Rethilgore",
@@ -13440,7 +13005,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3927] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Wolf Master Nandos",
@@ -13495,7 +13059,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3947] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Goblin Shipbuilder",
@@ -13575,7 +13138,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3974] = {
-		classification = "Elite",
 		level = "34",
 		names = {
 			enUS = "Houndmaster Loksey",
@@ -13585,7 +13147,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3975] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Herod",
@@ -13595,7 +13156,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3976] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Scarlet Commander Mograine",
@@ -13605,7 +13165,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3983] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Interrogator Vishas",
@@ -13615,7 +13174,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3984] = {
-		classification = "Elite",
 		level = "33",
 		names = {
 			enUS = "Nancy Vishas",
@@ -13625,7 +13183,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[3985] = {
-		classification = "Elite",
 		level = "34",
 		names = {
 			enUS = "Grandpa Vishas",
@@ -13960,7 +13517,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4030] = {
-		classification = "Rare",
 		level = "29 - 30",
 		names = {
 			enUS = "Vengeful Ancient",
@@ -14069,7 +13625,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4050] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25 - 26",
 		names = {
@@ -14090,7 +13645,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4052] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "26 - 27",
 		names = {
@@ -14121,7 +13675,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4056] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "26 - 27",
 		names = {
@@ -14142,7 +13695,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4061] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25 - 26",
 		names = {
@@ -14163,7 +13715,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4064] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Blackrock Scout",
@@ -14173,7 +13724,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4065] = {
-		classification = "Elite",
 		level = "21 - 22",
 		names = {
 			enUS = "Blackrock Sentry",
@@ -14817,15 +14367,6 @@ RecipeBook.npcDB = {
 			406,
 		},
 	},
-	[4264] = {
-		level = "22",
-		names = {
-			enUS = "Deepmoss Matriarch",
-		},
-		zones = {
-			406,
-		},
-	},
 	[4265] = {
 		faction = "Alliance",
 		level = "20",
@@ -14847,7 +14388,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4274] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Fenrus The Devourer",
@@ -14857,7 +14397,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4275] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Archmage Arugal",
@@ -14867,7 +14406,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4278] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Commander Springvale",
@@ -14877,7 +14415,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4279] = {
-		classification = "Elite",
 		level = "24",
 		names = {
 			enUS = "Odo The Blindwatcher",
@@ -14887,7 +14424,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4280] = {
-		classification = "Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Scarlet Preserver",
@@ -14897,7 +14433,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4281] = {
-		classification = "Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Scarlet Scout",
@@ -14907,7 +14442,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4282] = {
-		classification = "Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Scarlet Magician",
@@ -14917,7 +14451,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4283] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Scarlet Sentry",
@@ -14927,7 +14460,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4284] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Scarlet Augur",
@@ -14937,7 +14469,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4285] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Scarlet Disciple",
@@ -14947,7 +14478,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4286] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Scarlet Soldier",
@@ -14957,7 +14487,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4287] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Scarlet Gallant",
@@ -14967,7 +14496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4288] = {
-		classification = "Elite",
 		level = "34 - 35",
 		names = {
 			enUS = "Scarlet Beastmaster",
@@ -14977,7 +14505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4289] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Scarlet Evoker",
@@ -14987,7 +14514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4290] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Scarlet Guardsman",
@@ -14997,7 +14523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4291] = {
-		classification = "Elite",
 		level = "34 - 35",
 		names = {
 			enUS = "Scarlet Diviner",
@@ -15007,7 +14532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4292] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Scarlet Protector",
@@ -15017,7 +14541,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4293] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Scarlet Scryer",
@@ -15027,7 +14550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4294] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Scarlet Sorcerer",
@@ -15037,7 +14559,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4295] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Scarlet Myrmidon",
@@ -15047,7 +14568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4296] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Scarlet Adept",
@@ -15057,7 +14577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4297] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Scarlet Conjuror",
@@ -15067,7 +14586,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4298] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Scarlet Defender",
@@ -15077,7 +14595,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4299] = {
-		classification = "Elite",
 		level = "34 - 36",
 		names = {
 			enUS = "Scarlet Chaplain",
@@ -15087,7 +14604,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4300] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Scarlet Wizard",
@@ -15097,7 +14613,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4301] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Scarlet Centurion",
@@ -15107,7 +14622,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4302] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Scarlet Champion",
@@ -15117,7 +14631,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4303] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Scarlet Abbot",
@@ -15127,7 +14640,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4304] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Scarlet Tracking Hound",
@@ -15147,7 +14659,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4306] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Scarlet Torturer",
@@ -15383,7 +14894,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4364] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Strashaz Warrior",
@@ -15393,7 +14903,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4366] = {
-		classification = "Elite",
 		level = "59 - 61",
 		names = {
 			enUS = "Strashaz Serpent Guard",
@@ -15403,7 +14912,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4368] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Strashaz Myrmidon",
@@ -15413,7 +14921,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4370] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Strashaz Sorceress",
@@ -15423,7 +14930,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4371] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Strashaz Siren",
@@ -15433,7 +14939,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4374] = {
-		classification = "Elite",
 		level = "59 - 61",
 		names = {
 			enUS = "Strashaz Hydra",
@@ -15514,15 +15019,6 @@ RecipeBook.npcDB = {
 			15,
 		},
 	},
-	[4393] = {
-		level = "39 - 41",
-		names = {
-			enUS = "Acidic Swamp Ooze",
-		},
-		zones = {
-			15,
-		},
-	},
 	[4396] = {
 		level = "36 - 37",
 		names = {
@@ -15587,7 +15083,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4409] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -15652,7 +15147,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4417] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Defias Taskmaster",
@@ -15662,7 +15156,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4418] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Defias Wizard",
@@ -15672,7 +15165,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4420] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Overlord Ramtusk",
@@ -15682,7 +15174,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4421] = {
-		classification = "Elite",
 		level = "33",
 		names = {
 			enUS = "Charlga Razorflank",
@@ -15692,7 +15183,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4422] = {
-		classification = "Elite",
 		level = "33",
 		names = {
 			enUS = "Agathelos The Raging",
@@ -15702,7 +15192,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4424] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Aggem Thorncurse",
@@ -15712,7 +15201,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4425] = {
-		classification = "Rare Elite",
 		level = "32",
 		names = {
 			enUS = "Blind Hunter",
@@ -15722,7 +15210,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4427] = {
-		classification = "Elite",
 		level = "31",
 		names = {
 			enUS = "Ward Guardian",
@@ -15732,7 +15219,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4428] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Death Speaker Jargba",
@@ -15742,7 +15228,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4435] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Razorfen Warrior",
@@ -15752,7 +15237,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4436] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Razorfen Quilguard",
@@ -15762,7 +15246,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4437] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Razorfen Warden",
@@ -15772,7 +15255,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4438] = {
-		classification = "Rare Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Razorfen Spearhide",
@@ -15782,7 +15264,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4440] = {
-		classification = "Elite",
 		level = "29",
 		names = {
 			enUS = "Razorfen Totemic",
@@ -15792,7 +15273,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4442] = {
-		classification = "Elite",
 		level = "27 - 28",
 		names = {
 			enUS = "Razorfen Defender",
@@ -15820,7 +15300,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4462] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Blackrock Hunter",
@@ -15839,7 +15318,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4464] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Blackrock Gladiator",
@@ -15849,7 +15327,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4465] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Vilebranch Warrior",
@@ -15877,7 +15354,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4468] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Jade Sludge",
@@ -15887,7 +15363,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4469] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Emerald Ooze",
@@ -15962,7 +15437,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4499] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Rokalim The Pounder",
@@ -15999,7 +15473,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4511] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Agamar",
@@ -16009,7 +15482,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4512] = {
-		classification = "Elite",
 		level = "28",
 		names = {
 			enUS = "Rotting Agamar",
@@ -16019,7 +15491,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4514] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Raging Agamar",
@@ -16029,7 +15500,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4515] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Deaths Head Acolyte",
@@ -16039,7 +15509,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4516] = {
-		classification = "Elite",
 		level = "27 - 28",
 		names = {
 			enUS = "Deaths Head Adept",
@@ -16049,7 +15518,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4517] = {
-		classification = "Elite",
 		level = "26 - 27",
 		names = {
 			enUS = "Deaths Head Priest",
@@ -16059,7 +15527,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4518] = {
-		classification = "Elite",
 		level = "29 - 30",
 		names = {
 			enUS = "Deaths Head Sage",
@@ -16069,7 +15536,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4519] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Deaths Head Seer",
@@ -16079,7 +15545,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4520] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Razorfen Geomancer",
@@ -16089,7 +15554,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4522] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Razorfen Dustweaver",
@@ -16099,7 +15563,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4523] = {
-		classification = "Elite",
 		level = "27 - 28",
 		names = {
 			enUS = "Razorfen Groundshaker",
@@ -16109,7 +15572,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4525] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Razorfen Earthbreaker",
@@ -16119,7 +15581,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4530] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Razorfen Handler",
@@ -16129,7 +15590,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4531] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Razorfen Beast Trainer",
@@ -16139,7 +15599,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4532] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Razorfen Beastmaster",
@@ -16149,7 +15608,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4538] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Kraul Bat",
@@ -16159,7 +15617,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4539] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Greater Kraul Bat",
@@ -16169,7 +15626,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4540] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Scarlet Monk",
@@ -16179,7 +15635,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4541] = {
-		classification = "Elite",
 		level = "27",
 		names = {
 			enUS = "Blood Of Agamaggan",
@@ -16189,7 +15644,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4542] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "High Inquisitor Fairbanks",
@@ -16199,7 +15653,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4543] = {
-		classification = "Elite",
 		level = "34",
 		names = {
 			enUS = "Bloodmage Thalnos",
@@ -16438,7 +15891,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4623] = {
-		classification = "Elite",
 		level = "30 - 31",
 		names = {
 			enUS = "Quilguard Champion",
@@ -16889,7 +16341,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4686] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Deepstrider Giant",
@@ -16983,15 +16434,6 @@ RecipeBook.npcDB = {
 		level = "35 - 36",
 		names = {
 			enUS = "Dying Kodo",
-		},
-		zones = {
-			405,
-		},
-	},
-	[4705] = {
-		level = "39 - 40",
-		names = {
-			enUS = "Burning Blade Invoker",
 		},
 		zones = {
 			405,
@@ -17116,7 +16558,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4788] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Fallenroot Satyr",
@@ -17126,7 +16567,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4789] = {
-		classification = "Elite",
 		level = "21 - 22",
 		names = {
 			enUS = "Fallenroot Rogue",
@@ -17136,7 +16576,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4798] = {
-		classification = "Elite",
 		level = "23 - 25",
 		names = {
 			enUS = "Fallenroot Shadowstalker",
@@ -17146,7 +16585,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4799] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Fallenroot Hellcaller",
@@ -17156,7 +16594,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4802] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Blackfathom Tide Priestess",
@@ -17166,7 +16603,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4803] = {
-		classification = "Elite",
 		level = "21 - 22",
 		names = {
 			enUS = "Blackfathom Oracle",
@@ -17176,7 +16612,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4805] = {
-		classification = "Elite",
 		level = "23 - 25",
 		names = {
 			enUS = "Blackfathom Sea Witch",
@@ -17186,7 +16621,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4807] = {
-		classification = "Elite",
 		level = "22 - 25",
 		names = {
 			enUS = "Blackfathom Myrmidon",
@@ -17196,7 +16630,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4809] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Twilight Acolyte",
@@ -17206,7 +16639,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4810] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Twilight Reaver",
@@ -17216,7 +16648,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4811] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Twilight Aquamancer",
@@ -17226,7 +16657,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4812] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Twilight Loreseeker",
@@ -17236,7 +16666,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4813] = {
-		classification = "Elite",
 		level = "26 - 27",
 		names = {
 			enUS = "Twilight Shadowmage",
@@ -17246,7 +16675,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4814] = {
-		classification = "Elite",
 		level = "26 - 27",
 		names = {
 			enUS = "Twilight Elementalist",
@@ -17256,7 +16684,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4815] = {
-		classification = "Elite",
 		level = "22 - 25",
 		names = {
 			enUS = "Murkshallow Snapclaw",
@@ -17266,7 +16693,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4818] = {
-		classification = "Elite",
 		level = "22 - 25",
 		names = {
 			enUS = "Blindlight Murloc",
@@ -17276,7 +16702,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4819] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Blindlight Muckdweller",
@@ -17286,7 +16711,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4820] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Blindlight Oracle",
@@ -17296,7 +16720,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4821] = {
-		classification = "Elite",
 		level = "22 - 25",
 		names = {
 			enUS = "Skittering Crustacean",
@@ -17306,7 +16729,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4822] = {
-		classification = "Elite",
 		level = "23 - 25",
 		names = {
 			enUS = "Snapping Crustacean",
@@ -17316,7 +16738,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4823] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Barbed Crustacean",
@@ -17326,7 +16747,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4824] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Akumai Fisher",
@@ -17336,7 +16756,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4825] = {
-		classification = "Elite",
 		level = "26 - 27",
 		names = {
 			enUS = "Akumai Snapjaw",
@@ -17346,7 +16765,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4827] = {
-		classification = "Elite",
 		level = "24 - 26",
 		names = {
 			enUS = "Deep Pool Threshfin",
@@ -17356,7 +16774,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4829] = {
-		classification = "Elite",
 		level = "28",
 		names = {
 			enUS = "Akumai",
@@ -17366,7 +16783,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4830] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Old Serrakis",
@@ -17376,7 +16792,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4831] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Lady Sarevess",
@@ -17386,7 +16801,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4832] = {
-		classification = "Elite",
 		level = "27",
 		names = {
 			enUS = "Twilight Lord Kelris",
@@ -17406,7 +16820,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4842] = {
-		classification = "Rare Elite",
 		level = "32",
 		names = {
 			enUS = "Earthcaller Halmgar",
@@ -17416,7 +16829,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4844] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Shadowforge Surveyor",
@@ -17426,7 +16838,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4845] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Shadowforge Ruffian",
@@ -17436,7 +16847,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4846] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Shadowforge Digger",
@@ -17446,7 +16856,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4847] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Shadowforge Relic Hunter",
@@ -17456,7 +16865,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4848] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Shadowforge Darkcaster",
@@ -17466,7 +16874,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4849] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Shadowforge Archaeologist",
@@ -17476,7 +16883,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4850] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Stonevault Cave Lurker",
@@ -17486,7 +16892,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4851] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Stonevault Rockchewer",
@@ -17496,7 +16901,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4852] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Stonevault Oracle",
@@ -17506,7 +16910,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4853] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Stonevault Geomancer",
@@ -17516,7 +16919,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4854] = {
-		classification = "Elite",
 		level = "45",
 		names = {
 			enUS = "Grimlok",
@@ -17526,7 +16928,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4855] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Stonevault Brawler",
@@ -17536,7 +16937,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4856] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Stonevault Cave Hunter",
@@ -17546,7 +16946,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4857] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Stone Keeper",
@@ -17556,7 +16955,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4860] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Stone Steward",
@@ -17566,7 +16964,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4861] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Shrike Bat",
@@ -17576,7 +16973,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4863] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Jadespine Basilisk",
@@ -17586,7 +16982,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4872] = {
-		classification = "Elite",
 		level = "38",
 		names = {
 			enUS = "Obsidian Golem",
@@ -17626,7 +17021,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4887] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Ghamoo Ra",
@@ -17665,7 +17059,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[4978] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Akumai Servant",
@@ -17684,17 +17077,7 @@ RecipeBook.npcDB = {
 			15,
 		},
 	},
-	[5046] = {
-		level = "37",
-		names = {
-			enUS = "Lieutenant Caldwell",
-		},
-		zones = {
-			15,
-		},
-	},
 	[5048] = {
-		classification = "Elite",
 		level = "18 - 19",
 		names = {
 			enUS = "Deviate Adder",
@@ -17713,7 +17096,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5056] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Deviate Dreadfang",
@@ -17903,7 +17285,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5224] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Murk Slitherer",
@@ -17913,7 +17294,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5225] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Murk Spitter",
@@ -17923,7 +17303,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5226] = {
-		classification = "Elite",
 		level = "47 - 50",
 		names = {
 			enUS = "Murk Worm",
@@ -17933,7 +17312,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5228] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Saturated Ooze",
@@ -17970,7 +17348,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5235] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Fungal Ooze",
@@ -18034,7 +17411,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5243] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Cursed Atalai",
@@ -18125,7 +17501,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5256] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Atalai Warrior",
@@ -18144,7 +17519,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5259] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Atalai Witch Doctor",
@@ -18163,7 +17537,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5261] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Enthralled Atalai",
@@ -18182,7 +17555,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5263] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Mummified Atalai",
@@ -18192,7 +17564,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5267] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Unliving Atalai",
@@ -18211,7 +17582,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5269] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Atalai Priest",
@@ -18221,7 +17591,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5270] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Atalai Corpse Eater",
@@ -18231,7 +17600,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5271] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Atalai Deathwalker",
@@ -18250,7 +17618,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5273] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Atalai High Priest",
@@ -18278,7 +17645,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5277] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Nightmare Scalebane",
@@ -18298,7 +17664,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5280] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Nightmare Wyrmkin",
@@ -18308,7 +17673,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5283] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Nightmare Wanderer",
@@ -18345,7 +17709,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5291] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Hakkari Frostwing",
@@ -18435,15 +17798,6 @@ RecipeBook.npcDB = {
 			357,
 		},
 	},
-	[5306] = {
-		level = "46 - 47",
-		names = {
-			enUS = "Frayfeather Patriarch",
-		},
-		zones = {
-			357,
-		},
-	},
 	[5307] = {
 		level = "41 - 43",
 		names = {
@@ -18463,7 +17817,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5312] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Lethlas",
@@ -18473,7 +17826,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5317] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Jademir Oracle",
@@ -18484,7 +17836,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5319] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Jademir Tree Warder",
@@ -18495,7 +17846,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5320] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Jademir Boughguard",
@@ -18569,7 +17919,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5357] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Land Walker",
@@ -18579,7 +17928,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5358] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Cliff Giant",
@@ -18589,7 +17937,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5359] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Shore Strider",
@@ -18645,22 +17992,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5402] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Khan Hratha",
 		},
 		zones = {
 			405,
-		},
-	},
-	[5411] = {
-		level = "40",
-		names = {
-			enUS = "Krinkle Goodsteel",
-		},
-		zones = {
-			440,
 		},
 	},
 	[5419] = {
@@ -18821,16 +18158,6 @@ RecipeBook.npcDB = {
 		level = "47 - 48",
 		names = {
 			enUS = "Centipaar Wasp",
-		},
-		zones = {
-			440,
-			490,
-		},
-	},
-	[5456] = {
-		level = "48 - 49",
-		names = {
-			enUS = "Centipaar Stinger",
 		},
 		zones = {
 			440,
@@ -19155,17 +18482,7 @@ RecipeBook.npcDB = {
 			440,
 		},
 	},
-	[5643] = {
-		level = "36",
-		names = {
-			enUS = "Tyranis Malem",
-		},
-		zones = {
-			405,
-		},
-	},
 	[5645] = {
-		classification = "Elite",
 		level = "42 - 43",
 		names = {
 			enUS = "Sandfury Hideskinner",
@@ -19175,7 +18492,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5646] = {
-		classification = "Elite",
 		level = "42 - 44",
 		names = {
 			enUS = "Sandfury Axe Thrower",
@@ -19185,7 +18501,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5647] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Sandfury Firecaller",
@@ -19195,7 +18510,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5648] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Sandfury Shadowcaster",
@@ -19205,7 +18519,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5649] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Sandfury Blood Drinker",
@@ -19215,7 +18528,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5650] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Sandfury Witch Doctor",
@@ -19235,7 +18547,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5708] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Spawn Of Hakkar",
@@ -19245,7 +18556,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5710] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Jammalan The Prophet",
@@ -19255,7 +18565,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5711] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Ogom The Wretched",
@@ -19265,7 +18574,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5712] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Zolo",
@@ -19275,7 +18583,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5713] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Gasher",
@@ -19285,7 +18592,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5714] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Loro",
@@ -19295,7 +18601,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5715] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Hukku",
@@ -19305,7 +18610,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5716] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Zullor",
@@ -19315,7 +18619,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5717] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Mijan",
@@ -19325,7 +18628,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5718] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Rothos",
@@ -19335,7 +18637,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5720] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Weaver",
@@ -19345,7 +18646,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5721] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Dreamscythe",
@@ -19355,7 +18655,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5722] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Hazzas",
@@ -19375,7 +18674,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5755] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Deviate Viper",
@@ -19385,7 +18683,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5756] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Deviate Venomwing",
@@ -19425,7 +18722,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5761] = {
-		classification = "Elite",
 		level = "19 - 20",
 		names = {
 			enUS = "Deviate Shambler",
@@ -19435,7 +18731,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5762] = {
-		classification = "Elite",
 		level = "20 - 21",
 		names = {
 			enUS = "Deviate Moccasin",
@@ -19463,7 +18758,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5775] = {
-		classification = "Elite",
 		level = "21",
 		names = {
 			enUS = "Verdan The Everliving",
@@ -19488,7 +18782,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5785] = {
-		classification = "Rare Elite",
 		level = "11",
 		names = {
 			enUS = "Sister Hatelash",
@@ -19498,7 +18791,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5787] = {
-		classification = "Rare",
 		level = "11",
 		names = {
 			enUS = "Enforcer Emilgund",
@@ -19508,7 +18800,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5797] = {
-		classification = "Rare Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -19519,7 +18810,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5798] = {
-		classification = "Rare Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -19530,7 +18820,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5799] = {
-		classification = "Rare Elite",
 		faction = "Alliance",
 		level = "24",
 		names = {
@@ -19541,7 +18830,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5800] = {
-		classification = "Rare Elite",
 		faction = "Alliance",
 		level = "24",
 		names = {
@@ -19552,7 +18840,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5807] = {
-		classification = "Rare",
 		level = "10",
 		names = {
 			enUS = "The Rake",
@@ -19562,7 +18849,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5808] = {
-		classification = "Rare",
 		level = "9",
 		names = {
 			enUS = "Warlord Kolkanis",
@@ -19582,7 +18868,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5822] = {
-		classification = "Rare Elite",
 		level = "11",
 		names = {
 			enUS = "Felweaver Scornn",
@@ -19592,7 +18877,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5824] = {
-		classification = "Rare Elite",
 		level = "11",
 		names = {
 			enUS = "Captain Flat Tusk",
@@ -19602,7 +18886,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5830] = {
-		classification = "Rare Elite",
 		level = "19",
 		names = {
 			enUS = "Sister Rathtalon",
@@ -19612,7 +18895,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5833] = {
-		classification = "Elite",
 		level = "48",
 		names = {
 			enUS = "Margol The Rager",
@@ -19622,7 +18904,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5835] = {
-		classification = "Rare",
 		level = "19",
 		names = {
 			enUS = "Foreman Grills",
@@ -19632,7 +18913,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5837] = {
-		classification = "Rare",
 		level = "15",
 		names = {
 			enUS = "Stonearm",
@@ -19660,7 +18940,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5841] = {
-		classification = "Rare Elite",
 		level = "17",
 		names = {
 			enUS = "Rocklance",
@@ -19697,7 +18976,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5849] = {
-		classification = "Rare",
 		level = "24",
 		names = {
 			enUS = "Digger Flameforge",
@@ -19779,7 +19057,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5860] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Twilight Dark Shaman",
@@ -19789,7 +19066,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5861] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Twilight Fire Guard",
@@ -19799,7 +19075,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5862] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Twilight Geomancer",
@@ -19809,7 +19084,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5863] = {
-		classification = "Rare",
 		level = "19",
 		names = {
 			enUS = "Geopriest Gukkrok",
@@ -19819,7 +19093,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5865] = {
-		classification = "Rare",
 		level = "13",
 		names = {
 			enUS = "Dishu",
@@ -19838,7 +19111,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5912] = {
-		classification = "Rare Elite",
 		level = "20",
 		names = {
 			enUS = "Deviate Faerie Dragon",
@@ -19848,7 +19120,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[5931] = {
-		classification = "Rare Elite",
 		level = "24",
 		names = {
 			enUS = "Foreman Rigger",
@@ -20135,7 +19406,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6035] = {
-		classification = "Elite",
 		level = "28 - 29",
 		names = {
 			enUS = "Razorfen Stalker",
@@ -20191,7 +19461,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6109] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Azuregos",
@@ -20274,7 +19543,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6129] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Draconic Magelord",
@@ -20284,7 +19552,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6130] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Blue Scalebane",
@@ -20294,7 +19561,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6131] = {
-		classification = "Elite",
 		level = "51 - 52",
 		names = {
 			enUS = "Draconic Mageweaver",
@@ -20304,7 +19570,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6132] = {
-		classification = "Elite",
 		level = "23 - 24",
 		names = {
 			enUS = "Razorfen Servitor",
@@ -20340,17 +19605,7 @@ RecipeBook.npcDB = {
 			16,
 		},
 	},
-	[6138] = {
-		level = "54 - 55",
-		names = {
-			enUS = "Arkkoran Oracle",
-		},
-		zones = {
-			16,
-		},
-	},
 	[6143] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Servant Of Arkkoroc",
@@ -20360,7 +19615,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6144] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Son Of Arkkoroc",
@@ -20370,7 +19624,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6146] = {
-		classification = "Elite",
 		level = "54 - 62",
 		names = {
 			enUS = "Cliff Breaker",
@@ -20381,7 +19634,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6147] = {
-		classification = "Elite",
 		level = "53 - 62",
 		names = {
 			enUS = "Cliff Thunderer",
@@ -20392,7 +19644,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6148] = {
-		classification = "Elite",
 		level = "52 - 62",
 		names = {
 			enUS = "Cliff Walker",
@@ -20402,7 +19653,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6168] = {
-		classification = "Elite",
 		level = "28",
 		names = {
 			enUS = "Roogug",
@@ -20520,7 +19770,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6206] = {
-		classification = "Elite",
 		level = "25 - 40",
 		names = {
 			enUS = "Caverndeep Burrower",
@@ -20539,7 +19788,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6208] = {
-		classification = "Elite",
 		level = "25 - 26",
 		names = {
 			enUS = "Caverndeep Invader",
@@ -20549,7 +19797,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6210] = {
-		classification = "Elite",
 		level = "24 - 25",
 		names = {
 			enUS = "Caverndeep Pillager",
@@ -20559,7 +19806,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6211] = {
-		classification = "Elite",
 		level = "27 - 40",
 		names = {
 			enUS = "Caverndeep Reaver",
@@ -20569,7 +19815,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6212] = {
-		classification = "Elite",
 		level = "32 - 41",
 		names = {
 			enUS = "Dark Iron Agent",
@@ -20579,7 +19824,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6213] = {
-		classification = "Elite",
 		level = "24 - 26",
 		names = {
 			enUS = "Irradiated Invader",
@@ -20589,7 +19833,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6218] = {
-		classification = "Elite",
 		level = "27 - 40",
 		names = {
 			enUS = "Irradiated Slime",
@@ -20599,7 +19842,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6219] = {
-		classification = "Elite",
 		level = "28 - 40",
 		names = {
 			enUS = "Corrosive Lurker",
@@ -20609,7 +19851,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6220] = {
-		classification = "Elite",
 		level = "28 - 40",
 		names = {
 			enUS = "Irradiated Horror",
@@ -20637,7 +19878,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6223] = {
-		classification = "Elite",
 		level = "28 - 40",
 		names = {
 			enUS = "Leprous Defender",
@@ -20656,7 +19896,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6225] = {
-		classification = "Elite",
 		level = "29 - 41",
 		names = {
 			enUS = "Mechano Tank",
@@ -20666,7 +19905,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6226] = {
-		classification = "Elite",
 		level = "30 - 41",
 		names = {
 			enUS = "Mechano Flamewalker",
@@ -20676,7 +19914,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6227] = {
-		classification = "Elite",
 		level = "31 - 41",
 		names = {
 			enUS = "Mechano Frostwalker",
@@ -20686,7 +19923,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6230] = {
-		classification = "Elite",
 		level = "30 - 41",
 		names = {
 			enUS = "Peacekeeper Security Suit",
@@ -20696,7 +19932,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6231] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Techbot",
@@ -20706,7 +19941,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6232] = {
-		classification = "Elite",
 		level = "32 - 41",
 		names = {
 			enUS = "Arcane Nullifier X 21",
@@ -20716,7 +19950,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6233] = {
-		classification = "Elite",
 		level = "28 - 40",
 		names = {
 			enUS = "Mechanized Sentry",
@@ -20726,7 +19959,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6234] = {
-		classification = "Elite",
 		level = "31 - 41",
 		names = {
 			enUS = "Mechanized Guardian",
@@ -20736,7 +19968,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6235] = {
-		classification = "Elite",
 		level = "32",
 		names = {
 			enUS = "Electrocutioner 6000",
@@ -20755,7 +19986,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6243] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Gelihast",
@@ -20795,7 +20025,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6329] = {
-		classification = "Elite",
 		level = "25 - 40",
 		names = {
 			enUS = "Irradiated Pillager",
@@ -20831,15 +20060,6 @@ RecipeBook.npcDB = {
 			16,
 		},
 	},
-	[6377] = {
-		level = "48 - 50",
-		names = {
-			enUS = "Thunderhead Stagwing",
-		},
-		zones = {
-			16,
-		},
-	},
 	[6378] = {
 		level = "50 - 52",
 		names = {
@@ -20870,7 +20090,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6391] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "29 - 41",
 		names = {
@@ -20881,7 +20100,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6426] = {
-		classification = "Elite",
 		level = "31 - 33",
 		names = {
 			enUS = "Anguished Dead",
@@ -20891,7 +20109,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6427] = {
-		classification = "Elite",
 		level = "32 - 33",
 		names = {
 			enUS = "Haunting Phantasm",
@@ -20910,7 +20127,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6487] = {
-		classification = "Elite",
 		level = "37",
 		names = {
 			enUS = "Arcanist Doan",
@@ -20920,7 +20136,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6488] = {
-		classification = "Rare Elite",
 		level = "33",
 		names = {
 			enUS = "Fallen Champion",
@@ -20930,7 +20145,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6489] = {
-		classification = "Rare Elite",
 		level = "33",
 		names = {
 			enUS = "Ironspine",
@@ -20940,7 +20154,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6490] = {
-		classification = "Rare Elite",
 		level = "33",
 		names = {
 			enUS = "Azshir The Sleepless",
@@ -20959,7 +20172,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6498] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Devilsaur",
@@ -20969,7 +20181,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6499] = {
-		classification = "Elite",
 		level = "54 - 56",
 		names = {
 			enUS = "Ironhide Devilsaur",
@@ -20979,7 +20190,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6500] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Tyrant Devilsaur",
@@ -20989,7 +20199,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6501] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Stegodon",
@@ -20999,7 +20208,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6502] = {
-		classification = "Elite",
 		level = "52 - 54",
 		names = {
 			enUS = "Plated Stegodon",
@@ -21144,7 +20352,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6523] = {
-		classification = "Elite",
 		level = "27 - 28",
 		names = {
 			enUS = "Dark Iron Rifleman",
@@ -21217,15 +20424,6 @@ RecipeBook.npcDB = {
 			490,
 		},
 	},
-	[6557] = {
-		level = "50 - 52",
-		names = {
-			enUS = "Primal Ooze",
-		},
-		zones = {
-			490,
-		},
-	},
 	[6559] = {
 		level = "52 - 54",
 		names = {
@@ -21236,7 +20434,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6560] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Stone Guardian",
@@ -21293,16 +20490,6 @@ RecipeBook.npcDB = {
 			357,
 		},
 	},
-	[6584] = {
-		classification = "Rare Elite",
-		level = "60",
-		names = {
-			enUS = "King Mosh",
-		},
-		zones = {
-			490,
-		},
-	},
 	[6606] = {
 		level = "16",
 		names = {
@@ -21350,7 +20537,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6733] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Stonevault Basher",
@@ -21404,17 +20590,7 @@ RecipeBook.npcDB = {
 			12,
 		},
 	},
-	[6866] = {
-		level = "10",
-		names = {
-			enUS = "Defias Bodyguard",
-		},
-		zones = {
-			12,
-		},
-	},
 	[6906] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "41",
 		names = {
@@ -21425,7 +20601,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6907] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "40",
 		names = {
@@ -21436,7 +20611,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6908] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "40",
 		names = {
@@ -21447,7 +20621,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[6910] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Revelosh",
@@ -21493,7 +20666,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7017] = {
-		classification = "Rare",
 		level = "15 - 16",
 		names = {
 			enUS = "Lord Sinslayer",
@@ -21503,7 +20675,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7022] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Venomlash Scorpid",
@@ -21513,7 +20684,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7023] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Obsidian Sentinel",
@@ -21568,7 +20738,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7030] = {
-		classification = "Elite",
 		level = "40 - 41",
 		names = {
 			enUS = "Shadowforge Geologist",
@@ -21641,7 +20810,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7040] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Black Dragonspawn",
@@ -21651,7 +20819,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7041] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Black Wyrmkin",
@@ -21661,7 +20828,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7042] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Flamescale Dragonspawn",
@@ -21671,7 +20837,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7043] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Flamescale Wyrmkin",
@@ -21681,7 +20846,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7044] = {
-		classification = "Elite",
 		level = "50 - 52",
 		names = {
 			enUS = "Black Drake",
@@ -21691,7 +20855,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7046] = {
-		classification = "Elite",
 		level = "56 - 58",
 		names = {
 			enUS = "Searscale Drake",
@@ -21719,7 +20882,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7053] = {
-		classification = "Elite",
 		level = "23",
 		names = {
 			enUS = "Klaven Mortwake",
@@ -21728,17 +20890,7 @@ RecipeBook.npcDB = {
 			40,
 		},
 	},
-	[7055] = {
-		level = "54 - 55",
-		names = {
-			enUS = "Blackrock Worg",
-		},
-		zones = {
-			46,
-		},
-	},
 	[7069] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Condemned Monk",
@@ -21748,20 +20900,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7070] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Condemned Cleric",
-		},
-		zones = {
-			267,
-		},
-	},
-	[7071] = {
-		classification = "Elite",
-		level = "57 - 58",
-		names = {
-			enUS = "Cursed Paladin",
 		},
 		zones = {
 			267,
@@ -21777,7 +20918,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7079] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Viscous Fallout",
@@ -22012,7 +21152,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7135] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Infernal Bodyguard",
@@ -22022,7 +21161,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7136] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Infernal Sentry",
@@ -22113,7 +21251,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7206] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Ancient Stone Keeper",
@@ -22123,7 +21260,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7228] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Ironaya",
@@ -22162,15 +21298,6 @@ RecipeBook.npcDB = {
 			1519,
 		},
 	},
-	[7234] = {
-		level = "8",
-		names = {
-			enUS = "Ferocitas The Dream Eater",
-		},
-		zones = {
-			141,
-		},
-	},
 	[7235] = {
 		level = "6 - 7",
 		names = {
@@ -22181,7 +21308,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7246] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Sandfury Shadowhunter",
@@ -22191,7 +21317,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7247] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Sandfury Soul Eater",
@@ -22201,7 +21326,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7267] = {
-		classification = "Elite",
 		level = "48",
 		names = {
 			enUS = "Chief Ukorz Sandscalp",
@@ -22211,7 +21335,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7268] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Sandfury Guardian",
@@ -22230,7 +21353,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7271] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Witch Doctor Zumrah",
@@ -22240,7 +21362,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7272] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Theka The Martyr",
@@ -22250,7 +21371,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7274] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Sandfury Executioner",
@@ -22260,7 +21380,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7275] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Shadowpriest Sezzziz",
@@ -22279,7 +21398,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7286] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Zulfarrak Zombie",
@@ -22289,7 +21407,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7290] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Shadowforge Sharpshooter",
@@ -22299,7 +21416,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7291] = {
-		classification = "Elite",
 		level = "45",
 		names = {
 			enUS = "Galgann Firehammer",
@@ -22318,7 +21434,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7320] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Stonevault Mauler",
@@ -22328,7 +21443,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7321] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Stonevault Flameweaver",
@@ -22338,7 +21452,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7327] = {
-		classification = "Elite",
 		level = "34 - 35",
 		names = {
 			enUS = "Withered Warrior",
@@ -22348,7 +21461,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7328] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Withered Reaver",
@@ -22358,7 +21470,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7329] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Withered Quilguard",
@@ -22368,7 +21479,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7332] = {
-		classification = "Elite",
 		level = "34 - 35",
 		names = {
 			enUS = "Withered Spearhide",
@@ -22396,7 +21506,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7335] = {
-		classification = "Elite",
 		level = "35 - 36",
 		names = {
 			enUS = "Deaths Head Geomancer",
@@ -22406,7 +21515,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7337] = {
-		classification = "Elite",
 		level = "36 - 37",
 		names = {
 			enUS = "Deaths Head Necromancer",
@@ -22416,7 +21524,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7341] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Skeletal Frostweaver",
@@ -22426,7 +21533,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7342] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Skeletal Summoner",
@@ -22445,7 +21551,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7345] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Splinterbone Captain",
@@ -22464,7 +21569,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7347] = {
-		classification = "Elite",
 		level = "38 - 39",
 		names = {
 			enUS = "Boneflayer Ghoul",
@@ -22474,7 +21578,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7348] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Thorn Eater Ghoul",
@@ -22493,7 +21596,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7351] = {
-		classification = "Elite",
 		level = "37",
 		names = {
 			enUS = "Tomb Reaver",
@@ -22503,7 +21605,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7352] = {
-		classification = "Elite",
 		level = "37 - 38",
 		names = {
 			enUS = "Frozen Soul",
@@ -22513,7 +21614,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7353] = {
-		classification = "Elite",
 		level = "39 - 40",
 		names = {
 			enUS = "Freezing Spirit",
@@ -22523,7 +21623,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7354] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Ragglesnout",
@@ -22533,7 +21632,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7355] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Tutenkash",
@@ -22543,7 +21641,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7356] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Plaguemaw The Rotting",
@@ -22553,7 +21650,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7357] = {
-		classification = "Elite",
 		level = "39",
 		names = {
 			enUS = "Mordresh Fire Eye",
@@ -22563,23 +21659,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7358] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "Amnennar The Coldbringer",
 		},
 		zones = {
 			722,
-		},
-	},
-	[7361] = {
-		classification = "Elite",
-		level = "32",
-		names = {
-			enUS = "Grubbis",
-		},
-		zones = {
-			721,
 		},
 	},
 	[7369] = {
@@ -22684,7 +21769,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7428] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Frostmaul Giant",
@@ -22694,7 +21778,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7429] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Frostmaul Preserver",
@@ -22749,7 +21832,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7435] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Cobalt Wyrmkin",
@@ -22759,7 +21841,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7436] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Cobalt Scalebane",
@@ -22769,7 +21850,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7437] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Cobalt Mageweaver",
@@ -22959,7 +22039,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7461] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hederine Initiate",
@@ -22969,7 +22048,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7462] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hederine Manastalker",
@@ -22979,7 +22057,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7463] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hederine Slayer",
@@ -23025,7 +22102,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7604] = {
-		classification = "Elite",
 		level = "45",
 		names = {
 			enUS = "Sergeant Bly",
@@ -23035,7 +22111,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7605] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Raven",
@@ -23045,7 +22120,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7606] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Oro Eyegouge",
@@ -23055,7 +22129,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7608] = {
-		classification = "Elite",
 		level = "44",
 		names = {
 			enUS = "Murta Grimgut",
@@ -23065,19 +22138,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7665] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Grol The Destroyer",
-		},
-		zones = {
-			4,
-		},
-	},
-	[7668] = {
-		level = "57",
-		names = {
-			enUS = "Servant Of Razelikh",
 		},
 		zones = {
 			4,
@@ -23129,7 +22192,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7734] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Ilifar",
@@ -23139,7 +22201,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7795] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Hydromancer Velratha",
@@ -23149,7 +22210,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7796] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Nekrum Gutchewer",
@@ -23159,7 +22219,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7797] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Ruuzlu",
@@ -23169,7 +22228,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7800] = {
-		classification = "Elite",
 		level = "34",
 		names = {
 			enUS = "Mekgineer Thermaplugg",
@@ -23206,7 +22264,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7846] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Teremus The Devourer",
@@ -23362,7 +22419,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7872] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Deaths Head Cultist",
@@ -23373,7 +22429,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7873] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Razorfen Battleguard",
@@ -23384,7 +22439,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7874] = {
-		classification = "Elite",
 		level = "33 - 34",
 		names = {
 			enUS = "Razorfen Thornweaver",
@@ -23401,15 +22455,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			440,
-		},
-	},
-	[7885] = {
-		level = "53 - 54",
-		names = {
-			enUS = "Spitelash Battlemaster",
-		},
-		zones = {
-			16,
 		},
 	},
 	[7886] = {
@@ -23480,7 +22525,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7977] = {
-		classification = "Elite",
 		level = "48",
 		names = {
 			enUS = "Gammerita",
@@ -23490,7 +22534,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7995] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Vile Priestess Hexx",
@@ -23500,7 +22543,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[7996] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Qiaga The Keeper",
@@ -23510,7 +22552,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8095] = {
-		classification = "Elite",
 		level = "45 - 47",
 		names = {
 			enUS = "Sullithuz Sandcrawler",
@@ -23520,7 +22561,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8120] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Sullithuz Abomination",
@@ -23693,7 +22733,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8196] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Occulus",
@@ -23703,7 +22742,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8197] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Chronalis",
@@ -23713,7 +22751,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8217] = {
-		classification = "Rare Elite",
 		level = "52",
 		names = {
 			enUS = "Mithrethis The Enchanter",
@@ -23723,7 +22760,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8219] = {
-		classification = "Rare",
 		level = "43",
 		names = {
 			enUS = "Zularek Hatefowler",
@@ -23733,7 +22769,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8280] = {
-		classification = "Rare",
 		level = "47",
 		names = {
 			enUS = "Shleipnarr",
@@ -23790,7 +22825,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8336] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Hakkari Sapper",
@@ -23809,7 +22843,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8384] = {
-		classification = "Elite",
 		level = "47 - 49",
 		names = {
 			enUS = "Deep Lurker",
@@ -23819,7 +22852,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8419] = {
-		classification = "Elite",
 		level = "49 - 51",
 		names = {
 			enUS = "Twilight Idolater",
@@ -23829,7 +22861,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8438] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Hakkari Bloodkeeper",
@@ -23848,7 +22879,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8497] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Nightmare Suppressor",
@@ -23858,7 +22888,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8503] = {
-		classification = "Rare",
 		level = "11",
 		names = {
 			enUS = "Gibblewilt",
@@ -23868,7 +22897,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8504] = {
-		classification = "Elite",
 		level = "48",
 		names = {
 			enUS = "Dark Iron Sentry",
@@ -23888,7 +22916,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8518] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "29",
 		names = {
@@ -24015,15 +23042,6 @@ RecipeBook.npcDB = {
 			139,
 		},
 	},
-	[8538] = {
-		level = "55 - 56",
-		names = {
-			enUS = "Unseen Servant",
-		},
-		zones = {
-			139,
-		},
-	},
 	[8539] = {
 		level = "57 - 58",
 		names = {
@@ -24141,29 +23159,10 @@ RecipeBook.npcDB = {
 			139,
 		},
 	},
-	[8561] = {
-		level = "58 - 59",
-		names = {
-			enUS = "Mossflayer Shadowhunter",
-		},
-		zones = {
-			139,
-		},
-	},
 	[8562] = {
 		level = "57 - 59",
 		names = {
 			enUS = "Mossflayer Cannibal",
-		},
-		zones = {
-			139,
-		},
-	},
-	[8563] = {
-		faction = "Alliance",
-		level = "58 - 59",
-		names = {
-			enUS = "Woodsman",
 		},
 		zones = {
 			139,
@@ -24199,7 +23198,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8567] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Glutton",
@@ -24218,7 +23216,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8580] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Atalalarion",
@@ -24302,7 +23299,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8636] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Mortagya The Keeper",
@@ -24358,7 +23354,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8716] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Dreadlord",
@@ -24369,7 +23364,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8717] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Felguard Elite",
@@ -24380,7 +23374,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8718] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Manahound",
@@ -24494,7 +23487,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8889] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Anvilrage Overseer",
@@ -24504,7 +23496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8890] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Anvilrage Warden",
@@ -24514,7 +23505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8891] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Anvilrage Guardsman",
@@ -24524,7 +23514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8892] = {
-		classification = "Elite",
 		level = "51 - 52",
 		names = {
 			enUS = "Anvilrage Footman",
@@ -24534,7 +23523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8893] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Anvilrage Soldier",
@@ -24544,7 +23532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8894] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Anvilrage Medic",
@@ -24554,7 +23541,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8895] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Anvilrage Officer",
@@ -24582,7 +23568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8898] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Anvilrage Marshal",
@@ -24592,7 +23577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8899] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Doomforge Dragoon",
@@ -24620,7 +23604,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8903] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Anvilrage Captain",
@@ -24639,7 +23622,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8905] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Warbringer Construct",
@@ -24649,7 +23631,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8906] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Ragereaver Golem",
@@ -24659,7 +23640,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8907] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Wrath Hammer Construct",
@@ -24669,7 +23649,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8908] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Molten War Golem",
@@ -24679,7 +23658,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8909] = {
-		classification = "Elite",
 		level = "50 - 52",
 		names = {
 			enUS = "Fireguard",
@@ -24689,7 +23667,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8910] = {
-		classification = "Elite",
 		level = "52 - 54",
 		names = {
 			enUS = "Blazing Fireguard",
@@ -24699,7 +23676,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8911] = {
-		classification = "Elite",
 		level = "54 - 56",
 		names = {
 			enUS = "Fireguard Destroyer",
@@ -24709,7 +23685,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8912] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Twilights Hammer Torturer",
@@ -24719,7 +23694,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8913] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Twilight Emissary",
@@ -24729,7 +23703,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8914] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Twilight Bodyguard",
@@ -24793,7 +23766,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8923] = {
-		classification = "Rare Elite",
 		level = "57",
 		names = {
 			enUS = "Panzor The Invincible",
@@ -24803,7 +23775,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8924] = {
-		classification = "Rare Elite",
 		level = "50",
 		names = {
 			enUS = "The Behemoth",
@@ -24849,7 +23820,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8929] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Princess Moira Bronzebeard",
@@ -24931,7 +23901,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[8983] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Golem Lord Argelmach",
@@ -24941,7 +23910,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9016] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Baelgar",
@@ -24951,7 +23919,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9017] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Lord Incendius",
@@ -24961,7 +23928,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9018] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "High Interrogator Gerstahn",
@@ -24970,18 +23936,7 @@ RecipeBook.npcDB = {
 			1584,
 		},
 	},
-	[9019] = {
-		classification = "Elite",
-		level = "59",
-		names = {
-			enUS = "Emperor Dagran Thaurissan",
-		},
-		zones = {
-			1584,
-		},
-	},
 	[9024] = {
-		classification = "Rare Elite",
 		level = "52",
 		names = {
 			enUS = "Pyromancer Loregrain",
@@ -24991,7 +23946,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9025] = {
-		classification = "Rare Elite",
 		level = "51",
 		names = {
 			enUS = "Lord Roccor",
@@ -25001,7 +23955,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9026] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Overmaster Pyron",
@@ -25011,7 +23964,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9027] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "56",
 		names = {
@@ -25022,7 +23974,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9028] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Grizzle",
@@ -25032,7 +23983,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9029] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Eviscerator",
@@ -25042,7 +23992,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9030] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Okthor The Breaker",
@@ -25052,7 +24001,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9031] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Anubshiah",
@@ -25062,7 +24010,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9032] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Hedrum The Creeper",
@@ -25072,7 +24019,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9033] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "General Angerforge",
@@ -25082,7 +24028,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9041] = {
-		classification = "Rare Elite",
 		level = "56",
 		names = {
 			enUS = "Warder Stilgiss",
@@ -25092,7 +24037,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9042] = {
-		classification = "Rare Elite",
 		level = "55",
 		names = {
 			enUS = "Verek",
@@ -25102,7 +24046,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9043] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Scarshield Grunt",
@@ -25113,7 +24056,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9044] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Scarshield Sentry",
@@ -25123,7 +24065,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9045] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Scarshield Acolyte",
@@ -25133,7 +24074,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9056] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Fineous Darkvire",
@@ -25143,7 +24083,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9096] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Rage Talon Dragonspawn",
@@ -25153,7 +24092,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9097] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Scarshield Legionnaire",
@@ -25163,7 +24101,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9098] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Scarshield Spellbinder",
@@ -25173,7 +24110,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9156] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Ambassador Flamelash",
@@ -25255,7 +24191,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9196] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Highlord Omokk",
@@ -25265,7 +24200,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9197] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Spirestone Battle Mage",
@@ -25275,7 +24209,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9198] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Spirestone Mystic",
@@ -25285,7 +24218,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9199] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Spirestone Enforcer",
@@ -25295,7 +24227,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9200] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Spirestone Reaver",
@@ -25305,7 +24236,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9201] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Spirestone Ogre Magus",
@@ -25315,7 +24245,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9216] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Spirestone Warlord",
@@ -25325,7 +24254,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9217] = {
-		classification = "Rare Elite",
 		level = "58",
 		names = {
 			enUS = "Spirestone Lord Magus",
@@ -25335,7 +24263,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9219] = {
-		classification = "Rare Elite",
 		level = "57",
 		names = {
 			enUS = "Spirestone Butcher",
@@ -25345,7 +24272,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9236] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Shadow Hunter Voshgajin",
@@ -25355,7 +24281,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9237] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "War Master Voone",
@@ -25365,7 +24290,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9239] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Smolderthorn Mystic",
@@ -25375,7 +24299,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9240] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Smolderthorn Shadow Priest",
@@ -25385,7 +24308,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9241] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Smolderthorn Headhunter",
@@ -25395,7 +24317,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9257] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Scarshield Warlock",
@@ -25405,7 +24326,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9258] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Scarshield Raider",
@@ -25415,7 +24335,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9259] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Firebrand Grunt",
@@ -25425,7 +24344,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9260] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Firebrand Legionnaire",
@@ -25435,7 +24353,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9261] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Firebrand Darkweaver",
@@ -25445,7 +24362,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9262] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Firebrand Invoker",
@@ -25455,7 +24371,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9263] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Firebrand Dreadweaver",
@@ -25465,7 +24380,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9264] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Firebrand Pyromancer",
@@ -25475,7 +24389,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9265] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Smolderthorn Shadow Hunter",
@@ -25485,7 +24398,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9266] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Smolderthorn Witch Doctor",
@@ -25495,7 +24407,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9267] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Smolderthorn Axe Thrower",
@@ -25505,7 +24416,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9268] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Smolderthorn Berserker",
@@ -25515,7 +24425,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9269] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Smolderthorn Seer",
@@ -25534,7 +24443,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9319] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Houndmaster Grebmar",
@@ -25553,7 +24461,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9376] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Blazerunner",
@@ -25572,7 +24479,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9398] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Twilights Hammer Executioner",
@@ -25591,7 +24497,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9438] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Dark Keeper Bethek",
@@ -25601,7 +24506,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9443] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Dark Keeper Pelver",
@@ -25611,7 +24515,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9445] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Dark Guard",
@@ -25621,7 +24524,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9447] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Scarlet Warder",
@@ -25631,7 +24533,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9448] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Scarlet Praetorian",
@@ -25641,7 +24542,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9449] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Scarlet Cleric",
@@ -25651,7 +24551,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9450] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Scarlet Curate",
@@ -25661,7 +24560,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9451] = {
-		classification = "Elite",
 		level = "55 - 57",
 		names = {
 			enUS = "Scarlet Archmage",
@@ -25671,7 +24569,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9452] = {
-		classification = "Elite",
 		level = "53 - 55",
 		names = {
 			enUS = "Scarlet Enchanter",
@@ -25690,7 +24587,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9456] = {
-		classification = "Elite",
 		level = "20",
 		names = {
 			enUS = "Warlord Kromzar",
@@ -25718,7 +24614,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9476] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Watchman Doomgrip",
@@ -25737,7 +24632,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9499] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Plugger Spazzring",
@@ -25747,7 +24641,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9502] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Phalanx",
@@ -25766,7 +24659,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9522] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Blackrock Ambusher",
@@ -25794,7 +24686,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9537] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "55",
 		names = {
@@ -25805,20 +24696,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9541] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Blackbreath Crony",
-		},
-		zones = {
-			1584,
-		},
-	},
-	[9543] = {
-		classification = "Elite",
-		level = "53",
-		names = {
-			enUS = "Ribbly Screwspigot",
 		},
 		zones = {
 			1584,
@@ -25852,7 +24732,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9554] = {
-		classification = "Elite",
 		level = "48 - 52",
 		names = {
 			enUS = "Hammered Patron",
@@ -25862,7 +24741,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9568] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Overlord Wyrmthalak",
@@ -25872,7 +24750,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9583] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Bloodaxe Veteran",
@@ -25891,25 +24768,6 @@ RecipeBook.npcDB = {
 			1519,
 		},
 	},
-	[9596] = {
-		classification = "Rare Elite",
-		level = "59",
-		names = {
-			enUS = "Bannok Grimaxe",
-		},
-		zones = {
-			1583,
-		},
-	},
-	[9622] = {
-		level = "55",
-		names = {
-			enUS = "Ucha",
-		},
-		zones = {
-			490,
-		},
-	},
 	[9636] = {
 		faction = "Horde",
 		level = "41",
@@ -25921,7 +24779,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9677] = {
-		classification = "Elite",
 		level = "55",
 		names = {
 			enUS = "Ograbisi",
@@ -25931,7 +24788,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9678] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "56",
 		names = {
@@ -25942,7 +24798,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9680] = {
-		classification = "Elite",
 		level = "54",
 		names = {
 			enUS = "Crest Killer",
@@ -25952,22 +24807,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9681] = {
-		classification = "Elite",
 		level = "53",
 		names = {
 			enUS = "Jaz",
 		},
 		zones = {
 			1584,
-		},
-	},
-	[9683] = {
-		level = "49 - 50",
-		names = {
-			enUS = "Larkorwi Mate",
-		},
-		zones = {
-			490,
 		},
 	},
 	[9690] = {
@@ -25989,7 +24834,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9692] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Bloodaxe Raider",
@@ -25999,7 +24843,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9693] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Bloodaxe Evoker",
@@ -26045,7 +24888,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9716] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Bloodaxe Warmonger",
@@ -26055,7 +24897,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9717] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Bloodaxe Summoner",
@@ -26065,7 +24906,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9718] = {
-		classification = "Rare Elite",
 		level = "59",
 		names = {
 			enUS = "Ghok Bashguud",
@@ -26075,7 +24915,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9736] = {
-		classification = "Rare Elite",
 		level = "59",
 		names = {
 			enUS = "Quartermaster Zigris",
@@ -26085,7 +24924,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9816] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Pyroguard Emberseer",
@@ -26095,7 +24933,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9817] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Blackhand Dreadweaver",
@@ -26105,7 +24942,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9818] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Blackhand Summoner",
@@ -26115,7 +24951,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9819] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Blackhand Veteran",
@@ -26161,7 +24996,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[9938] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Magmus",
@@ -26180,7 +25014,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10043] = {
-		classification = "Elite",
 		level = "48 - 52",
 		names = {
 			enUS = "Ribblys Crony",
@@ -26190,7 +25023,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10080] = {
-		classification = "Rare Elite",
 		level = "45",
 		names = {
 			enUS = "Sandarr Dunereaver",
@@ -26200,7 +25032,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10081] = {
-		classification = "Rare Elite",
 		level = "45",
 		names = {
 			enUS = "Dustwraith",
@@ -26209,18 +25040,7 @@ RecipeBook.npcDB = {
 			1176,
 		},
 	},
-	[10082] = {
-		classification = "Rare Elite",
-		level = "45",
-		names = {
-			enUS = "Zerillis",
-		},
-		zones = {
-			1176,
-		},
-	},
 	[10083] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Rage Talon Flamescale",
@@ -26239,19 +25059,7 @@ RecipeBook.npcDB = {
 			141,
 		},
 	},
-	[10119] = {
-		classification = "Rare Elite",
-		level = "60",
-		names = {
-			enUS = "Volchan",
-		},
-		zones = {
-			46,
-			44,
-		},
-	},
 	[10120] = {
-		classification = "Elite",
 		level = "45",
 		names = {
 			enUS = "Vault Warder",
@@ -26306,7 +25114,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10184] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Onyxia",
@@ -26316,7 +25123,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10197] = {
-		classification = "Rare",
 		level = "55",
 		names = {
 			enUS = "Mezzir The Howler",
@@ -26326,7 +25132,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10200] = {
-		classification = "Rare",
 		level = "57",
 		names = {
 			enUS = "Rakshiri",
@@ -26336,7 +25141,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10220] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Halycon",
@@ -26355,7 +25159,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10258] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Rookery Guardian",
@@ -26365,7 +25168,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10263] = {
-		classification = "Rare Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Burning Felguard",
@@ -26375,7 +25177,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10264] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Solakar Flamewreath",
@@ -26395,7 +25196,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10268] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Gizrul The Slavener",
@@ -26444,7 +25244,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10317] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Blackhand Elite",
@@ -26454,7 +25253,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10318] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Blackhand Assassin",
@@ -26464,7 +25262,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10319] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Blackhand Iron Guard",
@@ -26483,7 +25280,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10339] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Gyth",
@@ -26493,7 +25289,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10357] = {
-		classification = "Rare",
 		level = "11",
 		names = {
 			enUS = "Ressan The Needler",
@@ -26503,7 +25298,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10363] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "General Drakkisath",
@@ -26513,7 +25307,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10366] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Rage Talon Dragon Guard",
@@ -26523,7 +25316,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10371] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Rage Talon Captain",
@@ -26533,7 +25325,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10372] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Rage Talon Fire Tongue",
@@ -26552,7 +25343,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10374] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Spire Spider",
@@ -26571,7 +25361,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10381] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Ravaged Cadaver",
@@ -26581,7 +25370,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10382] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Mangled Cadaver",
@@ -26591,7 +25379,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10384] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Spectral Citizen",
@@ -26601,7 +25388,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10385] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Ghostly Citizen",
@@ -26629,7 +25415,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10393] = {
-		classification = "Rare Elite",
 		level = "58",
 		names = {
 			enUS = "Skul",
@@ -26639,7 +25424,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10394] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Black Guard Sentry",
@@ -26649,7 +25433,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10398] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Thuzadin Shadowcaster",
@@ -26668,7 +25451,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10400] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Thuzadin Necromancer",
@@ -26678,7 +25460,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10405] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Plague Ghoul",
@@ -26688,7 +25469,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10406] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Ghoul Ravener",
@@ -26698,7 +25478,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10407] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Fleshflayer Ghoul",
@@ -26708,7 +25487,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10408] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Rockwing Gargoyle",
@@ -26718,7 +25496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10409] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Rockwing Screecher",
@@ -26737,7 +25514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10412] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Crypt Crawler",
@@ -26747,7 +25523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10413] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Crypt Beast",
@@ -26757,7 +25532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10414] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Patchwork Horror",
@@ -26767,7 +25541,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10416] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Bile Spewer",
@@ -26777,7 +25550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10417] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Venom Belcher",
@@ -26787,7 +25559,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10418] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Crimson Guardsman",
@@ -26797,7 +25568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10419] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Crimson Conjuror",
@@ -26807,7 +25577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10420] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Crimson Initiate",
@@ -26817,7 +25586,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10421] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Crimson Defender",
@@ -26827,7 +25595,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10422] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Crimson Sorcerer",
@@ -26837,7 +25604,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10423] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Crimson Priest",
@@ -26847,7 +25613,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10424] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Crimson Gallant",
@@ -26857,7 +25622,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10425] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Crimson Battle Mage",
@@ -26867,7 +25631,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10426] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Crimson Inquisitor",
@@ -26877,7 +25640,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10429] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Warchief Rend Blackhand",
@@ -26887,7 +25649,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10430] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "The Beast",
@@ -26897,7 +25658,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10432] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Vectus",
@@ -26907,7 +25667,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10433] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Marduk Blackpool",
@@ -26917,7 +25676,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10435] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Magistrate Barthilas",
@@ -26927,7 +25685,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10436] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Baroness Anastari",
@@ -26937,7 +25694,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10437] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Nerubenkan",
@@ -26947,7 +25703,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10438] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Maleki The Pallid",
@@ -26957,7 +25712,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10440] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Baron Rivendare",
@@ -26976,7 +25730,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10447] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Chromatic Dragonspawn",
@@ -26986,7 +25739,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10463] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Shrieking Banshee",
@@ -26996,7 +25748,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10464] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Wailing Banshee",
@@ -27006,7 +25757,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10469] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Scholomance Adept",
@@ -27016,7 +25766,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10470] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Scholomance Neophyte",
@@ -27026,7 +25775,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10471] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Scholomance Acolyte",
@@ -27036,7 +25784,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10472] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Scholomance Occultist",
@@ -27046,7 +25793,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10476] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Scholomance Necrolyte",
@@ -27056,7 +25802,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10477] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Scholomance Necromancer",
@@ -27066,7 +25811,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10478] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Splintered Skeleton",
@@ -27103,7 +25847,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10486] = {
-		classification = "Elite",
 		level = "59 - 61",
 		names = {
 			enUS = "Risen Warrior",
@@ -27113,7 +25856,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10487] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Risen Protector",
@@ -27123,7 +25865,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10488] = {
-		classification = "Elite",
 		level = "58 - 61",
 		names = {
 			enUS = "Risen Construct",
@@ -27133,7 +25874,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10489] = {
-		classification = "Elite",
 		level = "57 - 59",
 		names = {
 			enUS = "Risen Guard",
@@ -27143,7 +25883,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10491] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Risen Bonewarder",
@@ -27153,7 +25892,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10495] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Diseased Ghoul",
@@ -27163,7 +25901,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10498] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Spectral Tutor",
@@ -27173,7 +25910,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10499] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Spectral Researcher",
@@ -27183,7 +25919,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10500] = {
-		classification = "Elite",
 		level = "58 - 61",
 		names = {
 			enUS = "Spectral Teacher",
@@ -27193,7 +25928,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10502] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Lady Illucia Barov",
@@ -27203,7 +25937,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10503] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Jandice Barov",
@@ -27213,7 +25946,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10504] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Lord Alexei Barov",
@@ -27223,7 +25955,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10505] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Instructor Malicia",
@@ -27233,7 +25964,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10506] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Kirtonos The Herald",
@@ -27243,7 +25973,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10507] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "The Ravenian",
@@ -27253,7 +25982,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10508] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Ras Frostwhisper",
@@ -27263,7 +25991,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10509] = {
-		classification = "Rare Elite",
 		level = "59",
 		names = {
 			enUS = "Jed Runewatcher",
@@ -27273,7 +26000,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10516] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "The Unforgiven",
@@ -27283,7 +26009,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10558] = {
-		classification = "Rare Elite",
 		level = "57",
 		names = {
 			enUS = "Hearthsinger Forresten",
@@ -27293,7 +26018,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10584] = {
-		classification = "Rare Elite",
 		level = "60",
 		names = {
 			enUS = "Urok Doomhowl",
@@ -27303,7 +26027,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10596] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Mother Smolderweb",
@@ -27322,7 +26045,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10608] = {
-		classification = "Elite",
 		level = "55 - 57",
 		names = {
 			enUS = "Scarlet Priest",
@@ -27341,20 +26063,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10642] = {
-		classification = "Rare",
 		level = "27",
 		names = {
 			enUS = "Eckalom",
-		},
-		zones = {
-			331,
-		},
-	},
-	[10647] = {
-		classification = "Rare",
-		level = "32",
-		names = {
-			enUS = "Prince Raze",
 		},
 		zones = {
 			331,
@@ -27397,7 +26108,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10663] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Manaclaw",
@@ -27407,7 +26117,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10664] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Scryer",
@@ -27426,7 +26135,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10683] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Rookery Hatcher",
@@ -27445,7 +26153,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10737] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Shy Rotam",
@@ -27455,7 +26162,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10738] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "High Chief Winterfall",
@@ -27465,7 +26171,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10742] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Blackhand Dragon Handler",
@@ -27529,7 +26234,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10762] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Blackhand Thug",
@@ -27548,7 +26252,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10802] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Hitahya The Keeper",
@@ -27558,7 +26261,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10806] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Ursius",
@@ -27568,7 +26270,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10808] = {
-		classification = "Rare Elite",
 		level = "58",
 		names = {
 			enUS = "Timmy The Cruel",
@@ -27578,7 +26279,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10809] = {
-		classification = "Rare Elite",
 		level = "60",
 		names = {
 			enUS = "Stonespine",
@@ -27588,7 +26288,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10812] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Grand Crusader Dathrohan",
@@ -27598,7 +26297,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10814] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Chromatic Elite Guard",
@@ -27607,17 +26305,7 @@ RecipeBook.npcDB = {
 			1583,
 		},
 	},
-	[10816] = {
-		level = "55",
-		names = {
-			enUS = "Wandering Skeleton",
-		},
-		zones = {
-			28,
-		},
-	},
 	[10825] = {
-		classification = "Rare",
 		level = "56",
 		names = {
 			enUS = "Gish The Unmoving",
@@ -27645,7 +26333,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10899] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Goraluk Anvilcrack",
@@ -27655,7 +26342,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10901] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Lorekeeper Polkelt",
@@ -27674,18 +26360,7 @@ RecipeBook.npcDB = {
 			361,
 		},
 	},
-	[10919] = {
-		faction = "Horde",
-		level = "52 - 58",
-		names = {
-			enUS = "Shatterspear Troll",
-		},
-		zones = {
-			148,
-		},
-	},
 	[10992] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Enraged Panther",
@@ -27705,7 +26380,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10996] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Fallen Hero",
@@ -27717,7 +26391,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[10997] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Cannon Master Willey",
@@ -27787,7 +26460,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11032] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Malor The Zealous",
@@ -27827,7 +26499,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11043] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Crimson Monk",
@@ -27917,7 +26588,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11058] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Ezra Grimm",
@@ -28026,7 +26696,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11082] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Stratholme Courier",
@@ -28086,7 +26755,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11120] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Crimson Hammersmith",
@@ -28096,7 +26764,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11121] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Black Guard Swordsmith",
@@ -28106,7 +26773,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11143] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Postmaster Malown",
@@ -28191,7 +26857,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11257] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Scholomance Handler",
@@ -28201,7 +26866,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11261] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Doctor Theolen Krastinov",
@@ -28238,7 +26902,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11318] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Ragefire Trogg",
@@ -28248,7 +26911,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11319] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Ragefire Shaman",
@@ -28258,7 +26920,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11320] = {
-		classification = "Elite",
 		level = "13 - 14",
 		names = {
 			enUS = "Earthborer",
@@ -28268,7 +26929,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11321] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Molten Elemental",
@@ -28278,7 +26938,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11322] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Searing Blade Cultist",
@@ -28288,7 +26947,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11323] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Searing Blade Enforcer",
@@ -28298,7 +26956,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11324] = {
-		classification = "Elite",
 		level = "13 - 15",
 		names = {
 			enUS = "Searing Blade Warlock",
@@ -28308,7 +26965,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11338] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hakkari Shadowcaster",
@@ -28318,7 +26974,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11339] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hakkari Shadow Hunter",
@@ -28328,7 +26983,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11340] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hakkari Blood Priest",
@@ -28338,7 +26992,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11346] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Hakkari Oracle",
@@ -28348,7 +27001,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11350] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Gurubashi Axe Thrower",
@@ -28358,7 +27010,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11351] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Gurubashi Headhunter",
@@ -28368,7 +27019,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11352] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Gurubashi Berserker",
@@ -28378,7 +27028,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11353] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Gurubashi Blood Drinker",
@@ -28388,7 +27037,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11355] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Gurubashi Warrior",
@@ -28398,7 +27046,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11356] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Gurubashi Champion",
@@ -28408,7 +27055,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11357] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Son Of Hakkar",
@@ -28418,7 +27064,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11359] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Soulflayer",
@@ -28437,7 +27082,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11361] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Zulian Tiger",
@@ -28447,7 +27091,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11365] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Zulian Panther",
@@ -28466,7 +27109,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11370] = {
-		classification = "Elite",
 		level = "56 - 61",
 		names = {
 			enUS = "Razzashi Broodwidow",
@@ -28476,7 +27118,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11371] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Razzashi Serpent",
@@ -28486,7 +27127,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11372] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Razzashi Adder",
@@ -28523,7 +27163,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11440] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Gordok Enforcer",
@@ -28533,7 +27172,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11441] = {
-		classification = "Elite",
 		level = "56 - 58",
 		names = {
 			enUS = "Gordok Brute",
@@ -28543,7 +27181,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11442] = {
-		classification = "Elite",
 		level = "53 - 54",
 		names = {
 			enUS = "Gordok Mauler",
@@ -28553,7 +27190,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11443] = {
-		classification = "Elite",
 		level = "52 - 53",
 		names = {
 			enUS = "Gordok Ogre Mage",
@@ -28563,7 +27199,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11444] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Gordok Mage Lord",
@@ -28573,7 +27208,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11445] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Gordok Captain",
@@ -28583,7 +27217,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11448] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Gordok Warlock",
@@ -28593,7 +27226,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11450] = {
-		classification = "Elite",
 		level = "58 - 61",
 		names = {
 			enUS = "Gordok Reaver",
@@ -28603,7 +27235,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11451] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Wildspawn Satyr",
@@ -28613,7 +27244,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11452] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Wildspawn Rogue",
@@ -28623,7 +27253,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11453] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Wildspawn Trickster",
@@ -28633,7 +27262,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11454] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Wildspawn Betrayer",
@@ -28643,7 +27271,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11455] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Wildspawn Felsworn",
@@ -28653,7 +27280,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11456] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Wildspawn Shadowstalker",
@@ -28663,7 +27289,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11457] = {
-		classification = "Elite",
 		level = "56 - 57",
 		names = {
 			enUS = "Wildspawn Hellcaller",
@@ -28673,7 +27298,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11458] = {
-		classification = "Elite",
 		level = "57 - 59",
 		names = {
 			enUS = "Petrified Treant",
@@ -28683,7 +27307,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11459] = {
-		classification = "Elite",
 		level = "57 - 59",
 		names = {
 			enUS = "Ironbark Protector",
@@ -28693,7 +27316,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11461] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Warpwood Guardian",
@@ -28703,7 +27325,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11462] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Warpwood Treant",
@@ -28713,7 +27334,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11464] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Warpwood Tangler",
@@ -28723,7 +27343,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11465] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Warpwood Stomper",
@@ -28733,7 +27352,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11469] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Eldreth Seether",
@@ -28743,7 +27361,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11470] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Eldreth Sorcerer",
@@ -28753,7 +27370,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11471] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Eldreth Apparition",
@@ -28763,7 +27379,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11472] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Eldreth Spirit",
@@ -28773,7 +27388,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11473] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Eldreth Spectre",
@@ -28783,7 +27397,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11475] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Eldreth Phantasm",
@@ -28811,7 +27424,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11480] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Arcane Aberration",
@@ -28821,7 +27433,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11483] = {
-		classification = "Elite",
 		level = "57 - 59",
 		names = {
 			enUS = "Mana Remnant",
@@ -28831,7 +27442,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11484] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Residual Monstrosity",
@@ -28841,7 +27451,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11487] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Magister Kalendris",
@@ -28851,7 +27460,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11488] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Illyanna Ravenoak",
@@ -28861,7 +27469,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11489] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Tendris Warpwood",
@@ -28871,7 +27478,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11490] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Zevrim Thornhoof",
@@ -28881,7 +27487,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11492] = {
-		classification = "Elite",
 		level = "58",
 		names = {
 			enUS = "Alzzin The Wildshaper",
@@ -28891,7 +27496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11498] = {
-		classification = "Rare Elite",
 		level = "58",
 		names = {
 			enUS = "Skarr The Unbreakable",
@@ -28901,7 +27505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11517] = {
-		classification = "Elite",
 		level = "16",
 		names = {
 			enUS = "Oggleflint",
@@ -28911,7 +27514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11518] = {
-		classification = "Elite",
 		level = "16",
 		names = {
 			enUS = "Jergosh The Invoker",
@@ -28921,7 +27523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11519] = {
-		classification = "Elite",
 		level = "16",
 		names = {
 			enUS = "Bazzalan",
@@ -28931,7 +27532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11520] = {
-		classification = "Elite",
 		level = "16",
 		names = {
 			enUS = "Taragaman The Hungerer",
@@ -28950,7 +27550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11551] = {
-		classification = "Elite",
 		level = "58 - 60",
 		names = {
 			enUS = "Necrofiend",
@@ -29032,7 +27631,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11582] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Scholomance Dark Summoner",
@@ -29042,7 +27640,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11583] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Nefarian",
@@ -29070,7 +27667,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11622] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Rattlegore",
@@ -29080,7 +27676,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11658] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Molten Giant",
@@ -29090,7 +27685,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11659] = {
-		classification = "Elite",
 		level = "62 - 63",
 		names = {
 			enUS = "Molten Destroyer",
@@ -29100,7 +27694,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11661] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker",
@@ -29110,7 +27703,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11662] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker Priest",
@@ -29120,7 +27712,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11663] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Flamewaker Healer",
@@ -29130,7 +27721,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11664] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker Elite",
@@ -29140,7 +27730,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11665] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Lava Annihilator",
@@ -29150,7 +27739,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11666] = {
-		classification = "Elite",
 		level = "60 - 62",
 		names = {
 			enUS = "Firewalker",
@@ -29160,7 +27748,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11667] = {
-		classification = "Elite",
 		level = "60 - 62",
 		names = {
 			enUS = "Flameguard",
@@ -29170,7 +27757,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11668] = {
-		classification = "Elite",
 		level = "60 - 62",
 		names = {
 			enUS = "Firelord",
@@ -29180,7 +27766,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11673] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Ancient Core Hound",
@@ -29246,7 +27831,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11698] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Hiveashi Stinger",
@@ -29265,7 +27849,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11721] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Hiveashi Worker",
@@ -29275,7 +27858,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11722] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Hiveashi Defender",
@@ -29285,7 +27867,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11723] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Hiveashi Sandstalker",
@@ -29295,7 +27876,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11724] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Hiveashi Swarmer",
@@ -29305,7 +27885,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11725] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Hivezora Waywatcher",
@@ -29315,7 +27894,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11726] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Hivezora Tunneler",
@@ -29334,7 +27912,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11728] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hivezora Reaver",
@@ -29344,7 +27921,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11729] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hivezora Hive Sister",
@@ -29354,7 +27930,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11730] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hiveregal Ambusher",
@@ -29364,7 +27939,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11731] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hiveregal Burrower",
@@ -29374,7 +27948,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11732] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hiveregal Spitfire",
@@ -29384,7 +27957,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11733] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Hiveregal Slavemaker",
@@ -29394,7 +27966,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11734] = {
-		classification = "Elite",
 		level = "59 - 61",
 		names = {
 			enUS = "Hiveregal Hive Lord",
@@ -29485,7 +28056,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11777] = {
-		classification = "Elite",
 		level = "40 - 41",
 		names = {
 			enUS = "Shadowshard Rumbler",
@@ -29495,7 +28065,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11778] = {
-		classification = "Elite",
 		level = "41 - 42",
 		names = {
 			enUS = "Shadowshard Smasher",
@@ -29505,7 +28074,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11781] = {
-		classification = "Elite",
 		level = "40 - 41",
 		names = {
 			enUS = "Ambershard Crusher",
@@ -29515,7 +28083,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11782] = {
-		classification = "Elite",
 		level = "42 - 43",
 		names = {
 			enUS = "Ambershard Destroyer",
@@ -29534,7 +28101,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11784] = {
-		classification = "Elite",
 		level = "47 - 48",
 		names = {
 			enUS = "Theradrim Guardian",
@@ -29544,7 +28110,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11785] = {
-		classification = "Elite",
 		level = "40 - 41",
 		names = {
 			enUS = "Ambereye Basilisk",
@@ -29554,7 +28119,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11786] = {
-		classification = "Elite",
 		level = "41 - 42",
 		names = {
 			enUS = "Ambereye Reaver",
@@ -29564,7 +28128,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11787] = {
-		classification = "Elite",
 		level = "40 - 41",
 		names = {
 			enUS = "Rock Borer",
@@ -29574,7 +28137,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11788] = {
-		classification = "Elite",
 		level = "41 - 42",
 		names = {
 			enUS = "Rock Worm",
@@ -29593,7 +28155,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11790] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Putridus Satyr",
@@ -29603,7 +28164,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11791] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Putridus Trickster",
@@ -29613,7 +28173,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11792] = {
-		classification = "Elite",
 		level = "42 - 44",
 		names = {
 			enUS = "Putridus Shadowstalker",
@@ -29623,7 +28182,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11793] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Celebrian Dryad",
@@ -29633,7 +28191,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11794] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Sister Of Celebrian",
@@ -29643,7 +28200,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11830] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Hakkari Priest",
@@ -29653,7 +28209,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11831] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Hakkari Witch Doctor",
@@ -29735,7 +28290,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11897] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Duskwing",
@@ -29817,7 +28371,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11921] = {
-		classification = "Elite",
 		level = "21",
 		names = {
 			enUS = "Besseleth",
@@ -29835,19 +28388,7 @@ RecipeBook.npcDB = {
 			405,
 		},
 	},
-	[11947] = {
-		classification = "Elite",
-		faction = "Horde",
-		level = "61",
-		names = {
-			enUS = "Captain Galvangar",
-		},
-		zones = {
-			2597,
-		},
-	},
 	[11949] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "61",
 		names = {
@@ -29858,7 +28399,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11982] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Magmadar",
@@ -29868,7 +28408,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[11988] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Golemagg The Incinerator",
@@ -29926,7 +28465,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12056] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Baron Geddon",
@@ -29936,7 +28474,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12057] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Garr",
@@ -29946,7 +28483,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12076] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Lava Elemental",
@@ -29956,7 +28492,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12100] = {
-		classification = "Elite",
 		level = "62 - 63",
 		names = {
 			enUS = "Lava Reaver",
@@ -29966,7 +28501,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12101] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Lava Surger",
@@ -29976,7 +28510,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12118] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lucifron",
@@ -29986,7 +28519,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12119] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker Protector",
@@ -30006,7 +28538,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12128] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Crimson Elite",
@@ -30016,7 +28547,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12129] = {
-		classification = "Elite",
 		level = "60 - 63",
 		names = {
 			enUS = "Onyxian Warder",
@@ -30044,17 +28574,7 @@ RecipeBook.npcDB = {
 			1377,
 		},
 	},
-	[12179] = {
-		level = "56 - 57",
-		names = {
-			enUS = "Tortured Sentinel",
-		},
-		zones = {
-			1377,
-		},
-	},
 	[12203] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Landslide",
@@ -30064,7 +28584,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12206] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Primordial Behemoth",
@@ -30074,7 +28593,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12207] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Thessala Hydra",
@@ -30111,7 +28629,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12219] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Barbed Lasher",
@@ -30121,7 +28638,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12220] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Constrictor Vine",
@@ -30131,7 +28647,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12221] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Noxious Slime",
@@ -30141,7 +28656,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12222] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Creeping Sludge",
@@ -30151,7 +28665,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12223] = {
-		classification = "Elite",
 		level = "45 - 46",
 		names = {
 			enUS = "Cavern Lurker",
@@ -30161,7 +28674,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12224] = {
-		classification = "Elite",
 		level = "46 - 47",
 		names = {
 			enUS = "Cavern Shambler",
@@ -30171,7 +28683,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12225] = {
-		classification = "Elite",
 		level = "49",
 		names = {
 			enUS = "Celebras The Cursed",
@@ -30181,7 +28692,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12236] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Lord Vyletongue",
@@ -30191,7 +28701,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12237] = {
-		classification = "Rare Elite",
 		level = "48",
 		names = {
 			enUS = "Meshlok The Harvester",
@@ -30201,7 +28710,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12239] = {
-		classification = "Elite",
 		level = "42",
 		names = {
 			enUS = "Spirit Of Gelk",
@@ -30211,7 +28719,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12240] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Spirit Of Kolk",
@@ -30221,7 +28728,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12241] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Spirit Of Magra",
@@ -30231,7 +28737,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12242] = {
-		classification = "Elite",
 		level = "46",
 		names = {
 			enUS = "Spirit Of Maraudos",
@@ -30241,7 +28746,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12243] = {
-		classification = "Elite",
 		level = "47",
 		names = {
 			enUS = "Spirit Of Veng",
@@ -30287,7 +28791,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12259] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Gehennas",
@@ -30297,7 +28800,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12264] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Shazzrah",
@@ -30313,16 +28815,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			148,
-		},
-	},
-	[12322] = {
-		faction = "Alliance",
-		level = "60",
-		names = {
-			enUS = "Quellithien Protector",
-		},
-		zones = {
-			139,
 		},
 	},
 	[12347] = {
@@ -30362,7 +28854,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12396] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Doomguard Commander",
@@ -30373,7 +28864,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12397] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lord Kazzak",
@@ -30392,7 +28882,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12432] = {
-		classification = "Rare",
 		level = "14",
 		names = {
 			enUS = "Old Vicejaw",
@@ -30402,7 +28891,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12457] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Blackwing Spellbinder",
@@ -30412,7 +28900,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12459] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Blackwing Warlock",
@@ -30422,7 +28909,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12460] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Death Talon Wyrmguard",
@@ -30432,7 +28918,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12461] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Death Talon Overseer",
@@ -30442,7 +28927,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12463] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Death Talon Flamescale",
@@ -30452,7 +28936,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12464] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Death Talon Seether",
@@ -30462,7 +28945,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12465] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Death Talon Wyrmkin",
@@ -30472,7 +28954,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12467] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Death Talon Captain",
@@ -30482,7 +28963,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12468] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Death Talon Hatcher",
@@ -30492,7 +28972,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12474] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Emeraldon Boughguard",
@@ -30504,7 +28983,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12475] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Emeraldon Tree Warder",
@@ -30516,7 +28994,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12476] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Emeraldon Oracle",
@@ -30528,7 +29005,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12477] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Verdantine Boughguard",
@@ -30539,19 +29015,7 @@ RecipeBook.npcDB = {
 			16029,
 		},
 	},
-	[12478] = {
-		classification = "Elite",
-		level = "61",
-		names = {
-			enUS = "Verdantine Oracle",
-		},
-		zones = {
-			47,
-			16029,
-		},
-	},
 	[12479] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Verdantine Tree Warder",
@@ -30562,7 +29026,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12497] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Dreamroarer",
@@ -30573,23 +29036,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12579] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Bloodfury Ripper",
 		},
 		zones = {
 			406,
-		},
-	},
-	[12676] = {
-		faction = "Alliance",
-		level = "31",
-		names = {
-			enUS = "Sharptalon",
-		},
-		zones = {
-			331,
 		},
 	},
 	[12677] = {
@@ -30613,7 +29065,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12800] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Chimaerok",
@@ -30623,7 +29074,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12801] = {
-		classification = "Elite",
 		level = "60 - 62",
 		names = {
 			enUS = "Arcane Chimaerok",
@@ -30633,7 +29083,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12802] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Chimaerok Devourer",
@@ -30653,7 +29102,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12865] = {
-		classification = "Elite",
 		level = "36",
 		names = {
 			enUS = "Ambassador Malcin",
@@ -30663,7 +29111,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12876] = {
-		classification = "Elite",
 		level = "28",
 		names = {
 			enUS = "Baron Aquanis",
@@ -30693,7 +29140,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12899] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Axtroz",
@@ -30703,7 +29149,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12900] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Somnus",
@@ -30713,7 +29158,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[12902] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Lorgus Jett",
@@ -30843,7 +29287,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13021] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Warpwood Crusher",
@@ -30880,7 +29323,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13137] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "59",
 		names = {
@@ -30890,19 +29332,7 @@ RecipeBook.npcDB = {
 			2597,
 		},
 	},
-	[13138] = {
-		classification = "Elite",
-		faction = "Alliance",
-		level = "59",
-		names = {
-			enUS = "Lieutenant Spencer",
-		},
-		zones = {
-			2597,
-		},
-	},
 	[13140] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "61",
 		names = {
@@ -30913,7 +29343,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13141] = {
-		classification = "Elite",
 		level = "43 - 44",
 		names = {
 			enUS = "Deeprot Stomper",
@@ -30923,7 +29352,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13142] = {
-		classification = "Elite",
 		level = "44 - 45",
 		names = {
 			enUS = "Deeprot Tangler",
@@ -30933,7 +29361,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13144] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "59",
 		names = {
@@ -30944,7 +29371,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13145] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "59",
 		names = {
@@ -30954,19 +29380,7 @@ RecipeBook.npcDB = {
 			2597,
 		},
 	},
-	[13146] = {
-		classification = "Elite",
-		faction = "Horde",
-		level = "59",
-		names = {
-			enUS = "Lieutenant Murp",
-		},
-		zones = {
-			2597,
-		},
-	},
 	[13147] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "59",
 		names = {
@@ -30986,7 +29400,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13176] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "60",
 		names = {
@@ -30997,7 +29410,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13181] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "60",
 		names = {
@@ -31008,7 +29420,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13196] = {
-		classification = "Elite",
 		level = "54 - 55",
 		names = {
 			enUS = "Phase Lasher",
@@ -31018,7 +29429,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13197] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Fel Lash",
@@ -31036,18 +29446,7 @@ RecipeBook.npcDB = {
 			2557,
 		},
 	},
-	[13278] = {
-		classification = "Elite",
-		level = "60",
-		names = {
-			enUS = "Duke Hydraxis",
-		},
-		zones = {
-			16,
-		},
-	},
 	[13280] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Hydrospawn",
@@ -31057,7 +29456,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13282] = {
-		classification = "Elite",
 		level = "48",
 		names = {
 			enUS = "Noxxion",
@@ -31077,7 +29475,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13284] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "58",
 		names = {
@@ -31088,7 +29485,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13285] = {
-		classification = "Elite",
 		level = "57 - 58",
 		names = {
 			enUS = "Death Lash",
@@ -31098,7 +29494,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13297] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "59",
 		names = {
@@ -31108,30 +29503,7 @@ RecipeBook.npcDB = {
 			2597,
 		},
 	},
-	[13299] = {
-		classification = "Elite",
-		faction = "Alliance",
-		level = "59",
-		names = {
-			enUS = "Lieutenant Lonadin",
-		},
-		zones = {
-			2597,
-		},
-	},
-	[13300] = {
-		classification = "Elite",
-		faction = "Alliance",
-		level = "59",
-		names = {
-			enUS = "Lieutenant Mancuso",
-		},
-		zones = {
-			2597,
-		},
-	},
 	[13318] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "61",
 		names = {
@@ -31142,7 +29514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13319] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "61",
 		names = {
@@ -31153,7 +29524,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13320] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "61",
 		names = {
@@ -31164,7 +29534,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13323] = {
-		classification = "Elite",
 		level = "46 - 48",
 		names = {
 			enUS = "Subterranean Diemetradon",
@@ -31178,26 +29547,6 @@ RecipeBook.npcDB = {
 		level = "59",
 		names = {
 			enUS = "Seasoned Defender",
-		},
-		zones = {
-			2597,
-		},
-	},
-	[13328] = {
-		faction = "Horde",
-		level = "59",
-		names = {
-			enUS = "Seasoned Guardian",
-		},
-		zones = {
-			2597,
-		},
-	},
-	[13332] = {
-		faction = "Horde",
-		level = "60",
-		names = {
-			enUS = "Veteran Guardian",
 		},
 		zones = {
 			2597,
@@ -31274,7 +29623,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13447] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "58 - 59",
 		names = {
@@ -31305,7 +29653,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13577] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "60",
 		names = {
@@ -31325,7 +29672,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13601] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Tinkerer Gizlock",
@@ -31344,7 +29690,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13718] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "The Nameless Prophet",
@@ -31354,7 +29699,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13797] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "60 - 61",
 		names = {
@@ -31365,7 +29709,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13896] = {
-		classification = "Rare Elite",
 		level = "52",
 		names = {
 			enUS = "Scalebeard",
@@ -31375,7 +29718,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[13996] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Blackwing Technician",
@@ -31403,18 +29745,7 @@ RecipeBook.npcDB = {
 			2597,
 		},
 	},
-	[14226] = {
-		classification = "Rare",
-		level = "40",
-		names = {
-			enUS = "Kaskk",
-		},
-		zones = {
-			405,
-		},
-	},
 	[14267] = {
-		classification = "Rare Elite",
 		level = "19",
 		names = {
 			enUS = "Emogg The Crusher",
@@ -31424,7 +29755,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14268] = {
-		classification = "Rare",
 		level = "15 - 16",
 		names = {
 			enUS = "Lord Condar",
@@ -31434,7 +29764,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14269] = {
-		classification = "Rare",
 		level = "21",
 		names = {
 			enUS = "Seeker Aqualon",
@@ -31444,7 +29773,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14276] = {
-		classification = "Rare",
 		level = "30",
 		names = {
 			enUS = "Scargil",
@@ -31454,7 +29782,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14278] = {
-		classification = "Rare",
 		level = "28",
 		names = {
 			enUS = "Robark",
@@ -31463,18 +29790,7 @@ RecipeBook.npcDB = {
 			267,
 		},
 	},
-	[14283] = {
-		faction = "Alliance",
-		level = "53 - 54",
-		names = {
-			enUS = "Stormpike Owl",
-		},
-		zones = {
-			2597,
-		},
-	},
 	[14303] = {
-		classification = "Elite",
 		level = "57 - 59",
 		names = {
 			enUS = "Petrified Guardian",
@@ -31484,7 +29800,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14308] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Ferra",
@@ -31494,7 +29809,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14321] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Guard Fengus",
@@ -31504,7 +29818,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14323] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Guard Slipkik",
@@ -31514,7 +29827,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14326] = {
-		classification = "Elite",
 		level = "59",
 		names = {
 			enUS = "Guard Moldar",
@@ -31524,7 +29836,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14327] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Lethtendris",
@@ -31534,7 +29845,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14351] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Gordok Bushwacker",
@@ -31544,7 +29854,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14354] = {
-		classification = "Elite",
 		level = "57",
 		names = {
 			enUS = "Pusillin",
@@ -31553,18 +29862,7 @@ RecipeBook.npcDB = {
 			2557,
 		},
 	},
-	[14371] = {
-		classification = "Elite",
-		level = "52",
-		names = {
-			enUS = "Shendralar Provisioner",
-		},
-		zones = {
-			2557,
-		},
-	},
 	[14398] = {
-		classification = "Elite",
 		level = "58 - 59",
 		names = {
 			enUS = "Eldreth Darter",
@@ -31574,7 +29872,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14399] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Arcane Torrent",
@@ -31593,7 +29890,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14429] = {
-		classification = "Rare",
 		level = "11",
 		names = {
 			enUS = "Grimmaw",
@@ -31603,7 +29899,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14430] = {
-		classification = "Rare",
 		level = "9",
 		names = {
 			enUS = "Duskstalker",
@@ -31613,7 +29908,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14431] = {
-		classification = "Rare",
 		level = "8",
 		names = {
 			enUS = "Fury Shelda",
@@ -31623,7 +29917,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14454] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "The Windreaver",
@@ -31633,7 +29926,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14457] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Princess Tempestria",
@@ -31643,7 +29935,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14506] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Lord Helnurath",
@@ -31653,7 +29944,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14516] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Death Knight Darkreaver",
@@ -31663,7 +29953,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14520] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Aspect Of Malice",
@@ -31673,7 +29962,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14532] = {
-		classification = "Elite",
 		level = "56 - 60",
 		names = {
 			enUS = "Razzashi Venombrood",
@@ -31701,7 +29989,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14684] = {
-		classification = "Elite",
 		names = {
 			enUS = "Balzaphon",
 		},
@@ -31710,7 +29997,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14695] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Lord Blackwood",
@@ -31748,7 +30034,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14750] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Gurubashi Bat Rider",
@@ -31758,7 +30043,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14821] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Razzashi Raptor",
@@ -31768,7 +30052,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14825] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Withered Mistress",
@@ -31778,7 +30061,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14861] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Blood Steward Of Kirtonos",
@@ -31788,7 +30070,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14880] = {
-		classification = "Elite",
 		level = "53 - 58",
 		names = {
 			enUS = "Razzashi Skitterer",
@@ -31798,7 +30079,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14882] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Atalai Mistress",
@@ -31808,7 +30088,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14883] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Voodoo Slave",
@@ -31818,7 +30097,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14887] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Ysondre",
@@ -31831,7 +30109,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14888] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lethon",
@@ -31844,7 +30121,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14889] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Emeriss",
@@ -31857,7 +30133,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14890] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Taerar",
@@ -31870,7 +30145,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[14921] = {
-		classification = "Elite",
 		level = "56",
 		names = {
 			enUS = "Rin'wosho the Trader",
@@ -31880,7 +30154,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15043] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Zulian Crocolisk",
@@ -31890,31 +30163,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15111] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Mad Servant",
 		},
 		zones = {
 			1977,
-		},
-	},
-	[15175] = {
-		level = "57",
-		names = {
-			enUS = "Khur Hornstriker",
-		},
-		zones = {
-			1377,
-		},
-	},
-	[15176] = {
-		level = "57",
-		names = {
-			enUS = "Vargus",
-		},
-		zones = {
-			1377,
 		},
 	},
 	[15179] = {
@@ -31936,7 +30190,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15207] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "The Duke Of Fathoms",
@@ -31946,7 +30199,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15208] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "The Duke Of Shards",
@@ -31956,7 +30208,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15209] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Crimson Templar",
@@ -31966,7 +30217,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15212] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Hoary Templar",
@@ -31985,7 +30235,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15220] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "The Duke Of Zephyrs",
@@ -31995,7 +30244,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15229] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Vekniss Soldier",
@@ -32005,7 +30253,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15230] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Vekniss Warrior",
@@ -32015,7 +30262,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15233] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Vekniss Guardian",
@@ -32025,7 +30271,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15235] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Vekniss Stinger",
@@ -32035,7 +30280,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15236] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Vekniss Wasp",
@@ -32045,7 +30289,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15240] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Vekniss Hive Crawler",
@@ -32055,7 +30298,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15247] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Brainwasher",
@@ -32065,7 +30307,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15249] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Lasher",
@@ -32074,18 +30315,7 @@ RecipeBook.npcDB = {
 			3428,
 		},
 	},
-	[15252] = {
-		classification = "Elite",
-		level = "63",
-		names = {
-			enUS = "Qiraji Champion",
-		},
-		zones = {
-			3428,
-		},
-	},
 	[15262] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Obsidian Eradicator",
@@ -32095,7 +30325,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15263] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "The Prophet Skeram",
@@ -32105,7 +30334,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15264] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Anubisath Sentinel",
@@ -32114,47 +30342,7 @@ RecipeBook.npcDB = {
 			3428,
 		},
 	},
-	[15275] = {
-		classification = "Boss",
-		level = "??",
-		names = {
-			enUS = "Emperor Veknilash",
-		},
-		zones = {
-			3428,
-		},
-	},
-	[15276] = {
-		classification = "Boss",
-		level = "??",
-		names = {
-			enUS = "Emperor Veklor",
-		},
-		zones = {
-			3428,
-		},
-	},
-	[15277] = {
-		classification = "Elite",
-		level = "62",
-		names = {
-			enUS = "Anubisath Defender",
-		},
-		zones = {
-			3428,
-		},
-	},
-	[15293] = {
-		level = "60",
-		names = {
-			enUS = "Aendel Windspear",
-		},
-		zones = {
-			1377,
-		},
-	},
 	[15299] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Viscidus",
@@ -32164,7 +30352,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15307] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Earthen Templar",
@@ -32174,7 +30361,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15311] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Anubisath Warder",
@@ -32184,7 +30370,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15312] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Obsidian Nullifier",
@@ -32194,7 +30379,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15318] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Hivezara Drone",
@@ -32204,7 +30388,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15319] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Hivezara Collector",
@@ -32214,7 +30397,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15320] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hivezara Soldier",
@@ -32224,7 +30406,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15323] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hivezara Sandstalker",
@@ -32234,7 +30415,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15324] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Gladiator",
@@ -32244,7 +30424,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15325] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hivezara Wasp",
@@ -32254,7 +30433,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15327] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hivezara Stinger",
@@ -32273,7 +30451,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15335] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flesh Hunter",
@@ -32283,7 +30460,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15336] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Hivezara Tail Lasher",
@@ -32293,7 +30469,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15338] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Obsidian Destroyer",
@@ -32303,7 +30478,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15339] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Ossirian The Unscarred",
@@ -32313,7 +30487,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15340] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Moam",
@@ -32323,7 +30496,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15341] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "General Rajaxx",
@@ -32333,7 +30505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15343] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Swarmguard",
@@ -32343,7 +30514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15348] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Kurinnaxx",
@@ -32353,7 +30523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15355] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Anubisath Guardian",
@@ -32363,7 +30532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15369] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Ayamiss The Hunter",
@@ -32373,7 +30541,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15370] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Buru The Gorger",
@@ -32383,7 +30550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15385] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Colonel Zerran",
@@ -32393,7 +30559,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15386] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Major Yeggeth",
@@ -32403,7 +30568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15388] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Major Pakkon",
@@ -32413,7 +30577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15389] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Captain Drenn",
@@ -32423,7 +30586,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15390] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Captain Xurrem",
@@ -32433,7 +30595,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15391] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Captain Qeez",
@@ -32443,7 +30604,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15392] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Captain Tuubid",
@@ -32462,7 +30622,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15461] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Shrieker Scarab",
@@ -32472,7 +30631,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15462] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Spitting Scarab",
@@ -32481,18 +30639,7 @@ RecipeBook.npcDB = {
 			3429,
 		},
 	},
-	[15471] = {
-		classification = "Elite",
-		level = "61",
-		names = {
-			enUS = "Lieutenant General Andorov",
-		},
-		zones = {
-			3429,
-		},
-	},
 	[15509] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Princess Huhuran",
@@ -32502,7 +30649,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15510] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Fankriss The Unyielding",
@@ -32512,7 +30658,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15511] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lord Kri",
@@ -32522,7 +30667,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15516] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Battleguard Sartura",
@@ -32532,7 +30676,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15517] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Ouro",
@@ -32542,7 +30685,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15541] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Twilight Marauder Morna",
@@ -32561,7 +30703,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15543] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Princess Yauj",
@@ -32571,7 +30712,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15544] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Vem",
@@ -32581,7 +30721,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15591] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Minion Of Weavil",
@@ -32590,17 +30729,7 @@ RecipeBook.npcDB = {
 			15,
 		},
 	},
-	[15692] = {
-		level = "45",
-		names = {
-			enUS = "Dark Iron Kidnapper",
-		},
-		zones = {
-			51,
-		},
-	},
 	[15752] = {
-		classification = "Elite",
 		level = "40 - 44",
 		names = {
 			enUS = "Silithid Flayer",
@@ -32610,7 +30739,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15756] = {
-		classification = "Elite",
 		level = "54 - 57",
 		names = {
 			enUS = "Greater Silithid Flayer",
@@ -32622,7 +30750,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15808] = {
-		classification = "Elite",
 		level = "21 - 23",
 		names = {
 			enUS = "Minor Silithid Flayer",
@@ -32632,7 +30759,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15811] = {
-		classification = "Elite",
 		level = "11 - 14",
 		names = {
 			enUS = "Faltering Silithid Flayer",
@@ -32642,7 +30768,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15974] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Dread Creeper",
@@ -32652,7 +30777,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15975] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Carrion Spinner",
@@ -32661,18 +30785,7 @@ RecipeBook.npcDB = {
 			3456,
 		},
 	},
-	[15976] = {
-		classification = "Elite",
-		level = "61",
-		names = {
-			enUS = "Venom Stalker",
-		},
-		zones = {
-			3456,
-		},
-	},
 	[15979] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Tomb Horror",
@@ -32682,7 +30795,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15980] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Naxxramas Cultist",
@@ -32692,7 +30804,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15981] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Naxxramas Acolyte",
@@ -32702,7 +30813,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16018] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Bile Retcher",
@@ -32712,7 +30822,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16020] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Mad Scientist",
@@ -32722,7 +30831,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16021] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Living Monstrosity",
@@ -32732,7 +30840,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16022] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Surgical Assistant",
@@ -32742,7 +30849,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16025] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Stitched Spewer",
@@ -32752,7 +30858,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16042] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lord Valthalak",
@@ -32762,7 +30867,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16067] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Skeletal Steed",
@@ -32772,7 +30876,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16072] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Tidelord Rrurgaz",
@@ -32782,7 +30885,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16145] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Deathknight Captain",
@@ -32792,7 +30894,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16154] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Risen Deathknight",
@@ -32802,7 +30903,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16163] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Deathknight Cavalier",
@@ -32812,7 +30912,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16164] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Shade Of Naxxramas",
@@ -32822,7 +30921,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16165] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Necro Knight",
@@ -32832,7 +30930,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16167] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Bony Construct",
@@ -32842,7 +30939,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16168] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Stoneskin Gargoyle",
@@ -32852,7 +30948,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16193] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Skeletal Smith",
@@ -32861,18 +30956,7 @@ RecipeBook.npcDB = {
 			3456,
 		},
 	},
-	[16194] = {
-		classification = "Elite",
-		level = "61",
-		names = {
-			enUS = "Unholy Axe",
-		},
-		zones = {
-			3456,
-		},
-	},
 	[16215] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Unholy Staff",
@@ -32882,7 +30966,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16216] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Unholy Swords",
@@ -32892,7 +30975,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16244] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Infectious Ghoul",
@@ -32902,7 +30984,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16368] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Necropolis Acolyte",
@@ -32912,7 +30993,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16446] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Plagued Gargoyle",
@@ -32922,7 +31002,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16447] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Plagued Ghoul",
@@ -32932,7 +31011,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16449] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Spirit Of Naxxramas",
@@ -32942,7 +31020,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16451] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Deathknight Vindicator",
@@ -32952,7 +31029,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16452] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Necro Knight Guardian",
@@ -32962,33 +31038,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16453] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Necro Stalker",
 		},
 		zones = {
 			3456,
-		},
-	},
-	[17068] = {
-		faction = "Alliance",
-		level = "55",
-		names = {
-			enUS = "Chief Expeditionary Requisitioner Enkles",
-		},
-		zones = {
-			1377,
-		},
-	},
-	[17070] = {
-		faction = "Horde",
-		level = "55",
-		names = {
-			enUS = "Apothecary Quinard",
-		},
-		zones = {
-			1377,
 		},
 	},
 	[18990] = {
@@ -33012,7 +31067,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[166359] = {
-		classification = "Elite",
 		level = "60",
 		names = {
 			enUS = "Zulian Tiger",
@@ -33022,7 +31076,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[201722] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Ghamoo Ra",
@@ -33032,7 +31085,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[202699] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Baron Aquanis",
@@ -33042,7 +31094,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[203138] = {
-		classification = "Elite",
 		level = "48 - 49",
 		names = {
 			enUS = "Anvilrage Overseer",
@@ -33052,7 +31103,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[204645] = {
-		classification = "Elite",
 		level = "26",
 		names = {
 			enUS = "Blackfathom Elite",
@@ -33062,7 +31112,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[204921] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Gelihast",
@@ -33072,7 +31121,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[207515] = {
-		classification = "Elite",
 		level = "6 - 7",
 		names = {
 			enUS = "Lurkmane",
@@ -33082,7 +31130,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[208196] = {
-		classification = "Elite",
 		level = "7",
 		names = {
 			enUS = "Gillgar",
@@ -33092,7 +31139,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[208638] = {
-		classification = "Elite",
 		level = "7",
 		names = {
 			enUS = "Fyodi",
@@ -33102,7 +31148,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[209678] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Twilight Lord Kelris",
@@ -33112,7 +31157,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[209742] = {
-		classification = "Elite",
 		level = "15",
 		names = {
 			enUS = "Desert Mirage",
@@ -33122,7 +31166,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[210451] = {
-		classification = "Elite",
 		level = "18",
 		names = {
 			enUS = "Lady Sedorax",
@@ -33132,7 +31175,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[210537] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Undying Laborer",
@@ -33144,7 +31186,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[210549] = {
-		classification = "Elite",
 		level = "14 - 15",
 		names = {
 			enUS = "Defias Scout",
@@ -33154,7 +31195,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212699] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -33165,7 +31205,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212703] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -33176,7 +31215,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212706] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "25",
 		names = {
@@ -33187,7 +31225,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212727] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "25",
 		names = {
@@ -33198,7 +31235,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212728] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "25",
 		names = {
@@ -33209,7 +31245,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212729] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "25",
 		names = {
@@ -33220,7 +31255,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212730] = {
-		classification = "Boss",
 		faction = "Horde",
 		level = "??",
 		names = {
@@ -33231,7 +31265,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212801] = {
-		classification = "Boss",
 		faction = "Horde",
 		level = "??",
 		names = {
@@ -33242,7 +31275,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212802] = {
-		classification = "Boss",
 		faction = "Horde",
 		level = "??",
 		names = {
@@ -33253,7 +31285,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212803] = {
-		classification = "Boss",
 		faction = "Alliance",
 		level = "??",
 		names = {
@@ -33264,7 +31295,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[212837] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Primordial Anomaly",
@@ -33273,74 +31303,13 @@ RecipeBook.npcDB = {
 			406,
 		},
 	},
-	[213077] = {
-		faction = "Alliance",
-		level = "30",
-		names = {
-			enUS = "Elaine Compton",
-		},
-		zones = {
-			1519,
-		},
-	},
 	[213334] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Akumai",
 		},
 		zones = {
 			719,
-		},
-	},
-	[214070] = {
-		faction = "Horde",
-		level = "30",
-		names = {
-			enUS = "Jornah",
-		},
-		zones = {
-			1637,
-		},
-	},
-	[214096] = {
-		faction = "Horde",
-		level = "30",
-		names = {
-			enUS = "Dokimi",
-		},
-		zones = {
-			1638,
-		},
-	},
-	[214098] = {
-		faction = "Horde",
-		level = "30",
-		names = {
-			enUS = "Gishah",
-		},
-		zones = {
-			1497,
-		},
-	},
-	[214099] = {
-		faction = "Alliance",
-		level = "30",
-		names = {
-			enUS = "Tamelyn Aldridge",
-		},
-		zones = {
-			1537,
-		},
-	},
-	[214101] = {
-		faction = "Alliance",
-		level = "30",
-		names = {
-			enUS = "Marcy Baker",
-		},
-		zones = {
-			1657,
 		},
 	},
 	[214129] = {
@@ -33353,7 +31322,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[214456] = {
-		classification = "Rare Elite",
 		level = "23",
 		names = {
 			enUS = "Drozem The Blasphemous",
@@ -33363,7 +31331,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[214612] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Akumai Fisher",
@@ -33373,7 +31340,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[215108] = {
-		classification = "Elite",
 		level = "27",
 		names = {
 			enUS = "Akumai Snapjaw",
@@ -33383,7 +31349,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[215728] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Crowd Pummeler 9 60",
@@ -33392,17 +31357,7 @@ RecipeBook.npcDB = {
 			721,
 		},
 	},
-	[216310] = {
-		level = "40",
-		names = {
-			enUS = "Rotting Ancient",
-		},
-		zones = {
-			15,
-		},
-	},
 	[216659] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Fallenroot Satyr",
@@ -33412,7 +31367,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216660] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Fallenroot Rogue",
@@ -33422,7 +31376,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216661] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Blackfathom Tide Priestess",
@@ -33432,7 +31385,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216662] = {
-		classification = "Elite",
 		level = "25",
 		names = {
 			enUS = "Blackfathom Oracle",
@@ -33442,7 +31394,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216666] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Techbot",
@@ -33461,7 +31412,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216668] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Irradiated Invader",
@@ -33471,7 +31421,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216669] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Caverndeep Pillager",
@@ -33481,7 +31430,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[216671] = {
-		classification = "Elite",
 		level = "40",
 		names = {
 			enUS = "Caverndeep Invader",
@@ -33511,7 +31459,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[217280] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Grubbis",
@@ -33527,15 +31474,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			400,
-		},
-	},
-	[217689] = {
-		level = "40",
-		names = {
-			enUS = "Ziri The Wrench Littlesprocket",
-		},
-		zones = {
-			721,
 		},
 	},
 	[217836] = {
@@ -33557,7 +31495,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218242] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Stx 04 Bd",
@@ -33567,7 +31504,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218537] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Mekgineer Thermaplugg",
@@ -33577,7 +31513,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218571] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Shade Of Eranikus",
@@ -33587,7 +31522,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218624] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Atalalarion",
@@ -33597,7 +31531,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218718] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Ogom The Wretched",
@@ -33607,7 +31540,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218721] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Jammalan The Prophet",
@@ -33617,7 +31549,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218819] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Festering Rotslime",
@@ -33627,7 +31558,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218868] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Mijan",
@@ -33637,7 +31567,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[218922] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Hukku",
@@ -33647,7 +31576,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[220007] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Viscous Fallout",
@@ -33657,7 +31585,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[220072] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Electrocutioner 6000",
@@ -33667,7 +31594,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[220833] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Dreamscythe",
@@ -33749,7 +31675,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221204] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Ylanthrius",
@@ -33759,7 +31684,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221206] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Vvarc Zul",
@@ -33769,7 +31693,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221207] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Amokarok",
@@ -33833,7 +31756,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221259] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "Wyrmkin Nightstalker",
@@ -33870,7 +31792,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221263] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "Vengeful Ancient",
@@ -33880,7 +31801,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221264] = {
-		classification = "Elite",
 		level = "41",
 		names = {
 			enUS = "Dreamharvester",
@@ -33890,7 +31810,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221265] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Larsera",
@@ -33900,7 +31819,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221266] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Zalius",
@@ -33910,7 +31828,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221267] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Shredder 9000",
@@ -33965,7 +31882,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221325] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Wyrmkin Starhunter",
@@ -33993,7 +31909,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221329] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Dreamhunter Hydra",
@@ -34012,7 +31927,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221333] = {
-		classification = "Rare",
 		level = "??",
 		names = {
 			enUS = "Doomkin",
@@ -34022,7 +31936,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221334] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Ghamoo Raja",
@@ -34077,7 +31990,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221367] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Wyrmkin Berserker",
@@ -34114,7 +32026,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221373] = {
-		classification = "Elite",
 		level = "49 - 50",
 		names = {
 			enUS = "Enraged Mountain Giant",
@@ -34142,7 +32053,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221389] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Alondrius",
@@ -34152,7 +32062,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221393] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Tyrannikus",
@@ -34162,7 +32071,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221394] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Avatar Of Hakkar",
@@ -34199,7 +32107,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221637] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Gasher",
@@ -34209,7 +32116,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221638] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Loro",
@@ -34219,7 +32125,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221639] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Zolo",
@@ -34229,7 +32134,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221640] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Zullor",
@@ -34248,7 +32152,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[221943] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Hazzas",
@@ -34258,7 +32161,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[222233] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Ohkzi",
@@ -34268,7 +32170,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[222243] = {
-		classification = "Elite",
 		level = "43",
 		names = {
 			enUS = "Zopilote",
@@ -34277,26 +32178,7 @@ RecipeBook.npcDB = {
 			440,
 		},
 	},
-	[222261] = {
-		level = "36",
-		names = {
-			enUS = "Maximillian The Greaser",
-		},
-		zones = {
-			400,
-		},
-	},
-	[222316] = {
-		level = "36",
-		names = {
-			enUS = "Fizzbizz Coppercoil",
-		},
-		zones = {
-			400,
-		},
-	},
 	[222525] = {
-		classification = "Elite",
 		level = "50",
 		names = {
 			enUS = "Anvilrage Patrol",
@@ -34306,7 +32188,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[222573] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Delirious Ancient",
@@ -34325,7 +32206,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[223264] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Delirious Ancient",
@@ -34335,7 +32215,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[223265] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Delirious Ancient",
@@ -34344,29 +32223,7 @@ RecipeBook.npcDB = {
 			1584,
 		},
 	},
-	[223340] = {
-		level = "15 - 18",
-		names = {
-			enUS = "Fel Interloper",
-		},
-		zones = {
-			40,
-			17,
-		},
-	},
-	[223544] = {
-		level = "45 - 48",
-		names = {
-			enUS = "Fel Interloper",
-		},
-		zones = {
-			4,
-			357,
-			16,
-		},
-	},
 	[224242] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Saturated Ooze",
@@ -34376,7 +32233,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224243] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Deep Lurker",
@@ -34395,7 +32251,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224250] = {
-		classification = "Elite",
 		level = "52",
 		names = {
 			enUS = "Atalai Warrior",
@@ -34405,7 +32260,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224253] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Nightmare Wanderer",
@@ -34415,7 +32269,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224254] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Nightmare Wyrmkin",
@@ -34425,7 +32278,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224255] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Nightmare Scalebane",
@@ -34453,7 +32305,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224258] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Atalai High Priest",
@@ -34463,7 +32314,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224259] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Atalai Deathwalker",
@@ -34473,7 +32323,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224260] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Atalai Corpse Eater",
@@ -34483,7 +32332,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224262] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Unliving Atalai",
@@ -34493,7 +32341,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224263] = {
-		classification = "Elite",
 		level = "51",
 		names = {
 			enUS = "Atalai Witch Doctor",
@@ -34503,7 +32350,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[224386] = {
-		classification = "Elite",
 		level = "50 - 51",
 		names = {
 			enUS = "Fireguard Destroyer",
@@ -34522,7 +32368,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228429] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lucifron",
@@ -34532,7 +32377,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228430] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Magmadar",
@@ -34542,7 +32386,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228431] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Gehennas",
@@ -34552,7 +32395,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228432] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Garr",
@@ -34562,7 +32404,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228433] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Baron Geddon",
@@ -34572,7 +32413,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228434] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Shazzrah",
@@ -34582,7 +32422,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228435] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Golemagg The Incinerator",
@@ -34592,7 +32431,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228436] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Sulfuron Harbinger",
@@ -34639,17 +32477,7 @@ RecipeBook.npcDB = {
 			51,
 		},
 	},
-	[228719] = {
-		level = "56 - 57",
-		names = {
-			enUS = "Firelands Drudge",
-		},
-		zones = {
-			51,
-		},
-	},
 	[228720] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Duke Searbrand",
@@ -34659,19 +32487,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228721] = {
-		classification = "Rare",
 		level = "58 - 60",
 		names = {
 			enUS = "Lieutenant Skarresh",
-		},
-		zones = {
-			51,
-		},
-	},
-	[228723] = {
-		level = "56 - 60",
-		names = {
-			enUS = "Obsidian Reaver",
 		},
 		zones = {
 			51,
@@ -34687,7 +32505,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228726] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Flamebringer Elementalist",
@@ -34697,7 +32514,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228727] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Flamebringer Defender",
@@ -34707,7 +32523,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228729] = {
-		classification = "Elite",
 		level = "59 - 60",
 		names = {
 			enUS = "Duke Tectonis",
@@ -34717,7 +32532,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228747] = {
-		classification = "Elite",
 		level = "55 - 56",
 		names = {
 			enUS = "Flamebringer Stalker",
@@ -34727,7 +32541,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228833] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker",
@@ -34737,7 +32550,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228836] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker Elite",
@@ -34747,7 +32559,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228838] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Flamewaker Priest",
@@ -34757,7 +32568,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228969] = {
-		classification = "Rare",
 		level = "62",
 		names = {
 			enUS = "Lord Gazzran",
@@ -34767,7 +32577,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[228970] = {
-		classification = "Rare",
 		level = "62",
 		names = {
 			enUS = "Galenges",
@@ -34776,19 +32585,7 @@ RecipeBook.npcDB = {
 			51,
 		},
 	},
-	[230146] = {
-		level = "56 - 58",
-		names = {
-			enUS = "Fel Interloper",
-		},
-		zones = {
-			46,
-			139,
-			618,
-		},
-	},
 	[230302] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lord Kazzak",
@@ -34799,7 +32596,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[230347] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Dreadlord",
@@ -34810,7 +32606,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[230348] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Doomguard Commander",
@@ -34821,7 +32616,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[230349] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Felguard Elite",
@@ -34832,7 +32626,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[231868] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Cyclone Imperator",
@@ -34842,7 +32635,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[231887] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Vale Tempest",
@@ -34851,17 +32643,7 @@ RecipeBook.npcDB = {
 			15825,
 		},
 	},
-	[234193] = {
-		level = "63",
-		names = {
-			enUS = "Gilded Scarab",
-		},
-		zones = {
-			3428,
-		},
-	},
 	[234762] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Mindslayer",
@@ -34871,7 +32653,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[234798] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Qiraji Champion",
@@ -34881,7 +32662,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[234800] = {
-		classification = "Elite",
 		level = "61",
 		names = {
 			enUS = "Qiraji Slayer",
@@ -34891,7 +32671,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[234814] = {
-		classification = "Elite",
 		level = "63",
 		names = {
 			enUS = "Qiraji Warlord",
@@ -34901,7 +32680,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[234830] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Anubisath Defender",
@@ -34911,7 +32689,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[234880] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Emeriss",
@@ -34925,7 +32702,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[235180] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Lethon",
@@ -34939,7 +32715,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[235197] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Taerar",
@@ -34953,7 +32728,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[235232] = {
-		classification = "Boss",
 		level = "??",
 		names = {
 			enUS = "Ysondre",
@@ -34967,7 +32741,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[237964] = {
-		classification = "Elite",
 		level = "??",
 		names = {
 			enUS = "Harbinger Of Sin",
@@ -34977,7 +32750,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238192] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Risen Warder",
@@ -34996,7 +32768,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238252] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Trapped Soul",
@@ -35015,7 +32786,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238509] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Lost Neophyte",
@@ -35025,7 +32795,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238528] = {
-		classification = "Elite",
 		level = "60 - 61",
 		names = {
 			enUS = "Ragged Ghoul",
@@ -35035,7 +32804,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238559] = {
-		classification = "Elite",
 		level = "62",
 		names = {
 			enUS = "Crypt Dweller",
@@ -35054,7 +32822,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[238562] = {
-		classification = "Elite",
 		level = "61 - 62",
 		names = {
 			enUS = "Bone Witch",
@@ -35067,26 +32834,6 @@ RecipeBook.npcDB = {
 		level = "58 - 61",
 		names = {
 			enUS = "Crypt Soldier",
-		},
-		zones = {
-			16074,
-		},
-	},
-	[239328] = {
-		classification = "Elite",
-		level = "60 - 62",
-		names = {
-			enUS = "Burning Ghoul",
-		},
-		zones = {
-			16074,
-		},
-	},
-	[239329] = {
-		classification = "Elite",
-		level = "59 - 61",
-		names = {
-			enUS = "Tortured Student",
 		},
 		zones = {
 			16074,
@@ -35168,36 +32915,8 @@ RecipeBook.npcDB = {
 		},
 	},
 	[15547] = {
-		classification = "Elite",
 		names = {
 			enUS = "Spectral Charger",
-		},
-		zones = {
-			3457,
-		},
-	},
-	[15687] = {
-		classification = "Elite",
-		names = {
-			enUS = "Moroes",
-		},
-		zones = {
-			3457,
-		},
-	},
-	[15688] = {
-		classification = "Elite",
-		names = {
-			enUS = "Terestian Illhoof",
-		},
-		zones = {
-			3457,
-		},
-	},
-	[16152] = {
-		classification = "Elite",
-		names = {
-			enUS = "Attumen the Huntsman",
 		},
 		zones = {
 			3457,
@@ -35224,28 +32943,9 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16388] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Koren",
-		},
-		zones = {
-			3457,
-		},
-	},
-	[16406] = {
-		classification = "Elite",
-		names = {
-			enUS = "Phantom Attendant",
-		},
-		zones = {
-			3457,
-		},
-	},
-	[16408] = {
-		classification = "Elite",
-		names = {
-			enUS = "Phantom Valet",
 		},
 		zones = {
 			3457,
@@ -35260,7 +32960,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16415] = {
-		classification = "Elite",
 		names = {
 			enUS = "Skeletal Waiter",
 		},
@@ -35269,7 +32968,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16425] = {
-		classification = "Elite",
 		names = {
 			enUS = "Phantom Guardsman",
 		},
@@ -35278,7 +32976,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16459] = {
-		classification = "Elite",
 		names = {
 			enUS = "Wanton Hostess",
 		},
@@ -35286,17 +32983,7 @@ RecipeBook.npcDB = {
 			3457,
 		},
 	},
-	[16472] = {
-		classification = "Elite",
-		names = {
-			enUS = "Phantom Stagehand",
-		},
-		zones = {
-			3457,
-		},
-	},
 	[16473] = {
-		classification = "Elite",
 		names = {
 			enUS = "Spectral Performer",
 		},
@@ -35305,7 +32992,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16481] = {
-		classification = "Elite",
 		names = {
 			enUS = "Ghastly Haunt",
 		},
@@ -35314,7 +33000,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16488] = {
-		classification = "Elite",
 		names = {
 			enUS = "Arcane Anomaly",
 		},
@@ -35323,7 +33008,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16491] = {
-		classification = "Elite",
 		names = {
 			enUS = "Mana Feeder",
 		},
@@ -35331,17 +33015,7 @@ RecipeBook.npcDB = {
 			3457,
 		},
 	},
-	[16492] = {
-		classification = "Elite",
-		names = {
-			enUS = "Syphoner",
-		},
-		zones = {
-			3457,
-		},
-	},
 	[16507] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shattered Hand Sentry",
 		},
@@ -35349,17 +33023,7 @@ RecipeBook.npcDB = {
 			3714,
 		},
 	},
-	[16524] = {
-		classification = "Elite",
-		names = {
-			enUS = "Shade of Aran",
-		},
-		zones = {
-			3457,
-		},
-	},
 	[16525] = {
-		classification = "Elite",
 		names = {
 			enUS = "Spell Shade",
 		},
@@ -35368,7 +33032,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16539] = {
-		classification = "Elite",
 		names = {
 			enUS = "Homunculus",
 		},
@@ -35376,17 +33039,7 @@ RecipeBook.npcDB = {
 			3457,
 		},
 	},
-	[16544] = {
-		classification = "Elite",
-		names = {
-			enUS = "Ethereal Thief",
-		},
-		zones = {
-			3457,
-		},
-	},
 	[16545] = {
-		classification = "Elite",
 		names = {
 			enUS = "Ethereal Spellfilcher",
 		},
@@ -35425,7 +33078,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[16596] = {
-		classification = "Elite",
 		names = {
 			enUS = "Greater Fleshbeast",
 		},
@@ -35593,24 +33245,6 @@ RecipeBook.npcDB = {
 			3487,
 		},
 	},
-	[16807] = {
-		classification = "Elite",
-		names = {
-			enUS = "Grand Warlock Nethekurse",
-		},
-		zones = {
-			3714,
-		},
-	},
-	[16810] = {
-		level = "30 - 78",
-		names = {
-			enUS = "Bonechewer Backbreaker",
-		},
-		zones = {
-			3519,
-		},
-	},
 	[16823] = {
 		faction = "Alliance",
 		level = "11 - 30",
@@ -35631,35 +33265,7 @@ RecipeBook.npcDB = {
 			3483,
 		},
 	},
-	[16952] = {
-		level = "30",
-		names = {
-			enUS = "Anger Guard",
-		},
-		zones = {
-			3522,
-		},
-	},
-	[17136] = {
-		level = "19 - 58",
-		names = {
-			enUS = "Boulderfist Warrior",
-		},
-		zones = {
-			3518,
-		},
-	},
-	[17465] = {
-		classification = "Elite",
-		names = {
-			enUS = "Shattered Hand Centurion",
-		},
-		zones = {
-			3714,
-		},
-	},
 	[17518] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Ythyar",
@@ -35669,7 +33275,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[17585] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "10 - 76",
 		names = {
@@ -35709,17 +33314,7 @@ RecipeBook.npcDB = {
 			3483,
 		},
 	},
-	[17722] = {
-		classification = "Elite",
-		names = {
-			enUS = "Coilfang Sorceress",
-		},
-		zones = {
-			3715,
-		},
-	},
 	[17767] = {
-		classification = "Elite",
 		names = {
 			enUS = "Rage Winterchill",
 		},
@@ -35727,44 +33322,7 @@ RecipeBook.npcDB = {
 			3606,
 		},
 	},
-	[17796] = {
-		classification = "Elite",
-		names = {
-			enUS = "Mekgineer Steamrigger",
-		},
-		zones = {
-			3715,
-		},
-	},
-	[17797] = {
-		classification = "Elite",
-		names = {
-			enUS = "Hydromancer Thespia",
-		},
-		zones = {
-			3715,
-		},
-	},
-	[17798] = {
-		classification = "Elite",
-		names = {
-			enUS = "Warlord Kalithresh",
-		},
-		zones = {
-			3715,
-		},
-	},
-	[17803] = {
-		classification = "Elite",
-		names = {
-			enUS = "Coilfang Oracle",
-		},
-		zones = {
-			3715,
-		},
-	},
 	[17808] = {
-		classification = "Elite",
 		names = {
 			enUS = "Anetheron",
 		},
@@ -35772,35 +33330,7 @@ RecipeBook.npcDB = {
 			3606,
 		},
 	},
-	[17820] = {
-		classification = "Elite",
-		names = {
-			enUS = "Durnholde Rifleman",
-		},
-		zones = {
-			2367,
-		},
-	},
-	[17826] = {
-		classification = "Elite",
-		level = "82",
-		names = {
-			enUS = "Swamplord Musel'ek",
-		},
-		zones = {
-			3716,
-		},
-	},
-	[17838] = {
-		names = {
-			enUS = "Time Rift",
-		},
-		zones = {
-			2366,
-		},
-	},
 	[17839] = {
-		classification = "Elite",
 		names = {
 			enUS = "Rift Lord",
 		},
@@ -35809,7 +33339,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[17842] = {
-		classification = "Elite",
 		names = {
 			enUS = "Azgalor",
 		},
@@ -35818,7 +33347,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[17862] = {
-		classification = "Elite",
 		names = {
 			enUS = "Captain Skarloc",
 		},
@@ -35826,17 +33354,7 @@ RecipeBook.npcDB = {
 			2367,
 		},
 	},
-	[17879] = {
-		classification = "Elite",
-		names = {
-			enUS = "Chrono Lord Deja",
-		},
-		zones = {
-			2366,
-		},
-	},
 	[17888] = {
-		classification = "Elite",
 		names = {
 			enUS = "Kaz'rogal",
 		},
@@ -35845,52 +33363,12 @@ RecipeBook.npcDB = {
 		},
 	},
 	[17904] = {
-		classification = "Elite",
 		level = "14 - 69",
 		names = {
 			enUS = "Fedryen Swiftspear",
 		},
 		zones = {
 			3521,
-		},
-	},
-	[17968] = {
-		classification = "Elite",
-		names = {
-			enUS = "Archimonde",
-		},
-		zones = {
-			3606,
-		},
-	},
-	[17975] = {
-		classification = "Elite",
-		level = "32 - 82",
-		names = {
-			enUS = "High Botanist Freywinn",
-		},
-		zones = {
-			3847,
-		},
-	},
-	[17977] = {
-		classification = "Elite",
-		level = "32 - 82",
-		names = {
-			enUS = "Warp Splinter",
-		},
-		zones = {
-			3847,
-		},
-	},
-	[17978] = {
-		classification = "Elite",
-		level = "32 - 82",
-		names = {
-			enUS = "Thorngrin the Tender",
-		},
-		zones = {
-			3847,
 		},
 	},
 	[18005] = {
@@ -35933,15 +33411,6 @@ RecipeBook.npcDB = {
 			3521,
 		},
 	},
-	[18203] = {
-		level = "20 - 30",
-		names = {
-			enUS = "Murkblood Raider",
-		},
-		zones = {
-			3518,
-		},
-	},
 	[18255] = {
 		level = "10 - 30",
 		names = {
@@ -35951,71 +33420,12 @@ RecipeBook.npcDB = {
 			41,
 		},
 	},
-	[18312] = {
-		classification = "Elite",
-		level = "81 - 82",
-		names = {
-			enUS = "Ethereal Spellbinder",
-		},
-		zones = {
-			3792,
-		},
-	},
-	[18314] = {
-		classification = "Elite",
-		level = "81 - 82",
-		names = {
-			enUS = "Nexus Stalker",
-		},
-		zones = {
-			3792,
-		},
-	},
-	[18317] = {
-		classification = "Elite",
-		level = "80 - 81",
-		names = {
-			enUS = "Ethereal Priest",
-		},
-		zones = {
-			3792,
-		},
-	},
-	[18322] = {
-		classification = "Elite",
-		names = {
-			enUS = "Sethekk Ravenguard",
-		},
-		zones = {
-			3791,
-		},
-	},
-	[18325] = {
-		classification = "Elite",
-		names = {
-			enUS = "Sethekk Prophet",
-		},
-		zones = {
-			3791,
-		},
-	},
 	[18328] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sethekk Oracle",
 		},
 		zones = {
 			3791,
-		},
-	},
-	[18344] = {
-		classification = "Elite",
-		level = "82",
-		names = {
-			enUS = "Nexus-Prince Shaffar",
-		},
-		zones = {
-			3792,
 		},
 	},
 	[18382] = {
@@ -36025,16 +33435,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3521,
-		},
-	},
-	[18422] = {
-		classification = "Elite",
-		level = "30 - 81",
-		names = {
-			enUS = "Sunseeker Botanist",
-		},
-		zones = {
-			3847,
 		},
 	},
 	[18427] = {
@@ -36047,15 +33447,6 @@ RecipeBook.npcDB = {
 			3557,
 		},
 	},
-	[18472] = {
-		classification = "Elite",
-		names = {
-			enUS = "Darkweaver Syth",
-		},
-		zones = {
-			3791,
-		},
-	},
 	[18484] = {
 		level = "30 - 39",
 		names = {
@@ -36063,24 +33454,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3703,
-		},
-	},
-	[18497] = {
-		classification = "Elite",
-		names = {
-			enUS = "Auchenai Monk",
-		},
-		zones = {
-			3790,
-		},
-	},
-	[18521] = {
-		classification = "Elite",
-		names = {
-			enUS = "Raging Skeleton",
-		},
-		zones = {
-			3790,
 		},
 	},
 	[18664] = {
@@ -36092,15 +33465,6 @@ RecipeBook.npcDB = {
 			2367,
 		},
 	},
-	[18667] = {
-		classification = "Elite",
-		names = {
-			enUS = "Blackheart the Inciter",
-		},
-		zones = {
-			3789,
-		},
-	},
 	[18672] = {
 		level = "30 - 32",
 		names = {
@@ -36108,24 +33472,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			2367,
-		},
-	},
-	[18708] = {
-		classification = "Elite",
-		names = {
-			enUS = "Murmur",
-		},
-		zones = {
-			3789,
-		},
-	},
-	[18731] = {
-		classification = "Elite",
-		names = {
-			enUS = "Ambassador Hellmaw",
-		},
-		zones = {
-			3789,
 		},
 	},
 	[18747] = {
@@ -36248,15 +33594,6 @@ RecipeBook.npcDB = {
 			3483,
 		},
 	},
-	[18796] = {
-		classification = "Elite",
-		names = {
-			enUS = "Fel Overseer",
-		},
-		zones = {
-			3789,
-		},
-	},
 	[18802] = {
 		faction = "Alliance",
 		level = "30",
@@ -36268,7 +33605,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[18821] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "30",
 		names = {
@@ -36279,7 +33615,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[18822] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "30",
 		names = {
@@ -36287,51 +33622,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			1519,
-		},
-	},
-	[18830] = {
-		classification = "Elite",
-		names = {
-			enUS = "Cabal Fanatic",
-		},
-		zones = {
-			3789,
-		},
-	},
-	[18853] = {
-		level = "29 - 80",
-		names = {
-			enUS = "Sunfury Bloodwarder",
-		},
-		zones = {
-			3523,
-		},
-	},
-	[18866] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Mageslayer",
-		},
-		zones = {
-			3523,
-		},
-	},
-	[18872] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Disembodied Vindicator",
-		},
-		zones = {
-			3523,
-		},
-	},
-	[18873] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Disembodied Protector",
-		},
-		zones = {
-			3523,
 		},
 	},
 	[18911] = {
@@ -36451,7 +33741,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[19063] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Hamanar",
@@ -36467,16 +33756,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3703,
-		},
-	},
-	[19168] = {
-		classification = "Elite",
-		level = "29",
-		names = {
-			enUS = "Sunseeker Astromage",
-		},
-		zones = {
-			3849,
 		},
 	},
 	[19186] = {
@@ -36513,36 +33792,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3703,
-		},
-	},
-	[19219] = {
-		classification = "Elite",
-		level = "32",
-		names = {
-			enUS = "Mechano-Lord Capacitus",
-		},
-		zones = {
-			3849,
-		},
-	},
-	[19220] = {
-		classification = "Elite",
-		level = "32",
-		names = {
-			enUS = "Pathaleon the Calculator",
-		},
-		zones = {
-			3849,
-		},
-	},
-	[19221] = {
-		classification = "Elite",
-		level = "32",
-		names = {
-			enUS = "Nethermancer Sepethrea",
-		},
-		zones = {
-			3849,
 		},
 	},
 	[19251] = {
@@ -36628,7 +33877,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[19521] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Arrond",
@@ -36737,15 +33985,6 @@ RecipeBook.npcDB = {
 			3520,
 		},
 	},
-	[19756] = {
-		level = "30 - 79",
-		names = {
-			enUS = "Deathforge Smith",
-		},
-		zones = {
-			3520,
-		},
-	},
 	[19775] = {
 		faction = "Horde",
 		names = {
@@ -36783,15 +34022,6 @@ RecipeBook.npcDB = {
 			3520,
 		},
 	},
-	[19826] = {
-		level = "30 - 77",
-		names = {
-			enUS = "Dark Conclave Shadowmancer",
-		},
-		zones = {
-			3520,
-		},
-	},
 	[19836] = {
 		faction = "Horde",
 		level = "30",
@@ -36807,42 +34037,6 @@ RecipeBook.npcDB = {
 		level = "30",
 		names = {
 			enUS = "Daga Ramba",
-		},
-		zones = {
-			3522,
-		},
-	},
-	[19952] = {
-		level = "30 - 67",
-		names = {
-			enUS = "Bloodmaul Geomancer",
-		},
-		zones = {
-			3522,
-		},
-	},
-	[19960] = {
-		level = "30",
-		names = {
-			enUS = "Doomforge Engineer",
-		},
-		zones = {
-			3522,
-		},
-	},
-	[19973] = {
-		level = "30",
-		names = {
-			enUS = "Abyssal Flamebringer",
-		},
-		zones = {
-			3522,
-		},
-	},
-	[19984] = {
-		level = "20 - 30",
-		names = {
-			enUS = "Vekh'nir Dreadhawk",
 		},
 		zones = {
 			3522,
@@ -36887,33 +34081,6 @@ RecipeBook.npcDB = {
 			3523,
 		},
 	},
-	[20135] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Sunfury Arch Mage",
-		},
-		zones = {
-			3523,
-		},
-	},
-	[20136] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Sunfury Researcher",
-		},
-		zones = {
-			3523,
-		},
-	},
-	[20207] = {
-		level = "25 - 80",
-		names = {
-			enUS = "Sunfury Bowman",
-		},
-		zones = {
-			3523,
-		},
-	},
 	[20240] = {
 		faction = "Alliance",
 		level = "30",
@@ -36943,24 +34110,6 @@ RecipeBook.npcDB = {
 			3523,
 		},
 	},
-	[20511] = {
-		level = "30",
-		names = {
-			enUS = "Ilsa Blusterbrew",
-		},
-		zones = {
-			3520,
-		},
-	},
-	[20869] = {
-		classification = "Elite",
-		names = {
-			enUS = "Arcatraz Sentinel",
-		},
-		zones = {
-			3848,
-		},
-	},
 	[20878] = {
 		level = "25 - 79",
 		names = {
@@ -36968,33 +34117,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3520,
-		},
-	},
-	[20880] = {
-		classification = "Elite",
-		names = {
-			enUS = "Eredar Deathbringer",
-		},
-		zones = {
-			3848,
-		},
-	},
-	[20885] = {
-		classification = "Elite",
-		names = {
-			enUS = "Dalliah the Doomsayer",
-		},
-		zones = {
-			3848,
-		},
-	},
-	[20900] = {
-		classification = "Elite",
-		names = {
-			enUS = "Unchained Doombringer",
-		},
-		zones = {
-			3848,
 		},
 	},
 	[20916] = {
@@ -37006,24 +34128,6 @@ RecipeBook.npcDB = {
 			3522,
 		},
 	},
-	[21050] = {
-		level = "25 - 80",
-		names = {
-			enUS = "Enraged Earth Spirit",
-		},
-		zones = {
-			3520,
-		},
-	},
-	[21104] = {
-		classification = "Elite",
-		names = {
-			enUS = "Rift Keeper",
-		},
-		zones = {
-			2366,
-		},
-	},
 	[21113] = {
 		level = "30",
 		names = {
@@ -37031,15 +34135,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3522,
-		},
-	},
-	[21302] = {
-		level = "30 - 77",
-		names = {
-			enUS = "Shadow Council Warlock",
-		},
-		zones = {
-			3520,
 		},
 	},
 	[21314] = {
@@ -37060,17 +34155,7 @@ RecipeBook.npcDB = {
 			3703,
 		},
 	},
-	[21454] = {
-		level = "25 - 79",
-		names = {
-			enUS = "Ashtongue Warrior",
-		},
-		zones = {
-			3520,
-		},
-	},
 	[21474] = {
-		classification = "Elite",
 		faction = "Alliance",
 		level = "30",
 		names = {
@@ -37081,7 +34166,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[21485] = {
-		classification = "Elite",
 		faction = "Horde",
 		level = "30",
 		names = {
@@ -37125,15 +34209,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3703,
-		},
-	},
-	[22016] = {
-		level = "25 - 68",
-		names = {
-			enUS = "Eclipsion Soldier",
-		},
-		zones = {
-			3520,
 		},
 	},
 	[22208] = {
@@ -37181,15 +34256,6 @@ RecipeBook.npcDB = {
 			3522,
 		},
 	},
-	[22243] = {
-		level = "30 - 74",
-		names = {
-			enUS = "Bash'ir Arcanist",
-		},
-		zones = {
-			3522,
-		},
-	},
 	[22822] = {
 		level = "30 - 80",
 		names = {
@@ -37208,17 +34274,7 @@ RecipeBook.npcDB = {
 			3518,
 		},
 	},
-	[23008] = {
-		level = "30 - 80",
-		names = {
-			enUS = "Ethereum Jailor",
-		},
-		zones = {
-			3523,
-		},
-	},
 	[23159] = {
-		classification = "Elite",
 		level = "30",
 		names = {
 			enUS = "Okuno",
@@ -37236,14 +34292,6 @@ RecipeBook.npcDB = {
 			3522,
 		},
 	},
-	[23386] = {
-		names = {
-			enUS = "Gan'arg Analyzer",
-		},
-		zones = {
-			3522,
-		},
-	},
 	[23437] = {
 		level = "35",
 		names = {
@@ -37251,35 +34299,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			3606,
-		},
-	},
-	[23574] = {
-		classification = "Elite",
-		names = {
-			enUS = "Akil'zon",
-		},
-		zones = {
-			3805,
-		},
-	},
-	[24560] = {
-		classification = "Elite",
-		level = "80",
-		names = {
-			enUS = "Priestess Delrissa",
-		},
-		zones = {
-			4131,
-		},
-	},
-	[24664] = {
-		classification = "Elite",
-		level = "82",
-		names = {
-			enUS = "Kael'thas Sunstrider",
-		},
-		zones = {
-			4131,
 		},
 	},
 	[24868] = {
@@ -37309,7 +34328,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25363] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Cabalist",
 		},
@@ -37318,7 +34336,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25367] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Arch Mage",
 		},
@@ -37327,7 +34344,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25368] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Slayer",
 		},
@@ -37336,7 +34352,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25369] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Vindicator",
 		},
@@ -37345,7 +34360,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25370] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Dusk Priest",
 		},
@@ -37354,7 +34368,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25371] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Dawn Priest",
 		},
@@ -37363,7 +34376,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25483] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shadowsword Manafiend",
 		},
@@ -37372,7 +34384,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25484] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shadowsword Assassin",
 		},
@@ -37381,7 +34392,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25486] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shadowsword Vanquisher",
 		},
@@ -37390,7 +34400,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25506] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shadowsword Lifeshaper",
 		},
@@ -37399,7 +34408,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25507] = {
-		classification = "Elite",
 		names = {
 			enUS = "Sunblade Protector",
 		},
@@ -37408,7 +34416,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25508] = {
-		classification = "Elite",
 		names = {
 			enUS = "Shadowsword Guardian",
 		},
@@ -37417,7 +34424,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25509] = {
-		classification = "Elite",
 		names = {
 			enUS = "Priestess of Torment",
 		},
@@ -37426,7 +34432,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25591] = {
-		classification = "Elite",
 		names = {
 			enUS = "Painbringer",
 		},
@@ -37435,7 +34440,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25592] = {
-		classification = "Elite",
 		names = {
 			enUS = "Doomfire Destroyer",
 		},
@@ -37444,7 +34448,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25593] = {
-		classification = "Elite",
 		names = {
 			enUS = "Apocalypse Guard",
 		},
@@ -37453,7 +34456,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25595] = {
-		classification = "Elite",
 		names = {
 			enUS = "Chaos Gazer",
 		},
@@ -37462,7 +34464,6 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25597] = {
-		classification = "Elite",
 		names = {
 			enUS = "Oblivion Mage",
 		},
@@ -37471,27 +34472,8 @@ RecipeBook.npcDB = {
 		},
 	},
 	[25599] = {
-		classification = "Elite",
 		names = {
 			enUS = "Cataclysm Hound",
-		},
-		zones = {
-			4075,
-		},
-	},
-	[25740] = {
-		classification = "Elite",
-		names = {
-			enUS = "Ahune",
-		},
-		zones = {
-			3717,
-		},
-	},
-	[25837] = {
-		classification = "Elite",
-		names = {
-			enUS = "Shadowsword Commander",
 		},
 		zones = {
 			4075,

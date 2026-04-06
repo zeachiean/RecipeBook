@@ -149,12 +149,6 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26786] = {
-		difficulty = {
-			340,
-			355,
-			370,
-			385,
-		},
 		teaches = 21835,
 		isSpell = true,
 		requiredLevel = 68,
@@ -162,12 +156,6 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26892] = {
-		difficulty = {
-			365,
-			390,
-			415,
-			440,
-		},
 		teaches = 21927,
 		isSpell = true,
 		requiredLevel = 68,
@@ -175,12 +163,6 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[26969] = {
-		difficulty = {
-			345,
-			365,
-			385,
-			405,
-		},
 		teaches = 22053,
 		isSpell = true,
 		requiredLevel = 62,
@@ -188,12 +170,6 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[27282] = {
-		difficulty = {
-			385,
-			405,
-			425,
-			445,
-		},
 		teaches = 22054,
 		isSpell = true,
 		requiredLevel = 70,
@@ -201,12 +177,6 @@ RecipeBook.recipeDB[2842] = {
 		phase = 1,
 	},
 	[27283] = {
-		difficulty = {
-			345,
-			370,
-			395,
-			420,
-		},
 		teaches = 22055,
 		isSpell = true,
 		requiredLevel = 64,

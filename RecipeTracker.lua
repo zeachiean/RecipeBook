@@ -171,6 +171,10 @@ function RecipeBook:ScanProfessionWindow()
     end
 end
 
+function RecipeBook:ClearTeachesCache()
+    wipe(teachesLookups)
+end
+
 function RecipeBook:IsRecipeKnown(profID, recipeID)
     if not RecipeBookCharDB or not RecipeBookCharDB.knownRecipes then return false end
     local profRecipes = RecipeBookCharDB.knownRecipes[profID]

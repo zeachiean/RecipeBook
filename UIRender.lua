@@ -755,6 +755,14 @@ local function BuildDisplayData(filters)
     return groups
 end
 
+function RecipeBook:ClearRenderCaches()
+    wipe(recipeQualityCache)
+    for _, row in ipairs(displayedRows) do
+        self:RecycleRow(row)
+    end
+    wipe(displayedRows)
+end
+
 -- Refresh the recipe list display
 function RecipeBook:RefreshRecipeList()
     if not self.mainFrame then return end

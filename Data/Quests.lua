@@ -233,8 +233,6 @@ RecipeBook.questDB = {
 		name = "The Old Ways",
 		startNPC = 7792,
 	},
-	[2758] = {
-	},
 	[2761] = {
 		name = "Smelt On, Smelt Off",
 		startNPC = 7802,
@@ -451,10 +449,6 @@ RecipeBook.questDB = {
 		level = 60,
 		requiredLevel = 60,
 	},
-	[7604] = {
-		level = 60,
-		requiredLevel = 60,
-	},
 	[7649] = {
 		name = "Enchanted Thorium Platemail: Volume I",
 		level = 60,
@@ -580,49 +574,5 @@ RecipeBook.questDB = {
 		faction = "Horde",
 		level = 67,
 		requiredLevel = 65,
-	},
-	[80168] = {
-		level = 60,
-		requiredLevel = 1,
-	},
-	[80169] = {
-		level = 60,
-		requiredLevel = 1,
-	},
-	[80170] = {
-		level = 60,
-		requiredLevel = 1,
-	},
-	[80241] = {
-		faction = "Alliance",
-		level = 40,
-		requiredLevel = 40,
-	},
-	[82656] = {
-		faction = "Horde",
-		level = 45,
-		requiredLevel = 30,
-	},
-	[82657] = {
-	},
-	[84338] = {
-		level = 60,
-		requiredLevel = 60,
-	},
-	[84495] = {
-		level = 60,
-		requiredLevel = 55,
-	},
-	[84496] = {
-		level = 60,
-		requiredLevel = 50,
-	},
-	[85699] = {
-		level = 60,
-		requiredLevel = 50,
-	},
-	[85700] = {
-		level = 60,
-		requiredLevel = 50,
 	},
 }

@@ -125,28 +125,27 @@ end
 -- ============================================================
 
 function T.test_sunwell_recipes_kept_at_phase_5()
-    -- These 4 were verified as RM-wrong; dataset phase 5 should be preserved.
-    -- They have NO explicit phase field, so GetRecipePhase falls through to dataset.
+    -- These 4 were verified as RM-wrong; they should be phase 5 (not RM's phase 1).
     local eng = 202
     local tail = 197
 
     -- Engineering: Healing/Mana Potion Injector (35310/35311)
     local d35310 = RecipeBook.recipeDB[eng][35310]
     assert_not_nil(d35310, "recipe 35310 should exist")
-    assert_nil(d35310.phase, "35310 should have no explicit phase (dataset fallback)")
+    assert_equal(5, RecipeBook:GetRecipePhase(eng, 35310), "35310 should be phase 5")
 
     local d35311 = RecipeBook.recipeDB[eng][35311]
     assert_not_nil(d35311, "recipe 35311 should exist")
-    assert_nil(d35311.phase, "35311 should have no explicit phase")
+    assert_equal(5, RecipeBook:GetRecipePhase(eng, 35311), "35311 should be phase 5")
 
     -- Tailoring: Unyielding Bracers/Girdle (35308/35309)
     local d35308 = RecipeBook.recipeDB[tail][35308]
     assert_not_nil(d35308, "recipe 35308 should exist")
-    assert_nil(d35308.phase, "35308 should have no explicit phase")
+    assert_equal(5, RecipeBook:GetRecipePhase(tail, 35308), "35308 should be phase 5")
 
     local d35309 = RecipeBook.recipeDB[tail][35309]
     assert_not_nil(d35309, "recipe 35309 should exist")
-    assert_nil(d35309.phase, "35309 should have no explicit phase")
+    assert_equal(5, RecipeBook:GetRecipePhase(tail, 35309), "35309 should be phase 5")
 end
 
 return T

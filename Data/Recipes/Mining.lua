@@ -3,12 +3,6 @@ RecipeBook = RecipeBook or {}; RecipeBook.recipeDB = RecipeBook.recipeDB or {}
 RecipeBook.recipeDB[186] = {
 	[2657] = {
 		icon = 133216,
-		difficulty = {
-			0,
-			25,
-			47,
-			70,
-		},
 		teaches = 2840,
 		isSpell = true,
 		requiredSkill = 25,
@@ -16,12 +10,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[2658] = {
 		icon = 133215,
-		difficulty = {
-			75,
-			100,
-			112,
-			125,
-		},
 		teaches = 2842,
 		isSpell = true,
 		requiredSkill = 75,
@@ -29,12 +17,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[2659] = {
 		icon = 133227,
-		difficulty = {
-			65,
-			65,
-			90,
-			115,
-		},
 		teaches = 2841,
 		isSpell = true,
 		requiredSkill = 65,
@@ -42,12 +24,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[3304] = {
 		icon = 133219,
-		difficulty = {
-			0,
-			0,
-			65,
-			75,
-		},
 		teaches = 3576,
 		isSpell = true,
 		requiredSkill = 65,
@@ -55,12 +31,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[3307] = {
 		icon = 133232,
-		difficulty = {
-			125,
-			130,
-			135,
-			140,
-		},
 		teaches = 3575,
 		isSpell = true,
 		requiredSkill = 125,
@@ -68,12 +38,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[3308] = {
 		icon = 133217,
-		difficulty = {
-			155,
-			170,
-			177,
-			185,
-		},
 		teaches = 3577,
 		isSpell = true,
 		requiredSkill = 155,
@@ -81,12 +45,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[3569] = {
 		icon = 133234,
-		difficulty = {
-			165,
-			165,
-			165,
-			165,
-		},
 		teaches = 3859,
 		isSpell = true,
 		requiredSkill = 165,
@@ -94,12 +52,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[10097] = {
 		icon = 133220,
-		difficulty = {
-			175,
-			175,
-			175,
-			175,
-		},
 		teaches = 3860,
 		isSpell = true,
 		requiredSkill = 175,
@@ -107,12 +59,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[10098] = {
 		icon = 133222,
-		difficulty = {
-			0,
-			230,
-			230,
-			230,
-		},
 		teaches = 6037,
 		isSpell = true,
 		requiredSkill = 230,
@@ -120,12 +66,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[14891] = {
 		icon = 133233,
-		difficulty = {
-			0,
-			230,
-			230,
-			230,
-		},
 		teaches = 11371,
 		isSpell = true,
 		requiredSkill = 230,
@@ -133,12 +73,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[16153] = {
 		icon = 133221,
-		difficulty = {
-			250,
-			250,
-			250,
-			250,
-		},
 		teaches = 12359,
 		isSpell = true,
 		requiredSkill = 250,
@@ -146,12 +80,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[22967] = {
 		icon = 133235,
-		difficulty = {
-			0,
-			310,
-			315,
-			320,
-		},
 		teaches = 17771,
 		isSpell = true,
 		requiredSkill = 300,
@@ -159,12 +87,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29356] = {
 		icon = 133230,
-		difficulty = {
-			300,
-			300,
-			307,
-			315,
-		},
 		teaches = 23445,
 		isSpell = true,
 		requiredSkill = 300,
@@ -172,12 +94,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29358] = {
 		icon = 133224,
-		difficulty = {
-			325,
-			325,
-			332,
-			340,
-		},
 		teaches = 23446,
 		isSpell = true,
 		requiredSkill = 325,
@@ -185,12 +101,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29359] = {
 		icon = 133229,
-		difficulty = {
-			350,
-			350,
-			357,
-			365,
-		},
 		teaches = 23447,
 		isSpell = true,
 		requiredSkill = 350,
@@ -198,12 +108,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29360] = {
 		icon = 133231,
-		difficulty = {
-			350,
-			355,
-			367,
-			380,
-		},
 		teaches = 23448,
 		isSpell = true,
 		requiredSkill = 350,
@@ -211,12 +115,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29361] = {
 		icon = 133223,
-		difficulty = {
-			375,
-			375,
-			375,
-			375,
-		},
 		teaches = 23449,
 		isSpell = true,
 		requiredSkill = 375,
@@ -224,12 +122,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[29686] = {
 		icon = 133226,
-		difficulty = {
-			375,
-			375,
-			375,
-			375,
-		},
 		teaches = 23573,
 		isSpell = true,
 		requiredSkill = 375,
@@ -237,12 +129,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[35750] = {
 		icon = 132838,
-		difficulty = {
-			300,
-			300,
-			300,
-			300,
-		},
 		teaches = 22573,
 		isSpell = true,
 		requiredSkill = 300,
@@ -250,12 +136,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[35751] = {
 		icon = 132839,
-		difficulty = {
-			300,
-			300,
-			300,
-			300,
-		},
 		teaches = 22574,
 		isSpell = true,
 		requiredSkill = 300,
@@ -263,12 +143,6 @@ RecipeBook.recipeDB[186] = {
 	},
 	[46353] = {
 		icon = 133235,
-		difficulty = {
-			375,
-			375,
-			375,
-			375,
-		},
 		teaches = 35128,
 		isSpell = true,
 		requiredSkill = 375,

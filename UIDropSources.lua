@@ -566,3 +566,12 @@ function RecipeBook:RefreshSourcesPopup()
         self:ShowSourcesPopup(popupFrame._profID, popupFrame._recipeID)
     end
 end
+
+function RecipeBook:CleanupSourcesPopup()
+    if popupFrame then
+        popupFrame:Hide()
+        for _, r in ipairs(popupRows) do RecycleRow(r) end
+        wipe(popupRows)
+        wipe(rowPool)
+    end
+end
