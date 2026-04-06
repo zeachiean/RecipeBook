@@ -344,11 +344,17 @@ end
 
 function RecipeBook:ToggleRecipeWishlist(profID, recipeID, charKey)
     local cur = self:IsRecipeInWishlist(profID, recipeID, charKey)
+    if not cur then
+        self:SetRecipeIgnored(profID, recipeID, false, charKey)
+    end
     self:SetRecipeWishlist(profID, recipeID, not cur, charKey)
 end
 
 function RecipeBook:ToggleRecipeIgnored(profID, recipeID, charKey)
     local cur = self:IsRecipeIgnored(profID, recipeID, charKey)
+    if not cur then
+        self:SetRecipeWishlist(profID, recipeID, false, charKey)
+    end
     self:SetRecipeIgnored(profID, recipeID, not cur, charKey)
 end
 

@@ -746,13 +746,9 @@ local function BuildDisplayData(filters)
     for recipeID, data in pairs(recipes) do
         local dominated = false
 
-        -- List-mode filter (Wishlist / Ignored view)
+        -- Wishlist filter
         if listMode == "wishlist" then
             if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
-                dominated = true
-            end
-        elseif listMode == "ignored" then
-            if not RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey) then
                 dominated = true
             end
         end
@@ -895,7 +891,7 @@ function RecipeBook:RefreshRecipeList()
     for _, srcType in ipairs(self.SOURCE_ORDER) do
         local entries = groups[srcType]
         if entries and #entries > 0 then
-            local isCollapsed = collapsed[srcType]
+            local isCollapsed = collapsed[srcType] or false
 
             -- Source type header (collapsible)
             local headerRow = self:GetHeaderRow(scrollChild)
@@ -924,14 +920,28 @@ function RecipeBook:RefreshRecipeList()
                     row._nameText:ClearAllPoints()
                     row._nameText:SetPoint("LEFT", row, "LEFT", 4, 0)
 
-                    local displayName = recipeName
-                    if entry.isWishlist then
-                        displayName = "|cffffd833*|r " .. displayName
+                    -- Wishlist star (overlaid on left edge, doesn't shift text)
+                    if row._starIcon then
+                        if entry.isWishlist then
+                            row._starIcon:Show()
+                        else
+                            row._starIcon:Hide()
+                        end
                     end
-                    row._nameText:SetText(displayName)
+
+                    row._nameText:SetText(recipeName)
+
+                    -- Strikethrough for ignored recipes
+                    if row._strikethrough then
+                        if entry.isIgnored then
+                            row._strikethrough:Show()
+                        else
+                            row._strikethrough:Hide()
+                        end
+                    end
 
                     if entry.isIgnored then
-                        row._nameText:SetTextColor(UI.COLOR_IGNORED.r, UI.COLOR_IGNORED.g, UI.COLOR_IGNORED.b)
+                        row._nameText:SetTextColor(0.4, 0.4, 0.4)
                     elseif entry.isKnown then
                         row._nameText:SetTextColor(UI.COLOR_KNOWN.r, UI.COLOR_KNOWN.g, UI.COLOR_KNOWN.b)
                     else
@@ -998,6 +1008,14 @@ function RecipeBook:RefreshRecipeList()
                         else
                             row._rateText:SetText("")
                         end
+                    end
+
+                    -- Override all colors for ignored recipes
+                    if entry.isIgnored then
+                        row._skillText:SetTextColor(0.4, 0.4, 0.4)
+                        if row._countText then row._countText:SetTextColor(0.4, 0.4, 0.4) end
+                        row._sourceText:SetTextColor(0.4, 0.4, 0.4)
+                        if row._rateText then row._rateText:SetTextColor(0.4, 0.4, 0.4) end
                     end
 
                     -- Waypoint arrow

@@ -70,7 +70,16 @@ function RecipeBook:GetPooledRow(parent)
         highlight:SetColorTexture(UI.COLOR_HOVER.r, UI.COLOR_HOVER.g, UI.COLOR_HOVER.b, UI.COLOR_HOVER.a)
         row._highlight = highlight
 
-        -- Recipe name text (left side)
+        -- Wishlist star icon (overlaid on left edge, doesn't shift text)
+        local starIcon = row:CreateTexture(nil, "ARTWORK")
+        starIcon:SetSize(10, 10)
+        starIcon:SetPoint("RIGHT", row, "LEFT", 2, 0)
+        starIcon:SetTexture("Interface\\COMMON\\ReputationStar")
+        starIcon:SetTexCoord(0, 0.5, 0, 0.5)  -- gold filled star
+        starIcon:Hide()
+        row._starIcon = starIcon
+
+        -- Recipe name text (left side, after star)
         local nameText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontHighlight")
         nameText:SetPoint("LEFT", row, "LEFT", 4, 0)
         nameText:SetWidth(210)
@@ -78,6 +87,15 @@ function RecipeBook:GetPooledRow(parent)
         nameText:SetWordWrap(false)
         nameText:SetNonSpaceWrap(false)
         row._nameText = nameText
+
+        -- Strikethrough line for ignored recipes
+        local strike = row:CreateTexture(nil, "OVERLAY")
+        strike:SetHeight(1)
+        strike:SetColorTexture(0.5, 0.5, 0.5, 0.7)
+        strike:SetPoint("LEFT", row, "LEFT", 4, 0)
+        strike:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+        strike:Hide()
+        row._strikethrough = strike
 
         -- Skill level text
         local skillText = row:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
@@ -145,6 +163,8 @@ function RecipeBook:RecycleRow(row)
     row._zoneName = nil
     row._isWorldDrop = nil
     row._headerSrcType = nil
+    if row._starIcon then row._starIcon:Hide() end
+    if row._strikethrough then row._strikethrough:Hide() end
     if row._learnIcon then row._learnIcon:Hide() end
     if row._toggleIcon then row._toggleIcon:Hide() end
     self.framePool[#self.framePool + 1] = row

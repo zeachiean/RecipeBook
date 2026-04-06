@@ -179,37 +179,46 @@ function RecipeBook:CreateMainFrame()
     UIDropDownMenu_Initialize(charDropdown, CharDropdown_Init)
     UIDropDownMenu_SetText(charDropdown, CharDisplayName(RecipeBook:GetViewedCharKey()))
 
-    -- Show filter: All / Wishlist / Ignored (right side of row 0)
-    local showDropdown = CreateFrame("Frame", "RecipeBookShowDropdown", frame, "UIDropDownMenuTemplate")
-    showDropdown:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING + 8, row0Y + 4)
-    UIDropDownMenu_SetWidth(showDropdown, 90)
+    -- View toggle: Recipes | Wishlist (right side of row 0)
+    local wishlistLink = CreateFrame("Button", nil, frame)
+    wishlistLink:SetSize(60, 16)
+    wishlistLink:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 10, 0)
+    wishlistLink:SetPoint("TOP", charLabel, "TOP", 0, 2)
 
-    local showLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    showLabel:SetPoint("RIGHT", showDropdown, "LEFT", 12, 0)
-    showLabel:SetPoint("TOP", charLabel, "TOP", 0, 0)
-    showLabel:SetText("Show:")
-    showLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+    local recipesLink = CreateFrame("Button", nil, frame)
+    recipesLink:SetSize(60, 16)
+    recipesLink:SetPoint("RIGHT", wishlistLink, "LEFT", -8, 0)
+    recipesLink:SetPoint("TOP", wishlistLink, "TOP", 0, 0)
 
-    local function ShowDropdown_Init(self, level)
-        local modes = {
-            { key = "all", label = "All" },
-            { key = "wishlist", label = "Wishlist" },
-            { key = "ignored", label = "Ignored" },
-        }
-        for _, m in ipairs(modes) do
-            local info = UIDropDownMenu_CreateInfo()
-            info.text = m.label
-            info.notCheckable = true
-            info.func = function()
-                listMode = m.key
-                UIDropDownMenu_SetText(showDropdown, m.label)
-                RecipeBook:RefreshRecipeList()
-            end
-            UIDropDownMenu_AddButton(info, level)
+    local recipesText = recipesLink:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    recipesText:SetAllPoints()
+    recipesText:SetJustifyH("RIGHT")
+
+    local wishlistText = wishlistLink:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    wishlistText:SetAllPoints()
+    wishlistText:SetJustifyH("LEFT")
+
+    local function UpdateViewToggle()
+        if listMode == "wishlist" then
+            recipesText:SetText("|cff4488ffRecipes|r")
+            wishlistText:SetText("|cffffd100Wishlist|r")
+        else
+            recipesText:SetText("|cffffd100Recipes|r")
+            wishlistText:SetText("|cff4488ffWishlist|r")
         end
     end
-    UIDropDownMenu_Initialize(showDropdown, ShowDropdown_Init)
-    UIDropDownMenu_SetText(showDropdown, "All")
+
+    recipesLink:SetScript("OnClick", function()
+        listMode = "all"
+        UpdateViewToggle()
+        RecipeBook:RefreshRecipeList()
+    end)
+    wishlistLink:SetScript("OnClick", function()
+        listMode = "wishlist"
+        UpdateViewToggle()
+        RecipeBook:RefreshRecipeList()
+    end)
+    UpdateViewToggle()
 
     -------------------------------------------------------------------
     -- ROW 1: Profession dropdown | My Faction | Hide Known/Ignored
@@ -298,10 +307,10 @@ function RecipeBook:CreateMainFrame()
         UIDropDownMenu_SetText(profDropdown, "Select...")
     end
 
-    -- My Faction checkbox — vertically centered with dropdown
+    -- My Faction checkbox — on the character row
     local factionCheck = CreateFrame("CheckButton", "RecipeBookFactionFilter", frame, "UICheckButtonTemplate")
-    factionCheck:SetPoint("LEFT", profDropdown, "RIGHT", -8, 0)
-    factionCheck:SetPoint("TOP", profLabel, "TOP", 0, 5)
+    factionCheck:SetPoint("LEFT", charDropdown, "RIGHT", -8, 0)
+    factionCheck:SetPoint("TOP", charLabel, "TOP", 0, 5)
     factionCheck:SetSize(20, 20)
     factionCheck:SetChecked(true)
     myFactionOnly = true
