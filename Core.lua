@@ -90,88 +90,18 @@ RecipeBook.itemNames = {}
 -- Active waypoint tracking
 RecipeBook.activeWaypoint = nil    -- { npcName, zoneName }
 
--- Tooltip safety: isSpell recipes where SetItemByID shows the correct item
-RecipeBook.tooltipSafe = {}  -- [recipeID] = true
-
--- Reverse lookup: teaches itemID -> list of {profID, recipeID, expectedName}
--- Built once so GET_ITEM_INFO_RECEIVED can check a single item instantly.
-local tooltipPendingItems = {}  -- itemID -> { {profID, recipeID, name}, ... }
-
--- Prefixes stripped when comparing client item names to baked names
-local RECIPE_PREFIXES = {
-    "Recipe: ", "Plans: ", "Formula: ", "Schematic: ",
-    "Pattern: ", "Manual: ", "Design: ",
-}
-
-local function StripRecipePrefix(name)
-    if not name then return name end
-    for _, prefix in ipairs(RECIPE_PREFIXES) do
-        if name:sub(1, #prefix) == prefix then
-            return name:sub(#prefix + 1)
-        end
-    end
-    return name
-end
-
 -- Pre-cache recipe item data so tooltips (SetItemByID) work immediately.
--- Batches requests to avoid flooding the client.
+-- Only requests non-isSpell recipe items (physical recipe items).
+-- isSpell recipes use spell: hyperlink tooltips instead.
 function RecipeBook:PrecacheRecipeItems()
     if not C_Item or not C_Item.RequestLoadItemDataByID then return end
-
-    local queue = {}
-
     for profID, recipes in pairs(self.recipeDB) do
         for recipeID, data in pairs(recipes) do
             if not data.isSpell then
-                queue[#queue + 1] = recipeID
-            elseif data.teaches and type(data.teaches) == "number" and data.name then
-                -- Track teaches -> recipe mapping for tooltip safety checks
-                local itemID = data.teaches
-                if not tooltipPendingItems[itemID] then
-                    tooltipPendingItems[itemID] = {}
-                    queue[#queue + 1] = itemID
-                end
-                tooltipPendingItems[itemID][#tooltipPendingItems[itemID] + 1] = {
-                    profID = profID, recipeID = recipeID, name = data.name,
-                }
+                C_Item.RequestLoadItemDataByID(recipeID)
             end
         end
     end
-
-    -- Batch requests across multiple frames to avoid lag spikes
-    local BATCH_SIZE = 50
-    local i = 1
-    local function ProcessBatch()
-        local limit = math.min(i + BATCH_SIZE - 1, #queue)
-        for j = i, limit do
-            C_Item.RequestLoadItemDataByID(queue[j])
-        end
-        i = limit + 1
-        if i <= #queue then
-            C_Timer.After(0.1, ProcessBatch)
-        end
-    end
-    ProcessBatch()
-end
-
--- Check a single item against the tooltip safety pending list.
--- Called from GET_ITEM_INFO_RECEIVED for just the item that loaded.
-function RecipeBook:CheckTooltipSafety(itemID)
-    local entries = tooltipPendingItems[itemID]
-    if not entries then return end
-
-    local clientName = C_Item.GetItemInfo(itemID)
-    if not clientName then return end
-
-    local stripped = StripRecipePrefix(clientName)
-    for _, entry in ipairs(entries) do
-        if stripped == entry.name then
-            self.tooltipSafe[entry.recipeID] = true
-        end
-    end
-
-    -- Done with this item
-    tooltipPendingItems[itemID] = nil
 end
 
 -- Cache item names for "item" source type
@@ -415,8 +345,6 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
                     RecipeBook.itemNames[itemID] = name
                 end
             end
-            -- Check tooltip safety for this specific item
-            RecipeBook:CheckTooltipSafety(itemID)
             if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
                 RecipeBook:RefreshRecipeList()
             end

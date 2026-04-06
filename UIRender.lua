@@ -49,9 +49,6 @@ local function OnRecipeEnter(self)
     if not data.isSpell then
         -- Recipe item: show the item tooltip directly
         GameTooltip:SetItemByID(self._recipeID)
-    elseif RecipeBook.tooltipSafe[self._recipeID] then
-        -- isSpell with verified item match: show crafted item tooltip
-        GameTooltip:SetItemByID(data.teaches)
     else
         -- isSpell: try spell hyperlink (shows crafting tooltip with reagents)
         local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, "spell:" .. self._recipeID)
