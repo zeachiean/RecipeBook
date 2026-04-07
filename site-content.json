@@ -2,7 +2,7 @@
   "id": "recipebook",
   "name": "RecipeBook",
   "tagline": "TBC profession recipe browser with source tracking and waypoint integration",
-  "description": "Browse every TBC profession recipe organized by source type. Track what you know, filter by continent, zone, phase, and faction. Set TomTom waypoints to vendors and trainers via AddressBook. 12 professions supported with collapsible source categories, search, and shift-click recipe linking.",
+  "description": "Browse every TBC profession recipe organized by source type. Track what you know across all your characters, build per-character wishlists, and filter by continent, zone, phase, and faction. Set TomTom waypoints to vendors and trainers via AddressBook. 12 professions supported with collapsible source categories, search, and shift-click recipe linking.",
   "logo": "art/logo-transparent.svg",
   "reverse": false,
   "features": [
@@ -13,6 +13,14 @@
     {
       "title": "Source Browsing",
       "description": "Recipes grouped by how you obtain them — Trainer, Vendor, Quest, Drop, and more. Collapsible sections let you focus on what matters."
+    },
+    {
+      "title": "Cross-Character Viewing",
+      "description": "Browse any character's professions, known recipes, and wishlists from a single dropdown. See their skill levels and learnable recipes."
+    },
+    {
+      "title": "Wishlists & Ignore",
+      "description": "Right-click to add recipes to a per-character wishlist (gold star) or ignore list (strikethrough). Wishlist info appears on recipe tooltips game-wide."
     },
     {
       "title": "Known Tracking",
