@@ -55,6 +55,9 @@ RecipeBook.sourceDB[755] = {
 	},
 	[20971] = {
 		vendor = {
+			[2381] = {
+				cost = "13svr50cpr",
+			},
 			[2393] = {
 				cost = "12svr75cpr",
 			},
@@ -65,11 +68,17 @@ RecipeBook.sourceDB[755] = {
 	},
 	[20973] = {
 		vendor = {
+			[2381] = {
+				cost = "18svr",
+			},
 			[2393] = {
 				cost = "17svr",
 			},
 			[4498] = {
 				cost = "17svr",
+			},
+			[9636] = {
+				cost = "20svr",
 			},
 		},
 	},
