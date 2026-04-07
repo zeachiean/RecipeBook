@@ -8,7 +8,6 @@ local selectedContinent = nil
 local selectedZone = nil
 local hideKnown = false
 local hideUnlearnable = false
-local myFactionOnly = true
 local selectedPhase = nil -- nil = use maxPhase from settings
 local searchText = ""
 local listMode = "all" -- "all" | "wishlist" | "ignored"
@@ -85,28 +84,40 @@ function RecipeBook:CreateMainFrame()
     local closeBtn = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
     closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -4, -4)
 
-    -- Status indicators (top right, single baseline)
+    -- Settings gear icon (to the left of close button)
+    local settingsBtn = CreateFrame("Button", "RecipeBookSettingsBtn", frame)
+    settingsBtn:SetSize(20, 20)
+    settingsBtn:SetPoint("RIGHT", closeBtn, "LEFT", -2, 0)
+
+    local settingsIcon = settingsBtn:CreateTexture(nil, "ARTWORK")
+    settingsIcon:SetAllPoints()
+    settingsIcon:SetTexture("Interface\\Scenarios\\ScenarioIcon-Interact")
+    settingsIcon:SetVertexColor(0.8, 0.8, 0.8)
+    settingsBtn.icon = settingsIcon
+
+    settingsBtn:SetScript("OnClick", function()
+        RecipeBook:ShowSettings()
+    end)
+    settingsBtn:SetScript("OnEnter", function(self)
+        self.icon:SetVertexColor(1, 1, 1)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine("Settings")
+        GameTooltip:Show()
+    end)
+    settingsBtn:SetScript("OnLeave", function(self)
+        self.icon:SetVertexColor(0.8, 0.8, 0.8)
+        GameTooltip:Hide()
+    end)
+
+    -- Status indicators (top right, to the left of settings icon)
     local statusY = -8
     local abStatus = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    abStatus:SetPoint("TOPRIGHT", closeBtn, "TOPLEFT", -4, statusY)
+    abStatus:SetPoint("TOPRIGHT", settingsBtn, "TOPLEFT", -8, statusY)
     frame._abStatus = abStatus
 
     local ttStatus = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     ttStatus:SetPoint("TOPRIGHT", abStatus, "TOPLEFT", -8, 0)
     frame._ttStatus = ttStatus
-
-    -- Version string (top left, same baseline as status indicators)
-    local versionText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    versionText:SetPoint("LEFT", frame, "LEFT", 12, 0)
-    versionText:SetPoint("TOP", abStatus, "TOP", 0, 0)
-    versionText:SetText("v" .. RecipeBook.VERSION .. " - " .. RecipeBook.RELEASE_DATE)
-    versionText:SetTextColor(0, 1, 0)
-
-    -- Entry count (below status line)
-    local countText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    countText:SetPoint("TOPRIGHT", abStatus, "BOTTOMRIGHT", 0, -1)
-    countText:SetTextColor(0.5, 0.5, 0.5)
-    frame._countText = countText
 
     -------------------------------------------------------------------
     -- Layout constants — all labels left-aligned, all dropdowns aligned
@@ -152,7 +163,9 @@ function RecipeBook:CreateMainFrame()
         -- Other characters, sorted
         local hasOthers = false
         for _, key in ipairs(keys) do
-            if key ~= myKey then
+            local isIgnored = RecipeBookDB and RecipeBookDB.ignoredCharacters
+                and RecipeBookDB.ignoredCharacters[key]
+            if key ~= myKey and not isIgnored then
                 if not hasOthers then
                     local header = UIDropDownMenu_CreateInfo()
                     header.text = "Other Characters"
@@ -179,41 +192,57 @@ function RecipeBook:CreateMainFrame()
     UIDropDownMenu_Initialize(charDropdown, CharDropdown_Init)
     UIDropDownMenu_SetText(charDropdown, CharDisplayName(RecipeBook:GetViewedCharKey()))
 
-    -- View toggle: Recipes | Wishlist (right side of row 0)
-    local wishlistLink = CreateFrame("Button", nil, frame)
-    wishlistLink:SetSize(60, 16)
-    wishlistLink:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 10, 0)
-    wishlistLink:SetPoint("TOP", charLabel, "TOP", 0, 2)
+    -- View toggle: Recipes | Wishlist tab buttons (right side of row 0)
+    local TAB_WIDTH = 80
+    local TAB_HEIGHT = 22
 
-    local recipesLink = CreateFrame("Button", nil, frame)
-    recipesLink:SetSize(60, 16)
-    recipesLink:SetPoint("RIGHT", wishlistLink, "LEFT", -8, 0)
-    recipesLink:SetPoint("TOP", wishlistLink, "TOP", 0, 0)
+    local wishlistTab = CreateFrame("Button", nil, frame, "BackdropTemplate")
+    wishlistTab:SetSize(TAB_WIDTH, TAB_HEIGHT)
+    wishlistTab:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 10, 0)
+    wishlistTab:SetPoint("TOP", charLabel, "TOP", 0, 4)
+    wishlistTab:SetBackdrop({
+        bgFile = "Interface\\Buttons\\WHITE8x8",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 8, edgeSize = 10,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 },
+    })
+    local wishlistTabText = wishlistTab:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    wishlistTabText:SetPoint("CENTER", 0, 0)
+    wishlistTabText:SetText("Wishlist")
 
-    local recipesText = recipesLink:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    recipesText:SetAllPoints()
-    recipesText:SetJustifyH("RIGHT")
-
-    local wishlistText = wishlistLink:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    wishlistText:SetAllPoints()
-    wishlistText:SetJustifyH("LEFT")
+    local recipesTab = CreateFrame("Button", nil, frame, "BackdropTemplate")
+    recipesTab:SetSize(TAB_WIDTH, TAB_HEIGHT)
+    recipesTab:SetPoint("RIGHT", wishlistTab, "LEFT", -4, 0)
+    recipesTab:SetBackdrop({
+        bgFile = "Interface\\Buttons\\WHITE8x8",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 8, edgeSize = 10,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 },
+    })
+    local recipesTabText = recipesTab:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    recipesTabText:SetPoint("CENTER", 0, 0)
+    recipesTabText:SetText("Recipes")
 
     local function UpdateViewToggle()
         if listMode == "wishlist" then
-            recipesText:SetText("|cff4488ffRecipes|r")
-            wishlistText:SetText("|cffffd100Wishlist|r")
+            recipesTab:SetBackdropColor(0.1, 0.1, 0.1, 0.6)
+            recipesTabText:SetTextColor(0.5, 0.5, 0.5)
+            wishlistTab:SetBackdropColor(0.2, 0.2, 0.0, 0.8)
+            wishlistTabText:SetTextColor(1.0, 0.84, 0.0)
         else
-            recipesText:SetText("|cffffd100Recipes|r")
-            wishlistText:SetText("|cff4488ffWishlist|r")
+            recipesTab:SetBackdropColor(0.15, 0.15, 0.3, 0.8)
+            recipesTabText:SetTextColor(1.0, 0.84, 0.0)
+            wishlistTab:SetBackdropColor(0.1, 0.1, 0.1, 0.6)
+            wishlistTabText:SetTextColor(0.5, 0.5, 0.5)
         end
     end
 
-    recipesLink:SetScript("OnClick", function()
+    recipesTab:SetScript("OnClick", function()
         listMode = "all"
         UpdateViewToggle()
         RecipeBook:RefreshRecipeList()
     end)
-    wishlistLink:SetScript("OnClick", function()
+    wishlistTab:SetScript("OnClick", function()
         listMode = "wishlist"
         UpdateViewToggle()
         RecipeBook:RefreshRecipeList()
@@ -309,22 +338,6 @@ function RecipeBook:CreateMainFrame()
         UIDropDownMenu_SetText(profDropdown, "Select...")
     end
 
-    -- My Faction checkbox — on the character row
-    local factionCheck = CreateFrame("CheckButton", "RecipeBookFactionFilter", frame, "UICheckButtonTemplate")
-    factionCheck:SetPoint("LEFT", charDropdown, "RIGHT", -8, 0)
-    factionCheck:SetPoint("TOP", charLabel, "TOP", 0, 5)
-    factionCheck:SetSize(20, 20)
-    factionCheck:SetChecked(true)
-    myFactionOnly = true
-    RecipeBook.myFactionOnly = true
-    _G["RecipeBookFactionFilterText"]:SetText("My Faction")
-    _G["RecipeBookFactionFilterText"]:SetFontObject("RecipeBookFontSmall")
-    factionCheck:SetScript("OnClick", function(self)
-        myFactionOnly = self:GetChecked()
-        RecipeBook.myFactionOnly = myFactionOnly
-        RecipeBook:RefreshRecipeList()
-    end)
-
     -- Hide Known/Ignored checkbox (pinned to right side)
     hideKnownCheck = CreateFrame("CheckButton", "RecipeBookHideKnown", frame, "UICheckButtonTemplate")
     hideKnownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 110, 0)
@@ -377,19 +390,6 @@ function RecipeBook:CreateMainFrame()
     contAutoCheck:SetChecked(false)
     _G["RecipeBookContAutoFilterText"]:SetText("Auto")
     _G["RecipeBookContAutoFilterText"]:SetFontObject("RecipeBookFontSmall")
-
-    -- Phase dropdown (right edge aligned with search box below)
-    -- Search box right edge is at frame RIGHT - PADDING - 8
-    -- UIDropDownMenu has ~8px right padding, so offset by that to align visually
-    local phaseDropdown = CreateFrame("Frame", "RecipeBookPhaseDropdown", frame, "UIDropDownMenuTemplate")
-    phaseDropdown:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING + 8, row2Y + 4)
-    UIDropDownMenu_SetWidth(phaseDropdown, 60)
-
-    local phaseLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
-    phaseLabel:SetPoint("RIGHT", phaseDropdown, "LEFT", 12, 0)
-    phaseLabel:SetPoint("TOP", contLabel, "TOP", 0, 0)
-    phaseLabel:SetText("Phase:")
-    phaseLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     -- Initial continent text
     UIDropDownMenu_SetText(continentDropdown, "All")
@@ -539,7 +539,14 @@ function RecipeBook:CreateMainFrame()
         RecipeBook:RefreshRecipeList()
     end)
 
-    -- Search box (pinned to right side of row 3, aligned to phase dropdown above)
+    -- Entry count (above search box, right-aligned)
+    local countText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    countText:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 8, 0)
+    countText:SetPoint("TOP", contLabel, "TOP", 0, 0)
+    countText:SetTextColor(0.5, 0.5, 0.5)
+    frame._countText = countText
+
+    -- Search box (pinned to right side of zone row)
     local searchBox = CreateFrame("EditBox", "RecipeBookSearchBox", frame, "InputBoxTemplate")
     searchBox:SetSize(180, 20)
     searchBox:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 8, 0)
@@ -564,42 +571,17 @@ function RecipeBook:CreateMainFrame()
     searchLabel:SetPoint("RIGHT", searchBox, "LEFT", -8, 0)
     searchLabel:SetText("Search:")
     searchLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
-    frame._phaseDropdown = phaseDropdown
 
-    local function PhaseDropdown_Init(self, level)
-        -- Classic UIDropDownMenu quirk: info.minWidth widens the menu and
-        -- highlight bar but the button's click hitbox tracks the text's
-        -- rendered width. Pad text with spaces so single-digit numbers get
-        -- a full-row hitbox.
-        local info = UIDropDownMenu_CreateInfo()
-        info.text = "       All       "
-        info.notCheckable = true
-        info.func = function()
-            selectedPhase = nil
-            UIDropDownMenu_SetText(phaseDropdown, "All")
-            RecipeBook:RefreshRecipeList()
-        end
-        UIDropDownMenu_AddButton(info, level)
-
-        for p = 1, 5 do
-            info = UIDropDownMenu_CreateInfo()
-            info.text = "         " .. tostring(p) .. "         "
-            info.value = p
-            info.notCheckable = true
-            info.func = function()
-                selectedPhase = p
-                UIDropDownMenu_SetText(phaseDropdown, tostring(p))
-                RecipeBook:RefreshRecipeList()
-            end
-            UIDropDownMenu_AddButton(info, level)
-        end
-    end
-    UIDropDownMenu_Initialize(phaseDropdown, PhaseDropdown_Init)
-
-    -- Default phase to current server phase
+    -- Initialize phase and faction from saved vars (managed in Settings)
     local currentPhase = RecipeBookDB and RecipeBookDB.currentPhase or 1
     selectedPhase = currentPhase
-    UIDropDownMenu_SetText(phaseDropdown, tostring(currentPhase))
+    RecipeBook._settingsPhase = currentPhase
+    -- Initialize faction from saved or default to true
+    if RecipeBookCharDB and RecipeBookCharDB.myFactionOnly ~= nil then
+        RecipeBook.myFactionOnly = RecipeBookCharDB.myFactionOnly
+    else
+        RecipeBook.myFactionOnly = true
+    end
 
     -------------------------------------------------------------------
     -- SCROLL FRAME (main content area)
@@ -794,7 +776,7 @@ function RecipeBook:GetFilterState()
 
     -- Detect player faction
     local playerFaction = nil
-    if myFactionOnly then
+    if RecipeBook.myFactionOnly then
         local _, faction = UnitFactionGroup("player")
         playerFaction = faction  -- "Alliance" or "Horde"
     end
@@ -805,7 +787,7 @@ function RecipeBook:GetFilterState()
         zone = filterZone,
         hideKnown = hideKnown,
         hideUnlearnable = hideUnlearnable,
-        maxPhase = selectedPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
+        maxPhase = RecipeBook._settingsPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
         playerFaction = playerFaction,
         searchText = searchText ~= "" and strlower(searchText) or nil,
         listMode = listMode,

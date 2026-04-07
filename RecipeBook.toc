@@ -49,6 +49,7 @@ MapResolver.lua
 RecipeTracker.lua
 Core.lua
 UIControls.lua
+Settings.lua
 UI.lua
 UIRender.lua
 UIDropSources.lua
