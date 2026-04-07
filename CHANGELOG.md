@@ -1,13 +1,13 @@
 # RecipeBook Changelog
 
-## Unreleased
+## v1.3.0
 
-- Cross-character viewing: pick any of your characters from the new Character dropdown to see their professions, known recipes, wishlist and ignore list
-- Per-character wishlists: right-click any recipe to add or remove it from the viewed character's wishlist (gold star marker)
-- Per-character ignore list: right-click any recipe to ignore it on the viewed character; ignored recipes are dimmed and struck through
-- Recipes/Wishlist toggle links to switch between full recipe list and wishlist view
-- Hide Known toggle renamed to Hide Known/Ignored and now hides both
-- Wishlist info shown on recipe item tooltips game-wide
+### New Features
+- Cross-character viewing: browse any character's professions, known recipes and wishlist
+- Per-character wishlists: right-click any recipe to add it to a character's wishlist (gold star marker)
+- Per-character ignore list: right-click any recipe to ignore it; ignored recipes are dimmed and struck through
+- Wishlist info shown on recipe item tooltips game-wide ("Wishlist: CharName")
+- New Settings panel
 
 ## v1.2.1
 
