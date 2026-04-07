@@ -1,5 +1,20 @@
 # RecipeBook Changelog
 
+## v1.4.0
+
+### New Features
+- Recipe tooltip: added learnability and ignore status
+- Opposite-faction vendors shown with (A) or (H) tags in recipe rows, tooltips, and Sources panel
+- Non-BoP vendor recipes now visible regardless of faction filter (tradeable via neutral AH)
+
+### Fixes
+- Fixed broken tooltips for Shadoweave and other trainer-taught Tailoring recipes
+- Fixed recipe count showing inflated numbers when recipes appeared under multiple source categories
+- Removed obsolete Blinding Powder
+
+### Data
+- Added missing recipes and sources across Blacksmithing, Cooking, Enchanting, Engineering, Leatherworking, and Tailoring
+
 ## v1.3.0
 
 ### New Features
