@@ -3717,7 +3717,7 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Ornate Khorium Rifle (world drop Outland)
 	[23802] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Cogspinner Goggles (vendor)
 	[23803] = {
@@ -3732,7 +3732,7 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Power Amplification Goggles (world drop Outland)
 	[23804] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Ultra-Spectropic Detection Goggles (vendor)
 	[23805] = {
@@ -3774,7 +3774,7 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Crashin' Thrashin' Robot (world drop Outland)
 	[23810] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: White Smoke Flare (limited vendor)
 	[23811] = {
@@ -3939,7 +3939,7 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Purple Smoke Flare (world drop Outland)
 	[25887] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Dimensional Ripper - Area 52 (Goblin trainer)
 	[36954] = {
@@ -4126,47 +4126,47 @@ RecipeBook.sourceDB[202] = {
 	},
 	-- Schematic: Wonderheal XT68 Shades (Sunwell Plateau trash)
 	[35191] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Justicebringer 3000 Specs (Sunwell Plateau trash)
 	[35187] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Powerheal 9000 Lens (Sunwell Plateau trash)
 	[35189] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Hyper-Magnified Moon Specs (Sunwell Plateau trash)
 	[35190] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Primal-Attuned Goggles (Sunwell Plateau trash)
 	[35192] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Annihilator Holo-Gogs (Sunwell Plateau trash)
 	[35186] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Lightning Etched Specs (Sunwell Plateau trash)
 	[35193] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Surestrike Goggles v3.0 (Sunwell Plateau trash)
 	[35194] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Mayhem Projection Goggles (Sunwell Plateau trash)
 	[35195] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Hard Khorium Goggles (Sunwell Plateau trash)
 	[35196] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Quad Deathblow X44 Goggles (Sunwell Plateau trash)
 	[35197] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Schematic: Rocket Boots Xtreme Lite (mob drop - Mechano-Lord Capacitus)
 	[35582] = {

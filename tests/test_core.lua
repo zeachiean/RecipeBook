@@ -238,4 +238,91 @@ function T.test_learnable_reputation_check()
         "should be learnable with sufficient rep")
 end
 
+-- ============================================================
+-- Data integrity: every recipe must have a name
+-- ============================================================
+
+function T.test_all_recipes_have_names()
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            assert_not_nil(data.name,
+                string.format("[%d][%d] missing name field", pid, rid))
+            assert_true(data.name ~= "",
+                string.format("[%d][%d] empty name field", pid, rid))
+        end
+    end
+end
+
+-- ============================================================
+-- Data integrity: every recipe must have a nonzero requiredSkill
+-- ============================================================
+
+function T.test_all_recipes_have_required_skill()
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            assert_not_nil(data.requiredSkill,
+                string.format("[%d][%d] missing requiredSkill", pid, rid))
+            assert_true(data.requiredSkill > 0,
+                string.format("[%d][%d] requiredSkill is 0", pid, rid))
+        end
+    end
+end
+
+-- ============================================================
+-- Data integrity: no empty drop tables in source data
+-- ============================================================
+
+function T.test_no_empty_drop_tables()
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        local sources = RecipeBook.sourceDB[pid]
+        if sources then
+            for rid, srcData in pairs(sources) do
+                if srcData.drop then
+                    local count = 0
+                    for _ in pairs(srcData.drop) do count = count + 1 end
+                    assert_true(count > 0,
+                        string.format("[%d][%d] has empty drop table — use worldDrop instead", pid, rid))
+                end
+            end
+        end
+    end
+end
+
+-- ============================================================
+-- Data integrity: every recipe in recipeDB has a source entry
+-- ============================================================
+
+function T.test_all_recipes_have_source_entries()
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        local sources = RecipeBook.sourceDB[pid] or {}
+        for rid in pairs(RecipeBook.recipeDB[pid]) do
+            assert_not_nil(sources[rid],
+                string.format("[%d][%d] (%s) in recipeDB but missing from sourceDB",
+                    pid, rid, RecipeBook.recipeDB[pid][rid].name or "?"))
+        end
+    end
+end
+
+-- ============================================================
+-- Data integrity: no source entries without matching recipes
+-- ============================================================
+
+function T.test_no_orphaned_source_entries()
+    local professions = { 171, 164, 185, 333, 202, 129, 356, 755, 165, 186, 2842, 197 }
+    for _, pid in ipairs(professions) do
+        local recipes = RecipeBook.recipeDB[pid] or {}
+        local sources = RecipeBook.sourceDB[pid]
+        if sources then
+            for rid in pairs(sources) do
+                assert_not_nil(recipes[rid],
+                    string.format("[%d][%d] in sourceDB but missing from recipeDB", pid, rid))
+            end
+        end
+    end
+end
+
 return T

@@ -1,5 +1,10 @@
 # RecipeBook Changelog
 
+## v1.2.1
+
+### Fixes
+- Fixed additional data inconsistencies that were preventing some recipes from showing
+
 ## v1.2.0
 
 ### New Features

@@ -5357,8 +5357,7 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[22532] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22565] = {
 		vendor = {
@@ -5374,8 +5373,7 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[22540] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22544] = {
 		drop = {
@@ -5421,8 +5419,7 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[28270] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22533] = {
 		drop = {
@@ -5430,8 +5427,7 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[22553] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22554] = {
 		drop = {
@@ -5516,8 +5512,7 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[22541] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22556] = {
 		drop = {
@@ -5525,12 +5520,10 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[22557] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[22558] = {
-		drop = {
-		},
+		worldDrop = {},
 	},
 	[28271] = {
 		vendor = {
@@ -5547,12 +5540,10 @@ RecipeBook.sourceDB[333] = {
 		},
 	},
 	[28279] = {
-		drop = {
-		},
+		worldDrop = { 3457 },
 	},
 	[28280] = {
-		drop = {
-		},
+		worldDrop = { 3457 },
 	},
 	[35500] = {
 		vendor = {

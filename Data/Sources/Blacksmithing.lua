@@ -8923,7 +8923,7 @@ RecipeBook.sourceDB[164] = {
 	},
 	-- Drop: Adamantite Weapon Chain (World Drop)
 	[33186] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Drop: Felsteel Gloves (Auchenai Monk, Auchenai Crypts)
 	[23605] = {
@@ -9005,47 +9005,47 @@ RecipeBook.sourceDB[164] = {
 	},
 	-- Drop: World drop 365 weapons
 	[23629] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23630] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23631] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23632] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23633] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23634] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23635] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23636] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23637] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Drop: World drop 365 armor
 	[23626] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23628] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23627] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23620] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23621] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23622] = {
 		drop = {
@@ -9058,52 +9058,52 @@ RecipeBook.sourceDB[164] = {
 		},
 	},
 	[23624] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[23625] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[33954] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Drop: SSC/TK raid
 	[30321] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[30322] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[30323] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[30324] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Drop: Black Temple
 	[35531] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[32737] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[35529] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[32739] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Drop: Sunwell Plateau
 	[35553] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[35211] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[35555] = {
-		drop = {},
+		worldDrop = {},
 	},
 	[35208] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Specialization: Armorsmith
 	[30069] = {
