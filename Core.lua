@@ -488,6 +488,8 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         RecipeBook:BuildContinentZoneMap()
         RecipeBook:PrecacheRecipeItems()
         RecipeBook:CacheItemSourceNames()
+        RecipeBook:BuildItemToRecipeLookup()
+        RecipeBook:HookTooltips()
         RecipeBook:RegisterTrackingEvents(self)
         RecipeBook:CreateMinimapButton()
 
@@ -617,4 +619,59 @@ function RecipeBook:Toggle()
         self.mainFrame:Show()
         self:RefreshRecipeList()
     end
+end
+
+-- Reverse lookup: item ID -> list of {profID, recipeID}
+-- Non-isSpell recipes: the recipeID IS the item ID.
+RecipeBook.itemToRecipe = {}
+
+function RecipeBook:BuildItemToRecipeLookup()
+    wipe(self.itemToRecipe)
+    for profID, recipes in pairs(self.recipeDB) do
+        for recipeID, data in pairs(recipes) do
+            if not data.isSpell then
+                if not self.itemToRecipe[recipeID] then
+                    self.itemToRecipe[recipeID] = {}
+                end
+                self.itemToRecipe[recipeID][#self.itemToRecipe[recipeID] + 1] = {
+                    profID = profID, recipeID = recipeID,
+                }
+            end
+        end
+    end
+end
+
+-- Hook GameTooltip to show wishlist info on recipe items everywhere in the game.
+function RecipeBook:HookTooltips()
+    if self._tooltipsHooked then return end
+    self._tooltipsHooked = true
+
+    GameTooltip:HookScript("OnTooltipSetItem", function(tooltip)
+        local _, link = tooltip:GetItem()
+        if not link then return end
+        local itemID = tonumber(link:match("item:(%d+)"))
+        if not itemID then return end
+
+        local entries = self.itemToRecipe[itemID]
+        if not entries then return end
+
+        -- Check all characters' wishlists for any matching recipe
+        local wishChars = {}
+        local seen = {}
+        for _, entry in ipairs(entries) do
+            for _, key in ipairs(self:GetAllCharKeys()) do
+                if not seen[key] and self:IsRecipeInWishlist(entry.profID, entry.recipeID, key) then
+                    seen[key] = true
+                    local charEntry = RecipeBookDB.characters and RecipeBookDB.characters[key]
+                    wishChars[#wishChars + 1] = charEntry and charEntry.name or key
+                end
+            end
+        end
+
+        if #wishChars > 0 then
+            tooltip:AddLine(" ")
+            tooltip:AddLine("Wishlist: " .. table.concat(wishChars, ", "), 1, 0.84, 0)
+            tooltip:Show()
+        end
+    end)
 end

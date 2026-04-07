@@ -187,6 +187,20 @@ local function OnRecipeEnter(self)
     end
     GameTooltip:AddLine("Shift-click to link in chat", 0.5, 0.5, 0.5)
 
+    -- Wishlist status (check all characters)
+    local wishChars = {}
+    for _, key in ipairs(RecipeBook:GetAllCharKeys()) do
+        if RecipeBook:IsRecipeInWishlist(self._profID, self._recipeID, key) then
+            local entry = RecipeBookDB.characters and RecipeBookDB.characters[key]
+            local name = entry and entry.name or key
+            wishChars[#wishChars + 1] = name
+        end
+    end
+    if #wishChars > 0 then
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Wishlist: " .. table.concat(wishChars, ", "), 1, 0.84, 0)
+    end
+
     -- Known status
     if RecipeBook:IsRecipeKnown(self._profID, self._recipeID) then
         GameTooltip:AddLine(" ")
