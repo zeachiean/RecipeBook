@@ -2042,6 +2042,10 @@ RecipeBook.sourceDB[165] = {
 			[2852] = 0.11,
 		},
 	},
+	-- Guardian Belt (world drop: Pattern 4298)
+	[4298] = {
+		worldDrop = {},
+	},
 	[4299] = {
 		drop = {
 			[4842] = 17.0,
@@ -2230,6 +2234,10 @@ RecipeBook.sourceDB[165] = {
 			[105579] = 0.12,
 			[74448] = 0.08,
 		},
+	},
+	-- Guardian Leather Bracers (world drop: Pattern 4300)
+	[4300] = {
+		worldDrop = {},
 	},
 	[4301] = {
 		drop = {
@@ -4556,6 +4564,18 @@ RecipeBook.sourceDB[165] = {
 			[141979] = 0.1,
 		},
 	},
+	-- Turtle Scale Gloves (drop: Pattern 8385)
+	[8385] = {
+		worldDrop = {},
+	},
+	-- Big Voodoo Robe (world drop: Pattern 8386)
+	[8386] = {
+		worldDrop = {},
+	},
+	-- Big Voodoo Mask (world drop: Pattern 8387)
+	[8387] = {
+		worldDrop = {},
+	},
 	[8389] = {
 		drop = {
 			[709] = 13.0,
@@ -6824,6 +6844,14 @@ RecipeBook.sourceDB[165] = {
 			},
 		},
 	},
+	-- Golden Mantle of the Dawn (vendor: Pattern 19329)
+	[19329] = {
+		vendor = {
+			[11536] = {
+				cost = "10gld",
+			},
+		},
+	},
 	[19330] = {
 		vendor = {
 			[12944] = {
@@ -6918,6 +6946,58 @@ RecipeBook.sourceDB[165] = {
 			[7867] = "",
 		},
 	},
+	-- Dreamscale Breastplate (world drop: Pattern 20382)
+	[20382] = {
+		worldDrop = {},
+	},
+	-- Spitfire Bracers (vendor: Pattern 20506)
+	[20506] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Spitfire Gauntlets (vendor: Pattern 20507)
+	[20507] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Spitfire Breastplate (vendor: Pattern 20508)
+	[20508] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Sandstalker Bracers (vendor: Pattern 20509)
+	[20509] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Sandstalker Gauntlets (vendor: Pattern 20510)
+	[20510] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Sandstalker Breastplate (vendor: Pattern 20511)
+	[20511] = {
+		vendor = {
+			[15176] = {
+				cost = "5gld",
+			},
+		},
+	},
 	[20576] = {
 		vendor = {
 			[777] = {
@@ -6930,6 +7010,30 @@ RecipeBook.sourceDB[165] = {
 		drop = {
 			[14454] = 100.0,
 
+		},
+	},
+	-- Bramblewood Belt (vendor: Pattern 22769)
+	[22769] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Bramblewood Boots (vendor: Pattern 22770)
+	[22770] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Bramblewood Helm (vendor: Pattern 22771)
+	[22771] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
+			},
 		},
 	},
 	-- ==========================================
@@ -7776,6 +7880,14 @@ RecipeBook.sourceDB[165] = {
 	[25731] = {
 		drop = {
 			[18322] = 3.0,
+		},
+	},
+	-- Winter Boots (vendor: Pattern 34262)
+	[34262] = {
+		vendor = {
+			[13420] = {
+				cost = "2gld",
+			},
 		},
 	},
 	-- Bag of Many Hides (world drop, Terokkar)

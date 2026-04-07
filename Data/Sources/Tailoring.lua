@@ -3768,6 +3768,10 @@ RecipeBook.sourceDB[197] = {
 			[11557] = "",
 		},
 	},
+	-- Crimson Silk Shoulders (world drop: Pattern 7084)
+	[7084] = {
+		worldDrop = {},
+	},
 	[7085] = {
 		drop = {
 			[4641] = 3.0,
@@ -3950,6 +3954,10 @@ RecipeBook.sourceDB[197] = {
 				stock = 1,
 			},
 		},
+	},
+	-- Crimson Silk Robe (world drop: Pattern 7088)
+	[7088] = {
+		worldDrop = {},
 	},
 	[7089] = {
 		vendor = {
@@ -4503,13 +4511,13 @@ RecipeBook.sourceDB[197] = {
 			[11557] = "",
 		},
 	},
-	[10002] = {
+	[12052] = {
 		trainer = {
 			[4578] = "",
 			[9584] = "",
 		},
 	},
-	[10003] = {
+	[12053] = {
 		trainer = {
 			[1346] = "",
 			[2399] = "",
@@ -4518,13 +4526,13 @@ RecipeBook.sourceDB[197] = {
 			[11557] = "",
 		},
 	},
-	[10004] = {
+	[12055] = {
 		trainer = {
 			[4578] = "",
 			[9584] = "",
 		},
 	},
-	[10019] = {
+	[12067] = {
 		trainer = {
 			[1346] = "",
 			[2399] = "",
@@ -4533,7 +4541,7 @@ RecipeBook.sourceDB[197] = {
 			[11557] = "",
 		},
 	},
-	[10021] = {
+	[12070] = {
 		trainer = {
 			[1346] = "",
 			[2399] = "",
@@ -4542,46 +4550,46 @@ RecipeBook.sourceDB[197] = {
 			[11557] = "",
 		},
 	},
-	[10023] = {
+	[12071] = {
 		trainer = {
 			[4578] = "",
 			[9584] = "",
 		},
 	},
-	[10024] = {
+	[12072] = {
 		trainer = {
 			[2399] = "",
 			[11052] = "",
 			[11557] = "",
 		},
 	},
-	[10026] = {
+	[12073] = {
 		trainer = {
 			[2399] = "",
 			[11052] = "",
 			[11557] = "",
 		},
 	},
-	[10027] = {
+	[12074] = {
 		trainer = {
 			[2399] = "",
 			[11052] = "",
 			[11557] = "",
 		},
 	},
-	[10028] = {
+	[12076] = {
 		trainer = {
 			[4578] = "",
 			[9584] = "",
 		},
 	},
-	[10031] = {
+	[12082] = {
 		trainer = {
 			[4578] = "",
 			[9584] = "",
 		},
 	},
-	[10041] = {
+	[12092] = {
 		trainer = {
 			[2399] = "",
 			[11052] = "",
@@ -8286,6 +8294,10 @@ RecipeBook.sourceDB[197] = {
 			[153469] = 0.3,
 		},
 	},
+	-- Mooncloth Leggings (world drop: Pattern 14497)
+	[14497] = {
+		worldDrop = {},
+	},
 	[14498] = {
 		drop = {
 			[1048] = 0.19,
@@ -9160,6 +9172,10 @@ RecipeBook.sourceDB[197] = {
 	[14509] = {
 		worldDrop = {},
 	},
+	-- Bottomless Bag (world drop: Pattern 14510)
+	[14510] = {
+		worldDrop = {},
+	},
 	[14511] = {
 		drop = {
 			[6109] = 40.0,
@@ -9217,6 +9233,10 @@ RecipeBook.sourceDB[197] = {
 			},
 		},
 	},
+	-- Enchanter's Cowl (world drop: Pattern 14630)
+	[14630] = {
+		worldDrop = {},
+	},
 	[15802] = {
 		quest = {
 			[6032] = "",
@@ -9269,6 +9289,10 @@ RecipeBook.sourceDB[197] = {
 
 		},
 	},
+	-- Belt of the Archmage (world drop: Pattern 18414)
+	[18414] = {
+		worldDrop = {},
+	},
 	[18415] = {
 		object = {
 			[179501] = 11.0,
@@ -9289,10 +9313,30 @@ RecipeBook.sourceDB[197] = {
 			[179501] = 100.0,
 		},
 	},
+	-- Mooncloth Robe (world drop: Pattern 18487)
+	[18487] = {
+		worldDrop = {},
+	},
 	[19215] = {
 		vendor = {
 			[11557] = {
 				cost = "2gld31svr57cpr",
+			},
+		},
+	},
+	-- Argent Boots (vendor: Pattern 19216)
+	[19216] = {
+		vendor = {
+			[11536] = {
+				cost = "10gld",
+			},
+		},
+	},
+	-- Argent Shoulders (vendor: Pattern 19217)
+	[19217] = {
+		vendor = {
+			[11536] = {
+				cost = "10gld",
 			},
 		},
 	},
@@ -9461,6 +9505,30 @@ RecipeBook.sourceDB[197] = {
 		vendor = {
 			[15179] = {
 				cost = "10gld12svr50cpr",
+			},
+		},
+	},
+	-- Sylvan Shoulders (vendor: Pattern 22772)
+	[22772] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Sylvan Crown (vendor: Pattern 22773)
+	[22773] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
+			},
+		},
+	},
+	-- Sylvan Vest (vendor: Pattern 22774)
+	[22774] = {
+		vendor = {
+			[14921] = {
+				cost = "5gld",
 			},
 		},
 	},

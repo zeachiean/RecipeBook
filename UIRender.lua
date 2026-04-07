@@ -51,12 +51,16 @@ local function OnRecipeEnter(self)
     if not data.isSpell then
         -- Recipe item: show the item tooltip directly
         GameTooltip:SetItemByID(self._recipeID)
-    else
-        -- isSpell: try spell hyperlink (shows crafting tooltip with reagents)
+    elseif data.teaches ~= self._recipeID or self._profID == 333 then
+        -- Key is a real spell ID (teaches differs, or enchanting where
+        -- the spell IS the product).  Show the spell tooltip.
         local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, "spell:" .. self._recipeID)
         if not ok then
             GameTooltip:AddLine(data.name or "Unknown Recipe", 1, 1, 1)
         end
+    else
+        -- Key is the crafted item ID — show the item tooltip
+        GameTooltip:SetItemByID(self._recipeID)
     end
 
     GameTooltip:AddLine(" ")
@@ -66,29 +70,6 @@ local function OnRecipeEnter(self)
 
         if self._sourceType == "discovery" then
             GameTooltip:AddLine("Learned via crafting", 1, 1, 1)
-
-        elseif self._sourceType == "worldDrop" then
-            GameTooltip:AddLine("Drops from world mobs", UI.COLOR_WORLDDROP.r, UI.COLOR_WORLDDROP.g, UI.COLOR_WORLDDROP.b)
-            local wdData = RecipeBook.sourceDB[self._profID]
-                and RecipeBook.sourceDB[self._profID][self._recipeID]
-                and RecipeBook.sourceDB[self._profID][self._recipeID].worldDrop
-            if type(wdData) == "table" and #wdData > 0 then
-                local zoneSet = {}
-                for _, areaID in ipairs(wdData) do
-                    local zn = RecipeBook:GetZoneNameForAreaID(areaID)
-                    if zn then zoneSet[zn] = true end
-                end
-                local zones = {}
-                for z in pairs(zoneSet) do zones[#zones + 1] = z end
-                table.sort(zones)
-                local max = 6
-                for i = 1, math.min(max, #zones) do
-                    GameTooltip:AddLine("  " .. zones[i], 0.8, 0.8, 0.8)
-                end
-                if #zones > max then
-                    GameTooltip:AddLine(("  ...and %d more"):format(#zones - max), 0.6, 0.6, 0.6)
-                end
-            end
 
         elseif self._sourceType == "trainer" and not self._sourceID then
             GameTooltip:AddLine("Learned from a profession trainer", 1, 1, 1)
@@ -100,6 +81,12 @@ local function OnRecipeEnter(self)
 
         elseif self._sourceType == "vendor" then
             local npcName = RecipeBook:GetNPCName(self._sourceID)
+            local npc = RecipeBook.npcDB and RecipeBook.npcDB[self._sourceID]
+            local _, pf = UnitFactionGroup("player")
+            local nf = npc and npc.faction
+            if nf and nf ~= pf then
+                npcName = npcName .. (nf == "Horde" and " (H)" or " (A)")
+            end
             local zone = RecipeBook:GetFirstZoneForNPC(self._sourceID)
             GameTooltip:AddLine(npcName .. (zone and (" - " .. zone) or ""), 1, 1, 1)
             local srcData = RecipeBook.sourceDB[self._profID]
@@ -118,7 +105,27 @@ local function OnRecipeEnter(self)
 
         elseif self._sourceType == "drop" or self._sourceType == "pickpocket" then
             if self._isWorldDrop then
-                GameTooltip:AddLine("World Drop", UI.COLOR_WORLDDROP.r, UI.COLOR_WORLDDROP.g, UI.COLOR_WORLDDROP.b)
+                GameTooltip:AddLine("World Drop", UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
+                local wdData = RecipeBook.sourceDB[self._profID]
+                    and RecipeBook.sourceDB[self._profID][self._recipeID]
+                    and RecipeBook.sourceDB[self._profID][self._recipeID].worldDrop
+                if type(wdData) == "table" and #wdData > 0 then
+                    local zoneSet = {}
+                    for _, areaID in ipairs(wdData) do
+                        local zn = RecipeBook:GetZoneNameForAreaID(areaID)
+                        if zn then zoneSet[zn] = true end
+                    end
+                    local zones = {}
+                    for z in pairs(zoneSet) do zones[#zones + 1] = z end
+                    table.sort(zones)
+                    local max = 6
+                    for i = 1, math.min(max, #zones) do
+                        GameTooltip:AddLine("  " .. zones[i], 0.8, 0.8, 0.8)
+                    end
+                    if #zones > max then
+                        GameTooltip:AddLine(("  ...and %d more"):format(#zones - max), 0.6, 0.6, 0.6)
+                    end
+                end
             else
                 local npcName = RecipeBook:GetNPCName(self._sourceID)
                 local zone = RecipeBook:GetFirstZoneForNPC(self._sourceID)
@@ -245,6 +252,9 @@ local function OnRecipeEnter(self)
 
     GameTooltip:Show()
 end
+
+-- Expose for testing
+RecipeBook._OnRecipeEnter = OnRecipeEnter
 
 local function OnRecipeLeave(self)
     GameTooltip:Hide()
@@ -436,9 +446,9 @@ local function RecipePassesZoneFilter(profID, recipeID, filterZone, filterContin
                 end
             elseif srcType == "worldDrop" then
                 -- Array of areaIDs; empty means unknown zones — always pass.
-                if #srcData == 0 then return true end
+                if type(srcData) ~= "table" or #srcData == 0 then return true end
                 for _, areaID in ipairs(srcData) do
-                    if SourcePassesZoneFilter("worldDrop", areaID, filterZone, filterContinent) then
+                    if SourcePassesZoneFilter("fishing", areaID, filterZone, filterContinent) then
                         return true
                     end
                 end
@@ -468,7 +478,7 @@ local function GetSourceCount(profID, recipeID, factionFilter)
             if srcType == "unique" then
                 for _ in ipairs(srcData) do n = n + 1 end
             elseif srcType == "worldDrop" then
-                n = n + 1
+                n = n + 1  -- counts as one "drop" source
             elseif srcType == "trainer" or srcType == "vendor" then
                 for npcID in pairs(srcData) do
                     local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
@@ -567,7 +577,10 @@ local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, 
                     end
                 end
                 if fallbackID then
-                    local name = RecipeBook:GetNPCName(fallbackID)
+                    local npc = RecipeBook.npcDB and RecipeBook.npcDB[fallbackID]
+                    local npcFaction = npc and npc.faction
+                    local tag = npcFaction == "Horde" and " (H)" or npcFaction == "Alliance" and " (A)" or ""
+                    local name = RecipeBook:GetNPCName(fallbackID) .. tag
                     local zone = RecipeBook:GetFirstZoneForNPC(fallbackID)
                     return srcType, fallbackID, name, zone, false, nil
                 end
@@ -650,22 +663,23 @@ local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, 
                     return srcType, nil, "Discovery", nil, false, nil
                 end
             elseif srcType == "worldDrop" then
-                -- World-drop recipes (Jewelcrafting). May be:
+                -- World-drop recipes. May be:
                 --  * true — legacy flag, no zone data scraped
                 --  * { areaID, ... } — scraped drop zones from Wowhead
+                -- Grouped under "drop" category with isWorldDrop flag.
                 if srcData == true then
                     if not hasFilter then
-                        return srcType, nil, "World Drop", nil, true, nil
+                        return "drop", nil, "World Drop", nil, true, nil
                     end
                 elseif type(srcData) == "table" then
                     -- Empty table = unknown drop zones — always show
                     if #srcData == 0 then
-                        return srcType, nil, "World Drop", nil, true, nil
+                        return "drop", nil, "World Drop", nil, true, nil
                     end
                     for _, areaID in ipairs(srcData) do
-                        if passes("worldDrop", areaID) then
+                        if passes("fishing", areaID) then
                             local zone = RecipeBook:GetZoneNameForAreaID(areaID)
-                            return srcType, areaID, "World Drop", zone, true, nil
+                            return "drop", areaID, "World Drop", zone, true, nil
                         end
                     end
                     -- No zone filter — surface with the first known zone if any.
@@ -675,7 +689,7 @@ local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, 
                             firstZone = RecipeBook:GetZoneNameForAreaID(areaID)
                             if firstZone then break end
                         end
-                        return srcType, nil, "World Drop", firstZone, true, nil
+                        return "drop", nil, "World Drop", firstZone, true, nil
                     end
                 end
             end
@@ -701,9 +715,17 @@ local function GetBestSourceSummary(profID, recipeID, filterZone, filterContinen
             local a, b, c, d, e, f = BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, passes)
             if a then return a, b, c, d, e, f end
         end
+        -- When processing "drop", also check worldDrop data
+        if srcType == "drop" and sources.worldDrop then
+            local a, b, c, d, e, f = BestSourceForType(profID, recipeID, "worldDrop", sources.worldDrop, hasFilter, passes)
+            if a then return a, b, c, d, e, f end
+        end
     end
     return nil, nil, nil, nil, false, nil
 end
+
+-- Expose for testing
+RecipeBook.GetBestSourceSummary = GetBestSourceSummary
 
 -- Build one summary per source type for a recipe (for multi-category display).
 -- Returns an array of 6-tuples, in SOURCE_ORDER.
@@ -726,6 +748,13 @@ local function GetAllSourceSummaries(profID, recipeID, filterZone, filterContine
                 out[#out + 1] = { a, b, c, d, e, f }
             end
         end
+        -- When processing "drop", also check worldDrop data
+        if srcType == "drop" and sources.worldDrop then
+            local a, b, c, d, e, f = BestSourceForType(profID, recipeID, "worldDrop", sources.worldDrop, hasFilter, passes)
+            if a then
+                out[#out + 1] = { a, b, c, d, e, f }
+            end
+        end
     end
     return out
 end
@@ -738,6 +767,12 @@ local function RecipePassesFactionFilter(profID, recipeID, playerFaction)
     local sources = RecipeBook.sourceDB[profID] and RecipeBook.sourceDB[profID][recipeID]
     if not sources then return true end
 
+    -- Physical recipe items sold by vendors are tradeable (BoE / unbound),
+    -- so don't faction-filter them — the opposite faction's vendor recipe
+    -- can reach the player via the neutral Auction House.
+    local data = RecipeBook.recipeDB[profID] and RecipeBook.recipeDB[profID][recipeID]
+    local isTradeableItem = data and not data.isSpell
+
     local hasAnyFactionSource = false
 
     for srcType, srcData in pairs(sources) do
@@ -747,6 +782,9 @@ local function RecipePassesFactionFilter(profID, recipeID, playerFaction)
                 if npc then
                     if not npc.faction then
                         return true  -- Neutral NPC, always available
+                    end
+                    if srcType == "vendor" and isTradeableItem then
+                        return true  -- Tradeable recipe, available via AH
                     end
                     hasAnyFactionSource = true
                     if npc.faction == playerFaction then
@@ -790,6 +828,46 @@ local function BuildDisplayData(filters)
     local recipes = RecipeBook.recipeDB[profID]
     if not recipes then return {}, 0, 0 end
 
+    -- Faction-mirror deduplication: when multiple non-isSpell recipe items
+    -- teach the same spell and share a name (e.g. Alliance/Horde vendor
+    -- versions), pick the one whose vendor matches the player's faction.
+    -- The duplicate is hidden from both totals and display.
+    local _, playerFaction = UnitFactionGroup("player")
+    local skipRecipe = {}
+    do
+        local byTeaches = {}
+        for recipeID, data in pairs(recipes) do
+            if not data.isSpell and data.teaches then
+                local key = data.teaches .. ":" .. (data.name or "")
+                if not byTeaches[key] then byTeaches[key] = {} end
+                byTeaches[key][#byTeaches[key] + 1] = recipeID
+            end
+        end
+        for _, rids in pairs(byTeaches) do
+            if #rids > 1 then
+                -- Determine which rid to keep: prefer one with a same-faction vendor
+                local bestRid = rids[1]
+                local sources = RecipeBook.sourceDB[profID]
+                if playerFaction and sources then
+                    for _, rid in ipairs(rids) do
+                        local src = sources[rid]
+                        if src and src.vendor then
+                            for npcID in pairs(src.vendor) do
+                                local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
+                                if npc and npc.faction == playerFaction then
+                                    bestRid = rid
+                                end
+                            end
+                        end
+                    end
+                end
+                for _, rid in ipairs(rids) do
+                    if rid ~= bestRid then skipRecipe[rid] = true end
+                end
+            end
+        end
+    end
+
     local groups = {}
     for _, srcType in ipairs(RecipeBook.SOURCE_ORDER) do
         groups[srcType] = {}
@@ -799,83 +877,87 @@ local function BuildDisplayData(filters)
     local listMode = filters.listMode or "all"
     local totalRecipes = 0
     local totalKnown = 0
+    local totalShown = 0
 
     for recipeID, data in pairs(recipes) do
-        local dominated = false
+        if not skipRecipe[recipeID] then
+            local dominated = false
 
-        -- Phase filter (checked first since it also gates totals)
-        local phase = RecipeBook:GetRecipePhase(profID, recipeID)
-        if phase > filters.maxPhase then
-            -- Don't count recipes outside the phase filter in totals
-            dominated = true
-        end
-
-        -- Count totals (all recipes within phase, before other filters)
-        if not dominated then
-            totalRecipes = totalRecipes + 1
-            if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey) then
-                totalKnown = totalKnown + 1
-            end
-        end
-
-        -- Wishlist filter
-        if not dominated and listMode == "wishlist" then
-            if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
+            -- Phase filter (checked first since it also gates totals)
+            local phase = RecipeBook:GetRecipePhase(profID, recipeID)
+            if phase > filters.maxPhase then
+                -- Don't count recipes outside the phase filter in totals
                 dominated = true
             end
-        end
-        -- Hide known / ignored (only applies to the "all" list)
-        if not dominated and listMode == "all" and filters.hideKnown then
-            if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey)
-                or RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey) then
-                dominated = true
-            end
-        end
-        -- Hide unlearnable
-        if not dominated and filters.hideUnlearnable
-            and not RecipeBook:IsRecipeKnown(profID, recipeID)
-            and not RecipeBook:IsRecipeLearnable(profID, recipeID) then
-            dominated = true
-        end
-        -- Faction filter
-        if not dominated and not RecipePassesFactionFilter(profID, recipeID, filters.playerFaction) then
-            dominated = true
-        end
-        -- Zone filter
-        if not dominated and not RecipePassesZoneFilter(profID, recipeID, filters.zone, filters.continent) then
-            dominated = true
-        end
-        -- Search filter
-        if not dominated and filters.searchText then
-            local name = RecipeBook:GetRecipeName(profID, recipeID)
-            if not name or not strlower(name):find(filters.searchText, 1, true) then
-                dominated = true
-            end
-        end
 
-        if not dominated then
-            local summaries = GetAllSourceSummaries(profID, recipeID, filters.zone, filters.continent)
-            local count = GetSourceCount(profID, recipeID, filters.playerFaction)
-            local isKnown = RecipeBook:IsRecipeKnown(profID, recipeID)
-            local isLearnable = not isKnown and RecipeBook:IsRecipeLearnable(profID, recipeID)
-            for _, s in ipairs(summaries) do
-                local srcType, srcID, srcName, srcZone, isWorldDrop, dropRate = s[1], s[2], s[3], s[4], s[5], s[6]
-                groups[srcType][#groups[srcType] + 1] = {
-                    recipeID = recipeID,
-                    requiredSkill = data.requiredSkill or 0,
-                    sourceType = srcType,
-                    sourceID = srcID,
-                    sourceName = srcName,
-                    sourceZone = srcZone,
-                    sourceCount = count,
-                    dropRate = dropRate,
-                    isWorldDrop = isWorldDrop,
-                    isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey),
-                    isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey),
-                    isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey),
-                    isLearnable = isLearnable,
-                    difficulty = data.difficulty,
-                }
+            -- Count totals (all recipes within phase, before other filters)
+            if not dominated then
+                totalRecipes = totalRecipes + 1
+                if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey) then
+                    totalKnown = totalKnown + 1
+                end
+            end
+
+            -- Wishlist filter
+            if not dominated and listMode == "wishlist" then
+                if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
+                    dominated = true
+                end
+            end
+            -- Hide known / ignored (only applies to the "all" list)
+            if not dominated and listMode == "all" and filters.hideKnown then
+                if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey)
+                    or RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey) then
+                    dominated = true
+                end
+            end
+            -- Hide unlearnable
+            if not dominated and filters.hideUnlearnable
+                and not RecipeBook:IsRecipeKnown(profID, recipeID)
+                and not RecipeBook:IsRecipeLearnable(profID, recipeID) then
+                dominated = true
+            end
+            -- Faction filter
+            if not dominated and not RecipePassesFactionFilter(profID, recipeID, filters.playerFaction) then
+                dominated = true
+            end
+            -- Zone filter
+            if not dominated and not RecipePassesZoneFilter(profID, recipeID, filters.zone, filters.continent) then
+                dominated = true
+            end
+            -- Search filter
+            if not dominated and filters.searchText then
+                local name = RecipeBook:GetRecipeName(profID, recipeID)
+                if not name or not strlower(name):find(filters.searchText, 1, true) then
+                    dominated = true
+                end
+            end
+
+            if not dominated then
+                totalShown = totalShown + 1
+                local summaries = GetAllSourceSummaries(profID, recipeID, filters.zone, filters.continent)
+                local count = GetSourceCount(profID, recipeID, filters.playerFaction)
+                local isKnown = RecipeBook:IsRecipeKnown(profID, recipeID)
+                local isLearnable = not isKnown and RecipeBook:IsRecipeLearnable(profID, recipeID)
+                for _, s in ipairs(summaries) do
+                    local srcType, srcID, srcName, srcZone, isWorldDrop, dropRate = s[1], s[2], s[3], s[4], s[5], s[6]
+                    groups[srcType][#groups[srcType] + 1] = {
+                        recipeID = recipeID,
+                        requiredSkill = data.requiredSkill or 0,
+                        sourceType = srcType,
+                        sourceID = srcID,
+                        sourceName = srcName,
+                        sourceZone = srcZone,
+                        sourceCount = count,
+                        dropRate = dropRate,
+                        isWorldDrop = isWorldDrop,
+                        isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey),
+                        isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey),
+                        isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, viewedKey),
+                        isLearnable = isLearnable,
+                        difficulty = data.difficulty,
+                    }
+                end
             end
         end
     end
@@ -892,8 +974,11 @@ local function BuildDisplayData(filters)
         end)
     end
 
-    return groups, totalRecipes, totalKnown
+    return groups, totalRecipes, totalKnown, totalShown
 end
+
+-- Expose for testing
+RecipeBook._BuildDisplayData = BuildDisplayData
 
 function RecipeBook:ClearRenderCaches()
     wipe(recipeQualityCache)
@@ -932,9 +1017,8 @@ function RecipeBook:RefreshRecipeList()
         return
     end
 
-    local groups, totalRecipes, totalKnown = BuildDisplayData(filters)
+    local groups, totalRecipes, totalKnown, totalShown = BuildDisplayData(filters)
     local yOffset = 0
-    local totalShown = 0
 
     local collapsed = RecipeBookCharDB and RecipeBookCharDB.collapsedSources or {}
 
@@ -1126,10 +1210,7 @@ function RecipeBook:RefreshRecipeList()
 
                     displayedRows[#displayedRows + 1] = row
                     yOffset = yOffset - UI.ROW_HEIGHT
-                    totalShown = totalShown + 1
                 end
-            else
-                totalShown = totalShown + #entries
             end
 
             -- Spacing between groups

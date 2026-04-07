@@ -334,6 +334,13 @@ RecipeBook.recipeDB[185] = {
 		requiredSkill = 40,
 		phase = 1,
 	},
+	[7678] = {
+		name = "Thistle Tea",
+		difficulty = { 60, 100, 120, 140 },
+		teaches = 7676,
+		requiredSkill = 60,
+		phase = 1,
+	},
 	[10841] = {
 		name = "Goldthorn Tea",
 		difficulty = { 175, 215, 235, 255 },
@@ -846,5 +853,19 @@ RecipeBook.recipeDB[185] = {
 		teaches = 45695,
 		requiredSkill = 100,
 		phase = 1,
+	},
+	[35564] = {
+		name = "Charred Bear Kabobs",
+		difficulty = { 250, 275, 285, 295 },
+		teaches = 35563,
+		requiredSkill = 250,
+		phase = 5,
+	},
+	[35566] = {
+		name = "Juicy Bear Burger",
+		difficulty = { 250, 275, 285, 295 },
+		teaches = 35565,
+		requiredSkill = 250,
+		phase = 5,
 	},
 }

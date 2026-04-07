@@ -18000,6 +18000,15 @@ RecipeBook.npcDB = {
 			405,
 		},
 	},
+	[5411] = {
+		level = "40",
+		names = {
+			enUS = "Krinkle Goodsteel",
+		},
+		zones = {
+			440,
+		},
+	},
 	[5419] = {
 		level = "42 - 43",
 		names = {
@@ -30060,6 +30069,17 @@ RecipeBook.npcDB = {
 			1977,
 		},
 	},
+	[14828] = {
+		level = "55",
+		names = {
+			enUS = "Gelvas Grimegate",
+		},
+		zones = {
+			12,
+			215,
+			3519,
+		},
+	},
 	[14861] = {
 		level = "61",
 		names = {
@@ -30169,6 +30189,15 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			1977,
+		},
+	},
+	[15176] = {
+		level = "57",
+		names = {
+			enUS = "Vargus",
+		},
+		zones = {
+			1377,
 		},
 	},
 	[15179] = {

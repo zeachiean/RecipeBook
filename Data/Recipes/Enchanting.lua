@@ -1020,6 +1020,20 @@ RecipeBook.recipeDB[333] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	[20732] = {
+		name = "Enchant Cloak - Greater Fire Resistance",
+		difficulty = { 300, 310, 325, 340 },
+		teaches = 25081,
+		requiredSkill = 300,
+		phase = 1,
+	},
+	[20733] = {
+		name = "Enchant Cloak - Greater Nature Resistance",
+		difficulty = { 300, 310, 325, 340 },
+		teaches = 25082,
+		requiredSkill = 300,
+		phase = 1,
+	},
 	[20736] = {
 		name = "Enchant Cloak - Dodge",
 		difficulty = { 300, 320, 340, 360 },

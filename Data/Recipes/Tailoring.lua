@@ -612,6 +612,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 210,
 		phase = 1,
 	},
+	[7084] = {
+		name = "Crimson Silk Shoulders",
+		difficulty = { 190, 210, 225, 240 },
+		teaches = 7059,
+		requiredSkill = 190,
+		phase = 1,
+	},
 	[7085] = {
 		name = "Azure Shoulders",
 		difficulty = { 190, 210, 225, 240 },
@@ -631,6 +638,13 @@ RecipeBook.recipeDB[197] = {
 		difficulty = { 180, 200, 215, 230 },
 		teaches = 7056,
 		requiredSkill = 180,
+		phase = 1,
+	},
+	[7088] = {
+		name = "Crimson Silk Robe",
+		difficulty = { 205, 220, 235, 250 },
+		teaches = 7063,
+		requiredSkill = 205,
 		phase = 1,
 	},
 	[7089] = {
@@ -676,7 +690,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 210,
 		phase = 1,
 	},
-	[10002] = {
+	[12052] = {
 		name = "Shadoweave Pants",
 		difficulty = { 210, 225, 240, 255 },
 		teaches = 10002,
@@ -684,7 +698,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 210,
 		phase = 1,
 	},
-	[10003] = {
+	[12053] = {
 		name = "Black Mageweave Gloves",
 		difficulty = { 215, 230, 245, 260 },
 		teaches = 10003,
@@ -692,7 +706,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 215,
 		phase = 1,
 	},
-	[10004] = {
+	[12055] = {
 		name = "Shadoweave Robe",
 		difficulty = { 215, 230, 245, 260 },
 		teaches = 10004,
@@ -700,7 +714,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 215,
 		phase = 1,
 	},
-	[10019] = {
+	[12067] = {
 		name = "Dreamweave Gloves",
 		difficulty = { 225, 240, 255, 270 },
 		teaches = 10019,
@@ -708,7 +722,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 225,
 		phase = 1,
 	},
-	[10021] = {
+	[12070] = {
 		name = "Dreamweave Vest",
 		difficulty = { 225, 240, 255, 270 },
 		teaches = 10021,
@@ -716,7 +730,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 225,
 		phase = 1,
 	},
-	[10023] = {
+	[12071] = {
 		name = "Shadoweave Gloves",
 		difficulty = { 225, 240, 255, 270 },
 		teaches = 10023,
@@ -724,7 +738,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 225,
 		phase = 1,
 	},
-	[10024] = {
+	[12072] = {
 		name = "Black Mageweave Headband",
 		difficulty = { 230, 245, 260, 275 },
 		teaches = 10024,
@@ -732,7 +746,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 230,
 		phase = 1,
 	},
-	[10026] = {
+	[12073] = {
 		name = "Black Mageweave Boots",
 		difficulty = { 230, 245, 260, 275 },
 		teaches = 10026,
@@ -740,7 +754,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 230,
 		phase = 1,
 	},
-	[10027] = {
+	[12074] = {
 		name = "Black Mageweave Shoulders",
 		difficulty = { 230, 245, 260, 275 },
 		teaches = 10027,
@@ -748,7 +762,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 230,
 		phase = 1,
 	},
-	[10028] = {
+	[12076] = {
 		name = "Shadoweave Shoulders",
 		difficulty = { 235, 250, 265, 280 },
 		teaches = 10028,
@@ -756,7 +770,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 235,
 		phase = 1,
 	},
-	[10031] = {
+	[12082] = {
 		name = "Shadoweave Boots",
 		difficulty = { 240, 255, 270, 285 },
 		teaches = 10031,
@@ -764,7 +778,7 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 240,
 		phase = 1,
 	},
-	[10041] = {
+	[12092] = {
 		name = "Dreamweave Circlet",
 		difficulty = { 250, 265, 280, 295 },
 		teaches = 10041,
@@ -1182,6 +1196,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 290,
 		phase = 1,
 	},
+	[14497] = {
+		name = "Mooncloth Leggings",
+		difficulty = { 290, 305, 320, 335 },
+		teaches = 14137,
+		requiredSkill = 290,
+		phase = 1,
+	},
 	[14498] = {
 		name = "Runecloth Headband",
 		difficulty = { 295, 310, 325, 340 },
@@ -1252,6 +1273,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	[14510] = {
+		name = "Bottomless Bag",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 14156,
+		requiredSkill = 300,
+		phase = 1,
+	},
 	[14511] = {
 		name = "Gloves of Spell Mastery",
 		difficulty = { 300, 315, 330, 345 },
@@ -1303,6 +1331,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 135,
 		phase = 1,
 	},
+	[14630] = {
+		name = "Enchanter's Cowl",
+		difficulty = { 165, 185, 200, 215 },
+		teaches = 4322,
+		requiredSkill = 165,
+		phase = 1,
+	},
 	[15802] = {
 		name = "Mooncloth Boots",
 		difficulty = { 290, 295, 310, 325 },
@@ -1347,6 +1382,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	[18414] = {
+		name = "Belt of the Archmage",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 18405,
+		requiredSkill = 300,
+		phase = 1,
+	},
 	[18415] = {
 		name = "Felcloth Gloves",
 		difficulty = { 300, 315, 330, 345 },
@@ -1375,6 +1417,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	[18487] = {
+		name = "Mooncloth Robe",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 18486,
+		requiredSkill = 300,
+		phase = 1,
+	},
 	[19215] = {
 		name = "Wisdom of the Timbermaw",
 		difficulty = { 290, 305, 320, 335 },
@@ -1382,6 +1431,20 @@ RecipeBook.recipeDB[197] = {
 		reputationFaction = 576,
 		reputationLevel = 6,
 		requiredSkill = 290,
+		phase = 1,
+	},
+	[19216] = {
+		name = "Argent Boots",
+		difficulty = { 290, 305, 320, 335 },
+		teaches = 19056,
+		requiredSkill = 290,
+		phase = 1,
+	},
+	[19217] = {
+		name = "Argent Shoulders",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 19059,
+		requiredSkill = 300,
 		phase = 1,
 	},
 	[19218] = {
@@ -1535,6 +1598,27 @@ RecipeBook.recipeDB[197] = {
 		teaches = 22660,
 		reputationFaction = 609,
 		reputationLevel = 7,
+		requiredSkill = 300,
+		phase = 1,
+	},
+	[22772] = {
+		name = "Sylvan Shoulders",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 22758,
+		requiredSkill = 300,
+		phase = 1,
+	},
+	[22773] = {
+		name = "Sylvan Crown",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 22757,
+		requiredSkill = 300,
+		phase = 1,
+	},
+	[22774] = {
+		name = "Sylvan Vest",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 22756,
 		requiredSkill = 300,
 		phase = 1,
 	},

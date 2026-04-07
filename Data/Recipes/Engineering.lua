@@ -1104,6 +1104,13 @@ RecipeBook.recipeDB[202] = {
 		requiredSkill = 225,
 		phase = 1,
 	},
+	[22729] = {
+		name = "Steam Tonk Controller",
+		difficulty = { 275, 275, 280, 285 },
+		teaches = 22728,
+		requiredSkill = 275,
+		phase = 1,
+	},
 	-- ============================================================================
 	-- TBC Engineering Recipes
 	-- ============================================================================
@@ -1619,6 +1626,13 @@ RecipeBook.recipeDB[202] = {
 		isSpell = true,
 		requiredSkill = 350,
 		phase = 3,
+	},
+	[32381] = {
+		name = "Fused Wiring",
+		difficulty = { 275, 275, 280, 285 },
+		teaches = 7191,
+		requiredSkill = 275,
+		phase = 2,
 	},
 	-- Adamantite Arrow Maker (Schematic: 33804)
 	[33804] = {

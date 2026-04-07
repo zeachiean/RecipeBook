@@ -884,6 +884,14 @@ RecipeBook.sourceDB[185] = {
 			},
 		},
 	},
+	-- Thistle Tea (vendor: Recipe 7678)
+	[7678] = {
+		vendor = {
+			[6779] = {
+				cost = "100cpr",
+			},
+		},
+	},
 	[10841] = {
 		unique = {
 			8696,
@@ -1667,6 +1675,29 @@ RecipeBook.sourceDB[185] = {
 			[33844] = 0,
 			[33857] = 0,
 			[34863] = 0,
+		},
+	},
+	-- Charred Bear Kabobs (vendor: Recipe 35564)
+	-- Charred Bear Kabobs (vendor: Recipe 35564)
+	[35564] = {
+		vendor = {
+			[2803] = {
+				cost = "18gld",
+			},
+			[2806] = {
+				cost = "18gld",
+			},
+		},
+	},
+	-- Juicy Bear Burger (vendor: Recipe 35566)
+	[35566] = {
+		vendor = {
+			[2803] = {
+				cost = "18gld",
+			},
+			[2806] = {
+				cost = "18gld",
+			},
 		},
 	},
 }

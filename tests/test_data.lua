@@ -248,4 +248,311 @@ function T.test_no_recipe_id_collisions_across_professions()
     end
 end
 
+-- ============================================================
+-- Tooltip coverage: every recipe must produce a valid tooltip
+-- ============================================================
+
+function T.test_every_recipe_has_a_name()
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            assert_not_nil(data.name,
+                string.format("[%d][%d] recipe missing name", pid, rid))
+            assert_true(type(data.name) == "string" and #data.name > 0,
+                string.format("[%d][%d] recipe name must be non-empty string", pid, rid))
+        end
+    end
+end
+
+function T.test_every_recipe_resolves_a_source_for_tooltip()
+    -- GetBestSourceSummary must return a valid sourceType for every recipe
+    -- so the tooltip can render without errors.
+    local validTypes = {
+        trainer = true, vendor = true, quest = true,
+        drop = true, pickpocket = true, object = true,
+        item = true, fishing = true, unique = true,
+        discovery = true,
+    }
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            local srcType, srcID, srcName, zone, isWorldDrop, dropRate =
+                RecipeBook.GetBestSourceSummary(pid, rid, nil, nil)
+            -- Every recipe must resolve to some source type
+            assert_not_nil(srcType,
+                string.format("[%d][%d] %s: GetBestSourceSummary returned nil sourceType",
+                    pid, rid, data.name or "?"))
+            assert_true(validTypes[srcType],
+                string.format("[%d][%d] %s: invalid sourceType '%s'",
+                    pid, rid, data.name or "?", tostring(srcType)))
+        end
+    end
+end
+
+function T.test_tooltip_source_references_are_valid()
+    -- For every recipe's best source, verify that referenced entities
+    -- (NPCs, quests, objects, unique sources) actually exist in their
+    -- respective databases, so the tooltip won't show "NPC #12345".
+    local errors = {}
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            local srcType, srcID, srcName, zone, isWorldDrop =
+                RecipeBook.GetBestSourceSummary(pid, rid, nil, nil)
+            if not srcType then
+                -- Already caught by previous test
+            elseif srcType == "vendor" and srcID then
+                if not RecipeBook.npcDB[srcID] then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: vendor NPC %d not in npcDB", pid, rid, data.name, srcID)
+                end
+            elseif srcType == "drop" and srcID and not isWorldDrop then
+                if not RecipeBook.npcDB[srcID] then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: drop NPC %d not in npcDB", pid, rid, data.name, srcID)
+                end
+            elseif srcType == "trainer" and srcID then
+                if not RecipeBook.npcDB[srcID] then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: trainer NPC %d not in npcDB", pid, rid, data.name, srcID)
+                end
+            elseif srcType == "quest" and srcID then
+                if not (RecipeBook.questDB and RecipeBook.questDB[srcID]) then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: quest %d not in questDB", pid, rid, data.name, srcID)
+                end
+            elseif srcType == "object" and srcID then
+                if not (RecipeBook.objectDB and RecipeBook.objectDB[srcID]) then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: object %d not in objectDB", pid, rid, data.name, srcID)
+                end
+            elseif srcType == "unique" and srcID then
+                if srcID ~= 0 and not (RecipeBook.uniqueDB and RecipeBook.uniqueDB[srcID]) then
+                    errors[#errors + 1] = string.format(
+                        "[%d][%d] %s: unique %d not in uniqueDB", pid, rid, data.name, srcID)
+                end
+            end
+        end
+    end
+    if #errors > 0 then
+        error(errors[1] .. (#errors > 1 and string.format(" (and %d more)", #errors - 1) or ""))
+    end
+end
+
+function T.test_tooltip_source_name_is_not_nil()
+    -- The source name shown in the tooltip must never be nil.
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            local srcType, srcID, srcName =
+                RecipeBook.GetBestSourceSummary(pid, rid, nil, nil)
+            if srcType then
+                assert_not_nil(srcName,
+                    string.format("[%d][%d] %s: tooltip source name is nil (type=%s, id=%s)",
+                        pid, rid, data.name or "?", tostring(srcType), tostring(srcID)))
+            end
+        end
+    end
+end
+
+function T.test_every_recipe_tooltip_renders_without_error()
+    -- Actually call the tooltip rendering function for every recipe,
+    -- simulating what happens when a user hovers over a recipe row.
+    -- This catches errors that data-only checks miss (nil concatenation,
+    -- bad source references, missing handler for a source type, etc).
+
+    -- Ensure saved-variable stores exist (wow_mock sets them to nil)
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.characters = RecipeBookDB.characters or {}
+    RecipeBookCharDB = RecipeBookCharDB or {}
+
+    local errors = {}
+    for _, pid in ipairs(PROFESSIONS) do
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            -- Get source summary the same way the rendering code does
+            local srcType, srcID, srcName, zone, isWorldDrop, dropRate =
+                RecipeBook.GetBestSourceSummary(pid, rid, nil, nil)
+
+            -- Build a mock row frame with the same fields the real
+            -- rendering code sets before OnRecipeEnter fires
+            local row = {
+                _profID = pid,
+                _recipeID = rid,
+                _sourceType = srcType,
+                _sourceID = srcID,
+                _sourceName = srcName,
+                _zoneName = zone,
+                _isWorldDrop = isWorldDrop,
+                _dropRate = dropRate,
+                _canWaypoint = false,
+            }
+
+            -- Call the actual tooltip function inside pcall
+            local ok, err = pcall(RecipeBook._OnRecipeEnter, row)
+            if not ok then
+                errors[#errors + 1] = string.format(
+                    "[%d][%d] %s: tooltip error: %s",
+                    pid, rid, data.name or "?", tostring(err))
+            end
+        end
+    end
+    if #errors > 0 then
+        error(errors[1] .. (#errors > 1
+            and string.format("\n  (and %d more)", #errors - 1) or ""))
+    end
+end
+
+-- ============================================================
+-- Faction-mirror deduplication
+-- ============================================================
+
+function T.test_faction_mirrors_are_deduplicated()
+    -- Multiple recipe items that teach the same spell and share a name
+    -- (e.g. Alliance/Horde vendor versions) should be deduplicated in
+    -- BuildDisplayData so only one appears in the display and counts.
+
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.characters = RecipeBookDB.characters or {}
+    RecipeBookCharDB = RecipeBookCharDB or {}
+
+    -- Find a faction-mirror pair: two non-isSpell recipes with same
+    -- teaches value and same name
+    local mirrorProfID, mirrorTeaches, mirrorRids
+    for _, pid in ipairs(PROFESSIONS) do
+        local byTeaches = {}
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            if not data.isSpell and data.teaches then
+                local key = data.teaches .. ":" .. (data.name or "")
+                if not byTeaches[key] then byTeaches[key] = {} end
+                byTeaches[key][#byTeaches[key] + 1] = rid
+            end
+        end
+        for key, rids in pairs(byTeaches) do
+            if #rids > 1 then
+                mirrorProfID = pid
+                mirrorTeaches = key
+                mirrorRids = rids
+                break
+            end
+        end
+        if mirrorProfID then break end
+    end
+
+    if not mirrorProfID then return end  -- no mirrors found, skip
+
+    -- Build display data with no filters
+    local filters = {
+        professionID = mirrorProfID,
+        maxPhase = 5,
+        listMode = "all",
+    }
+    local groups, totalRecipes, totalKnown, totalShown =
+        RecipeBook._BuildDisplayData(filters)
+
+    -- Count how many times each mirror rid appears in the output
+    local seenRids = {}
+    for _, entries in pairs(groups) do
+        for _, entry in ipairs(entries) do
+            for _, rid in ipairs(mirrorRids) do
+                if entry.recipeID == rid then
+                    seenRids[rid] = (seenRids[rid] or 0) + 1
+                end
+            end
+        end
+    end
+
+    -- Exactly one of the mirror rids should appear, the others should not
+    local presentCount = 0
+    for _, rid in ipairs(mirrorRids) do
+        if seenRids[rid] and seenRids[rid] > 0 then
+            presentCount = presentCount + 1
+        end
+    end
+    assert_equal(1, presentCount,
+        "faction mirror dedup: expected exactly 1 of " .. #mirrorRids
+        .. " mirror rids to appear in display")
+end
+
+function T.test_faction_mirror_prefers_player_faction()
+    -- When player is Alliance, the Alliance version should be kept;
+    -- when Horde, the Horde version should be kept.
+
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.characters = RecipeBookDB.characters or {}
+    RecipeBookCharDB = RecipeBookCharDB or {}
+
+    -- Find a mirror pair where each rid has a different-faction vendor
+    local mirrorProfID, ridA, ridH
+    for _, pid in ipairs(PROFESSIONS) do
+        local byTeaches = {}
+        for rid, data in pairs(RecipeBook.recipeDB[pid]) do
+            if not data.isSpell and data.teaches then
+                local key = data.teaches .. ":" .. (data.name or "")
+                if not byTeaches[key] then byTeaches[key] = {} end
+                byTeaches[key][#byTeaches[key] + 1] = rid
+            end
+        end
+        for _, rids in pairs(byTeaches) do
+            if #rids == 2 then
+                local factions = {}
+                for _, rid in ipairs(rids) do
+                    local src = RecipeBook.sourceDB[pid] and RecipeBook.sourceDB[pid][rid]
+                    if src and src.vendor then
+                        for npcID in pairs(src.vendor) do
+                            local npc = RecipeBook.npcDB and RecipeBook.npcDB[npcID]
+                            if npc and npc.faction then
+                                factions[rid] = npc.faction
+                            end
+                        end
+                    end
+                end
+                if factions[rids[1]] and factions[rids[2]]
+                    and factions[rids[1]] ~= factions[rids[2]] then
+                    mirrorProfID = pid
+                    if factions[rids[1]] == "Alliance" then
+                        ridA, ridH = rids[1], rids[2]
+                    else
+                        ridA, ridH = rids[2], rids[1]
+                    end
+                    break
+                end
+            end
+        end
+        if mirrorProfID then break end
+    end
+
+    if not mirrorProfID then return end
+
+    local filters = {
+        professionID = mirrorProfID,
+        maxPhase = 5,
+        listMode = "all",
+    }
+
+    -- Test as Alliance
+    local origUFG = UnitFactionGroup
+    UnitFactionGroup = function() return "Alliance", "Alliance" end
+    local groups = RecipeBook._BuildDisplayData(filters)
+    local foundA, foundH = false, false
+    for _, entries in pairs(groups) do
+        for _, entry in ipairs(entries) do
+            if entry.recipeID == ridA then foundA = true end
+            if entry.recipeID == ridH then foundH = true end
+        end
+    end
+    assert_true(foundA, "Alliance player should see Alliance mirror rid " .. ridA)
+    assert_false(foundH, "Alliance player should not see Horde mirror rid " .. ridH)
+
+    -- Test as Horde
+    UnitFactionGroup = function() return "Horde", "Horde" end
+    groups = RecipeBook._BuildDisplayData(filters)
+    foundA, foundH = false, false
+    for _, entries in pairs(groups) do
+        for _, entry in ipairs(entries) do
+            if entry.recipeID == ridA then foundA = true end
+            if entry.recipeID == ridH then foundH = true end
+        end
+    end
+    assert_true(foundH, "Horde player should see Horde mirror rid " .. ridH)
+    assert_false(foundA, "Horde player should not see Alliance mirror rid " .. ridA)
+
+    UnitFactionGroup = origUFG
+end
+
 return T

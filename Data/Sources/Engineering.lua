@@ -3594,6 +3594,14 @@ RecipeBook.sourceDB[202] = {
 			[8877] = "",
 		},
 	},
+	-- Steam Tonk Controller (vendor: Schematic 22729)
+	[22729] = {
+		vendor = {
+			[14828] = {
+				cost = "2gld",
+			},
+		},
+	},
 	-- ============================================================================
 	-- TBC Engineering Sources
 	-- ============================================================================
@@ -4091,6 +4099,14 @@ RecipeBook.sourceDB[202] = {
 			[18752] = "",
 			[18775] = "",
 			[19576] = "",
+		},
+	},
+	-- Fused Wiring (vendor: Schematic 32381)
+	[32381] = {
+		vendor = {
+			[21493] = {
+				cost = "5gld",
+			},
 		},
 	},
 	-- Schematic: Adamantite Arrow Maker (mob drop - Sunfury Archer)

@@ -41,14 +41,6 @@ RecipeBook.recipeDB[2842] = {
 		requiredSkill = 100,
 		phase = 1,
 	},
-	[6510] = {
-		name = "Blinding Powder",
-		teaches = 5530,
-		isSpell = true,
-		requiredLevel = 34,
-		requiredSkill = 150,
-		phase = 1,
-	},
 	[8681] = {
 		name = "Instant Poison",
 		teaches = 6947,

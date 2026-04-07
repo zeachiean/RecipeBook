@@ -58,7 +58,7 @@ for _, prof in ipairs(RecipeBook.PROFESSIONS) do
 end
 
 -- Source type display order and labels
-RecipeBook.SOURCE_ORDER = { "trainer", "vendor", "quest", "drop", "pickpocket", "object", "item", "fishing", "unique", "discovery", "worldDrop" }
+RecipeBook.SOURCE_ORDER = { "trainer", "vendor", "quest", "drop", "pickpocket", "object", "item", "fishing", "unique", "discovery" }
 RecipeBook.SOURCE_LABELS = {
     trainer = "Trainer",
     vendor = "Vendor",
@@ -70,7 +70,6 @@ RecipeBook.SOURCE_LABELS = {
     fishing = "Fishing",
     unique = "Special",
     discovery = "Discovery",
-    worldDrop = "World Drop",
 }
 
 -- Phase labels
@@ -81,9 +80,6 @@ RecipeBook.PHASE_LABELS = {
     [4] = "Phase 4",
     [5] = "Phase 5",
 }
-
--- World drop NPC threshold
-RecipeBook.WORLD_DROP_THRESHOLD = 10
 
 -- Item name cache (for "item" source type)
 RecipeBook.itemNames = {}

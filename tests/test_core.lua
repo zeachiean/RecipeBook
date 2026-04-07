@@ -67,7 +67,7 @@ end
 function T.test_source_order_contains_all_types()
     local expected = {
         "trainer", "vendor", "quest", "drop", "pickpocket",
-        "object", "item", "fishing", "unique", "discovery", "worldDrop",
+        "object", "item", "fishing", "unique", "discovery",
     }
     assert_equal(#expected, #RecipeBook.SOURCE_ORDER, "SOURCE_ORDER length")
     for _, t in ipairs(expected) do
@@ -287,8 +287,11 @@ function T.test_no_empty_drop_tables()
                 if srcData.drop then
                     local count = 0
                     for _ in pairs(srcData.drop) do count = count + 1 end
-                    assert_true(count > 0,
-                        string.format("[%d][%d] has empty drop table — use worldDrop instead", pid, rid))
+                    -- Empty drop table is OK if the recipe has a worldDrop entry
+                    if not srcData.worldDrop then
+                        assert_true(count > 0,
+                            string.format("[%d][%d] has empty drop table with no worldDrop fallback", pid, rid))
+                    end
                 end
             end
         end

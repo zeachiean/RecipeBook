@@ -4908,6 +4908,18 @@ RecipeBook.sourceDB[333] = {
 
 		},
 	},
+	-- Enchant Cloak - Greater Fire Resistance (drop: Formula 20732)
+	[20732] = {
+		drop = {
+			[15340] = 6.0,
+		},
+	},
+	-- Enchant Cloak - Greater Nature Resistance (drop: Formula 20733)
+	[20733] = {
+		drop = {
+			[15340] = 6.0,
+		},
+	},
 	[33149] = {
 		vendor = {
 			[17904] = {

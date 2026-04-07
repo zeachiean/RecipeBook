@@ -232,6 +232,9 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "4gld",
 			},
+			[18774] = {
+				cost = "4gld",
+			},
 		},
 	},
 	[23136] = {
@@ -249,6 +252,9 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "6gld",
 			},
+			[18774] = {
+				cost = "6gld",
+			},
 		},
 	},
 	[23138] = {
@@ -263,11 +269,17 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "4gld",
 			},
+			[18774] = {
+				cost = "4gld",
+			},
 		},
 	},
 	[23141] = {
 		vendor = {
 			[18751] = {
+				cost = "5gld",
+			},
+			[18774] = {
 				cost = "5gld",
 			},
 		},
@@ -282,6 +294,9 @@ RecipeBook.sourceDB[755] = {
 	[23144] = {
 		vendor = {
 			[18751] = {
+				cost = "4gld",
+			},
+			[18774] = {
 				cost = "4gld",
 			},
 		},
@@ -308,11 +323,17 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "6gld",
 			},
+			[18774] = {
+				cost = "6gld",
+			},
 		},
 	},
 	[23148] = {
 		vendor = {
 			[18751] = {
+				cost = "4gld",
+			},
+			[18774] = {
 				cost = "4gld",
 			},
 		},
@@ -339,6 +360,9 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "6gld",
 			},
+			[18774] = {
+				cost = "6gld",
+			},
 		},
 	},
 	[23152] = {
@@ -346,11 +370,17 @@ RecipeBook.sourceDB[755] = {
 			[18751] = {
 				cost = "4gld",
 			},
+			[18774] = {
+				cost = "4gld",
+			},
 		},
 	},
 	[23153] = {
 		vendor = {
 			[18751] = {
+				cost = "5gld",
+			},
+			[18774] = {
 				cost = "5gld",
 			},
 		},
@@ -1066,16 +1096,30 @@ RecipeBook.sourceDB[755] = {
 			[19778] = "",
 		},
 	},
-	[31358] = {
+	[23142] = {
+		vendor = {
+			[17657] = {
+				cost = "6gld",
+			},
+		},
+	},
+	[24180] = {
 		vendor = {
 			[17657] = {
 				cost = "12gld",
 			},
 		},
 	},
+	[31358] = {
+		vendor = {
+			[17585] = {
+				cost = "12gld",
+			},
+		},
+	},
 	[31359] = {
 		vendor = {
-			[17657] = {
+			[17585] = {
 				cost = "6gld",
 			},
 		},

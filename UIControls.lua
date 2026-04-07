@@ -22,7 +22,6 @@ UI.COLOR_KNOWN = { r = 0.5, g = 0.5, b = 0.5 }
 UI.COLOR_SKILL = { r = 0.7, g = 0.7, b = 0.7 }
 UI.COLOR_SOURCE = { r = 0.6, g = 0.8, b = 1.0 }
 UI.COLOR_ZONE = { r = 0.7, g = 0.7, b = 0.7 }
-UI.COLOR_WORLDDROP = { r = 0.9, g = 0.6, b = 0.2 }
 UI.COLOR_WAYPOINT = { r = 0.3, g = 1.0, b = 0.3 }
 UI.COLOR_DISABLED = { r = 0.4, g = 0.4, b = 0.4 }
 UI.COLOR_WISHLIST = { r = 1.0, g = 0.85, b = 0.2 }   -- gold star

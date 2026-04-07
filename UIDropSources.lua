@@ -427,6 +427,13 @@ end
 local function formatEntry(e)
     local label = RecipeBook.SOURCE_LABELS[e.sourceType] or e.sourceType
     local nameStr = (e.name or "?")
+    -- Append faction tag for opposite-faction vendors
+    if e.faction and (e.sourceType == "vendor" or e.sourceType == "trainer") then
+        local _, playerFaction = UnitFactionGroup("player")
+        if playerFaction and e.faction ~= playerFaction then
+            nameStr = nameStr .. (e.faction == "Horde" and " (H)" or " (A)")
+        end
+    end
     -- For drops/pickpocket/trainer/vendor/object/unique the name IS the thing;
     -- prefix with a short type tag to differentiate rows.
     local shortTag
