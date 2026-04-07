@@ -39,7 +39,7 @@ Narrow results with multiple filter options that work together:
 
 - **Continent & Zone** — dropdown filters with Auto-detect mode for your current location
 - **Phase** — filter by content phase (1–5) to see only what's available now
-- **My Faction** — hide opposite-faction vendors and quests (enabled by default)
+- **My Faction** — hide opposite-faction vendors and quests (enabled by default). Non-BoP vendor recipes remain visible since they're tradeable via neutral AH; opposite-faction vendors are marked with (A) or (H)
 - **Search** — filter by recipe name as you type
 
 ## Waypoint Integration

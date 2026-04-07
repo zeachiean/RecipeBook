@@ -36,7 +36,7 @@
     },
     {
       "title": "Faction-Aware",
-      "description": "Automatically filters out recipes from opposite-faction vendors and quests."
+      "description": "Filters opposite-faction vendors and quests. Non-BoP vendor recipes stay visible (tradeable via neutral AH) with opposite-faction vendors marked (A) or (H)."
     }
   ],
   "screenshots": [

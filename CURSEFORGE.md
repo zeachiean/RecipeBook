@@ -26,7 +26,7 @@ Filter recipes by content phase (1-5). Only see recipes available in the current
 
 ### Faction Filter
 
-Toggle "My Faction" to hide recipes from the opposite faction's vendors and quests. Enabled by default.
+Toggle "My Faction" to hide recipes from the opposite faction's vendors and quests. Non-BoP vendor recipes remain visible since they're tradeable via the neutral Auction House — opposite-faction vendors are marked with (A) or (H). Enabled by default.
 
 ### Search
 
