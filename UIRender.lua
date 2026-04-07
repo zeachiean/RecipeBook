@@ -38,6 +38,8 @@ end
 local function OnRecipeEnter(self)
     if not self._recipeID or not self._profID then return end
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    -- Prevent the global OnTooltipSetItem hook from adding duplicate lines
+    GameTooltip._recipeBookDone = true
 
     local data = RecipeBook.recipeDB[self._profID] and RecipeBook.recipeDB[self._profID][self._recipeID]
     if not data then
@@ -187,24 +189,58 @@ local function OnRecipeEnter(self)
     end
     GameTooltip:AddLine("Shift-click to link in chat", 0.5, 0.5, 0.5)
 
-    -- Wishlist status (check all characters)
-    local wishChars = {}
+    -- Per-character recipe status
+    local tooltipLines = {}
+    local seen = {}
     for _, key in ipairs(RecipeBook:GetAllCharKeys()) do
-        if RecipeBook:IsRecipeInWishlist(self._profID, self._recipeID, key) then
-            local entry = RecipeBookDB.characters and RecipeBookDB.characters[key]
-            local name = entry and entry.name or key
-            wishChars[#wishChars + 1] = name
+        if not seen[key] then
+            local isCharIgnored = RecipeBookDB.ignoredCharacters
+                and RecipeBookDB.ignoredCharacters[key]
+            if not isCharIgnored then
+                local isIgnored = RecipeBook:IsRecipeIgnored(self._profID, self._recipeID, key)
+                local status, a, b = RecipeBook:GetRecipeStatusForChar(
+                    self._profID, self._recipeID, key)
+                if isIgnored or status then
+                    seen[key] = true
+                    local charData = RecipeBookDB.characters[key]
+                    local charName = charData and charData.name or key
+                    local classColor = charData and charData.class
+                        and RAID_CLASS_COLORS[charData.class]
+                    if classColor then
+                        charName = string.format("|cff%02x%02x%02x%s|r",
+                            classColor.r * 255, classColor.g * 255,
+                            classColor.b * 255, charName)
+                    end
+                    local tags = {}
+                    if RecipeBook:IsRecipeInWishlist(self._profID, self._recipeID, key) then
+                        tags[#tags + 1] = "|cffffd100Wishlist|r"
+                    end
+                    if isIgnored then
+                        tags[#tags + 1] = "|cff888888Ignored|r"
+                    elseif status == "knows" then
+                        tags[#tags + 1] = "|cffffffffKnows|r"
+                    elseif status == "learnable" then
+                        tags[#tags + 1] = "|cff00ff00Learnable|r"
+                    elseif status == "lowSkill" then
+                        tags[#tags + 1] = "|cffffd100Low Skill (" .. a .. "/" .. b .. ")|r"
+                    elseif status == "lowRep" then
+                        tags[#tags + 1] = "|cffffd100Low Rep (" .. a .. "/" .. b .. ")|r"
+                    end
+                    if #tags > 0 then
+                        tooltipLines[#tooltipLines + 1] = charName .. ": " .. table.concat(tags, ", ")
+                    end
+                end
+            end
         end
     end
-    if #wishChars > 0 then
+    -- Flag BEFORE adding lines so the global hook doesn't re-enter
+    if #tooltipLines > 0 then
+        GameTooltip._recipeBookDone = true
         GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Wishlist: " .. table.concat(wishChars, ", "), 1, 0.84, 0)
-    end
-
-    -- Known status
-    if RecipeBook:IsRecipeKnown(self._profID, self._recipeID) then
-        GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Already known", 0, 1, 0)
+        GameTooltip:AddLine("RecipeBook", 1, 0.84, 0)
+        for _, line in ipairs(tooltipLines) do
+            GameTooltip:AddLine(line)
+        end
     end
 
     GameTooltip:Show()
@@ -749,10 +785,10 @@ end
 -- Build grouped and filtered recipe entries for display
 local function BuildDisplayData(filters)
     local profID = filters.professionID
-    if not profID then return {} end
+    if not profID then return {}, 0, 0 end
 
     local recipes = RecipeBook.recipeDB[profID]
-    if not recipes then return {} end
+    if not recipes then return {}, 0, 0 end
 
     local groups = {}
     for _, srcType in ipairs(RecipeBook.SOURCE_ORDER) do
@@ -761,21 +797,32 @@ local function BuildDisplayData(filters)
 
     local viewedKey = filters.viewedCharKey
     local listMode = filters.listMode or "all"
+    local totalRecipes = 0
+    local totalKnown = 0
 
     for recipeID, data in pairs(recipes) do
         local dominated = false
 
-        -- Wishlist filter
-        if listMode == "wishlist" then
-            if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
-                dominated = true
+        -- Phase filter (checked first since it also gates totals)
+        local phase = RecipeBook:GetRecipePhase(profID, recipeID)
+        if phase > filters.maxPhase then
+            -- Don't count recipes outside the phase filter in totals
+            dominated = true
+        end
+
+        -- Count totals (all recipes within phase, before other filters)
+        if not dominated then
+            totalRecipes = totalRecipes + 1
+            if RecipeBook:IsRecipeKnown(profID, recipeID, viewedKey) then
+                totalKnown = totalKnown + 1
             end
         end
 
-        -- Phase filter
-        if not dominated then
-            local phase = RecipeBook:GetRecipePhase(profID, recipeID)
-            if phase > filters.maxPhase then dominated = true end
+        -- Wishlist filter
+        if not dominated and listMode == "wishlist" then
+            if not RecipeBook:IsRecipeInWishlist(profID, recipeID, viewedKey) then
+                dominated = true
+            end
         end
         -- Hide known / ignored (only applies to the "all" list)
         if not dominated and listMode == "all" and filters.hideKnown then
@@ -845,7 +892,7 @@ local function BuildDisplayData(filters)
         end)
     end
 
-    return groups
+    return groups, totalRecipes, totalKnown
 end
 
 function RecipeBook:ClearRenderCaches()
@@ -885,25 +932,9 @@ function RecipeBook:RefreshRecipeList()
         return
     end
 
-    local groups = BuildDisplayData(filters)
+    local groups, totalRecipes, totalKnown = BuildDisplayData(filters)
     local yOffset = 0
     local totalShown = 0
-    local totalRecipes = 0
-    local totalKnown = 0
-
-    -- Count totals for this profession
-    local allRecipes = self.recipeDB[filters.professionID]
-    if allRecipes then
-        for recipeID, data in pairs(allRecipes) do
-            local phase = self:GetRecipePhase(filters.professionID, recipeID)
-            if phase <= filters.maxPhase then
-                totalRecipes = totalRecipes + 1
-                if self:IsRecipeKnown(filters.professionID, recipeID) then
-                    totalKnown = totalKnown + 1
-                end
-            end
-        end
-    end
 
     local collapsed = RecipeBookCharDB and RecipeBookCharDB.collapsedSources or {}
 

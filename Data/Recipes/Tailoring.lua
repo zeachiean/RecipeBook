@@ -342,6 +342,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 170,
 		phase = 1,
 	},
+	[4352] = {
+		name = "Boots of the Enchanter",
+		difficulty = { 175, 195, 210, 225 },
+		teaches = 4325,
+		requiredSkill = 175,
+		phase = 1,
+	},
 	[4353] = {
 		name = "Spider Belt",
 		difficulty = { 180, 200, 215, 230 },
@@ -610,6 +617,13 @@ RecipeBook.recipeDB[197] = {
 		difficulty = { 190, 210, 225, 240 },
 		teaches = 7060,
 		requiredSkill = 190,
+		phase = 1,
+	},
+	[7086] = {
+		name = "Earthen Silk Belt",
+		difficulty = { 195, 215, 230, 245 },
+		teaches = 7061,
+		requiredSkill = 195,
 		phase = 1,
 	},
 	[7087] = {
@@ -1189,6 +1203,13 @@ RecipeBook.recipeDB[197] = {
 		requiredSkill = 300,
 		phase = 1,
 	},
+	[14501] = {
+		name = "Mooncloth Vest",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 14138,
+		requiredSkill = 300,
+		phase = 1,
+	},
 	[14504] = {
 		name = "Runecloth Shoulders",
 		difficulty = { 300, 315, 330, 345 },
@@ -1221,6 +1242,13 @@ RecipeBook.recipeDB[197] = {
 		name = "Felcloth Shoulders",
 		difficulty = { 300, 315, 330, 345 },
 		teaches = 14112,
+		requiredSkill = 300,
+		phase = 1,
+	},
+	[14509] = {
+		name = "Mooncloth Circlet",
+		difficulty = { 300, 315, 330, 345 },
+		teaches = 14140,
 		requiredSkill = 300,
 		phase = 1,
 	},
@@ -1863,7 +1891,7 @@ RecipeBook.recipeDB[197] = {
 		difficulty = { 350, 360, 365, 370 },
 		teaches = 31434,
 		requiredSkill = 350,
-		phase = 5,
+		phase = 1,
 	},
 	-- Bracers of Havok (drop: Pattern 24297)
 	[24297] = {

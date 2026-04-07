@@ -4,7 +4,7 @@ function RecipeBook:CreateMinimapButton()
     local ldb = LibStub("LibDataBroker-1.1", true)
     if not ldb then return end
 
-    local dataObj = ldb:NewDataObject("RecipeBook", {
+    local dataObj = ldb:GetDataObjectByName("RecipeBook") or ldb:NewDataObject("RecipeBook", {
         type = "launcher",
         text = "RecipeBook",
         icon = "Interface\\AddOns\\RecipeBook\\minimap-icon",
@@ -24,6 +24,7 @@ function RecipeBook:CreateMinimapButton()
             end
         end,
     })
+    if not dataObj then return end
 
     local icon = LibStub("LibDBIcon-1.0", true)
     if icon then

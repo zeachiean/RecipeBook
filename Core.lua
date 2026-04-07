@@ -92,21 +92,31 @@ RecipeBook.itemNames = {}
 RecipeBook.activeWaypoint = nil    -- { npcName, zoneName }
 
 -- Pre-cache recipe item data so tooltips (SetItemByID) work immediately.
--- Only requests non-isSpell recipe items (physical recipe items).
--- isSpell recipes use spell: hyperlink tooltips instead.
--- Batches requests to avoid flooding the client on login.
-function RecipeBook:PrecacheRecipeItems()
-    if not C_Item or not C_Item.RequestLoadItemDataByID then return end
+-- Single pass over all recipes: builds the item-to-recipe reverse lookup
+-- and queues non-spell recipe items for precaching.
+-- Batches precache requests to avoid flooding the client on login.
+function RecipeBook:BuildLookupsAndPrecache()
+    wipe(self.itemToRecipe)
 
     local queue = {}
     for profID, recipes in pairs(self.recipeDB) do
         for recipeID, data in pairs(recipes) do
             if not data.isSpell then
+                -- Reverse lookup
+                if not self.itemToRecipe[recipeID] then
+                    self.itemToRecipe[recipeID] = {}
+                end
+                self.itemToRecipe[recipeID][#self.itemToRecipe[recipeID] + 1] = {
+                    profID = profID, recipeID = recipeID,
+                }
+                -- Precache queue
                 queue[#queue + 1] = recipeID
             end
         end
     end
 
+    -- Batch item data requests
+    if not C_Item or not C_Item.RequestLoadItemDataByID then return end
     local BATCH_SIZE = 50
     local i = 1
     local function ProcessBatch()
@@ -502,9 +512,9 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         RecipeBook:BuildMapLookup()
         RecipeBook:BuildAreaToZoneLookup()
         RecipeBook:BuildContinentZoneMap()
-        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:BuildLookupsAndPrecache()
         RecipeBook:CacheItemSourceNames()
-        RecipeBook:BuildItemToRecipeLookup()
+        RecipeBook:SaveReputationStandings()
         RecipeBook:HookTooltips()
         RecipeBook:RegisterTrackingEvents(self)
         RecipeBook:CreateMinimapButton()
@@ -637,32 +647,94 @@ function RecipeBook:Toggle()
     end
 end
 
--- Reverse lookup: item ID -> list of {profID, recipeID}
--- Non-isSpell recipes: the recipeID IS the item ID.
-RecipeBook.itemToRecipe = {}
+-- Faction IDs referenced by recipe reputation requirements
+local RECIPE_FACTIONS = {
+    59, 270, 529, 576, 609, 932, 933, 934, 935, 941,
+    942, 946, 947, 967, 970, 978, 989, 990, 1011, 1012, 1077,
+}
 
-function RecipeBook:BuildItemToRecipeLookup()
-    wipe(self.itemToRecipe)
-    for profID, recipes in pairs(self.recipeDB) do
-        for recipeID, data in pairs(recipes) do
-            if not data.isSpell then
-                if not self.itemToRecipe[recipeID] then
-                    self.itemToRecipe[recipeID] = {}
-                end
-                self.itemToRecipe[recipeID][#self.itemToRecipe[recipeID] + 1] = {
-                    profID = profID, recipeID = recipeID,
-                }
-            end
+-- Save the current character's standings for recipe-relevant factions.
+function RecipeBook:SaveReputationStandings()
+    if not GetFactionInfoByID then return end
+    local myData = self:GetMyCharData()
+    if not myData then return end
+
+    myData.reputationStandings = myData.reputationStandings or {}
+    for _, factionID in ipairs(RECIPE_FACTIONS) do
+        local _, _, standingID = GetFactionInfoByID(factionID)
+        if standingID then
+            myData.reputationStandings[factionID] = standingID
         end
     end
 end
 
--- Hook GameTooltip to show wishlist info on recipe items everywhere in the game.
+RecipeBook.itemToRecipe = {}
+
+-- Reputation standing names (WoW standing IDs)
+local STANDING_NAMES = {
+    [1] = "Hated", [2] = "Hostile", [3] = "Unfriendly", [4] = "Neutral",
+    [5] = "Friendly", [6] = "Honored", [7] = "Revered", [8] = "Exalted",
+}
+
+-- Get the recipe status for a specific character and recipe entry.
+-- Returns nil if character doesn't have the profession or recipe is ignored.
+function RecipeBook:GetRecipeStatusForChar(profID, recipeID, charKey)
+    local charData = RecipeBookDB.characters and RecipeBookDB.characters[charKey]
+    if not charData then return nil end
+
+    -- Must have the profession
+    if not charData.knownProfessions or not charData.knownProfessions[profID] then
+        return nil
+    end
+
+    -- Already known
+    if self:IsRecipeKnown(profID, recipeID, charKey) then
+        return "knows"
+    end
+
+    local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
+    if not data then return nil end
+
+    -- Check skill
+    local skill = self:GetProfessionSkill(profID, charKey)
+    if skill and data.requiredSkill and skill < data.requiredSkill then
+        return "lowSkill", skill, data.requiredSkill
+    end
+
+    -- Check reputation: use live API for current character, saved standings for alts
+    if data.reputationFaction and data.reputationLevel then
+        local standingID
+        local myKey = self:GetMyCharKey()
+        if charKey == myKey and GetFactionInfoByID then
+            local _, _, sid = GetFactionInfoByID(data.reputationFaction)
+            standingID = sid
+        elseif charData.reputationStandings then
+            standingID = charData.reputationStandings[data.reputationFaction]
+        end
+        if standingID and standingID < data.reputationLevel then
+            local curName = STANDING_NAMES[standingID] or tostring(standingID)
+            local reqName = STANDING_NAMES[data.reputationLevel] or tostring(data.reputationLevel)
+            return "lowRep", curName, reqName
+        end
+    end
+
+    return "learnable"
+end
+
+-- Hook GameTooltip to show recipe status for all characters.
 function RecipeBook:HookTooltips()
     if self._tooltipsHooked then return end
     self._tooltipsHooked = true
 
+    -- Clear the duplicate-prevention flag when the tooltip is cleared
+    GameTooltip:HookScript("OnTooltipCleared", function(tooltip)
+        tooltip._recipeBookDone = nil
+    end)
+
     GameTooltip:HookScript("OnTooltipSetItem", function(tooltip)
+        -- Skip if our own UI already added status lines to this tooltip
+        if tooltip._recipeBookDone then return end
+
         local _, link = tooltip:GetItem()
         if not link then return end
         local itemID = tonumber(link:match("item:(%d+)"))
@@ -671,22 +743,72 @@ function RecipeBook:HookTooltips()
         local entries = self.itemToRecipe[itemID]
         if not entries then return end
 
-        -- Check all characters' wishlists for any matching recipe
-        local wishChars = {}
+        -- Build per-character status lines
+        local lines = {}
         local seen = {}
         for _, entry in ipairs(entries) do
             for _, key in ipairs(self:GetAllCharKeys()) do
-                if not seen[key] and self:IsRecipeInWishlist(entry.profID, entry.recipeID, key) then
-                    seen[key] = true
-                    local charEntry = RecipeBookDB.characters and RecipeBookDB.characters[key]
-                    wishChars[#wishChars + 1] = charEntry and charEntry.name or key
+                if not seen[key] then
+                    -- Skip ignored characters
+                    local isCharIgnored = RecipeBookDB.ignoredCharacters
+                        and RecipeBookDB.ignoredCharacters[key]
+                    if isCharIgnored then
+                        seen[key] = true
+                    else
+                        local isIgnored = self:IsRecipeIgnored(entry.profID, entry.recipeID, key)
+                        local status, a, b = self:GetRecipeStatusForChar(
+                            entry.profID, entry.recipeID, key)
+                        if isIgnored or status then
+                            seen[key] = true
+                            local charData = RecipeBookDB.characters[key]
+                            local charName = charData and charData.name or key
+
+                            -- Color name by class
+                            local classColor = charData and charData.class
+                                and RAID_CLASS_COLORS[charData.class]
+                            if classColor then
+                                charName = string.format("|cff%02x%02x%02x%s|r",
+                                    classColor.r * 255, classColor.g * 255,
+                                    classColor.b * 255, charName)
+                            end
+
+                            -- Build tags
+                            local tags = {}
+
+                            -- Wishlist tag
+                            if self:IsRecipeInWishlist(entry.profID, entry.recipeID, key) then
+                                tags[#tags + 1] = "|cffffd100Wishlist|r"
+                            end
+
+                            -- Ignored tag
+                            if isIgnored then
+                                tags[#tags + 1] = "|cff888888Ignored|r"
+                            elseif status == "knows" then
+                                tags[#tags + 1] = "|cffffffffKnows|r"
+                            elseif status == "learnable" then
+                                tags[#tags + 1] = "|cff00ff00Learnable|r"
+                            elseif status == "lowSkill" then
+                                tags[#tags + 1] = "|cffffd100Low Skill (" .. a .. "/" .. b .. ")|r"
+                            elseif status == "lowRep" then
+                                tags[#tags + 1] = "|cffffd100Low Rep (" .. a .. "/" .. b .. ")|r"
+                            end
+
+                            if #tags > 0 then
+                                lines[#lines + 1] = charName .. ": " .. table.concat(tags, ", ")
+                            end
+                        end
+                    end
                 end
             end
         end
 
-        if #wishChars > 0 then
+        if #lines > 0 then
+            tooltip._recipeBookDone = true
             tooltip:AddLine(" ")
-            tooltip:AddLine("Wishlist: " .. table.concat(wishChars, ", "), 1, 0.84, 0)
+            tooltip:AddLine("RecipeBook", 1, 0.84, 0)
+            for _, line in ipairs(lines) do
+                tooltip:AddLine(line)
+            end
             tooltip:Show()
         end
     end)

@@ -2361,6 +2361,10 @@ RecipeBook.sourceDB[197] = {
 			[75299] = 0.05,
 		},
 	},
+	-- Boots of the Enchanter (world drop: Pattern 4352)
+	[4352] = {
+		worldDrop = {},
+	},
 	[4353] = {
 		drop = {
 			[679] = 2.0,
@@ -3930,6 +3934,10 @@ RecipeBook.sourceDB[197] = {
 			[2855] = 0.12,
 			[2857] = 0.04,
 		},
+	},
+	-- Earthen Silk Belt (world drop: Pattern 7086)
+	[7086] = {
+		worldDrop = {},
 	},
 	[7087] = {
 		vendor = {
@@ -8617,6 +8625,10 @@ RecipeBook.sourceDB[197] = {
 			[8526] = 1.9,
 		},
 	},
+	-- Mooncloth Vest (world drop: Pattern 14501)
+	[14501] = {
+		worldDrop = {},
+	},
 	[14504] = {
 		drop = {
 			[1050] = 0.5,
@@ -9143,6 +9155,10 @@ RecipeBook.sourceDB[197] = {
 			[153469] = 0.6,
 			[160845] = 0.4,
 		},
+	},
+	-- Mooncloth Circlet (world drop: Pattern 14509)
+	[14509] = {
+		worldDrop = {},
 	},
 	[14511] = {
 		drop = {

@@ -125,10 +125,10 @@ function T.test_sunwell_recipes_kept_at_phase_5()
     assert_not_nil(d35311, "recipe 35311 should exist")
     assert_equal(5, RecipeBook:GetRecipePhase(eng, 35311), "35311 should be phase 5")
 
-    -- Tailoring: Unyielding Bracers (35308) and Girdle (35309) are both phase 5
+    -- Tailoring: Unyielding Bracers (35308) is phase 1, Girdle (35309) is phase 5
     local d35308 = RecipeBook.recipeDB[tail][35308]
     assert_not_nil(d35308, "recipe 35308 should exist")
-    assert_equal(5, RecipeBook:GetRecipePhase(tail, 35308), "35308 should be phase 5")
+    assert_equal(1, RecipeBook:GetRecipePhase(tail, 35308), "35308 should be phase 1")
 
     local d35309 = RecipeBook.recipeDB[tail][35309]
     assert_not_nil(d35309, "recipe 35309 should exist")
