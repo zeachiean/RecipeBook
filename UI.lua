@@ -235,6 +235,10 @@ function RecipeBook:CreateMainFrame()
     UIDropDownMenu_SetWidth(profDropdown, UI.DROPDOWN_WIDTH)
 
     local function ProfDropdown_Init(self, level)
+        local viewedKey = RecipeBook:GetViewedCharKey()
+        local isOther = viewedKey ~= RecipeBook:GetMyCharKey()
+        local viewedName = CharDisplayName(viewedKey)
+
         local knownProfs = {}
         local unknownProfs = {}
         for _, prof in ipairs(RecipeBook.PROFESSIONS) do
@@ -245,18 +249,17 @@ function RecipeBook:CreateMainFrame()
             end
         end
 
-        -- "My Professions" header
+        -- Known professions header
         if #knownProfs > 0 then
             local header = UIDropDownMenu_CreateInfo()
-            header.text = "My Professions"
+            header.text = isOther and (viewedName .. "'s Professions") or "My Professions"
             header.isTitle = true
             header.notCheckable = true
             UIDropDownMenu_AddButton(header, level)
 
             for _, prof in ipairs(knownProfs) do
                 local info = UIDropDownMenu_CreateInfo()
-                local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
-                    and RecipeBookCharDB.professionSkill[prof.id]
+                local skill = RecipeBook:GetProfessionSkill(prof.id)
                 if skill then
                     info.text = prof.name .. "  |cffffffff(" .. skill .. ")|r"
                 else
@@ -297,8 +300,7 @@ function RecipeBook:CreateMainFrame()
     if RecipeBookCharDB and RecipeBookCharDB.selectedProfession then
         selectedProfession = RecipeBookCharDB.selectedProfession
         local name = RecipeBook.PROFESSION_NAMES[selectedProfession] or "Select..."
-        local skill = RecipeBookCharDB.professionSkill
-            and RecipeBookCharDB.professionSkill[selectedProfession]
+        local skill = RecipeBook:GetProfessionSkill(selectedProfession)
         if skill then
             name = name .. "  |cffffffff(" .. skill .. ")|r"
         end
@@ -698,8 +700,7 @@ function RecipeBook:SelectProfession(profID)
     selectedProfession = profID
     RecipeBookCharDB.selectedProfession = profID
     local name = self.PROFESSION_NAMES[profID] or "Select..."
-    local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
-        and RecipeBookCharDB.professionSkill[profID]
+    local skill = self:GetProfessionSkill(profID)
     if skill then
         name = name .. "  |cffffffff(" .. skill .. ")|r"
     end

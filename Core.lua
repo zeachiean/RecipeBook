@@ -305,6 +305,22 @@ function RecipeBook:IsProfessionKnown(profID, charKey)
     return entry.knownProfessions[profID] == true
 end
 
+-- Get skill level for a profession on any character
+function RecipeBook:GetProfessionSkill(profID, charKey)
+    charKey = charKey or self:GetViewedCharKey()
+    -- For the logged-in character, prefer the local per-character DB (most current)
+    if charKey == self:GetMyCharKey() then
+        if RecipeBookCharDB and RecipeBookCharDB.professionSkill then
+            return RecipeBookCharDB.professionSkill[profID]
+        end
+    end
+    -- For other characters, use the global store
+    if not charKey or not RecipeBookDB.characters then return nil end
+    local entry = RecipeBookDB.characters[charKey]
+    if not entry or not entry.professionSkill then return nil end
+    return entry.professionSkill[profID]
+end
+
 -- Wishlist / ignored helpers (operate on viewed char unless charKey given)
 local function getCharFlagTable(self, bucket, profID, charKey, create)
     charKey = charKey or self:GetViewedCharKey()

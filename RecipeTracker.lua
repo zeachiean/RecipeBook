@@ -61,16 +61,19 @@ function RecipeBook:ScanProfessionWindow()
     charData.knownProfessions[profID] = true
     charData.lastScanned = time()
 
-    -- Capture current skill level in per-character DB (used by IsRecipeLearnable)
+    -- Capture current skill level in both per-character and global DB
     if not RecipeBookCharDB.professionSkill then
         RecipeBookCharDB.professionSkill = {}
     end
+    charData.professionSkill = charData.professionSkill or {}
     if isEnchanting then
         local _, currentSkill = GetCraftDisplaySkillLine()
         RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
+        charData.professionSkill[profID] = currentSkill or 0
     else
         local _, currentSkill = GetTradeSkillLine()
         RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
+        charData.professionSkill[profID] = currentSkill or 0
     end
 
     -- Ensure we have a recipe table for this profession
@@ -207,9 +210,7 @@ function RecipeBook:IsRecipeLearnable(profID, recipeID)
     if not data then return false end
 
     -- Skill check
-    local playerSkill = RecipeBookCharDB
-        and RecipeBookCharDB.professionSkill
-        and RecipeBookCharDB.professionSkill[profID]
+    local playerSkill = RecipeBook:GetProfessionSkill(profID)
     if not playerSkill then return false end
     if data.requiredSkill and playerSkill < data.requiredSkill then return false end
 

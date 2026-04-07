@@ -985,9 +985,7 @@ function RecipeBook:RefreshRecipeList()
                     row._skillText:SetText(tostring(entry.requiredSkill))
                     local skillColor = UI.COLOR_SKILL
                     local diff = entry.difficulty
-                    local playerSkill = RecipeBookCharDB
-                        and RecipeBookCharDB.professionSkill
-                        and RecipeBookCharDB.professionSkill[filters.professionID]
+                    local playerSkill = RecipeBook:GetProfessionSkill(filters.professionID)
                     if not playerSkill then
                         skillColor = { r = 1.0, g = 0.2, b = 0.2 }
                     elseif diff and playerSkill then
