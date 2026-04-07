@@ -399,7 +399,8 @@ local function RecipePassesZoneFilter(profID, recipeID, filterZone, filterContin
                     end
                 end
             elseif srcType == "worldDrop" then
-                -- Array of areaIDs (may be empty if scrape found nothing).
+                -- Array of areaIDs; empty means unknown zones — always pass.
+                if #srcData == 0 then return true end
                 for _, areaID in ipairs(srcData) do
                     if SourcePassesZoneFilter("worldDrop", areaID, filterZone, filterContinent) then
                         return true
@@ -621,6 +622,10 @@ local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, 
                         return srcType, nil, "World Drop", nil, true, nil
                     end
                 elseif type(srcData) == "table" then
+                    -- Empty table = unknown drop zones — always show
+                    if #srcData == 0 then
+                        return srcType, nil, "World Drop", nil, true, nil
+                    end
                     for _, areaID in ipairs(srcData) do
                         if passes("worldDrop", areaID) then
                             local zone = RecipeBook:GetZoneNameForAreaID(areaID)

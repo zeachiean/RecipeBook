@@ -9817,23 +9817,23 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Bracers of Havok (world drop: Pattern 24297)
 	[24297] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Blackstrike Bracers (world drop: Pattern 24298)
 	[24298] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Cloak of the Black Void (world drop: Pattern 24299)
 	[24299] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Cloak of Eternity (world drop: Pattern 24300)
 	[24300] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- White Remedy Cape (world drop: Pattern 24301)
 	[24301] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Unyielding Girdle (drop: Pattern 35309)
 	[35309] = {
@@ -9843,23 +9843,23 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Girdle of Ruination (world drop: Pattern 24303)
 	[24303] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Black Belt of Knowledge (world drop: Pattern 24304)
 	[24304] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Resolute Cape (world drop: Pattern 24305)
 	[24305] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Vengeance Wrap (world drop: Pattern 24306)
 	[24306] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Manaweave Cloak (world drop: Pattern 24307)
 	[24307] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Whitemend Pants (drop: Pattern 24308, The Arcatraz)
 	[24308] = {
@@ -9917,19 +9917,19 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Phase 2: Belt of Blasting (drop: Pattern 30280, SSC/TK trash)
 	[30280] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 2: Belt of the Long Road (drop: Pattern 30281, SSC/TK trash)
 	[30281] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 2: Boots of Blasting (drop: Pattern 30282, SSC/TK trash)
 	[30282] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 2: Boots of the Long Road (drop: Pattern 30283, SSC/TK trash)
 	[30283] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Shadowcloth (vendor: Pattern 30483)
 	[30483] = {
@@ -10013,19 +10013,19 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Phase 3: Bracers of Nimble Thought (drop: Pattern 32754, Black Temple trash)
 	[32754] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 3: Mantle of Nimble Thought (drop: Pattern 32755, Black Temple/Hyjal trash)
 	[32755] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 3: Swiftheal Wraps (drop: Pattern 32752, Black Temple/Hyjal trash)
 	[32752] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 3: Swiftheal Mantle (drop: Pattern 32753, Black Temple trash)
 	[32753] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Green Winter Clothes (vendor: Pattern 34261)
 	[34261] = {
@@ -10045,19 +10045,19 @@ RecipeBook.sourceDB[197] = {
 	},
 	-- Phase 5: Sunfire Handwraps (drop: Pattern 35204, Sunwell Plateau trash)
 	[35204] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 5: Hands of Eternal Light (drop: Pattern 35205, Sunwell Plateau trash)
 	[35205] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 5: Sunfire Robe (drop: Pattern 35206, Sunwell Plateau trash)
 	[35206] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Phase 5: Robe of Eternal Light (drop: Pattern 35207, Sunwell Plateau trash)
 	[35207] = {
-		drop = {},
+		worldDrop = {},
 	},
 	-- Dress Shoes (vendor: Pattern 37915)
 	[37915] = {
