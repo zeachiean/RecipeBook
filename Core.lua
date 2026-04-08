@@ -450,6 +450,14 @@ local function InitSavedVars()
         entry.class = classFile
         entry.lastSeen = time()
 
+        -- v1.4.2: faction-mirror recipes need a rescan to mark all variants known
+        if not RecipeBookCharDB.rescan142 then
+            RecipeBookCharDB.rescan142 = true
+            C_Timer.After(3, function()
+                StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
+            end)
+        end
+
         -- One-time migration from per-character DB to global characters store
         if RecipeBookCharDB.knownRecipes and not RecipeBookCharDB.migratedToGlobal then
             for profID, recipes in pairs(RecipeBookCharDB.knownRecipes) do

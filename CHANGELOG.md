@@ -1,5 +1,10 @@
 # RecipeBook Changelog
 
+## v1.4.2
+
+### Fixes
+- Fixed faction-mirror recipes not being marked as known
+
 ## v1.4.1
 
 ### New Features
