@@ -2794,10 +2794,6 @@ RecipeBook.sourceDB[202] = {
 				cost = "15svr78cpr",
 				stock = 1,
 			},
-			[216672] = {
-				cost = "15svr78cpr",
-				stock = 1,
-			},
 		},
 	},
 	[15846] = {

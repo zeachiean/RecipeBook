@@ -31467,16 +31467,6 @@ RecipeBook.npcDB = {
 			721,
 		},
 	},
-	[216672] = {
-		faction = "Alliance",
-		level = "40",
-		names = {
-			enUS = "Namdo Bizzfizzle",
-		},
-		zones = {
-			440,
-		},
-	},
 	[216902] = {
 		faction = "Alliance",
 		level = "30",
@@ -32385,15 +32375,6 @@ RecipeBook.npcDB = {
 		},
 		zones = {
 			1584,
-		},
-	},
-	[227853] = {
-		level = "60",
-		names = {
-			enUS = "Pix Xizzix",
-		},
-		zones = {
-			33,
 		},
 	},
 	[228429] = {
