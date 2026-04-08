@@ -1,5 +1,17 @@
 # RecipeBook Changelog
 
+## v1.4.3
+
+### New Features
+- Added tooltip info toggle to Settings (show/hide recipe status on item tooltips)
+- Added Reset section to Settings with Clear Profession Data, Clear All Character Data, and Reset All buttons
+
+### Fixes
+- Fixed profession scanning only detecting one profession per reload
+- Fixed skill levels sometimes showing as 0 after reopening profession windows
+- Fixed clearall not fully resetting profession data
+- Removed rescan dialogs that appeared on every reload
+
 ## v1.4.2
 
 ### Fixes

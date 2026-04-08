@@ -1,6 +1,6 @@
 RecipeBook = RecipeBook or {}
 
-RecipeBook.VERSION = "1.3.0"
+RecipeBook.VERSION = "1.4.3"
 RecipeBook.RELEASE_DATE = "April 6, 2026"
 RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
