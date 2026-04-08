@@ -1,5 +1,13 @@
 # RecipeBook Changelog
 
+## v1.4.1
+
+### New Features
+- Show/hide minimap button from Settings or with /rb minimap
+
+### Fixes
+- Removed SoD-only vendor Pix Xizzix from Alchemy flask recipes
+
 ## v1.4.0
 
 ### New Features
