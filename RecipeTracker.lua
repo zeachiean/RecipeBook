@@ -41,7 +41,10 @@ local function GetTeachesLookup(profID)
     if recipes then
         for recipeID, data in pairs(recipes) do
             if data.teaches and type(data.teaches) == "number" then
-                lookup[data.teaches] = recipeID
+                if not lookup[data.teaches] then
+                    lookup[data.teaches] = {}
+                end
+                lookup[data.teaches][#lookup[data.teaches] + 1] = recipeID
             end
         end
     end
@@ -120,9 +123,11 @@ function RecipeBook:ScanProfessionWindow()
         end
         -- Strategy 2: crafted item ID is a "teaches" value
         if itemID then
-            local recipeID = teachesLookup[itemID]
-            if recipeID then
-                known[recipeID] = true
+            local recipeIDs = teachesLookup[itemID]
+            if recipeIDs then
+                for _, rid in ipairs(recipeIDs) do
+                    known[rid] = true
+                end
                 matched = true
             end
         end
@@ -133,9 +138,11 @@ function RecipeBook:ScanProfessionWindow()
         end
         -- Strategy 4: recipe spell ID is a "teaches" value
         if spellID then
-            local recipeID = teachesLookup[spellID]
-            if recipeID then
-                known[recipeID] = true
+            local recipeIDs = teachesLookup[spellID]
+            if recipeIDs then
+                for _, rid in ipairs(recipeIDs) do
+                    known[rid] = true
+                end
                 matched = true
             end
         end
