@@ -81,14 +81,38 @@ local function CreateSectionEnd(lastElement, yOffset)
 end
 
 -- ============================================================
--- Section: Filters
+-- Section: General
 -- ============================================================
 
 local topAnchor = CreateFrame("Frame", nil, scrollChild)
 topAnchor:SetSize(1, 1)
 topAnchor:SetPoint("TOPLEFT", 12, 8)
 
-local filterHeader, filterLine = CreateSectionHeader(topAnchor, "Filters")
+local generalHeader, generalLine = CreateSectionHeader(topAnchor, "General")
+
+-- Minimap button checkbox
+local minimapCheck = CreateFrame("CheckButton", "RecipeBookSettingsMinimap", scrollChild, "UICheckButtonTemplate")
+minimapCheck:SetPoint("TOPLEFT", generalLine, "BOTTOMLEFT", -4, -8)
+minimapCheck:SetSize(24, 24)
+local minimapText = _G["RecipeBookSettingsMinimapText"]
+minimapText:SetText("Show Minimap Button")
+minimapText:SetFontObject("GameFontNormal")
+minimapCheck:SetScript("OnClick", function(self)
+    local wantHidden = not self:GetChecked()
+    local isHidden = RecipeBookDB and RecipeBookDB.minimap and RecipeBookDB.minimap.hide
+    if (wantHidden and not isHidden) or (not wantHidden and isHidden) then
+        RecipeBook:ToggleMinimapButton()
+    end
+end)
+
+-- ============================================================
+-- Section: Filters
+-- ============================================================
+
+local generalSectionEnd = CreateSectionEnd(minimapCheck, 0)
+generalSectionEnd:SetPoint("TOPLEFT", minimapCheck, "BOTTOMLEFT", 4, 0)
+
+local filterHeader, filterLine = CreateSectionHeader(generalSectionEnd, "Filters")
 
 -- My Faction checkbox
 local factionCheck = CreateFrame("CheckButton", "RecipeBookSettingsFaction", scrollChild, "UICheckButtonTemplate")
@@ -315,6 +339,10 @@ bottomSpacer:SetSize(1, 1)
 panel:SetScript("OnShow", function()
     -- Faction
     factionCheck:SetChecked(RecipeBook.myFactionOnly and true or false)
+
+    -- Minimap button
+    local minimapHidden = RecipeBookDB and RecipeBookDB.minimap and RecipeBookDB.minimap.hide
+    minimapCheck:SetChecked(not minimapHidden)
 
     -- Phase
     local phase = RecipeBook._settingsPhase

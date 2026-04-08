@@ -607,6 +607,8 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
         end
+    elseif msg == "minimap" then
+        RecipeBook:ToggleMinimapButton()
     elseif msg == "reset" then
         RecipeBookCharDB.windowPos = nil
         if RecipeBook.mainFrame then

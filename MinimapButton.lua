@@ -29,5 +29,18 @@ function RecipeBook:CreateMinimapButton()
     local icon = LibStub("LibDBIcon-1.0", true)
     if icon then
         icon:Register("RecipeBook", dataObj, RecipeBookDB.minimap)
+        self._dbIcon = icon
+    end
+end
+
+function RecipeBook:ToggleMinimapButton()
+    if not RecipeBookDB or not RecipeBookDB.minimap then return end
+    RecipeBookDB.minimap.hide = not RecipeBookDB.minimap.hide
+    if RecipeBookDB.minimap.hide then
+        if self._dbIcon then self._dbIcon:Hide("RecipeBook") end
+        self:Print("Minimap button hidden. Use /rb minimap to show it again.")
+    else
+        if self._dbIcon then self._dbIcon:Show("RecipeBook") end
+        self:Print("Minimap button shown.")
     end
 end
