@@ -105,12 +105,26 @@ minimapCheck:SetScript("OnClick", function(self)
     end
 end)
 
+-- Tooltip info checkbox
+local tooltipCheck = CreateFrame("CheckButton", "RecipeBookSettingsTooltip", scrollChild, "UICheckButtonTemplate")
+tooltipCheck:SetPoint("TOPLEFT", minimapCheck, "BOTTOMLEFT", 0, -4)
+tooltipCheck:SetSize(24, 24)
+local tooltipText = _G["RecipeBookSettingsTooltipText"]
+tooltipText:SetText("Show Recipe Info on Tooltips")
+tooltipText:SetFontObject("GameFontNormal")
+tooltipCheck:SetScript("OnClick", function(self)
+    local checked = self:GetChecked() and true or false
+    if RecipeBookDB then
+        RecipeBookDB.showTooltipInfo = checked
+    end
+end)
+
 -- ============================================================
 -- Section: Filters
 -- ============================================================
 
-local generalSectionEnd = CreateSectionEnd(minimapCheck, 0)
-generalSectionEnd:SetPoint("TOPLEFT", minimapCheck, "BOTTOMLEFT", 4, 0)
+local generalSectionEnd = CreateSectionEnd(tooltipCheck, 0)
+generalSectionEnd:SetPoint("TOPLEFT", tooltipCheck, "BOTTOMLEFT", 4, 0)
 
 local filterHeader, filterLine = CreateSectionHeader(generalSectionEnd, "Filters")
 
@@ -287,12 +301,195 @@ local function RefreshIgnoreList()
 end
 
 -- ============================================================
--- Section: About
+-- Section: Reset
 -- ============================================================
 
 local charSectionEnd = CreateSectionEnd(ignoreContainer, 0)
 
-local aboutHeader, aboutLine = CreateSectionHeader(charSectionEnd, "About")
+local resetHeader, resetLine = CreateSectionHeader(charSectionEnd, "Reset")
+
+local BUTTON_WIDTH = CONTENT_WIDTH
+local BUTTON_HEIGHT = 22
+
+-- Clear Profession Data
+local clearProfBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
+clearProfBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+clearProfBtn:SetPoint("TOPLEFT", resetLine, "BOTTOMLEFT", 0, -8)
+clearProfBtn:SetText("Clear Profession Data")
+
+local clearProfDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+clearProfDesc:SetPoint("TOPLEFT", clearProfBtn, "BOTTOMLEFT", 0, -2)
+clearProfDesc:SetTextColor(0.5, 0.5, 0.5)
+clearProfDesc:SetWidth(CONTENT_WIDTH)
+clearProfDesc:SetWordWrap(true)
+clearProfDesc:SetText("Clears all saved profession data for this character. Open your profession windows to rescan.")
+
+StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_PROF"] = {
+    text = "RecipeBook: Clear all saved profession data for this character?\n\nYou will need to reopen each profession window to rescan.",
+    button1 = "Clear",
+    button2 = CANCEL,
+    OnAccept = function()
+        RecipeBookCharDB.professionSkill = {}
+        local myData = RecipeBook:GetMyCharData()
+        if myData then
+            wipe(myData.knownProfessions)
+            wipe(myData.knownRecipes)
+            if myData.professionSkill then
+                wipe(myData.professionSkill)
+            end
+        end
+        RecipeBookCharDB.selectedProfession = nil
+        RecipeBook:ClearTeachesCache()
+        RecipeBook:Print("Profession data cleared. Please reopen your profession windows.")
+        if RecipeBook.SelectProfession then
+            RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
+        elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+clearProfBtn:SetScript("OnClick", function()
+    StaticPopup_Show("RECIPEBOOK_CONFIRM_CLEAR_PROF")
+end)
+
+-- Clear All Character Data
+local clearCharBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
+clearCharBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+clearCharBtn:SetPoint("TOPLEFT", clearProfDesc, "BOTTOMLEFT", 0, -10)
+clearCharBtn:SetText("Clear All Character Data")
+
+local clearCharDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+clearCharDesc:SetPoint("TOPLEFT", clearCharBtn, "BOTTOMLEFT", 0, -2)
+clearCharDesc:SetTextColor(0.5, 0.5, 0.5)
+clearCharDesc:SetWidth(CONTENT_WIDTH)
+clearCharDesc:SetWordWrap(true)
+clearCharDesc:SetText("Clears profession data and wishlists for this character.")
+
+StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_CHAR"] = {
+    text = "RecipeBook: Clear all data for this character?\n\nThis will remove profession data and wishlists. You will need to reopen each profession window to rescan.",
+    button1 = "Clear",
+    button2 = CANCEL,
+    OnAccept = function()
+        RecipeBookCharDB.professionSkill = {}
+        local myData = RecipeBook:GetMyCharData()
+        if myData then
+            wipe(myData.knownProfessions)
+            wipe(myData.knownRecipes)
+            if myData.professionSkill then
+                wipe(myData.professionSkill)
+            end
+            if myData.wishlist then
+                wipe(myData.wishlist)
+            end
+            if myData.ignored then
+                wipe(myData.ignored)
+            end
+        end
+        RecipeBookCharDB.selectedProfession = nil
+        RecipeBook:ClearTeachesCache()
+        RecipeBook:Print("All character data cleared. Please reopen your profession windows.")
+        if RecipeBook.SelectProfession then
+            RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
+        elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+clearCharBtn:SetScript("OnClick", function()
+    StaticPopup_Show("RECIPEBOOK_CONFIRM_CLEAR_CHAR")
+end)
+
+-- Reset All
+local resetAllBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
+resetAllBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
+resetAllBtn:SetPoint("TOPLEFT", clearCharDesc, "BOTTOMLEFT", 0, -10)
+resetAllBtn:SetText("Reset All")
+
+local resetAllDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+resetAllDesc:SetPoint("TOPLEFT", resetAllBtn, "BOTTOMLEFT", 0, -2)
+resetAllDesc:SetTextColor(0.5, 0.5, 0.5)
+resetAllDesc:SetWidth(CONTENT_WIDTH)
+resetAllDesc:SetWordWrap(true)
+resetAllDesc:SetText("Clears all profession, wishlist, and character data for the account and resets all settings to defaults.")
+
+StaticPopupDialogs["RECIPEBOOK_CONFIRM_RESET_ALL"] = {
+    text = "RecipeBook: Reset everything?\n\nThis will clear ALL profession data, wishlists, and character data across the account and reset all settings to defaults. This cannot be undone.",
+    button1 = "Reset",
+    button2 = CANCEL,
+    OnAccept = function()
+        -- Wipe all character data
+        if RecipeBookDB.characters then
+            wipe(RecipeBookDB.characters)
+        end
+        if RecipeBookDB.ignoredCharacters then
+            wipe(RecipeBookDB.ignoredCharacters)
+        end
+
+        -- Reset account-wide settings to defaults
+        RecipeBookDB.maxPhase = 5
+        RecipeBookDB.currentPhase = 1
+        RecipeBookDB.minCharLevel = 5
+        RecipeBookDB.showTooltipInfo = true
+        RecipeBookDB.minimap = { hide = false }
+
+        -- Reset per-character settings to defaults
+        RecipeBookCharDB.professionSkill = {}
+        RecipeBookCharDB.selectedProfession = nil
+        RecipeBookCharDB.hideKnown = false
+        RecipeBookCharDB.hideUnlearnable = false
+        RecipeBookCharDB.myFactionOnly = false
+        RecipeBookCharDB.collapsedSources = {}
+        RecipeBookCharDB.viewingChar = nil
+
+        -- Re-create current character entry
+        RecipeBook:GetMyCharData()
+
+        RecipeBook:ClearTeachesCache()
+        RecipeBook.myFactionOnly = false
+
+        -- Restore minimap button
+        if RecipeBook._dbIcon then
+            RecipeBook._dbIcon:Show("RecipeBook")
+        end
+
+        RecipeBook:Print("All data and settings reset to defaults. Please reopen your profession windows.")
+
+        -- Refresh settings panel if open
+        if panel:IsShown() then
+            panel:Hide()
+            panel:Show()
+        end
+
+        if RecipeBook.SelectProfession then
+            RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
+        elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+resetAllBtn:SetScript("OnClick", function()
+    StaticPopup_Show("RECIPEBOOK_CONFIRM_RESET_ALL")
+end)
+
+-- ============================================================
+-- Section: About
+-- ============================================================
+
+local resetSectionEnd = CreateSectionEnd(resetAllDesc, 0)
+
+local aboutHeader, aboutLine = CreateSectionHeader(resetSectionEnd, "About")
 
 local getMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local versionStr = (getMetadata and getMetadata("RecipeBook", "Version")) or RecipeBook.VERSION or "?"
@@ -343,6 +540,10 @@ panel:SetScript("OnShow", function()
     -- Minimap button
     local minimapHidden = RecipeBookDB and RecipeBookDB.minimap and RecipeBookDB.minimap.hide
     minimapCheck:SetChecked(not minimapHidden)
+
+    -- Tooltip info
+    local showTooltip = not RecipeBookDB or RecipeBookDB.showTooltipInfo ~= false
+    tooltipCheck:SetChecked(showTooltip)
 
     -- Phase
     local phase = RecipeBook._settingsPhase

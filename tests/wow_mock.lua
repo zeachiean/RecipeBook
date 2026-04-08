@@ -273,7 +273,18 @@ function FrameMethods:StopMovingOrSizing() end
 
 function CreateFrame(frameType, name, parent, template)
     local f = setmetatable({}, FrameMethods)
-    if name then _G[name] = f end
+    if name then
+        _G[name] = f
+        -- UICheckButtonTemplate creates a companion "nameText" FontString
+        if template and template:find("CheckButton") then
+            _G[name .. "Text"] = setmetatable({}, FrameMethods)
+        end
+        -- OptionsSliderTemplate creates Low/High labels
+        if template and template:find("Slider") then
+            _G[name .. "Low"] = setmetatable({}, FrameMethods)
+            _G[name .. "High"] = setmetatable({}, FrameMethods)
+        end
+    end
     return f
 end
 

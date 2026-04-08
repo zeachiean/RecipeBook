@@ -9,12 +9,36 @@ local function GetIDFromLink(link)
 end
 
 -- Detect which profession ID is currently displayed
-local function GetDisplayedProfessionID()
-    -- Enchanting uses Craft API
+local function GetDisplayedProfessionID(event)
+    -- CRAFT events = Enchanting; TRADE_SKILL events = everything else
+    local isCraft = event and (event == "CRAFT_SHOW" or event == "CRAFT_UPDATE")
+    local isTrade = event and (event == "TRADE_SKILL_SHOW" or event == "TRADE_SKILL_UPDATE")
+
+    if isCraft then
+        if GetNumCrafts and GetNumCrafts() > 0 then
+            return 333, true
+        end
+        return nil, false
+    end
+
+    if isTrade then
+        if GetNumTradeSkills and GetNumTradeSkills() > 0 then
+            local skillName = GetTradeSkillLine and GetTradeSkillLine()
+            if skillName then
+                for _, prof in ipairs(RecipeBook.PROFESSIONS) do
+                    if prof.name == skillName then
+                        return prof.id, false
+                    end
+                end
+            end
+        end
+        return nil, false
+    end
+
+    -- No event context: try both (legacy fallback)
     if GetNumCrafts and GetNumCrafts() > 0 then
         return 333, true
     end
-
     if GetNumTradeSkills and GetNumTradeSkills() > 0 then
         local skillName = GetTradeSkillLine and GetTradeSkillLine()
         if skillName then
@@ -24,10 +48,7 @@ local function GetDisplayedProfessionID()
                 end
             end
         end
-        -- Could not identify profession by name — do not guess
-        return nil, false
     end
-
     return nil, false
 end
 
@@ -53,11 +74,11 @@ local function GetTeachesLookup(profID)
 end
 
 -- Scan the currently open profession window and record known recipes
-function RecipeBook:ScanProfessionWindow()
+function RecipeBook:ScanProfessionWindow(event)
     local charData = self:GetMyCharData()
     if not charData then return end
 
-    local profID, isEnchanting = GetDisplayedProfessionID()
+    local profID, isEnchanting = GetDisplayedProfessionID(event)
     if not profID then return end
 
     -- Mark this profession as known on the global character entry
@@ -69,14 +90,17 @@ function RecipeBook:ScanProfessionWindow()
         RecipeBookCharDB.professionSkill = {}
     end
     charData.professionSkill = charData.professionSkill or {}
+    local currentSkill
     if isEnchanting then
-        local _, currentSkill = GetCraftDisplaySkillLine()
-        RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
-        charData.professionSkill[profID] = currentSkill or 0
+        local _, skill = GetCraftDisplaySkillLine()
+        currentSkill = skill
     else
-        local _, currentSkill = GetTradeSkillLine()
-        RecipeBookCharDB.professionSkill[profID] = currentSkill or 0
-        charData.professionSkill[profID] = currentSkill or 0
+        local _, skill = GetTradeSkillLine()
+        currentSkill = skill
+    end
+    if currentSkill and currentSkill > 0 then
+        RecipeBookCharDB.professionSkill[profID] = currentSkill
+        charData.professionSkill[profID] = currentSkill
     end
 
     -- Ensure we have a recipe table for this profession
@@ -184,8 +208,10 @@ function RecipeBook:ScanProfessionWindow()
         end
     end
 
-    -- Refresh UI if visible
-    if self.mainFrame and self.mainFrame:IsShown() then
+    -- Switch to the scanned profession and refresh UI
+    if self.SelectProfession then
+        self:SelectProfession(profID)
+    elseif self.mainFrame and self.mainFrame:IsShown() then
         self:RefreshRecipeList()
     end
 end
@@ -239,7 +265,8 @@ function RecipeBook:RegisterTrackingEvents(eventFrame)
 end
 
 function RecipeBook:OnTrackingEvent(event)
-    C_Timer.After(0.5, function()
-        RecipeBook:ScanProfessionWindow()
+    -- Short delay to ensure API data is ready (RecipeMaster uses 0.05s)
+    C_Timer.After(0.1, function()
+        RecipeBook:ScanProfessionWindow(event)
     end)
 end

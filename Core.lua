@@ -316,11 +316,11 @@ function RecipeBook:GetProfessionSkill(profID, charKey)
     charKey = charKey or self:GetViewedCharKey()
     -- For the logged-in character, prefer the local per-character DB (most current)
     if charKey == self:GetMyCharKey() then
-        if RecipeBookCharDB and RecipeBookCharDB.professionSkill then
-            return RecipeBookCharDB.professionSkill[profID]
-        end
+        local skill = RecipeBookCharDB and RecipeBookCharDB.professionSkill
+            and RecipeBookCharDB.professionSkill[profID]
+        if skill then return skill end
     end
-    -- For other characters, use the global store
+    -- Fall through to the global store
     if not charKey or not RecipeBookDB.characters then return nil end
     local entry = RecipeBookDB.characters[charKey]
     if not entry or not entry.professionSkill then return nil end
@@ -417,6 +417,9 @@ local function InitSavedVars()
     end
     -- Current server phase — update this when the server advances
     RecipeBookDB.currentPhase = 1
+    if RecipeBookDB.showTooltipInfo == nil then
+        RecipeBookDB.showTooltipInfo = true
+    end
     if not RecipeBookDB.characters then
         RecipeBookDB.characters = {}
     end
@@ -449,14 +452,6 @@ local function InitSavedVars()
         local _, classFile = UnitClass("player")
         entry.class = classFile
         entry.lastSeen = time()
-
-        -- v1.4.2: faction-mirror recipes need a rescan to mark all variants known
-        if not RecipeBookCharDB.rescan142 then
-            RecipeBookCharDB.rescan142 = true
-            C_Timer.After(3, function()
-                StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
-            end)
-        end
 
         -- One-time migration from per-character DB to global characters store
         if RecipeBookCharDB.knownRecipes and not RecipeBookCharDB.migratedToGlobal then
@@ -497,22 +492,6 @@ eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 eventFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_ENTERING_WORLD" then
         InitSavedVars()
-        -- Check if any known profession is missing a saved skill level
-        local myData = RecipeBook:GetMyCharData()
-        if myData and myData.knownProfessions then
-            local missing = false
-            for profID in pairs(myData.knownProfessions) do
-                if not RecipeBookCharDB.professionSkill[profID] then
-                    missing = true
-                    break
-                end
-            end
-            if missing then
-                C_Timer.After(2, function()
-                    StaticPopup_Show("RECIPEBOOK_SKILL_RESCAN")
-                end)
-            end
-        end
         RecipeBook:BuildMapLookup()
         RecipeBook:BuildAreaToZoneLookup()
         RecipeBook:BuildContinentZoneMap()
@@ -587,7 +566,7 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
             RecipeBook:ClearTeachesCache()
             wipe(RecipeBook.framePool)
         end
-        RecipeBook:PrecacheRecipeItems()
+        RecipeBook:BuildLookupsAndPrecache()
         RecipeBook:CacheItemSourceNames()
         RecipeBook:Print("Caches cleared.")
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
@@ -607,12 +586,18 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         if myData then
             wipe(myData.knownProfessions)
             wipe(myData.knownRecipes)
+            if myData.professionSkill then
+                wipe(myData.professionSkill)
+            end
         end
-        RecipeBook:PrecacheRecipeItems()
+        RecipeBookCharDB.selectedProfession = nil
+        RecipeBook:BuildLookupsAndPrecache()
         RecipeBook:CacheItemSourceNames()
         RecipeBook:Print("All caches and known-recipe data cleared.")
         StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
-        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+        if RecipeBook.SelectProfession then
+            RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
+        elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
         end
     elseif msg == "minimap" then
@@ -738,6 +723,8 @@ function RecipeBook:HookTooltips()
     end)
 
     GameTooltip:HookScript("OnTooltipSetItem", function(tooltip)
+        -- Skip if tooltip info is disabled
+        if RecipeBookDB and RecipeBookDB.showTooltipInfo == false then return end
         -- Skip if our own UI already added status lines to this tooltip
         if tooltip._recipeBookDone then return end
 
