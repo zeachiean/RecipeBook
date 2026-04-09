@@ -1,0 +1,150 @@
+name: WoWInterface Release
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Package and Release"]
+    types: [completed]
+
+jobs:
+  upload:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Extract addon metadata from TOC
+        id: meta
+        run: |
+          TOC_FILE=$(ls *.toc | head -1)
+          VERSION=$(grep '## Version:' "$TOC_FILE" | sed 's/## Version: *//;s/\r//')
+          WOWI_ID=$(grep '## X-WoWI-ID:' "$TOC_FILE" | sed 's/## X-WoWI-ID: *//;s/\r//')
+          INTERFACE=$(grep '## Interface:' "$TOC_FILE" | sed 's/## Interface: *//;s/\r//')
+
+          if [ -z "$WOWI_ID" ]; then
+            echo "::error::No X-WoWI-ID found in $TOC_FILE"
+            exit 1
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "wowi_id=$WOWI_ID" >> "$GITHUB_OUTPUT"
+          echo "interface=$INTERFACE" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve compatible version from WoWInterface API
+        id: compat
+        env:
+          WOWI_API_TOKEN: ${{ secrets.BREAKBONE_WOWINTERFACE_UPDATE_TOKEN }}
+        run: |
+          INTERFACE="${{ steps.meta.outputs.interface }}"
+
+          COMPAT_JSON=$(curl -sf -H "x-api-token: $WOWI_API_TOKEN" \
+            https://api.wowinterface.com/addons/compatible.json)
+
+          # Find the best match: highest interface number that doesn't exceed ours
+          COMPATIBLE=$(echo "$COMPAT_JSON" | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          target = int('$INTERFACE')
+          best = None
+          for entry in data:
+              iface = entry.get('interface')
+              if iface and iface.strip():
+                  n = int(iface)
+                  if n <= target and (best is None or n > best[0]):
+                      best = (n, entry['id'])
+          if best is None:
+              sys.exit(1)
+          print(best[1])
+          ")
+
+          if [ -z "$COMPATIBLE" ]; then
+            echo "::error::Could not resolve compatible version for Interface $INTERFACE"
+            exit 1
+          fi
+
+          echo "compatible=$COMPATIBLE" >> "$GITHUB_OUTPUT"
+          echo "Resolved Interface $INTERFACE -> compatible $COMPATIBLE"
+
+      - name: Download release zip from GitHub
+        id: download
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RELEASE_JSON=$(gh api repos/${{ github.repository }}/releases/latest)
+
+          ASSET_NAME=$(echo "$RELEASE_JSON" | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          for asset in data.get('assets', []):
+              if asset['name'].endswith('.zip'):
+                  print(asset['name'])
+                  break
+          ")
+          ASSET_URL=$(echo "$RELEASE_JSON" | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          for asset in data.get('assets', []):
+              if asset['name'].endswith('.zip'):
+                  print(asset['url'])
+                  break
+          ")
+
+          if [ -z "$ASSET_URL" ]; then
+            echo "::error::No zip asset found in latest release"
+            exit 1
+          fi
+
+          curl -sL \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/octet-stream" \
+            "$ASSET_URL" -o "$ASSET_NAME"
+
+          echo "zip_path=$ASSET_NAME" >> "$GITHUB_OUTPUT"
+          echo "Downloaded $ASSET_NAME"
+
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="${{ steps.meta.outputs.version }}"
+
+          if [ -f CHANGELOG.md ]; then
+            # Grab lines between the heading for this version and the next heading
+            awk "/^## v?${VERSION}/{found=1; next} /^## /{if(found) exit} found{print}" \
+              CHANGELOG.md | sed '/^[[:space:]]*$/d' > /tmp/changelog.txt
+          fi
+
+          if [ ! -s /tmp/changelog.txt ]; then
+            echo "Version $VERSION" > /tmp/changelog.txt
+          fi
+
+          echo "Changelog:"
+          cat /tmp/changelog.txt
+
+      - name: Upload to WoWInterface
+        env:
+          WOWI_API_TOKEN: ${{ secrets.BREAKBONE_WOWINTERFACE_UPDATE_TOKEN }}
+        run: |
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -H "x-api-token: $WOWI_API_TOKEN" \
+            -F "id=${{ steps.meta.outputs.wowi_id }}" \
+            -F "version=${{ steps.meta.outputs.version }}" \
+            -F "compatible=${{ steps.compat.outputs.compatible }}" \
+            -F "changelog=</tmp/changelog.txt" \
+            -F "updatefile=@${{ steps.download.outputs.zip_path }}" \
+            https://api.wowinterface.com/addons/update)
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "Response ($HTTP_CODE): $BODY"
+
+          if [ "$HTTP_CODE" != "202" ]; then
+            echo "::error::WoWInterface upload failed ($HTTP_CODE): $BODY"
+            exit 1
+          fi
+
+          echo "Successfully uploaded to WoWInterface"
