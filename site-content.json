@@ -54,6 +54,10 @@
     {
       "label": "CurseForge",
       "href": "https://www.curseforge.com/wow/addons/recipebook"
+    },
+    {
+      "label": "WoWInterface",
+      "href": "https://www.wowinterface.com/downloads/info27111-RecipeBook.html"
     }
   ]
 }
