@@ -1510,7 +1510,7 @@ RecipeBook.recipeDB[333] = {
 		reputationFaction = 967,
 		reputationLevel = 8,
 		requiredSkill = 350,
-		phase = 1,
+		phase = 3,
 	},
 	-- Formula: Enchant Weapon - Deathfrost
 	[35498] = {

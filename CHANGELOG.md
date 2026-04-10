@@ -1,5 +1,10 @@
 # RecipeBook Changelog
 
+## v1.4.4
+
+### Fixes
+- Corrected phase for Enchant Weapon - Greater Agility (now phase 3)
+
 ## v1.4.3
 
 ### New Features
