@@ -1,0 +1,199 @@
+name: Breakbone Release (reusable)
+
+# Reusable workflow called from each addon's release.yml via `uses:`.
+#
+# CANONICAL SOURCE: WoWAddons/breakbone-shared/workflows/breakbone-release.yml
+# PUBLISHED AT:    breakbone-addons/release-workflows/.github/workflows/breakbone-release.yml
+#
+# Each addon's release.yml is a thin wrapper that calls this workflow:
+#
+#     name: Release
+#     on:
+#       push:
+#         tags: ['**']
+#       workflow_dispatch:
+#         inputs:
+#           publish:
+#             description: "Publish to CurseForge + GitHub Release + site rebuild"
+#             type: boolean
+#             default: false
+#     jobs:
+#       release:
+#         uses: breakbone-addons/release-workflows/.github/workflows/breakbone-release.yml@main
+#         with:
+#           addon_name: BiSGearCheck
+#           budget_kb: 1800
+#           publish: ${{ github.event_name == 'push' || inputs.publish }}
+#         secrets: inherit
+#
+# Publishing semantics:
+#
+#   publish: true  (default when triggered by a tag push)
+#     - Packages with BigWigsMods/packager + CF_API_KEY (uploads to CurseForge)
+#     - Creates a GitHub release from the tag
+#     - Dispatches a site rebuild event to breakbone-addons-site
+#     - wowinterface-release.yml fires after (guarded on workflow_run.event == 'push')
+#
+#   publish: false  (default when triggered manually via workflow_dispatch)
+#     - Still runs all tests (test.yml is a dependency)
+#     - Still runs BigWigsMods/packager WITH the -d flag (no CurseForge upload)
+#     - Still runs the size-budget check
+#     - Still uploads the packaged zip as a workflow artifact for download/inspection
+#     - DOES NOT create a GitHub release
+#     - DOES NOT dispatch a site rebuild
+#     - DOES NOT let wowinterface-release.yml fire (guarded by event name)
+#
+# This lets you exercise the entire pipeline end-to-end as a smoke test without
+# publishing anything. The packaged zip ends up as a workflow artifact you can
+# download to inspect its contents.
+
+on:
+  workflow_call:
+    inputs:
+      addon_name:
+        description: "Addon name (matches TOC Title and package-as in .pkgmeta)"
+        type: string
+        required: true
+      budget_kb:
+        description: "Maximum release zip size in KB. Unexpected jumps fail the build."
+        type: number
+        required: true
+      release_zip_suffix:
+        description: "Suffix after version (e.g. 'bcc' produces Addon-v1.2.3-bcc.zip)"
+        type: string
+        required: false
+        default: "bcc"
+      publish:
+        description: "If true, upload to CurseForge, create GitHub release, and dispatch site rebuild. If false, dry-run: package + check budget + upload as workflow artifact only."
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      CF_API_KEY:
+        required: false
+      SITE_DISPATCH_TOKEN:
+        required: false
+
+jobs:
+  # Tests always run first. Each addon must have a .github/workflows/test.yml
+  # that exposes a workflow_call trigger.
+  test:
+    uses: ./.github/workflows/test.yml
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # Publishing run: packager uploads to CurseForge via CF_API_KEY
+      - name: Package and publish
+        if: ${{ inputs.publish }}
+        uses: BigWigsMods/packager@v2
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Dry-run: packager with -d flag, no CurseForge upload
+      - name: Package (dry-run, no upload)
+        if: ${{ !inputs.publish }}
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -d
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rename zip and fix timestamps
+        id: package
+        run: |
+          cd .release
+          ORIG_ZIP=$(ls ${{ inputs.addon_name }}-*.zip)
+          mkdir -p _tmp && cd _tmp
+          unzip -o "../$ORIG_ZIP"
+          VERSION=$(grep '## Version:' ${{ inputs.addon_name }}/${{ inputs.addon_name }}.toc | sed 's/## Version: *//;s/\r//')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          find . -exec touch -t "$(date +%Y%m%d%H%M.%S)" {} +
+          ZIPNAME="${{ inputs.addon_name }}-v${VERSION}-${{ inputs.release_zip_suffix }}.zip"
+          zip -r "../$ZIPNAME" .
+          cd .. && rm -rf _tmp
+          [ "$ORIG_ZIP" != "$ZIPNAME" ] && rm -f "$ORIG_ZIP" || true
+
+      - name: Size budget check
+        id: budget
+        run: |
+          cd .release
+          ZIP="${{ inputs.addon_name }}-v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}.zip"
+          ACTUAL=$(stat -c%s "$ZIP" 2>/dev/null || stat -f%z "$ZIP")
+          ACTUAL_KB=$((ACTUAL / 1024))
+          BUDGET_KB=${{ inputs.budget_kb }}
+          echo "size_kb=$ACTUAL_KB" >> "$GITHUB_OUTPUT"
+          echo "Release zip size: ${ACTUAL_KB} KB (budget: ${BUDGET_KB} KB)"
+          if [ "$ACTUAL_KB" -gt "$BUDGET_KB" ]; then
+            echo "::error::Release zip size $ACTUAL_KB KB exceeds budget $BUDGET_KB KB."
+            echo "::error::Investigate what grew, then either (a) trim it or (b) bump budget_kb in release.yml."
+            exit 1
+          fi
+
+      - name: List zip contents (for review)
+        run: |
+          cd .release
+          ZIP="${{ inputs.addon_name }}-v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}.zip"
+          echo "=== Contents of $ZIP ==="
+          unzip -l "$ZIP"
+          echo ""
+          echo "=== Total: ${{ steps.budget.outputs.size_kb }} KB ==="
+
+      # Dry-run: upload as a workflow artifact so it can be downloaded + inspected
+      - name: Upload dry-run artifact
+        if: ${{ !inputs.publish }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.addon_name }}-dry-run-v${{ steps.package.outputs.version }}
+          path: .release/${{ inputs.addon_name }}-v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}.zip
+          retention-days: 7
+          if-no-files-found: error
+
+      # Publishing: create the GitHub release
+      - name: Create GitHub Release
+        if: ${{ inputs.publish }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ inputs.addon_name }} v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}
+          body: |
+            Download **${{ inputs.addon_name }}-v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}.zip** below.
+
+            Extract the `${{ inputs.addon_name }}` folder into:
+            `World of Warcraft/_anniversary_/Interface/AddOns/${{ inputs.addon_name }}/`
+
+            Release size: ${{ steps.budget.outputs.size_kb }} KB
+          files: .release/${{ inputs.addon_name }}-v${{ steps.package.outputs.version }}-${{ inputs.release_zip_suffix }}.zip
+          fail_on_unmatched_files: true
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Publishing: trigger site rebuild
+      - name: Trigger site rebuild
+        if: ${{ inputs.publish && success() }}
+        run: |
+          gh api repos/breakbone-addons/breakbone-addons-site/dispatches \
+            -f event_type=addon-release
+        env:
+          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+
+      - name: Dry-run summary
+        if: ${{ !inputs.publish }}
+        run: |
+          echo "## Dry-run complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Addon: **${{ inputs.addon_name }}** v${{ steps.package.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Size: **${{ steps.budget.outputs.size_kb }} KB** (budget ${{ inputs.budget_kb }} KB)" >> $GITHUB_STEP_SUMMARY
+          echo "- Packaged zip uploaded as workflow artifact (\`${{ inputs.addon_name }}-dry-run-v${{ steps.package.outputs.version }}\`)" >> $GITHUB_STEP_SUMMARY
+          echo "- **NOT published** to CurseForge, GitHub releases, or the website" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To publish this version for real: push a tag \`v${{ steps.package.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY

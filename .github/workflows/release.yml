@@ -1,7 +1,13 @@
 name: Release
 
-# This workflow is a thin wrapper around the reusable breakbone-release workflow
-# in breakbone-addons/release-workflows. See that repo's README for docs.
+# Thin wrapper around the local reusable breakbone-release workflow.
+#
+# Canonical source of breakbone-release.yml lives in:
+#   - WoWAddons/breakbone-shared/workflows/breakbone-release.yml (dev tree)
+#   - breakbone-addons/release-workflows (human-readable reference)
+# But is COPIED into each addon's own .github/workflows/ because GitHub's
+# free-tier org plan doesn't allow cross-repo reusable workflow access for
+# private repos. Keep all three copies in sync when changing the pipeline.
 #
 # Triggers:
 #   push (tag)            -> publish=true (real release)
@@ -20,7 +26,7 @@ on:
 
 jobs:
   release:
-    uses: breakbone-addons/release-workflows/.github/workflows/breakbone-release.yml@main
+    uses: ./.github/workflows/breakbone-release.yml
     with:
       addon_name: RecipeBook
       budget_kb: 2000
