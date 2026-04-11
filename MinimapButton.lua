@@ -28,7 +28,9 @@ function RecipeBook:CreateMinimapButton()
 
     local icon = LibStub("LibDBIcon-1.0", true)
     if icon then
-        icon:Register("RecipeBook", dataObj, RecipeBookDB.minimap)
+        if not icon:IsRegistered("RecipeBook") then
+            icon:Register("RecipeBook", dataObj, RecipeBookDB.minimap)
+        end
         self._dbIcon = icon
     end
 end

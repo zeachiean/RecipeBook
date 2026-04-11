@@ -1,7 +1,7 @@
 {
   "id": "recipebook",
-  "version": "1.4.4",
-  "lastUpdated": "2026-04-10",
+  "version": "1.4.5",
+  "lastUpdated": "2026-04-11",
   "name": "RecipeBook",
   "tagline": "TBC profession recipe browser with source tracking and waypoint integration",
   "description": "Browse every TBC profession recipe organized by source type. Track what you know across all your characters, build per-character wishlists, and filter by continent, zone, phase, and faction. Set TomTom waypoints to vendors and trainers via AddressBook. 12 professions supported with collapsible source categories, search, and shift-click recipe linking.",

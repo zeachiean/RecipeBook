@@ -1,5 +1,17 @@
 # RecipeBook Changelog
 
+## v1.4.5
+
+### Fixes
+- Fixed Lua error when the minimap button was registered twice (e.g. by certain `/reload` sequences or when another addon registered first)
+- Fixed Lua error when a saved profession was restored before the UI had finished loading
+
+### Internal
+- Release package trimmed: no longer ships developer-only files (`CURSEFORGE.md`, `site-content.json`, etc.)
+- Minimap icon file size reduced from 16 KB to 9 KB via lossless RLE compression (visually identical)
+- Vendored libraries directory renamed from `Libs/` to `libs/` (matches the rest of the Breakbone addon family)
+- `LICENSE` file now included in the release zip
+
 ## v1.4.4
 
 ### Fixes

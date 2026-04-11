@@ -681,6 +681,7 @@ end
 function RecipeBook:SelectProfession(profID)
     selectedProfession = profID
     RecipeBookCharDB.selectedProfession = profID
+    if not profDropdown then return end
     local name = self.PROFESSION_NAMES[profID] or "Select..."
     local skill = self:GetProfessionSkill(profID)
     if skill then
