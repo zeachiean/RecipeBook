@@ -1,59 +1,28 @@
-name: Package and Release
+name: Release
+
+# This workflow is a thin wrapper around the reusable breakbone-release workflow
+# in breakbone-addons/release-workflows. See that repo's README for docs.
+#
+# Triggers:
+#   push (tag)            -> publish=true (real release)
+#   workflow_dispatch     -> publish=false by default (dry-run), toggle in UI
 
 on:
   push:
     tags:
       - '**'
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish to CurseForge + GitHub Release + site rebuild (uncheck for dry-run)"
+        type: boolean
+        default: false
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - uses: BigWigsMods/packager@v2
-        env:
-          CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Rename zip and fix timestamps
-        id: package
-        run: |
-          cd .release
-          ORIG_ZIP=$(ls RecipeBook-*.zip)
-          mkdir -p _tmp && cd _tmp
-          unzip -o "../$ORIG_ZIP"
-          VERSION=$(grep '## Version:' RecipeBook/RecipeBook.toc | sed 's/## Version: *//;s/\r//')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          find . -exec touch -t "$(date +%Y%m%d%H%M.%S)" {} +
-          ZIPNAME="RecipeBook-v${VERSION}-bcc.zip"
-          zip -r "../$ZIPNAME" .
-          cd .. && rm -rf _tmp
-          [ "$ORIG_ZIP" != "$ZIPNAME" ] && rm -f "$ORIG_ZIP" || true
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: RecipeBook v${{ steps.package.outputs.version }}-bcc
-          body: |
-            Download **RecipeBook-v${{ steps.package.outputs.version }}-bcc.zip** below.
-
-            Extract the `RecipeBook` folder into:
-            `World of Warcraft/_anniversary_/Interface/AddOns/RecipeBook/`
-          files: .release/RecipeBook-v${{ steps.package.outputs.version }}-bcc.zip
-          fail_on_unmatched_files: true
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Trigger site rebuild
-        if: success()
-        run: |
-          gh api repos/breakbone-addons/breakbone-addons-site/dispatches \
-            -f event_type=addon-release
-        env:
-          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+    uses: breakbone-addons/release-workflows/.github/workflows/breakbone-release.yml@main
+    with:
+      addon_name: RecipeBook
+      budget_kb: 2000
+      publish: ${{ github.event_name == 'push' || inputs.publish }}
+    secrets: inherit

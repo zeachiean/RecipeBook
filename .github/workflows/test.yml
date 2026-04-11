@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Lua unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Lua 5.1 (WoW runtime parity)
+        uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "5.1"
+
+      - name: Run test suite
+        run: |
+          cd ${{ github.workspace }}
+          lua tests/run.lua
+
+      - name: Lua syntax check every addon .lua file
+        run: |
+          find . -name "*.lua" \
+            -not -path "./tests/*" \
+            -not -path "./libs/*" \
+            -not -path "./Libs/*" \
+            -not -path "./.release/*" \
+            -print0 | xargs -0 -n1 luac -p

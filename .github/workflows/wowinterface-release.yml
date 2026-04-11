@@ -3,14 +3,20 @@ name: WoWInterface Release
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["Package and Release"]
+    workflows: ["Release"]
     types: [completed]
 
 jobs:
   upload:
+    # Fire when:
+    #   1. The user explicitly runs this workflow via the UI (one-off WoWI upload)
+    #   2. The Release workflow completed successfully AND was triggered by a
+    #      tag push (real publishing run). Dry-runs via workflow_dispatch on
+    #      Release are skipped here so they don't leak to WoWInterface.
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      github.event.workflow_run.conclusion == 'success'
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
