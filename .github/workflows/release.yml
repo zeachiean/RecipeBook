@@ -1,34 +1,16 @@
 name: Release
 
-# End-to-end release pipeline for RecipeBook.
+# Thin caller for the shared release pipeline at
+# breakbone-addons/release-workflows. That repo is public so this call works
+# from any other repo (private or public) in or outside the org.
+#
+# Two jobs:
+#   test     — runs this addon's own test suite (local reusable)
+#   release  — needs: test, calls the shared pipeline (cross-repo reusable)
 #
 # Triggers:
 #   push (tag)            -> publish=true (real release)
 #   workflow_dispatch     -> publish=false by default (dry-run), toggle in UI
-#
-# Publishing semantics:
-#
-#   publish=true  (default when triggered by a tag push)
-#     - Packages with BigWigsMods/packager + CF_API_KEY (uploads to CurseForge)
-#     - Creates a GitHub release from the tag
-#     - Dispatches a site rebuild event to breakbone-addons-site
-#     - wowinterface-release.yml fires after (guarded on workflow_run.event == 'push')
-#
-#   publish=false  (default when triggered manually via workflow_dispatch)
-#     - Still runs all tests (test.yml is a dependency)
-#     - Still runs BigWigsMods/packager WITH the -d flag (no CurseForge upload)
-#     - Still runs the size-budget check
-#     - Uploads the packaged zip as a workflow artifact for inspection
-#     - DOES NOT create a GitHub release
-#     - DOES NOT dispatch a site rebuild
-#     - DOES NOT let wowinterface-release.yml fire
-#
-# This pipeline is near-identical in AB and RB (only addon_name + budget_kb
-# differ). Canonical source for the common portion lives at
-# WoWAddons/breakbone-shared/workflows/breakbone-release.yml as a reference.
-# GitHub's free-tier org plan doesn't allow cross-repo reusable workflows for
-# private repos, and nested local reusable workflows (release -> breakbone-release -> test)
-# fail with startup_failure, so the pipeline is inlined here.
 
 on:
   push:
@@ -47,122 +29,9 @@ jobs:
 
   release:
     needs: test
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    env:
-      ADDON_NAME: RecipeBook
-      BUDGET_KB: 470
-      RELEASE_ZIP_SUFFIX: bcc
-      PUBLISH: ${{ github.event_name == 'push' || github.event.inputs.publish == 'true' }}
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      # Publishing run: packager uploads to CurseForge via CF_API_KEY
-      - name: Package and publish
-        if: env.PUBLISH == 'true'
-        uses: BigWigsMods/packager@v2
-        env:
-          CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Dry-run: packager with -d flag, no CurseForge upload
-      - name: Package (dry-run, no upload)
-        if: env.PUBLISH != 'true'
-        uses: BigWigsMods/packager@v2
-        with:
-          args: -d
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Rename zip and fix timestamps
-        id: package
-        run: |
-          cd .release
-          ORIG_ZIP=$(ls ${ADDON_NAME}-*.zip)
-          mkdir -p _tmp && cd _tmp
-          unzip -o "../$ORIG_ZIP"
-          VERSION=$(grep '## Version:' ${ADDON_NAME}/${ADDON_NAME}.toc | sed 's/## Version: *//;s/\r//')
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          find . -exec touch -t "$(date +%Y%m%d%H%M.%S)" {} +
-          ZIPNAME="${ADDON_NAME}-v${VERSION}-${RELEASE_ZIP_SUFFIX}.zip"
-          zip -r "../$ZIPNAME" .
-          cd .. && rm -rf _tmp
-          [ "$ORIG_ZIP" != "$ZIPNAME" ] && rm -f "$ORIG_ZIP" || true
-
-      - name: Size budget check
-        id: budget
-        run: |
-          cd .release
-          ZIP="${ADDON_NAME}-v${{ steps.package.outputs.version }}-${RELEASE_ZIP_SUFFIX}.zip"
-          ACTUAL=$(stat -c%s "$ZIP" 2>/dev/null || stat -f%z "$ZIP")
-          ACTUAL_KB=$((ACTUAL / 1024))
-          echo "size_kb=$ACTUAL_KB" >> "$GITHUB_OUTPUT"
-          echo "Release zip size: ${ACTUAL_KB} KB (budget: ${BUDGET_KB} KB)"
-          if [ "$ACTUAL_KB" -gt "$BUDGET_KB" ]; then
-            echo "::error::Release zip size $ACTUAL_KB KB exceeds budget $BUDGET_KB KB."
-            echo "::error::Investigate what grew, then either (a) trim it or (b) bump BUDGET_KB in release.yml."
-            exit 1
-          fi
-
-      - name: List zip contents (for review)
-        run: |
-          cd .release
-          ZIP="${ADDON_NAME}-v${{ steps.package.outputs.version }}-${RELEASE_ZIP_SUFFIX}.zip"
-          echo "=== Contents of $ZIP ==="
-          unzip -l "$ZIP"
-          echo ""
-          echo "=== Total: ${{ steps.budget.outputs.size_kb }} KB ==="
-
-      # Dry-run: upload as a workflow artifact so it can be downloaded + inspected
-      - name: Upload dry-run artifact
-        if: env.PUBLISH != 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ADDON_NAME }}-dry-run-v${{ steps.package.outputs.version }}
-          path: .release/${{ env.ADDON_NAME }}-v${{ steps.package.outputs.version }}-${{ env.RELEASE_ZIP_SUFFIX }}.zip
-          retention-days: 7
-          if-no-files-found: error
-
-      # Publishing: create the GitHub release
-      - name: Create GitHub Release
-        if: env.PUBLISH == 'true'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ env.ADDON_NAME }} v${{ steps.package.outputs.version }}-${{ env.RELEASE_ZIP_SUFFIX }}
-          body: |
-            Download **${{ env.ADDON_NAME }}-v${{ steps.package.outputs.version }}-${{ env.RELEASE_ZIP_SUFFIX }}.zip** below.
-
-            Extract the `${{ env.ADDON_NAME }}` folder into:
-            `World of Warcraft/_anniversary_/Interface/AddOns/${{ env.ADDON_NAME }}/`
-
-            Release size: ${{ steps.budget.outputs.size_kb }} KB
-          files: .release/${{ env.ADDON_NAME }}-v${{ steps.package.outputs.version }}-${{ env.RELEASE_ZIP_SUFFIX }}.zip
-          fail_on_unmatched_files: true
-          make_latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Publishing: trigger site rebuild
-      - name: Trigger site rebuild
-        if: env.PUBLISH == 'true' && success()
-        run: |
-          gh api repos/breakbone-addons/breakbone-addons-site/dispatches \
-            -f event_type=addon-release
-        env:
-          GH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
-
-      - name: Dry-run summary
-        if: env.PUBLISH != 'true'
-        run: |
-          echo "## Dry-run complete" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Addon: **${ADDON_NAME}** v${{ steps.package.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Size: **${{ steps.budget.outputs.size_kb }} KB** (budget ${BUDGET_KB} KB)" >> $GITHUB_STEP_SUMMARY
-          echo "- Packaged zip uploaded as workflow artifact" >> $GITHUB_STEP_SUMMARY
-          echo "- **NOT published** to CurseForge, GitHub releases, or the website" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "To publish this version for real: push a tag \`v${{ steps.package.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+    uses: breakbone-addons/release-workflows/.github/workflows/breakbone-release.yml@v1
+    with:
+      addon_name: RecipeBook
+      budget_kb: 470
+      publish: ${{ github.event_name == 'push' || inputs.publish }}
+    secrets: inherit
