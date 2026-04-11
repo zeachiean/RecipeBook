@@ -34,4 +34,8 @@ jobs:
       addon_name: RecipeBook
       budget_kb: 470
       publish: ${{ github.event_name == 'push' || inputs.publish }}
-    secrets: inherit
+    secrets:
+      # secrets: inherit doesn't work for cross-repo calls to public reusable
+      # workflows; each secret must be passed explicitly here.
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
