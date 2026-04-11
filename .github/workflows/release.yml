@@ -52,7 +52,7 @@ jobs:
       contents: write
     env:
       ADDON_NAME: RecipeBook
-      BUDGET_KB: 2000
+      BUDGET_KB: 470
       RELEASE_ZIP_SUFFIX: bcc
       PUBLISH: ${{ github.event_name == 'push' || github.event.inputs.publish == 'true' }}
     steps:
