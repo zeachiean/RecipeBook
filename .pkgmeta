@@ -27,6 +27,9 @@ ignore:
   # Test code — run locally / in CI, never at runtime
   - tests
 
+  # Local helper scripts (pre-commit hook installer, etc.)
+  - scripts
+
   # NOTE: LICENSE is intentionally NOT ignored — ships with the addon
   # NOTE: minimap-icon.tga at repo root is the runtime asset (do not ignore)
   # NOTE: CHANGELOG.md ships via manual-changelog below (do not ignore)
