@@ -1,29 +1,48 @@
 package-as: RecipeBook
 
 ignore:
-  - README.md
-  - LICENSE
-  - .github
+  # Repo meta — never ship
+  - .git
   - .gitignore
+  - .github
   - .pkgmeta
+  - .DS_Store
+
+  # Dev-only docs (shipped via CHANGELOG below or not needed in-game)
+  - README.md
+  - CURSEFORGE.md
+  - CLAUDE.md
+  - BREAKBONE_BRAND.md
+  - .claude
+  - site-content.json
+
+  # Tooling output
+  - graphify-out
+
+  # Source artwork — website is the canonical location
   - art
   - screenshot.png
   - screenshots
-  - CLAUDE.md
-  - .claude
+
+  # Test code — run locally / in CI, never at runtime
   - tests
 
+  # NOTE: LICENSE is intentionally NOT ignored — ships with the addon
+  # NOTE: minimap-icon.tga at repo root is the runtime asset (do not ignore)
+  # NOTE: CHANGELOG.md ships via manual-changelog below (do not ignore)
+  # NOTE: libs/ is lowercase per BREAKBONE_BRAND.md §11.2 (renamed from Libs/).
+
 externals:
-  Libs/LibStub:
+  libs/LibStub:
     url: https://repos.wowace.com/wow/libstub/trunk
     tag: latest
-  Libs/CallbackHandler-1.0:
+  libs/CallbackHandler-1.0:
     url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
     tag: latest
-  Libs/LibDataBroker-1.1:
+  libs/LibDataBroker-1.1:
     url: https://github.com/tekkub/libdatabroker-1-1
     tag: latest
-  Libs/LibDBIcon-1.0:
+  libs/LibDBIcon-1.0:
     url: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
     tag: latest
 
