@@ -27,9 +27,8 @@ jobs:
 
       - name: Lua syntax check every addon .lua file
         run: |
-          find . -name "*.lua" \
+          find . -type f -name "*.lua" \
             -not -path "./tests/*" \
             -not -path "./libs/*" \
-            -not -path "./Libs/*" \
             -not -path "./.release/*" \
             -print0 | xargs -0 -n1 luac -p
