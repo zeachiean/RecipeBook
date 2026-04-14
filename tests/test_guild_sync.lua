@@ -31,8 +31,11 @@ function T.setup()
         { name = "Offline",   class = "ROGUE",   online = false, zone = "Silvermoon" },
     })
 
-    -- Clear any lingering reassembly buffers.
+    -- Clear any lingering reassembly buffers + per-session state.
     RecipeBook.GuildSync._buffers = {}
+    RecipeBook.GuildComm._helloPending = false
+    RecipeBook.GuildComm._seenHelloThisSession = {}
+    RecipeBook.GuildComm._lastDataSent = {}
 end
 
 -- ============================================================
@@ -275,6 +278,84 @@ function T.test_need_triggers_data_reply_when_ours()
     assert(dec.dv == 500)
 end
 
+function T.test_data_cooldown_suppresses_duplicate_replies()
+    -- Seed self-meta and knownRecipes so the NEED would normally be answered.
+    local myKey = RecipeBook:GetMyCharKey()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY] = { [100] = true, [200] = true }
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 500, hash = "x" }
+
+    -- First NEED → replied.
+    local need = RecipeBook.GuildSync.EncodeNeed(myKey, ALCHEMY)
+    RecipeBook.GuildComm.HandleMessage(need, "Buddy-TestRealm")
+    local firstCount = #MockWoW._addonMessages
+    assert(firstCount >= 1, "first NEED should be answered with DATA")
+
+    -- Immediate second NEED from a different peer → suppressed.
+    MockWoW.ClearAddonMessages()
+    RecipeBook.GuildComm.HandleMessage(need, "Offline-TestRealm")
+    assert(#MockWoW._addonMessages == 0,
+        "second NEED within cooldown window should be suppressed; got "
+        .. #MockWoW._addonMessages .. " outbound messages")
+end
+
+function T.test_data_cooldown_expires()
+    local myKey = RecipeBook:GetMyCharKey()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY] = { [100] = true }
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 500, hash = "x" }
+
+    -- Pretend the last DATA was sent far in the past.
+    RecipeBook.GuildComm._lastDataSent[ALCHEMY] = time() - 999
+
+    local need = RecipeBook.GuildSync.EncodeNeed(myKey, ALCHEMY)
+    RecipeBook.GuildComm.HandleMessage(need, "Buddy-TestRealm")
+    assert(#MockWoW._addonMessages >= 1,
+        "NEED after cooldown expires should be answered")
+end
+
+function T.test_own_echoes_are_dropped()
+    -- Our own HELLO echoing back via GUILD scope should be a no-op:
+    -- no schedule, no recorded sent messages.
+    local myKey = RecipeBook:GetMyCharKey()
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 500, hash = "x" }
+
+    local hello = RecipeBook.GuildSync.EncodeHello(myKey, {
+        [ALCHEMY] = { dv = 500, hash = "x" },
+    })
+    RecipeBook.GuildComm.HandleMessage(hello, myKey)
+
+    assert(not RecipeBook.GuildComm._seenHelloThisSession[myKey],
+        "self-echo should not register as a first-seen peer")
+    assert(not RecipeBook.GuildComm._helloPending,
+        "self-echo should not schedule any HELLO broadcast")
+end
+
+function T.test_idempotent_dv_when_hash_unchanged()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY] = { [100] = true, [200] = true }
+
+    RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    local firstDV   = RecipeBookCharDB.guildSelfMeta[ALCHEMY].dv
+    local firstHash = RecipeBookCharDB.guildSelfMeta[ALCHEMY].hash
+
+    -- Re-run with identical recipe set — dv must not budge.
+    RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    local secondDV   = RecipeBookCharDB.guildSelfMeta[ALCHEMY].dv
+    local secondHash = RecipeBookCharDB.guildSelfMeta[ALCHEMY].hash
+
+    assert(secondDV == firstDV,
+        "dv must not bump when recipe set hasn't changed (was " ..
+        firstDV .. ", became " .. secondDV .. ")")
+    assert(secondHash == firstHash)
+
+    -- Now add a recipe — dv MUST bump.
+    myData.knownRecipes[ALCHEMY][300] = true
+    RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    assert(RecipeBookCharDB.guildSelfMeta[ALCHEMY].hash ~= firstHash,
+        "hash must change when recipes change")
+end
+
 function T.test_need_for_other_char_is_ignored()
     RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 1, hash = "x" }
     local need = RecipeBook.GuildSync.EncodeNeed("Somebody-Else", ALCHEMY)
@@ -365,6 +446,66 @@ function T.test_hide_both_hides_all_matching()
     assert(RecipeBook:IsProfessionHiddenInGuildView(186))   -- Mining
     assert(not RecipeBook:IsProfessionHiddenInGuildView(ALCHEMY))
     assert(not RecipeBook:IsProfessionHiddenInGuildView(TAILORING))
+end
+
+-- ============================================================
+-- Login-time auto-broadcast + first-seen echo
+-- ============================================================
+
+function T.test_mirror_all_self_schedules_hello_broadcast()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownProfessions[ALCHEMY]   = true
+    myData.knownRecipes[ALCHEMY]       = { [1] = true, [2] = true }
+
+    assert(not RecipeBook.GuildComm._helloPending, "should start unscheduled")
+    RecipeBook.GuildComm.MirrorAllSelf()
+    assert(RecipeBook.GuildComm._helloPending,
+        "MirrorAllSelf should schedule a debounced HELLO")
+end
+
+function T.test_mirror_all_self_noop_when_no_known_professions()
+    -- Fresh char with no scanned professions.
+    assert(not RecipeBook.GuildComm._helloPending)
+    local n = RecipeBook.GuildComm.MirrorAllSelf()
+    assert(n == 0)
+    assert(not RecipeBook.GuildComm._helloPending,
+        "should NOT schedule HELLO when there's nothing to announce")
+end
+
+function T.test_first_seen_peer_triggers_echo_hello()
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
+
+    -- First HELLO from a peer we've never heard from.
+    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
+        [ALCHEMY] = { dv = 100, hash = "peerhash" },
+    })
+    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
+
+    -- Should have scheduled an echo HELLO and marked the peer as seen.
+    assert(RecipeBook.GuildComm._helloPending,
+        "expected echo HELLO to be scheduled on first-seen peer")
+    assert(RecipeBook.GuildComm._seenHelloThisSession["Buddy-TestRealm"])
+
+    -- Flush and verify the echo is actually a HELLO on the wire.
+    RecipeBook.GuildComm._sendHelloNow()
+    local sawEcho = false
+    for _, m in ipairs(MockWoW._addonMessages) do
+        if m.text:find("^HELLO|v1|") then sawEcho = true end
+    end
+    assert(sawEcho, "echo HELLO did not reach the wire")
+end
+
+function T.test_subsequent_hellos_do_not_re_echo()
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
+    RecipeBook.GuildComm._seenHelloThisSession = { ["Buddy-TestRealm"] = true }
+
+    assert(not RecipeBook.GuildComm._helloPending)
+    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
+        [ALCHEMY] = { dv = 100, hash = "peerhash" },
+    })
+    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
+    assert(not RecipeBook.GuildComm._helloPending,
+        "should NOT re-schedule HELLO for a peer we've already seen")
 end
 
 function T.test_debug_flag_is_off_by_default()

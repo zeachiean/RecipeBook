@@ -21,6 +21,10 @@ local GuildSync = RecipeBook.GuildSync
 GuildComm.PREFIX         = "RB"
 GuildComm.HELLO_DEBOUNCE = 5       -- seconds
 GuildComm.KEEPALIVE_SECS = 600     -- 10 min
+-- Minimum gap between DATA broadcasts for the same profession. Suppresses
+-- piling on when many guildmates NEED the same roster — DATA on GUILD
+-- scope already reaches everyone, so later NEEDs are redundant.
+GuildComm.DATA_COOLDOWN_SECS = 15
 GuildComm.MAX_GUILD_MEMBERS_PER_BROADCAST = 50
 
 -- ============================================================
@@ -43,10 +47,10 @@ GuildComm._debugEnabled = debugEnabled
 
 local function debugPrint(direction, msg, sender)
     if not DEFAULT_CHAT_FRAME then return end
-    local arrow = (direction == "out") and "|cff00ff00→|r" or "|cff99ccff←|r"
+    local tag = (direction == "out") and "|cff00ff00SENT|r" or "|cff99ccffRCVD|r"
     local who = sender and (" |cffffd100[" .. sender .. "]|r") or ""
     DEFAULT_CHAT_FRAME:AddMessage(
-        "|cff33bbff[RB-debug]|r " .. arrow .. who .. " " .. tostring(msg))
+        "|cff33bbff[RB-debug]|r " .. tag .. who .. " " .. tostring(msg))
 end
 
 -- Priority tiers: "NORMAL" for HELLO/NEED, "BULK" for DATA chunks.
@@ -161,12 +165,21 @@ GuildComm._myRecipesForProfession = myRecipesForProfession
 
 -- Update dv/hash metadata for self after RecipeTracker detects a change.
 -- Also mirrors the sorted recipe list into the guild store's self-entry.
+--
+-- Idempotent: if the hashed recipe set hasn't actually changed since
+-- the last call, the dv stays put. That stops an infinite NEED/DATA
+-- cycle where harmless TRADE_SKILL_UPDATE events (re-opening a prof
+-- window, a passive game tick, etc.) kept stamping new dvs, which
+-- peers interpreted as "newer data" and re-requested every time.
 function GuildComm.RefreshSelfMeta(profID)
     if not RecipeBookCharDB then return end
     RecipeBookCharDB.guildSelfMeta = RecipeBookCharDB.guildSelfMeta or {}
     local recipes = myRecipesForProfession(profID)
     local hash = GuildSync.HashRecipes(recipes)
-    RecipeBookCharDB.guildSelfMeta[profID] = { dv = time(), hash = hash }
+    local prev = RecipeBookCharDB.guildSelfMeta[profID]
+    if not prev or prev.hash ~= hash or not prev.dv then
+        RecipeBookCharDB.guildSelfMeta[profID] = { dv = time(), hash = hash }
+    end
 
     -- Mirror into guild store (if we're in a guild)
     local guildKey = GuildComm.CurrentGuildKey()
@@ -195,6 +208,11 @@ end
 -- Mirror every known profession's recipe list for the current character
 -- into the guild store. Called on login so the Guild view has self-data
 -- to show without needing to open a profession window first.
+--
+-- After mirroring, schedule a HELLO broadcast so guildmates who are
+-- already online can find out we're here without needing us to
+-- manually run /rb guild hello. Debounced (5 s) so a login burst that
+-- also fires OnMyRecipesChanged during window open doesn't double-send.
 function GuildComm.MirrorAllSelf()
     if not GuildComm.CurrentGuildKey() then return 0 end
     local myKey = RecipeBook:GetMyCharKey()
@@ -207,6 +225,9 @@ function GuildComm.MirrorAllSelf()
             GuildComm.RefreshSelfMeta(profID)
             count = count + 1
         end
+    end
+    if count > 0 then
+        GuildComm.BroadcastHello()
     end
     return count
 end
@@ -274,6 +295,8 @@ end
 -- Inbound — dispatch a decoded message
 -- ============================================================
 
+GuildComm._seenHelloThisSession = GuildComm._seenHelloThisSession or {}
+
 local function handleHello(record, senderCharKey)
     local guildKey, gName, realm = GuildComm.CurrentGuildKey()
     if not guildKey then return end
@@ -295,7 +318,20 @@ local function handleHello(record, senderCharKey)
             end
         end
     end
+
+    -- First time we've heard from this peer this session → echo our
+    -- own HELLO back (debounced). This solves the "client that logs in
+    -- second never learns about the client that logged in first": the
+    -- first peer's data reaches us via their login HELLO, and our
+    -- echo lets them discover us in return. Further HELLOs from the
+    -- same peer won't re-trigger the echo until the session ends.
+    if not GuildComm._seenHelloThisSession[record.charKey] then
+        GuildComm._seenHelloThisSession[record.charKey] = true
+        GuildComm.BroadcastHello()
+    end
 end
+
+GuildComm._lastDataSent = GuildComm._lastDataSent or {}
 
 local function handleNeed(record)
     if not canBroadcast() then return end  -- privacy gate applies to DATA too
@@ -303,6 +339,15 @@ local function handleNeed(record)
     if not myKey or record.targetCharKey ~= myKey then return end
     local meta = RecipeBookCharDB and RecipeBookCharDB.guildSelfMeta and RecipeBookCharDB.guildSelfMeta[record.profID]
     if not meta then return end
+
+    -- Dedup: DATA is broadcast on GUILD scope, so a single reply reaches
+    -- everyone. If several guildmates NEED the same (profID) within a
+    -- short window, only respond to the first one.
+    local now = time()
+    local last = GuildComm._lastDataSent[record.profID]
+    if last and (now - last) < GuildComm.DATA_COOLDOWN_SECS then return end
+    GuildComm._lastDataSent[record.profID] = now
+
     local recipes = myRecipesForProfession(record.profID)
     local chunks = GuildSync.EncodeData(myKey, record.profID, meta.dv, recipes)
     for i = 1, #chunks do
@@ -330,12 +375,22 @@ end
 -- "Name-Realm" on modern clients; we accept either).
 function GuildComm.HandleMessage(msg, senderCharKey)
     if not msg then return end
+
+    -- Addon messages sent on GUILD scope echo back to the sender.
+    -- Drop our own echoes up front — nothing useful comes from
+    -- processing them, and they clutter the debug log as false "RCVD".
+    local myKey = RecipeBook:GetMyCharKey()
+    if myKey and senderCharKey then
+        local bareSender = senderCharKey:match("^([^-]+)") or senderCharKey
+        local bareMe     = myKey:match("^([^-]+)")         or myKey
+        if bareSender == bareMe then return end
+    end
+
     if debugEnabled() then debugPrint("in", msg, senderCharKey) end
     if not isInCurrentGuild(senderCharKey) then return end
     local record = GuildSync.Decode(msg)
     if not record then return end
-    -- Ignore self-echoes
-    local myKey = RecipeBook:GetMyCharKey()
+    -- Ignore self-echoes (belt-and-suspenders alongside the sender check above)
     if myKey and record.charKey == myKey and record.type ~= "NEED" then return end
     if record.type == "HELLO" then
         handleHello(record, senderCharKey)
