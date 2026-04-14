@@ -161,6 +161,96 @@ C_Item = C_Item or {}
 function C_Item.RequestLoadItemDataByID(itemID) end
 function C_Item.GetItemInfo(itemID) return nil end
 
+-- ============================================================
+-- Addon-message + channel + guild-roster mocks (for GuildSync tests)
+-- ============================================================
+-- MockWoW._addonMessages captures everything sent via SendAddonMessage
+-- so tests can inspect the wire. MockWoW.SetGuildRoster() seeds the
+-- roster for isInCurrentGuild() lookups.
+MockWoW._addonMessages = MockWoW._addonMessages or {}
+MockWoW._channels = MockWoW._channels or {}
+MockWoW._guildName = nil
+MockWoW._guildRealm = ""
+MockWoW._guildRoster = {}     -- array of { name, class, level, zone, online }
+MockWoW._registeredAddonPrefixes = MockWoW._registeredAddonPrefixes or {}
+
+function MockWoW.ClearAddonMessages()
+    MockWoW._addonMessages = {}
+end
+
+function MockWoW.SetGuild(name, realm)
+    MockWoW._guildName = name
+    MockWoW._guildRealm = realm or MockWoW._playerRealm
+end
+
+function MockWoW.SetGuildRoster(list) MockWoW._guildRoster = list or {} end
+
+function GetGuildInfo(unit)
+    if not MockWoW._guildName then return nil end
+    return MockWoW._guildName, "Rank", 0, MockWoW._guildRealm
+end
+
+function IsInGuild() return MockWoW._guildName ~= nil end
+
+function GetNumGuildMembers() return #MockWoW._guildRoster end
+
+function GetGuildRosterInfo(i)
+    local r = MockWoW._guildRoster[i]
+    if not r then return nil end
+    -- name, rankName, rankIndex, level, class, zone, note, officernote, online, status, classFileName
+    return r.name, "Rank", 0, r.level or 60, r.classDisplay or r.class or "Warrior",
+        r.zone or "Ironforge", "", "", r.online and true or false, 0, r.class or "WARRIOR"
+end
+
+function JoinTemporaryChannel(name)
+    if not MockWoW._channels[name] then
+        MockWoW._channels[name] = #MockWoW._channels + 1
+        table.insert(MockWoW._channels, name)
+    end
+    for i, n in ipairs(MockWoW._channels) do
+        if n == name then return i end
+    end
+    return nil
+end
+
+function LeaveChannelByName(name)
+    for i, n in ipairs(MockWoW._channels) do
+        if n == name then
+            table.remove(MockWoW._channels, i)
+            MockWoW._channels[name] = nil
+            return true
+        end
+    end
+end
+
+function GetChannelName(name)
+    for i, n in ipairs(MockWoW._channels) do
+        if n == name then return i end
+    end
+    return 0
+end
+
+C_ChatInfo = C_ChatInfo or {}
+function C_ChatInfo.RegisterAddonMessagePrefix(p)
+    MockWoW._registeredAddonPrefixes[p] = true
+end
+function C_ChatInfo.SendAddonMessage(prefix, text, scope, target)
+    table.insert(MockWoW._addonMessages, {
+        prefix = prefix, text = text, scope = scope, target = target,
+    })
+end
+
+C_GuildInfo = C_GuildInfo or {}
+function C_GuildInfo.GuildRoster() end
+
+-- ChatThrottleLib stub: bypass the throttle and record priority for tests.
+ChatThrottleLib = ChatThrottleLib or {}
+function ChatThrottleLib:SendAddonMessage(priority, prefix, text, scope, target)
+    table.insert(MockWoW._addonMessages, {
+        prefix = prefix, text = text, scope = scope, target = target, priority = priority,
+    })
+end
+
 -- C_Map stubs
 C_Map = C_Map or {}
 
@@ -395,7 +485,11 @@ function MockWoW._loadAddonFiles()
     -- Logic files
     dofile("MapResolver.lua")
     dofile("RecipeTracker.lua")
+    dofile("GuildSync.lua")
+    dofile("GuildComm.lua")
+    dofile("GuildRoster.lua")
     dofile("Core.lua")
+    dofile("API.lua")
     dofile("UIControls.lua")
     dofile("UIRender.lua")
     dofile("UIDropSources.lua")

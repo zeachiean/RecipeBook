@@ -3,7 +3,8 @@
 # Safe to re-run — overwrites previous hooks.
 #
 # What this installs:
-#   pre-commit : runs `lua tests/run.lua` and blocks the commit on failure
+#   pre-commit : regenerates CURSEFORGE.bbcode from CURSEFORGE.md (if present),
+#                then runs `lua tests/run.lua` and blocks the commit on failure
 #   pre-push   : runs tests + lints CHANGELOG tag format on tag pushes
 #
 # Hooks are NOT committed (git hooks live in .git/hooks/, which isn't tracked).
@@ -24,11 +25,28 @@ mkdir -p "$HOOKS_DIR"
 
 cat > "$HOOKS_DIR/pre-commit" <<'HOOK'
 #!/usr/bin/env bash
-# pre-commit: run addon tests; block commit on failure.
+# pre-commit: regenerate CURSEFORGE.bbcode, run addon tests, block on failure.
 set -e
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
+
+# Regenerate CURSEFORGE.bbcode from CURSEFORGE.md if the shared converter
+# and python3 are available. Safe to run every commit — it's a pure
+# transform and only re-stages when content actually changed.
+if [ -f CURSEFORGE.md ]; then
+    MD2BB="$REPO_ROOT/../breakbone-shared/scripts/md2bbcode.py"
+    if [ -f "$MD2BB" ] && command -v python3 >/dev/null 2>&1; then
+        python3 "$MD2BB" CURSEFORGE.md CURSEFORGE.bbcode
+        if ! git diff --quiet -- CURSEFORGE.bbcode 2>/dev/null \
+           || [ -n "$(git status --porcelain CURSEFORGE.bbcode 2>/dev/null)" ]; then
+            git add CURSEFORGE.bbcode
+            echo "[pre-commit] Regenerated CURSEFORGE.bbcode from CURSEFORGE.md"
+        fi
+    else
+        echo "[pre-commit] WARNING: breakbone-shared/scripts/md2bbcode.py or python3 missing — skipping bbcode regen"
+    fi
+fi
 
 if [ ! -d tests ]; then
     exit 0
@@ -83,7 +101,7 @@ HOOK
 chmod +x "$HOOKS_DIR/pre-commit" "$HOOKS_DIR/pre-push"
 
 echo "Installed hooks in $HOOKS_DIR:"
-echo "  pre-commit : runs tests before each commit"
+echo "  pre-commit : regenerates CURSEFORGE.bbcode, runs tests before each commit"
 echo "  pre-push   : runs tests + validates tag format before each push"
 echo ""
 echo "To bypass (rare): git commit --no-verify  /  git push --no-verify"

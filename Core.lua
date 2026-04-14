@@ -1,7 +1,7 @@
 RecipeBook = RecipeBook or {}
 
-RecipeBook.VERSION = "1.4.3"
-RecipeBook.RELEASE_DATE = "April 6, 2026"
+RecipeBook.VERSION = "1.5.0"
+RecipeBook.RELEASE_DATE = "April 11, 2026"
 RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
 
@@ -30,6 +30,12 @@ fontWhite:SetTextColor(1, 1, 1)
 
 -- Chat prefix
 local CHAT_PREFIX = "|cff33bbff[RecipeBook]|r "
+
+-- Default whisper template for guild craft requests. Placeholders:
+--   {name}   — target guildmate's character name
+--   {recipe} — clickable recipe link
+RecipeBook.DEFAULT_WHISPER_TEMPLATE =
+    "Hi {name}! Could I trouble you to craft {recipe}? I'll bring the mats. Thanks!"
 
 function RecipeBook:Print(msg)
     DEFAULT_CHAT_FRAME:AddMessage(CHAT_PREFIX .. tostring(msg))
@@ -70,6 +76,7 @@ RecipeBook.SOURCE_LABELS = {
     fishing = "Fishing",
     unique = "Special",
     discovery = "Discovery",
+    crafter = "Guild Crafters",
 }
 
 -- Phase labels
@@ -283,6 +290,8 @@ function RecipeBook:SetViewedCharKey(key)
     else
         RecipeBookCharDB.viewingChar = key
     end
+    -- Selecting a character exits guild view.
+    RecipeBookCharDB.viewingGuildKey = nil
 end
 
 function RecipeBook:GetViewedCharData()
@@ -298,6 +307,37 @@ function RecipeBook:GetAllCharKeys()
     for key in pairs(RecipeBookDB.characters) do
         list[#list + 1] = key
     end
+    table.sort(list)
+    return list
+end
+
+-- Guild view state (mutually exclusive with viewingChar).
+function RecipeBook:GetViewedGuildKey()
+    if RecipeBookCharDB and RecipeBookCharDB.viewingGuildKey then
+        local key = RecipeBookCharDB.viewingGuildKey
+        if RecipeBookDB and RecipeBookDB.guilds and RecipeBookDB.guilds[key] then
+            return key
+        end
+        -- Stored key no longer has data; clear it silently
+        RecipeBookCharDB.viewingGuildKey = nil
+    end
+    return nil
+end
+
+function RecipeBook:SetViewedGuildKey(key)
+    if not RecipeBookCharDB then return end
+    RecipeBookCharDB.viewingGuildKey = key
+    if key then
+        -- Guild view overrides character view
+        RecipeBookCharDB.viewingChar = nil
+    end
+end
+
+-- Sorted list of guild keys RB has data for.
+function RecipeBook:GetAllGuildKeys()
+    local list = {}
+    if not RecipeBookDB or not RecipeBookDB.guilds then return list end
+    for key in pairs(RecipeBookDB.guilds) do list[#list + 1] = key end
     table.sort(list)
     return list
 end
@@ -393,6 +433,27 @@ StaticPopupDialogs["RECIPEBOOK_RESCAN_PROFESSIONS"] = {
     preferredIndex = 3,
 }
 
+StaticPopupDialogs["RECIPEBOOK_GUILD_SHARE_PROMPT"] = {
+    text = "RecipeBook can share your known recipes with your guildmates so they can see who to ask for crafts.\n\nEnable sharing?\n\n(You can change this later in /rb settings.)",
+    button1 = "Enable sharing",
+    button2 = "Not now",
+    OnAccept = function()
+        RecipeBookDB.guildSharingEnabled = true
+        RecipeBookDB.guildSharePrompted = true
+        if RecipeBook.GuildComm and RecipeBook.GuildComm.BroadcastHelloImmediate then
+            RecipeBook.GuildComm.BroadcastHelloImmediate()
+        end
+    end,
+    OnCancel = function()
+        RecipeBookDB.guildSharingEnabled = false
+        RecipeBookDB.guildSharePrompted = true
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+
 StaticPopupDialogs["RECIPEBOOK_SKILL_RESCAN"] = {
     text = "RecipeBook: Profession skill levels are missing.\n\nPlease open each of your profession windows once so RecipeBook can detect your skill levels.",
     button1 = OKAY,
@@ -423,9 +484,22 @@ local function InitSavedVars()
     if not RecipeBookDB.characters then
         RecipeBookDB.characters = {}
     end
+    -- Guild sharing defaults (nil guildSharingEnabled = never prompted)
+    if RecipeBookDB.guildSharePrompted == nil then
+        RecipeBookDB.guildSharePrompted = false
+    end
+    if RecipeBookDB.whisperTemplate == nil or RecipeBookDB.whisperTemplate == "" then
+        RecipeBookDB.whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE
+    end
+    if not RecipeBookDB.guilds then
+        RecipeBookDB.guilds = {}
+    end
 
     if not RecipeBookCharDB then
         RecipeBookCharDB = {}
+    end
+    if not RecipeBookCharDB.guildSelfMeta then
+        RecipeBookCharDB.guildSelfMeta = {}
     end
     if not RecipeBookCharDB.professionSkill then
         RecipeBookCharDB.professionSkill = {}
@@ -484,10 +558,50 @@ function RecipeBook:GetRecipePhase(profID, recipeID)
     return data.phase or 1
 end
 
+-- ============================================================
+-- Guild Crafts wiring
+-- ============================================================
+
+-- Called by RecipeTracker after recording a change to my own known-recipe
+-- list for a profession. Updates dv+hash, mirrors self into the guild
+-- store, and debounces a HELLO broadcast.
+function RecipeBook:OnMyRecipesChanged(profID)
+    if not profID then return end
+    if not RecipeBook.GuildComm then return end
+    RecipeBook.GuildComm.RefreshSelfMeta(profID)
+    RecipeBook.GuildComm.BroadcastHello()
+end
+
+-- One-shot gate: show the first-join popup when appropriate.
+local function maybePromptGuildShare()
+    if not RecipeBookDB then return end
+    if RecipeBookDB.guildSharePrompted then return end
+    if RecipeBookDB.guildSharingEnabled ~= nil then
+        -- Somehow set without the prompt (e.g. manual edit); mark prompted.
+        RecipeBookDB.guildSharePrompted = true
+        return
+    end
+    if not IsInGuild or not IsInGuild() then return end
+    StaticPopup_Show("RECIPEBOOK_GUILD_SHARE_PROMPT")
+end
+
+local function initGuildSubsystems()
+    if RecipeBook.GuildComm and RecipeBook.GuildComm.JoinChannel then
+        RecipeBook.GuildComm.JoinChannel()
+    end
+    if RecipeBook.GuildRoster and RecipeBook.GuildRoster.Request then
+        RecipeBook.GuildRoster:Request()
+    end
+end
+
 -- Event frame
 local eventFrame = CreateFrame("Frame")
 
 eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+eventFrame:RegisterEvent("PLAYER_GUILD_UPDATE")
+eventFrame:RegisterEvent("GUILD_ROSTER_UPDATE")
+eventFrame:RegisterEvent("CHAT_MSG_ADDON")
+eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
 
 eventFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_ENTERING_WORLD" then
@@ -501,11 +615,38 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         RecipeBook:HookTooltips()
         RecipeBook:RegisterTrackingEvents(self)
         RecipeBook:CreateMinimapButton()
+        initGuildSubsystems()
+        maybePromptGuildShare()
 
         self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
         self:RegisterEvent("ZONE_CHANGED")
         self:RegisterEvent("ZONE_CHANGED_INDOORS")
         self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+
+    elseif event == "PLAYER_GUILD_UPDATE" then
+        if RecipeBook.GuildComm and RecipeBook.GuildComm.RefreshChannelIndex then
+            RecipeBook.GuildComm.RefreshChannelIndex()
+        end
+        if RecipeBook.GuildRoster then
+            RecipeBook.GuildRoster:Request()
+        end
+        maybePromptGuildShare()
+
+    elseif event == "GUILD_ROSTER_UPDATE" then
+        if RecipeBook.GuildRoster then
+            RecipeBook.GuildRoster:ScheduleRefresh()
+        end
+
+    elseif event == "CHAT_MSG_ADDON" then
+        local prefix, text, _, sender = ...
+        if prefix == (RecipeBook.GuildComm and RecipeBook.GuildComm.PREFIX) then
+            RecipeBook.GuildComm.HandleMessage(text, sender)
+        end
+
+    elseif event == "PLAYER_LEAVING_WORLD" then
+        if RecipeBook.GuildComm and RecipeBook.GuildComm.BroadcastBye then
+            RecipeBook.GuildComm.BroadcastBye()
+        end
 
     elseif event == "TRADE_SKILL_SHOW" or event == "TRADE_SKILL_UPDATE"
         or event == "CRAFT_SHOW" or event == "CRAFT_UPDATE" then

@@ -2,7 +2,7 @@
 ## Title: RecipeBook
 ## Notes: Recipe and profession browser with source tracking and waypoint integration.
 ## Author: Breakbone - Dreamscythe
-## Version: 1.4.5
+## Version: 1.6.0
 ## X-License: All Rights Reserved
 ## X-Curse-Project-ID: 1504542
 ## X-WoWI-ID: 27111
@@ -14,6 +14,7 @@ libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+libs\ChatThrottleLib\ChatThrottleLib.lua
 
 Data\Recipes\Alchemy.lua
 Data\Recipes\Blacksmithing.lua
@@ -48,8 +49,13 @@ Data\Unique.lua
 
 MapResolver.lua
 RecipeTracker.lua
+GuildSync.lua
+GuildComm.lua
+GuildRoster.lua
 Core.lua
+API.lua
 UIControls.lua
+UIGuildCrafters.lua
 Settings.lua
 UI.lua
 UIRender.lua

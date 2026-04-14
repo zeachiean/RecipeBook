@@ -208,6 +208,13 @@ function RecipeBook:ScanProfessionWindow(event)
         end
     end
 
+    -- Notify guild subsystems that our recipe list for this profession
+    -- may have changed. Cheap when sharing is disabled; debounces its
+    -- own HELLO broadcast when enabled.
+    if self.OnMyRecipesChanged then
+        self:OnMyRecipesChanged(profID)
+    end
+
     -- Switch to the scanned profession and refresh UI
     if self.SelectProfession then
         self:SelectProfession(profID)

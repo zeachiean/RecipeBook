@@ -11,6 +11,7 @@ ignore:
   # Dev-only docs (shipped via CHANGELOG below or not needed in-game)
   - README.md
   - CURSEFORGE.md
+  - CURSEFORGE.bbcode
   - CLAUDE.md
   - BREAKBONE_BRAND.md
   - .claude

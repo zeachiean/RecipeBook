@@ -26,6 +26,16 @@ View every TBC profession recipe organized by source type — Trainer, Vendor, Q
 - Recipe names colored by item quality
 - Shift-click any recipe to link it in chat
 
+## Guild Crafts
+
+See which guildmates can craft what. A Guild entry in the Character dropdown replaces the Source column with a live list of guildmates who know each recipe — online ones are class-colored with their current zone, offline ones are greyed.
+
+- Right-click any crafter for **Whisper** (pre-filled polite message with the recipe link), **Invite**, **Who**, or **Copy Name**
+- Opt-in via Settings → Guild Sharing (default off, one-time prompt on first guild join)
+- Customizable whisper template with `{name}` and `{recipe}` placeholders
+- Recipe data syncs over a private addon-message channel — no visible chat spam
+- Efficient sync: timestamped-hash handshake transfers only what's changed
+
 ## Known Recipe Tracking
 
 Open your profession window and RecipeBook automatically scans what you've learned. Toggle **Hide Known** to see only the recipes you still need.
@@ -79,3 +89,55 @@ World of Warcraft/_anniversary_/Interface/AddOns/RecipeBook/
 ```
 
 After installation, open all of your profession panels to allow RecipeBook to scan your known recipes.
+
+## For Addon Developers
+
+RecipeBook exposes a stable public API at `RecipeBook.API` so other addons can query the recipe catalog and known-recipe data without scanning professions themselves.
+
+Soft-probe:
+
+```lua
+local function HasRecipeBook()
+    return _G.RecipeBook
+       and _G.RecipeBook.API
+       and (_G.RecipeBook.API.VERSION or 0) >= 1
+end
+```
+
+### Core methods (v1)
+
+| Method | Returns |
+| --- | --- |
+| `RecipeBook.API:GetAllProfessions()` | array of profession names (alphabetised) |
+| `RecipeBook.API:GetAllRecipes(profession)` | array of `RecipeRef` |
+| `RecipeBook.API:GetKnownRecipes(charKey, profession)` | array of `RecipeRef` |
+| `RecipeBook.API:GetKnownProfessions(charKey)` | array of profession names |
+| `RecipeBook.API:GetRecipe(spellID)` | `RecipeRef` or `nil` |
+| `RecipeBook.API:GetCharacters()` | array of `"Name-Realm"` keys |
+| `RecipeBook.API:IsProfessionScanned(charKey, profession)` | bool |
+
+`charKey` is `"Name-Realm"`; pass `nil` for the current character.
+
+### RecipeRef shape
+
+```lua
+{
+    spellID    = 27984,           -- primary key, locale-stable
+    name       = "Mongoose",      -- localised
+    profession = "Enchanting",
+    link       = "|cff71d5ff|Hspell:27984|h[Mongoose]|h|r",
+    recipeID   = 22545,           -- internal RB key (item ID for item recipes)
+    itemID     = 22545,           -- present only for item recipes
+    icon       = nil,             -- rarely populated; use GetSpellTexture(spellID)
+}
+```
+
+### Contract
+
+- **Pull-only.** No callbacks, no writes, no side effects.
+- **Returns copies.** Mutating the returned tables never touches RB's state.
+- **Nil-safe.** Unknown profession / charKey / recipe returns `{}` or `nil`.
+- **`spellID` is primary key.** Locale-stable across client languages. Use it when persisting selections.
+- **Safe after `PLAYER_LOGIN`.** Earlier calls may return empty.
+
+See `API.lua` for the full contract and implementation.

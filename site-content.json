@@ -1,7 +1,7 @@
 {
   "id": "recipebook",
-  "version": "1.4.5",
-  "lastUpdated": "2026-04-11",
+  "version": "1.6.0",
+  "lastUpdated": "2026-04-13",
   "name": "RecipeBook",
   "tagline": "TBC profession recipe browser with source tracking and waypoint integration",
   "description": "Browse every TBC profession recipe organized by source type. Track what you know across all your characters, build per-character wishlists, and filter by continent, zone, phase, and faction. Set TomTom waypoints to vendors and trainers via AddressBook. 12 professions supported with collapsible source categories, search, and shift-click recipe linking.",
@@ -15,6 +15,10 @@
     {
       "title": "Source Browsing",
       "description": "Recipes grouped by how you obtain them — Trainer, Vendor, Quest, Drop, and more. Collapsible sections let you focus on what matters."
+    },
+    {
+      "title": "Guild Crafts",
+      "description": "See which guildmates can craft each recipe. Online crafters are class-colored with their zone; right-click to whisper, invite, or look them up. Opt-in sharing syncs over a private addon channel."
     },
     {
       "title": "Cross-Character Viewing",

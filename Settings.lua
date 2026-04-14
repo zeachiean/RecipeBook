@@ -484,12 +484,102 @@ resetAllBtn:SetScript("OnClick", function()
 end)
 
 -- ============================================================
--- Section: About
+-- Section: Guild Sharing
 -- ============================================================
 
 local resetSectionEnd = CreateSectionEnd(resetAllDesc, 0)
 
-local aboutHeader, aboutLine = CreateSectionHeader(resetSectionEnd, "About")
+local guildHeader, guildLine = CreateSectionHeader(resetSectionEnd, "Guild Sharing")
+
+local guildCheck = CreateFrame("CheckButton", "RecipeBookGuildShareCheck", scrollChild, "UICheckButtonTemplate")
+guildCheck:SetPoint("TOPLEFT", guildLine, "BOTTOMLEFT", 0, -6)
+guildCheck:SetSize(24, 24)
+_G["RecipeBookGuildShareCheckText"]:SetText("Share my recipes with guild")
+_G["RecipeBookGuildShareCheckText"]:SetFontObject("GameFontHighlight")
+guildCheck:SetScript("OnClick", function(self)
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.guildSharingEnabled = self:GetChecked() and true or false
+    RecipeBookDB.guildSharePrompted = true
+    if RecipeBookDB.guildSharingEnabled
+        and RecipeBook.GuildComm
+        and RecipeBook.GuildComm.BroadcastHelloImmediate then
+        RecipeBook.GuildComm.BroadcastHelloImmediate()
+    end
+end)
+
+local guildHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+guildHelp:SetPoint("TOPLEFT", guildCheck, "BOTTOMLEFT", 4, -2)
+guildHelp:SetWidth(CONTENT_WIDTH - 8)
+guildHelp:SetJustifyH("LEFT")
+guildHelp:SetText("Guildmates running RecipeBook will see which recipes you can craft, so they can ask you for help.")
+
+local whisperLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+whisperLabel:SetPoint("TOPLEFT", guildHelp, "BOTTOMLEFT", -4, -12)
+whisperLabel:SetText("Whisper template (use |cffffd100{name}|r and |cffffd100{recipe}|r):")
+
+local whisperBox = CreateFrame("EditBox", "RecipeBookWhisperTemplateBox", scrollChild, "InputBoxTemplate")
+whisperBox:SetPoint("TOPLEFT", whisperLabel, "BOTTOMLEFT", 6, -6)
+whisperBox:SetSize(CONTENT_WIDTH - 20, 22)
+whisperBox:SetAutoFocus(false)
+whisperBox:SetFontObject(ChatFontNormal)
+whisperBox:SetScript("OnEnterPressed", function(self)
+    RecipeBookDB.whisperTemplate = self:GetText()
+    self:ClearFocus()
+end)
+whisperBox:SetScript("OnEditFocusLost", function(self)
+    RecipeBookDB.whisperTemplate = self:GetText()
+end)
+
+local resetTemplateBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
+resetTemplateBtn:SetSize(140, 22)
+resetTemplateBtn:SetPoint("TOPLEFT", whisperBox, "BOTTOMLEFT", -4, -8)
+resetTemplateBtn:SetText("Reset to default")
+resetTemplateBtn:SetScript("OnClick", function()
+    RecipeBookDB.whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE
+    whisperBox:SetText(RecipeBook.DEFAULT_WHISPER_TEMPLATE)
+end)
+
+local forgetBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
+forgetBtn:SetSize(160, 22)
+forgetBtn:SetPoint("LEFT", resetTemplateBtn, "RIGHT", 8, 0)
+forgetBtn:SetText("Forget current guild…")
+StaticPopupDialogs["RECIPEBOOK_FORGET_GUILD"] = {
+    text = "Forget cached data for guild '%s'?\n\nThis removes all stored members and recipes. They will re-sync if you're still in this guild.",
+    button1 = YES or "Yes",
+    button2 = NO or "No",
+    OnAccept = function(self, guildKey)
+        if RecipeBookDB and RecipeBookDB.guilds then
+            RecipeBookDB.guilds[guildKey] = nil
+        end
+        if RecipeBookCharDB and RecipeBookCharDB.viewingGuildKey == guildKey then
+            RecipeBookCharDB.viewingGuildKey = nil
+        end
+        if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+            RecipeBook:RefreshRecipeList()
+        end
+    end,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = true,
+    preferredIndex = 3,
+}
+forgetBtn:SetScript("OnClick", function()
+    local gkey = RecipeBook.GuildComm and RecipeBook.GuildComm.CurrentGuildKey()
+    if not gkey or not RecipeBookDB.guilds[gkey] then
+        RecipeBook:Print("No cached guild to forget.")
+        return
+    end
+    local dlg = StaticPopup_Show("RECIPEBOOK_FORGET_GUILD", gkey, nil, gkey)
+    if dlg then dlg.data = gkey end
+end)
+
+-- ============================================================
+-- Section: About
+-- ============================================================
+
+local guildSectionEnd = CreateSectionEnd(resetTemplateBtn, -4)
+
+local aboutHeader, aboutLine = CreateSectionHeader(guildSectionEnd, "About")
 
 local getMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local versionStr = (getMetadata and getMetadata("RecipeBook", "Version")) or RecipeBook.VERSION or "?"
@@ -560,6 +650,13 @@ panel:SetScript("OnShow", function()
 
     -- Character ignore list
     RefreshIgnoreList()
+
+    -- Guild Sharing
+    local shareOn = RecipeBookDB and RecipeBookDB.guildSharingEnabled == true
+    guildCheck:SetChecked(shareOn)
+    local tmpl = (RecipeBookDB and RecipeBookDB.whisperTemplate)
+        or RecipeBook.DEFAULT_WHISPER_TEMPLATE or ""
+    whisperBox:SetText(tmpl)
 end)
 
 -- ============================================================

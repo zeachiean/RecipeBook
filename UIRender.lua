@@ -315,6 +315,26 @@ local function ShowRecipeContextMenu(row)
 end
 
 local function OnRecipeClick(self, button)
+    -- Guild-view right-click opens the crafter menu (whisper/invite/who/copy)
+    -- instead of the normal recipe context menu. Falls through to defaults
+    -- when there are no crafters.
+    if button == "RightButton"
+        and self._guildCrafters and #self._guildCrafters > 0
+        and RecipeBook.UIGuildCrafters then
+        local crafter = RecipeBook.UIGuildCrafters:PickPrimaryCrafter(self)
+        if crafter then
+            local data = RecipeBook.recipeDB[self._profID]
+                and RecipeBook.recipeDB[self._profID][self._recipeID]
+            local link
+            if data and data.teaches and type(data.teaches) == "number" then
+                link = string.format("|cff71d5ff|Hspell:%d|h[%s]|h|r",
+                    data.teaches, data.name or "Recipe")
+            end
+            RecipeBook.UIGuildCrafters:OpenMenu(self, crafter, link)
+            return
+        end
+    end
+
     if button == "RightButton" then
         ShowRecipeContextMenu(self)
         return
@@ -820,10 +840,74 @@ local function RecipePassesFactionFilter(profID, recipeID, playerFaction)
     return not hasAnyFactionSource
 end
 
+-- Build a guild-view display: one synthetic "crafter" group with one
+-- entry per recipe that passes the standard filters. Source summary is
+-- intentionally left blank here — UIGuildCrafters:RenderCraftersCell
+-- fills it in at row-render time.
+local function BuildGuildDisplayData(filters)
+    local profID = filters.professionID
+    local recipes = RecipeBook.recipeDB[profID]
+    if not recipes then return { crafter = {} }, 0, 0, 0 end
+
+    local groups = { crafter = {} }
+    local totalRecipes, totalKnown, totalShown = 0, 0, 0
+
+    for recipeID, data in pairs(recipes) do
+        local phase = RecipeBook:GetRecipePhase(profID, recipeID)
+        if phase <= filters.maxPhase then
+            totalRecipes = totalRecipes + 1
+            local myKey = RecipeBook:GetMyCharKey()
+            if RecipeBook:IsRecipeKnown(profID, recipeID, myKey) then
+                totalKnown = totalKnown + 1
+            end
+
+            local dominated = false
+            if filters.searchText then
+                local name = RecipeBook:GetRecipeName(profID, recipeID)
+                if not name or not strlower(name):find(filters.searchText, 1, true) then
+                    dominated = true
+                end
+            end
+
+            if not dominated then
+                totalShown = totalShown + 1
+                groups.crafter[#groups.crafter + 1] = {
+                    recipeID = recipeID,
+                    requiredSkill = data.requiredSkill or 0,
+                    sourceType = "crafter",
+                    isKnown = RecipeBook:IsRecipeKnown(profID, recipeID, myKey),
+                    isWishlist = RecipeBook:IsRecipeInWishlist(profID, recipeID, myKey),
+                    isIgnored = RecipeBook:IsRecipeIgnored(profID, recipeID, myKey),
+                    isLearnable = not RecipeBook:IsRecipeKnown(profID, recipeID, myKey)
+                        and RecipeBook:IsRecipeLearnable(profID, recipeID),
+                    difficulty = data.difficulty,
+                    -- sourceName/sourceZone intentionally nil — filled by UIGuildCrafters.
+                }
+            end
+        end
+    end
+
+    table.sort(groups.crafter, function(a, b)
+        if a.requiredSkill == b.requiredSkill then
+            local nameA = RecipeBook:GetRecipeName(profID, a.recipeID)
+            local nameB = RecipeBook:GetRecipeName(profID, b.recipeID)
+            return nameA < nameB
+        end
+        return a.requiredSkill < b.requiredSkill
+    end)
+
+    return groups, totalRecipes, totalKnown, totalShown
+end
+
 -- Build grouped and filtered recipe entries for display
 local function BuildDisplayData(filters)
     local profID = filters.professionID
     if not profID then return {}, 0, 0 end
+
+    -- Guild view: swap in a flat crafters list instead of source-typed groups.
+    if RecipeBook:GetViewedGuildKey() then
+        return BuildGuildDisplayData(filters)
+    end
 
     local recipes = RecipeBook.recipeDB[profID]
     if not recipes then return {}, 0, 0 end
@@ -1022,7 +1106,13 @@ function RecipeBook:RefreshRecipeList()
 
     local collapsed = RecipeBookCharDB and RecipeBookCharDB.collapsedSources or {}
 
-    for _, srcType in ipairs(self.SOURCE_ORDER) do
+    -- Guild view renders a single synthetic "crafter" group.
+    local iterOrder = self.SOURCE_ORDER
+    if RecipeBook:GetViewedGuildKey() then
+        iterOrder = { "crafter" }
+    end
+
+    for _, srcType in ipairs(iterOrder) do
         local entries = groups[srcType]
         if entries and #entries > 0 then
             local isCollapsed = collapsed[srcType] or false
@@ -1125,13 +1215,20 @@ function RecipeBook:RefreshRecipeList()
                         row._countText:SetText(tostring(entry.sourceCount or 0))
                     end
 
-                    -- Source summary (always show the chosen best NPC)
-                    local sourceStr = entry.sourceName or ""
-                    if entry.sourceZone then
-                        sourceStr = sourceStr .. " |cff999999(" .. entry.sourceZone .. ")|r"
+                    -- Source cell: guild view delegates to UIGuildCrafters;
+                    -- normal view shows the chosen best NPC / zone.
+                    if entry.sourceType == "crafter" and RecipeBook.UIGuildCrafters then
+                        RecipeBook.UIGuildCrafters:RenderCraftersCell(
+                            row, filters.professionID, entry.recipeID)
+                        row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
+                    else
+                        local sourceStr = entry.sourceName or ""
+                        if entry.sourceZone then
+                            sourceStr = sourceStr .. " |cff999999(" .. entry.sourceZone .. ")|r"
+                        end
+                        row._sourceText:SetText(sourceStr)
+                        row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
                     end
-                    row._sourceText:SetText(sourceStr)
-                    row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
 
                     -- Drop rate %
                     if row._rateText then

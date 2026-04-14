@@ -26,6 +26,19 @@ local function CharDisplayName(charKey)
     return entry.name or charKey
 end
 
+-- Display label for a guild key, including a "(not a member)" suffix
+-- when the player is no longer in that guild.
+local function GuildDisplayName(guildKey)
+    if not guildKey then return "?" end
+    local guild = RecipeBookDB and RecipeBookDB.guilds and RecipeBookDB.guilds[guildKey]
+    local label = (guild and guild.name) or guildKey
+    local currentKey = RecipeBook.GuildComm and RecipeBook.GuildComm.CurrentGuildKey()
+    if currentKey ~= guildKey then
+        label = label .. " |cff888888(not a member)|r"
+    end
+    return label
+end
+
 function RecipeBook:CreateMainFrame()
     if self.mainFrame then return end
 
@@ -188,9 +201,42 @@ function RecipeBook:CreateMainFrame()
                 UIDropDownMenu_AddButton(info, level)
             end
         end
+
+        -- Guilds (cached, incl. historical if guild-hopper)
+        local guildKeys = RecipeBook.GetAllGuildKeys and RecipeBook:GetAllGuildKeys() or {}
+        if #guildKeys > 0 then
+            local header = UIDropDownMenu_CreateInfo()
+            header.text = "Guilds"
+            header.isTitle = true
+            header.notCheckable = true
+            UIDropDownMenu_AddButton(header, level)
+            for _, gkey in ipairs(guildKeys) do
+                local info = UIDropDownMenu_CreateInfo()
+                info.text = GuildDisplayName(gkey)
+                info.notCheckable = true
+                info.func = function()
+                    RecipeBook:SetViewedGuildKey(gkey)
+                    UIDropDownMenu_SetText(charDropdown, GuildDisplayName(gkey))
+                    selectedProfession = nil
+                    UIDropDownMenu_SetText(profDropdown, "Select...")
+                    RecipeBook:UpdateHideKnownState()
+                    RecipeBook:RefreshRecipeList()
+                end
+                UIDropDownMenu_AddButton(info, level)
+            end
+        end
     end
     UIDropDownMenu_Initialize(charDropdown, CharDropdown_Init)
-    UIDropDownMenu_SetText(charDropdown, CharDisplayName(RecipeBook:GetViewedCharKey()))
+    do
+        local initialLabel
+        local gk = RecipeBook.GetViewedGuildKey and RecipeBook:GetViewedGuildKey()
+        if gk then
+            initialLabel = GuildDisplayName(gk)
+        else
+            initialLabel = CharDisplayName(RecipeBook:GetViewedCharKey())
+        end
+        UIDropDownMenu_SetText(charDropdown, initialLabel)
+    end
 
     -- View toggle: Recipes | Wishlist tab buttons (right side of row 0)
     local TAB_WIDTH = 80

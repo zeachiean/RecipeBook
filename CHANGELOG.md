@@ -1,5 +1,27 @@
 # RecipeBook Changelog
 
+## v1.6.0
+
+### New Features
+- **Guild Crafts**: new per-guild entry in the Character dropdown. Selecting a guild replaces the Source column with guildmates who know each recipe.
+- Online crafters are class-colored and show their zone; offline crafters are greyed.
+- Right-click a crafter row for **Whisper** (pre-filled polite message with the recipe link), **Invite**, **Who**, or **Copy Name**.
+- New **Guild Sharing** section in Settings: opt-in toggle (default off, first-join prompt), customizable whisper template with `{name}` and `{recipe}` placeholders, and a "Forget current guild" button.
+- Syncs recipe data with guildmates running RecipeBook via a private addon-message channel, using a timestamped-hash handshake so only changed data is transferred.
+
+### API
+- Bumped `RecipeBook.API.VERSION` to **2** (additive — v1 consumers keep working).
+- New `API:GetGuilds()` and `API:GetGuildCrafters(guildKey, spellID)`.
+
+### Internal
+- Embedded ChatThrottleLib for addon-message rate limiting.
+- New modules: `GuildSync.lua`, `GuildComm.lua`, `GuildRoster.lua`, `UIGuildCrafters.lua`.
+
+## v1.5.0
+
+### New Features
+- Added `RecipeBook.API` — a stable public API for other addons to query RecipeBook's recipe catalog and known-recipe data (see README for details)
+
 ## v1.4.5
 
 ### Fixes
