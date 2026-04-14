@@ -1,0 +1,76 @@
+# RecipeBook Guild Crafts — Test Guide
+
+## Setup
+
+1. **Install RecipeBook 1.6.0** on every tester's client.
+2. Log in. If you're in a guild, a popup appears asking whether to share your recipes. Click **Enable sharing**.
+   - Missed the popup? Open **Settings** (`/rb` → gear icon) → **Guild Sharing** → check **Share my recipes with guild**.
+3. Open each profession window once (Alchemy, etc.). This tells RecipeBook what you know. (Already-opened professions from prior sessions are remembered.)
+4. Run `/rb guild debug on` so you can see the wire traffic while testing. Run `/rb guild debug off` when you're done.
+
+## What you should see
+
+### In the main window
+1. Open RecipeBook (`/rb` or minimap button).
+2. Click the **Character** dropdown — a **Guilds** section appears at the bottom with your guild listed.
+3. Pick your guild, then pick a profession.
+4. The **Source** column shows guildmate names who know each recipe.
+   - **Online + class color + zone** — that person is online and available
+   - **Greyed name** — offline
+   - `(no crafters)` — nobody in the guild (or nobody with RB installed) knows it yet
+5. **Right-click a crafter row** → menu with **Whisper**, **Invite**, **Who**, **Copy Name**.
+   - Whisper opens the chat edit box with a pre-filled polite message and the recipe link. You press Enter to actually send — RB never sends messages on your behalf.
+
+### In the debug chat with `/rb guild debug on`
+- Outbound: `[RB-debug] → HELLO|v1|…`
+- Inbound:  `[RB-debug] ← [Guildmate-Realm] HELLO|v1|…`
+
+Normal flow when a new tester joins:
+1. Their client broadcasts **HELLO** with profession hashes.
+2. Your client sees a hash it doesn't have and sends **NEED**.
+3. Their client sends **DATA** chunks (one or more per profession).
+4. Their name starts showing up as a crafter for recipes they know.
+
+This usually completes within 10 seconds of both clients being online.
+
+## Troubleshooting
+
+### `/rb guild` — what it tells you
+Always the first diagnostic step. Example good output:
+```
+Sharing enabled: yes
+Current guild:   YourGuild-YourRealm
+Transport:       addon messages on GUILD scope (no chat channel)
+Cached members:  3
+Debug logging:   off
+```
+
+### Guild entry doesn't show up in the dropdown
+- Not in a guild on this character? Guild Crafts only shows when you're in a guild.
+- Just joined a guild this session? Run `/rb guild mirror` to force a self-populate, then re-open the main window.
+
+### Cached members stuck at 1 (just you)
+- Confirm guildmate is running **RecipeBook 1.6.0** (older versions don't have this feature).
+- Confirm they have **Sharing enabled** — they should also see you appear after enabling.
+- Ask them to run `/rb guild hello` — forces an immediate HELLO broadcast.
+- With debug on, watch for `← [Guildmate] HELLO|v1|…` on your side within a second or two.
+
+### No crafter names showing under recipes
+- Did the profession window get opened on the crafting guildmate's client at least once (ever)? RB can't know what they can craft until it scans their prof window.
+- Make sure *they're* running `/rb guild mirror` to push their self-data into their store.
+
+### Right-click menu doesn't open
+- You need to right-click the actual recipe row (any of the columns) while in Guild view.
+- If the recipe has no crafters, the menu falls back to the normal recipe context menu.
+
+### Nuclear reset
+- `/rb guild forget` — drops the current guild's cached data. Harmless; will re-sync from scratch.
+- `/rb clearall` then re-open every profession window — rebuilds your own known-recipe data from zero.
+
+## Reporting problems
+
+If something's wrong, paste the output of:
+1. `/rb guild` (status block)
+2. The last 5–10 lines of `[RB-debug]` output with debug on
+
+…into the test channel. That's almost always enough to diagnose.

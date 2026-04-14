@@ -1,10 +1,16 @@
 -- GuildComm.lua — addon-message transport + handshake engine.
 --
 -- Pure-logic helpers are in GuildSync.lua. This file owns the WoW-facing
--- pieces: channel join, prefix registration, CHAT_MSG_ADDON dispatch,
--- and ChatThrottleLib-backed sending. The handshake state machine lives
+-- pieces: prefix registration, CHAT_MSG_ADDON dispatch, and
+-- ChatThrottleLib-backed sending. The handshake state machine lives
 -- here because it depends on the saved-vars schema and on calling back
 -- into the owner's live knownRecipes data.
+--
+-- Transport: addon messages on "GUILD" scope. These ride a separate
+-- packet stream and are invisible in guild chat; only clients that have
+-- registered our prefix dispatch them. No channel membership needed —
+-- we tried a custom channel first and kept stealing slot /1 from
+-- General under edge cases.
 
 RecipeBook = RecipeBook or {}
 RecipeBook.GuildComm = RecipeBook.GuildComm or {}
@@ -13,7 +19,6 @@ local GuildComm = RecipeBook.GuildComm
 local GuildSync = RecipeBook.GuildSync
 
 GuildComm.PREFIX         = "RB"
-GuildComm.CHANNEL_NAME   = "RecipeBookSync"
 GuildComm.HELLO_DEBOUNCE = 5       -- seconds
 GuildComm.KEEPALIVE_SECS = 600     -- 10 min
 GuildComm.MAX_GUILD_MEMBERS_PER_BROADCAST = 50
@@ -22,21 +27,50 @@ GuildComm.MAX_GUILD_MEMBERS_PER_BROADCAST = 50
 -- Rate-limited send via ChatThrottleLib (or direct fallback).
 -- ============================================================
 
--- Priority tiers used: "NORMAL" for HELLO/NEED, "BULK" for DATA chunks.
+-- ============================================================
+-- Debug logging
+-- ============================================================
+-- Toggled via /rb guild debug. When enabled, every outbound and
+-- inbound addon message is echoed to the default chat frame with
+-- direction arrows and sender. Stored in RecipeBookDB so the setting
+-- persists across /reload for extended debugging sessions.
+
+local function debugEnabled()
+    return RecipeBookDB and RecipeBookDB.guildDebug == true
+end
+
+GuildComm._debugEnabled = debugEnabled
+
+local function debugPrint(direction, msg, sender)
+    if not DEFAULT_CHAT_FRAME then return end
+    local arrow = (direction == "out") and "|cff00ff00→|r" or "|cff99ccff←|r"
+    local who = sender and (" |cffffd100[" .. sender .. "]|r") or ""
+    DEFAULT_CHAT_FRAME:AddMessage(
+        "|cff33bbff[RB-debug]|r " .. arrow .. who .. " " .. tostring(msg))
+end
+
+-- Priority tiers: "NORMAL" for HELLO/NEED, "BULK" for DATA chunks.
 local function rawSend(text, priority)
     priority = priority or "NORMAL"
+    if not IsInGuild or not IsInGuild() then return end
+    if debugEnabled() then debugPrint("out", text) end
     local ctl = _G.ChatThrottleLib
-    local idx = GuildComm._channelIndex
-    if not idx then return end
     if ctl and ctl.SendAddonMessage then
-        ctl:SendAddonMessage(priority, GuildComm.PREFIX, text, "CHANNEL", idx)
+        ctl:SendAddonMessage(priority, GuildComm.PREFIX, text, "GUILD")
     else
         local fn = (_G.C_ChatInfo and _G.C_ChatInfo.SendAddonMessage) or _G.SendAddonMessage
-        if fn then fn(GuildComm.PREFIX, text, "CHANNEL", idx) end
+        if fn then fn(GuildComm.PREFIX, text, "GUILD") end
     end
 end
 
 GuildComm._rawSend = rawSend  -- exposed for tests
+GuildComm._debugPrint = debugPrint
+
+-- Register our addon-message prefix. Safe to call repeatedly.
+function GuildComm.RegisterPrefix()
+    local reg = _G.C_ChatInfo and _G.C_ChatInfo.RegisterAddonMessagePrefix
+    if reg then reg(GuildComm.PREFIX) end
+end
 
 -- ============================================================
 -- Guild helpers
@@ -197,7 +231,6 @@ GuildComm._helloPending = false
 
 local function canBroadcast()
     if not RecipeBookDB or RecipeBookDB.guildSharingEnabled ~= true then return false end
-    if not GuildComm._channelIndex then return false end
     if not GuildComm.CurrentGuildKey() then return false end
     return true
 end
@@ -231,7 +264,7 @@ function GuildComm.BroadcastHelloImmediate()
 end
 
 function GuildComm.BroadcastBye()
-    if not GuildComm._channelIndex then return end
+    if not IsInGuild or not IsInGuild() then return end
     local myKey = RecipeBook:GetMyCharKey()
     if not myKey then return end
     rawSend(GuildSync.EncodeBye(myKey), "NORMAL")
@@ -297,6 +330,7 @@ end
 -- "Name-Realm" on modern clients; we accept either).
 function GuildComm.HandleMessage(msg, senderCharKey)
     if not msg then return end
+    if debugEnabled() then debugPrint("in", msg, senderCharKey) end
     if not isInCurrentGuild(senderCharKey) then return end
     local record = GuildSync.Decode(msg)
     if not record then return end
@@ -318,31 +352,3 @@ GuildComm._handleHello = handleHello
 GuildComm._handleNeed = handleNeed
 GuildComm._handleData = handleData
 
--- ============================================================
--- Channel lifecycle
--- ============================================================
-
-function GuildComm.JoinChannel()
-    if not _G.JoinTemporaryChannel then return end
-    -- JoinTemporaryChannel returns the channel index on success.
-    local idx = _G.JoinTemporaryChannel(GuildComm.CHANNEL_NAME)
-    if not idx and _G.GetChannelName then
-        idx = _G.GetChannelName(GuildComm.CHANNEL_NAME)
-    end
-    GuildComm._channelIndex = (type(idx) == "number" and idx > 0) and idx or nil
-
-    local reg = _G.C_ChatInfo and _G.C_ChatInfo.RegisterAddonMessagePrefix
-    if reg then reg(GuildComm.PREFIX) end
-end
-
-function GuildComm.LeaveChannel()
-    if not _G.LeaveChannelByName then return end
-    _G.LeaveChannelByName(GuildComm.CHANNEL_NAME)
-    GuildComm._channelIndex = nil
-end
-
-function GuildComm.RefreshChannelIndex()
-    if not _G.GetChannelName then return end
-    local idx = _G.GetChannelName(GuildComm.CHANNEL_NAME)
-    GuildComm._channelIndex = (type(idx) == "number" and idx > 0) and idx or nil
-end

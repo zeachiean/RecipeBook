@@ -30,8 +30,6 @@ function T.setup()
         { name = "Buddy",     class = "MAGE",    online = true,  zone = "Stormwind" },
         { name = "Offline",   class = "ROGUE",   online = false, zone = "Silvermoon" },
     })
-    -- Pretend we've joined the channel.
-    RecipeBook.GuildComm._channelIndex = 5
 
     -- Clear any lingering reassembly buffers.
     RecipeBook.GuildSync._buffers = {}
@@ -219,7 +217,7 @@ function T.test_privacy_gated_hello_fires_when_enabled()
     assert(#MockWoW._addonMessages == 1, "expected 1 HELLO, got " .. #MockWoW._addonMessages)
     local m = MockWoW._addonMessages[1]
     assert(m.prefix == "RB")
-    assert(m.scope == "CHANNEL")
+    assert(m.scope == "GUILD", "expected GUILD scope, got " .. tostring(m.scope))
     assert(m.text:find("^HELLO|v1|"), "wrong prefix: " .. m.text)
 end
 
@@ -327,6 +325,18 @@ function T.test_refresh_self_meta_updates_dv_and_hash()
     local prof = guild.members[myKey].professions[ALCHEMY]
     assert(prof and #prof.recipes == 2)
     assert(prof.recipes[1] == 100 and prof.recipes[2] == 200)
+end
+
+function T.test_debug_flag_is_off_by_default()
+    assert(not RecipeBook.GuildComm._debugEnabled(),
+        "debug should be off unless explicitly enabled")
+end
+
+function T.test_debug_flag_reflects_saved_var()
+    RecipeBookDB.guildDebug = true
+    assert(RecipeBook.GuildComm._debugEnabled())
+    RecipeBookDB.guildDebug = false
+    assert(not RecipeBook.GuildComm._debugEnabled())
 end
 
 function T.test_mirror_all_self_populates_all_known_professions()

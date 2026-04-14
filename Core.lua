@@ -586,8 +586,10 @@ local function maybePromptGuildShare()
 end
 
 local function initGuildSubsystems()
-    if RecipeBook.GuildComm and RecipeBook.GuildComm.JoinChannel then
-        RecipeBook.GuildComm.JoinChannel()
+    -- Addon messages are sent on "GUILD" scope — invisible to guild chat,
+    -- and no channel membership is needed. We just register the prefix.
+    if RecipeBook.GuildComm and RecipeBook.GuildComm.RegisterPrefix then
+        RecipeBook.GuildComm.RegisterPrefix()
     end
     if RecipeBook.GuildRoster and RecipeBook.GuildRoster.Request then
         RecipeBook.GuildRoster:Request()
@@ -761,8 +763,23 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
                 RecipeBook:RefreshRecipeList()
             end
         elseif sub == "hello" then
-            if gc and gc.BroadcastHelloImmediate then gc.BroadcastHelloImmediate() end
-            RecipeBook:Print("HELLO broadcast triggered.")
+            if not (IsInGuild and IsInGuild()) then
+                RecipeBook:Print("|cffff0000Not in a guild|r — HELLO only broadcasts to guildmates.")
+            elseif gc and gc.BroadcastHelloImmediate then
+                gc.BroadcastHelloImmediate()
+                RecipeBook:Print("HELLO broadcast triggered.")
+            end
+        elseif sub == "debug" or sub:match("^debug%s") then
+            local arg = sub:match("^debug%s+(%S+)$")
+            if arg == "on" then
+                RecipeBookDB.guildDebug = true
+            elseif arg == "off" then
+                RecipeBookDB.guildDebug = false
+            else
+                RecipeBookDB.guildDebug = not RecipeBookDB.guildDebug
+            end
+            RecipeBook:Print("Guild Crafts debug: "
+                .. (RecipeBookDB.guildDebug and "|cff00ff00ON|r" or "|cffff0000OFF|r"))
         elseif sub == "forget" then
             local gkey = gc and gc.CurrentGuildKey()
             if gkey and RecipeBookDB.guilds then
@@ -781,19 +798,20 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
             -- Default: diagnostic status
             local enabled = RecipeBookDB and RecipeBookDB.guildSharingEnabled
             local gkey = gc and gc.CurrentGuildKey()
-            local idx  = gc and gc._channelIndex
             RecipeBook:Print("--- Guild Crafts status ---")
             RecipeBook:Print("Sharing enabled: " .. (enabled == true and "|cff00ff00yes|r"
                 or enabled == false and "|cffff0000no|r" or "|cffffff00(not prompted)|r"))
             RecipeBook:Print("Current guild:   " .. (gkey or "|cff888888(none)|r"))
-            RecipeBook:Print("Channel index:   " .. (idx or "|cff888888(not joined)|r"))
+            RecipeBook:Print("Transport:       addon messages on GUILD scope (no chat channel)")
+            RecipeBook:Print("Debug logging:   "
+                .. (RecipeBookDB.guildDebug and "|cff00ff00ON|r" or "|cff888888off|r"))
             local ncached = 0
             if gkey and RecipeBookDB.guilds and RecipeBookDB.guilds[gkey]
                 and RecipeBookDB.guilds[gkey].members then
                 for _ in pairs(RecipeBookDB.guilds[gkey].members) do ncached = ncached + 1 end
             end
             RecipeBook:Print("Cached members:  " .. ncached)
-            RecipeBook:Print("Subcommands: /rb guild mirror | hello | forget")
+            RecipeBook:Print("Subcommands: /rb guild mirror | hello | debug [on|off] | forget")
         end
     elseif msg == "minimap" then
         RecipeBook:ToggleMinimapButton()

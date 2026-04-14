@@ -16,6 +16,7 @@ ignore:
   - BREAKBONE_BRAND.md
   - .claude
   - site-content.json
+  - GUILD_TEST.txt
 
   # Tooling output
   - graphify-out
