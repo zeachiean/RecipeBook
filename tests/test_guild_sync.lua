@@ -327,6 +327,46 @@ function T.test_refresh_self_meta_updates_dv_and_hash()
     assert(prof.recipes[1] == 100 and prof.recipes[2] == 200)
 end
 
+-- ============================================================
+-- Guild profession filter (Hide Secondary / Hide Gathering)
+-- ============================================================
+
+function T.test_profession_not_hidden_when_flags_off()
+    RecipeBookDB.guildHideSecondary = false
+    RecipeBookDB.guildHideGathering = false
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(ALCHEMY))
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(356))   -- Fishing
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(186))   -- Mining
+end
+
+function T.test_hide_secondary_hides_cooking_fishing_firstaid_poisons()
+    RecipeBookDB.guildHideSecondary = true
+    RecipeBookDB.guildHideGathering = false
+    assert(RecipeBook:IsProfessionHiddenInGuildView(185),  "Cooking should be hidden")
+    assert(RecipeBook:IsProfessionHiddenInGuildView(129),  "First Aid should be hidden")
+    assert(RecipeBook:IsProfessionHiddenInGuildView(356),  "Fishing should be hidden")
+    assert(RecipeBook:IsProfessionHiddenInGuildView(2842), "Poisons should be hidden")
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(ALCHEMY), "Alchemy should stay")
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(186),     "Mining is gathering, not secondary")
+end
+
+function T.test_hide_gathering_hides_only_mining()
+    RecipeBookDB.guildHideSecondary = false
+    RecipeBookDB.guildHideGathering = true
+    assert(RecipeBook:IsProfessionHiddenInGuildView(186),     "Mining should be hidden")
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(185), "Cooking stays when only gathering hidden")
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(ALCHEMY))
+end
+
+function T.test_hide_both_hides_all_matching()
+    RecipeBookDB.guildHideSecondary = true
+    RecipeBookDB.guildHideGathering = true
+    assert(RecipeBook:IsProfessionHiddenInGuildView(185))   -- Cooking
+    assert(RecipeBook:IsProfessionHiddenInGuildView(186))   -- Mining
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(ALCHEMY))
+    assert(not RecipeBook:IsProfessionHiddenInGuildView(TAILORING))
+end
+
 function T.test_debug_flag_is_off_by_default()
     assert(not RecipeBook.GuildComm._debugEnabled(),
         "debug should be off unless explicitly enabled")

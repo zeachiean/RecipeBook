@@ -26,12 +26,14 @@ local function CharDisplayName(charKey)
     return entry.name or charKey
 end
 
--- Display label for a guild key, including a "(not a member)" suffix
--- when the player is no longer in that guild.
+-- Display label for a guild key in guild-chat green, with a
+-- "(not a member)" suffix when the player is no longer in that guild.
 local function GuildDisplayName(guildKey)
     if not guildKey then return "?" end
     local guild = RecipeBookDB and RecipeBookDB.guilds and RecipeBookDB.guilds[guildKey]
-    local label = (guild and guild.name) or guildKey
+    local name = (guild and guild.name) or guildKey
+    local green = RecipeBook.GUILD_CHAT_COLOR or "|cff40ff40"
+    local label = green .. name .. "|r"
     local currentKey = RecipeBook.GuildComm and RecipeBook.GuildComm.CurrentGuildKey()
     if currentKey ~= guildKey then
         label = label .. " |cff888888(not a member)|r"
@@ -147,10 +149,20 @@ function RecipeBook:CreateMainFrame()
     charLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row0Y - 5)
     charLabel:SetText("Character:")
     charLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+    frame._charLabel = charLabel
 
     charDropdown = CreateFrame("Frame", "RecipeBookCharDropdown", frame, "UIDropDownMenuTemplate")
     charDropdown:SetPoint("TOPLEFT", frame, "TOPLEFT", ddLeft - 16, row0Y + 4)
     UIDropDownMenu_SetWidth(charDropdown, UI.DROPDOWN_WIDTH)
+    frame._charDropdown = charDropdown
+
+    -- Guild-view-only: "<online members> / <cached online crafters>" counter,
+    -- anchored to the right of the char dropdown. Hidden in character view.
+    local guildCountText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontNormal")
+    guildCountText:SetPoint("LEFT", charDropdown, "RIGHT", -2, 2)
+    guildCountText:SetTextColor(1, 0.82, 0)
+    guildCountText:Hide()
+    frame._guildCountText = guildCountText
 
     local function CharDropdown_Init(self, level)
         local myKey = RecipeBook:GetMyCharKey()
@@ -310,6 +322,39 @@ function RecipeBook:CreateMainFrame()
     UIDropDownMenu_SetWidth(profDropdown, UI.DROPDOWN_WIDTH)
 
     local function ProfDropdown_Init(self, level)
+        -- Guild view: single <Guild> header in guild-chat green, with
+        -- "<Profession>  (<online>)" rows — online crafters only.
+        local guildKey = RecipeBook:GetViewedGuildKey()
+        if guildKey then
+            local guild = RecipeBookDB and RecipeBookDB.guilds
+                and RecipeBookDB.guilds[guildKey]
+            local guildName = (guild and guild.name) or guildKey
+            local header = UIDropDownMenu_CreateInfo()
+            header.text = (RecipeBook.GUILD_CHAT_COLOR or "|cff40ff40") .. guildName .. "|r"
+            header.isTitle = true
+            header.notCheckable = true
+            UIDropDownMenu_AddButton(header, level)
+
+            for _, prof in ipairs(RecipeBook.PROFESSIONS) do
+                local hidden = RecipeBook:IsProfessionHiddenInGuildView(prof.id)
+                local total, online = 0, 0
+                if not hidden and RecipeBook.UIGuildCrafters then
+                    total, online = RecipeBook.UIGuildCrafters:CountMembersWithProfession(prof.id, guildKey)
+                end
+                if not hidden and total > 0 then
+                    local info = UIDropDownMenu_CreateInfo()
+                    info.text = prof.name .. "  |cffffffff(" .. online .. ")|r"
+                    info.value = prof.id
+                    info.notCheckable = true
+                    info.func = function()
+                        RecipeBook:SelectProfession(prof.id)
+                    end
+                    UIDropDownMenu_AddButton(info, level)
+                end
+            end
+            return
+        end
+
         local viewedKey = RecipeBook:GetViewedCharKey()
         local isOther = viewedKey ~= RecipeBook:GetMyCharKey()
         local viewedName = CharDisplayName(viewedKey)
@@ -371,13 +416,26 @@ function RecipeBook:CreateMainFrame()
     end
     UIDropDownMenu_Initialize(profDropdown, ProfDropdown_Init)
 
-    -- Restore selected profession
+    -- Restore selected profession. Label formatting matches
+    -- SelectProfession: skill level for character views, online crafter
+    -- count for guild views.
     if RecipeBookCharDB and RecipeBookCharDB.selectedProfession then
         selectedProfession = RecipeBookCharDB.selectedProfession
         local name = RecipeBook.PROFESSION_NAMES[selectedProfession] or "Select..."
-        local skill = RecipeBook:GetProfessionSkill(selectedProfession)
-        if skill then
-            name = name .. "  |cffffffff(" .. skill .. ")|r"
+        local guildKey = RecipeBook.GetViewedGuildKey and RecipeBook:GetViewedGuildKey()
+        if guildKey then
+            local online = 0
+            if RecipeBook.UIGuildCrafters then
+                local _, n = RecipeBook.UIGuildCrafters:CountMembersWithProfession(
+                    selectedProfession, guildKey)
+                online = n or 0
+            end
+            name = name .. "  |cffffffff(" .. online .. ")|r"
+        else
+            local skill = RecipeBook:GetProfessionSkill(selectedProfession)
+            if skill then
+                name = name .. "  |cffffffff(" .. skill .. ")|r"
+            end
         end
         UIDropDownMenu_SetText(profDropdown, name)
     else
@@ -397,6 +455,33 @@ function RecipeBook:CreateMainFrame()
         RecipeBook:RefreshRecipeList()
     end)
     frame._hideKnownCheck = hideKnownCheck
+    frame._recipesTab = recipesTab
+    frame._wishlistTab = wishlistTab
+
+    -- Guild-view-only: "Hide Unknown Guild Recipes" — hides recipes
+    -- that no one in the guild can currently craft. Shares screen real
+    -- estate with hideKnownCheck (mutually exclusive via view mode).
+    local guildHideUnknownCheck = CreateFrame("CheckButton", "RecipeBookGuildHideUnknown", frame, "UICheckButtonTemplate")
+    guildHideUnknownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 110, 0)
+    guildHideUnknownCheck:SetPoint("TOP", profLabel, "TOP", 0, 5)
+    guildHideUnknownCheck:SetSize(20, 20)
+    do
+        local t = _G["RecipeBookGuildHideUnknownText"]
+        t:SetText("Hide Unknown Guild Recipes")
+        t:SetFontObject("RecipeBookFontSmall")
+        -- Flip the label to the left of the checkbox so the long
+        -- string doesn't overflow the frame's right edge.
+        t:ClearAllPoints()
+        t:SetPoint("RIGHT", guildHideUnknownCheck, "LEFT", -2, 0)
+        t:SetJustifyH("RIGHT")
+    end
+    guildHideUnknownCheck:SetScript("OnClick", function(self)
+        RecipeBookCharDB = RecipeBookCharDB or {}
+        RecipeBookCharDB.guildHideUnknownRecipes = self:GetChecked() and true or false
+        RecipeBook:RefreshRecipeList()
+    end)
+    guildHideUnknownCheck:Hide()
+    frame._guildUnknownCheck = guildHideUnknownCheck
 
     -- Hide Unlearnable checkbox (to the left of Hide Known)
     hideUnlearnableCheck = CreateFrame("CheckButton", "RecipeBookHideUnlearnable", frame, "UICheckButtonTemplate")
@@ -729,9 +814,19 @@ function RecipeBook:SelectProfession(profID)
     RecipeBookCharDB.selectedProfession = profID
     if not profDropdown then return end
     local name = self.PROFESSION_NAMES[profID] or "Select..."
-    local skill = self:GetProfessionSkill(profID)
-    if skill then
-        name = name .. "  |cffffffff(" .. skill .. ")|r"
+    local guildKey = self.GetViewedGuildKey and self:GetViewedGuildKey()
+    if guildKey then
+        local online = 0
+        if self.UIGuildCrafters then
+            local _, n = self.UIGuildCrafters:CountMembersWithProfession(profID, guildKey)
+            online = n or 0
+        end
+        name = name .. "  |cffffffff(" .. online .. ")|r"
+    else
+        local skill = self:GetProfessionSkill(profID)
+        if skill then
+            name = name .. "  |cffffffff(" .. skill .. ")|r"
+        end
     end
     UIDropDownMenu_SetText(profDropdown, name)
     self:UpdateHideKnownState()

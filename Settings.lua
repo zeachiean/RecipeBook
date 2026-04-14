@@ -5,7 +5,7 @@ RecipeBook = RecipeBook or {}
 
 local UI = RecipeBook.UI
 
-local PANEL_WIDTH = 400
+local PANEL_WIDTH = 460
 local PANEL_HEIGHT = 480
 local CONTENT_WIDTH = PANEL_WIDTH - 12 - 32 - 16  -- left inset, scrollbar, padding
 
@@ -517,22 +517,38 @@ local whisperLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontHighl
 whisperLabel:SetPoint("TOPLEFT", guildHelp, "BOTTOMLEFT", -4, -12)
 whisperLabel:SetText("Whisper template (use |cffffd100{name}|r and |cffffd100{recipe}|r):")
 
-local whisperBox = CreateFrame("EditBox", "RecipeBookWhisperTemplateBox", scrollChild, "InputBoxTemplate")
-whisperBox:SetPoint("TOPLEFT", whisperLabel, "BOTTOMLEFT", 6, -6)
-whisperBox:SetSize(CONTENT_WIDTH - 20, 22)
+-- Multi-line EditBox in a bordered backdrop frame. InputBoxTemplate is
+-- single-line only, so we build the chrome manually.
+local whisperBG = CreateFrame("Frame", nil, scrollChild, "BackdropTemplate")
+whisperBG:SetPoint("TOPLEFT", whisperLabel, "BOTTOMLEFT", 0, -6)
+whisperBG:SetSize(CONTENT_WIDTH - 10, 60)
+whisperBG:SetBackdrop({
+    bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 12,
+    insets = { left = 3, right = 3, top = 3, bottom = 3 },
+})
+whisperBG:SetBackdropColor(0, 0, 0, 0.5)
+whisperBG:SetBackdropBorderColor(0.4, 0.4, 0.4, 1)
+
+local whisperBox = CreateFrame("EditBox", "RecipeBookWhisperTemplateBox", whisperBG)
+whisperBox:SetMultiLine(true)
 whisperBox:SetAutoFocus(false)
 whisperBox:SetFontObject(ChatFontNormal)
-whisperBox:SetScript("OnEnterPressed", function(self)
-    RecipeBookDB.whisperTemplate = self:GetText()
-    self:ClearFocus()
-end)
+whisperBox:SetPoint("TOPLEFT", whisperBG, "TOPLEFT", 6, -6)
+whisperBox:SetPoint("BOTTOMRIGHT", whisperBG, "BOTTOMRIGHT", -6, 6)
+whisperBox:SetTextColor(1, 1, 1)
+whisperBox:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 whisperBox:SetScript("OnEditFocusLost", function(self)
     RecipeBookDB.whisperTemplate = self:GetText()
 end)
+-- Click anywhere in the bordered frame to focus the edit box.
+whisperBG:EnableMouse(true)
+whisperBG:SetScript("OnMouseDown", function() whisperBox:SetFocus() end)
 
 local resetTemplateBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 resetTemplateBtn:SetSize(140, 22)
-resetTemplateBtn:SetPoint("TOPLEFT", whisperBox, "BOTTOMLEFT", -4, -8)
+resetTemplateBtn:SetPoint("TOPLEFT", whisperBG, "BOTTOMLEFT", 0, -8)
 resetTemplateBtn:SetText("Reset to default")
 resetTemplateBtn:SetScript("OnClick", function()
     RecipeBookDB.whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE
@@ -573,11 +589,49 @@ forgetBtn:SetScript("OnClick", function()
     if dlg then dlg.data = gkey end
 end)
 
+local hideSecondaryCheck = CreateFrame("CheckButton", "RecipeBookGuildHideSecondary", scrollChild, "UICheckButtonTemplate")
+hideSecondaryCheck:SetPoint("TOPLEFT", resetTemplateBtn, "BOTTOMLEFT", 4, -14)
+hideSecondaryCheck:SetSize(24, 24)
+_G["RecipeBookGuildHideSecondaryText"]:SetText("Hide secondary professions in Guild view")
+_G["RecipeBookGuildHideSecondaryText"]:SetFontObject("GameFontHighlight")
+hideSecondaryCheck:SetScript("OnClick", function(self)
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.guildHideSecondary = self:GetChecked() and true or false
+    if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+        RecipeBook:RefreshRecipeList()
+    end
+end)
+
+local hideSecondaryHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+hideSecondaryHelp:SetPoint("TOPLEFT", hideSecondaryCheck, "BOTTOMLEFT", 4, -2)
+hideSecondaryHelp:SetWidth(CONTENT_WIDTH - 8)
+hideSecondaryHelp:SetJustifyH("LEFT")
+hideSecondaryHelp:SetText("Removes Cooking, First Aid, Fishing, and Poisons from the Guild profession list.")
+
+local hideGatheringCheck = CreateFrame("CheckButton", "RecipeBookGuildHideGathering", scrollChild, "UICheckButtonTemplate")
+hideGatheringCheck:SetPoint("TOPLEFT", hideSecondaryHelp, "BOTTOMLEFT", -4, -8)
+hideGatheringCheck:SetSize(24, 24)
+_G["RecipeBookGuildHideGatheringText"]:SetText("Hide gathering professions in Guild view")
+_G["RecipeBookGuildHideGatheringText"]:SetFontObject("GameFontHighlight")
+hideGatheringCheck:SetScript("OnClick", function(self)
+    RecipeBookDB = RecipeBookDB or {}
+    RecipeBookDB.guildHideGathering = self:GetChecked() and true or false
+    if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+        RecipeBook:RefreshRecipeList()
+    end
+end)
+
+local hideGatheringHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontDisableSmall")
+hideGatheringHelp:SetPoint("TOPLEFT", hideGatheringCheck, "BOTTOMLEFT", 4, -2)
+hideGatheringHelp:SetWidth(CONTENT_WIDTH - 8)
+hideGatheringHelp:SetJustifyH("LEFT")
+hideGatheringHelp:SetText("Removes Mining from the Guild profession list. (Herbalism and Skinning have no recipes to share.)")
+
 -- ============================================================
 -- Section: About
 -- ============================================================
 
-local guildSectionEnd = CreateSectionEnd(resetTemplateBtn, -4)
+local guildSectionEnd = CreateSectionEnd(hideGatheringHelp, -4)
 
 local aboutHeader, aboutLine = CreateSectionHeader(guildSectionEnd, "About")
 
@@ -657,6 +711,8 @@ panel:SetScript("OnShow", function()
     local tmpl = (RecipeBookDB and RecipeBookDB.whisperTemplate)
         or RecipeBook.DEFAULT_WHISPER_TEMPLATE or ""
     whisperBox:SetText(tmpl)
+    hideSecondaryCheck:SetChecked(RecipeBookDB and RecipeBookDB.guildHideSecondary and true or false)
+    hideGatheringCheck:SetChecked(RecipeBookDB and RecipeBookDB.guildHideGathering and true or false)
 end)
 
 -- ============================================================

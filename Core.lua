@@ -31,6 +31,10 @@ fontWhite:SetTextColor(1, 1, 1)
 -- Chat prefix
 local CHAT_PREFIX = "|cff33bbff[RecipeBook]|r "
 
+-- Guild-chat default color (matches `/g` output). Used in the
+-- Character dropdown and the guild-view profession header.
+RecipeBook.GUILD_CHAT_COLOR = "|cff40ff40"
+
 -- Default whisper template for guild craft requests. Placeholders:
 --   {name}   — target guildmate's character name
 --   {recipe} — clickable recipe link
@@ -61,6 +65,30 @@ RecipeBook.PROFESSIONS = {
 RecipeBook.PROFESSION_NAMES = {}
 for _, prof in ipairs(RecipeBook.PROFESSIONS) do
     RecipeBook.PROFESSION_NAMES[prof.id] = prof.name
+end
+
+-- Profession categories. Used by the Guild view to optionally hide
+-- less-useful-for-crafting groups. Anything not listed here is treated
+-- as a primary crafting profession (Alchemy, Blacksmithing, etc.).
+-- Note: Herbalism and Skinning are intentionally absent from
+-- PROFESSIONS (no recipes). Mining appears because of smelting recipes.
+RecipeBook.PROFESSION_CATEGORIES = {
+    [185]  = "secondary",  -- Cooking
+    [129]  = "secondary",  -- First Aid
+    [356]  = "secondary",  -- Fishing
+    [2842] = "secondary",  -- Poisons
+    [186]  = "gathering",  -- Mining
+}
+
+-- Return true when a profession should be hidden from the Guild view's
+-- profession dropdown based on the user's Settings toggles. Returns
+-- false for non-guild views (the toggles are guild-specific).
+function RecipeBook:IsProfessionHiddenInGuildView(profID)
+    if not RecipeBookDB then return false end
+    local cat = RecipeBook.PROFESSION_CATEGORIES[profID]
+    if cat == "secondary" and RecipeBookDB.guildHideSecondary then return true end
+    if cat == "gathering" and RecipeBookDB.guildHideGathering then return true end
+    return false
 end
 
 -- Source type display order and labels

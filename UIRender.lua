@@ -330,7 +330,8 @@ local function OnRecipeClick(self, button)
                 link = string.format("|cff71d5ff|Hspell:%d|h[%s]|h|r",
                     data.teaches, data.name or "Recipe")
             end
-            RecipeBook.UIGuildCrafters:OpenMenu(self, crafter, link)
+            RecipeBook.UIGuildCrafters:OpenMenu(self, crafter, link,
+                { profID = self._profID, recipeID = self._recipeID })
             return
         end
     end
@@ -869,6 +870,34 @@ local function BuildGuildDisplayData(filters)
                 end
             end
 
+            -- Precompute whether ANY guildmate knows this recipe — used
+            -- to decide name color (gray when unknown) and to apply the
+            -- "Hide Unknown Guild Recipes" filter below.
+            local crafterCount = 0
+            if RecipeBook.UIGuildCrafters then
+                local guildKey = RecipeBook:GetViewedGuildKey()
+                crafterCount = RecipeBook.UIGuildCrafters:CountCrafters(profID, recipeID, guildKey)
+            end
+            local guildKnown = crafterCount > 0
+
+            if not dominated and RecipeBookCharDB
+                and RecipeBookCharDB.guildHideUnknownRecipes
+                and not guildKnown then
+                dominated = true
+            end
+
+            -- Zone/continent filter in guild view: match by crafter's
+            -- current location, not by recipe source location.
+            if not dominated and (filters.zone or filters.continent) then
+                local guildKey = RecipeBook:GetViewedGuildKey()
+                if RecipeBook.UIGuildCrafters and guildKey then
+                    if not RecipeBook.UIGuildCrafters:AnyCrafterMatchesZoneFilter(
+                        profID, recipeID, guildKey, filters.zone, filters.continent) then
+                        dominated = true
+                    end
+                end
+            end
+
             if not dominated then
                 totalShown = totalShown + 1
                 groups.crafter[#groups.crafter + 1] = {
@@ -881,6 +910,8 @@ local function BuildGuildDisplayData(filters)
                     isLearnable = not RecipeBook:IsRecipeKnown(profID, recipeID, myKey)
                         and RecipeBook:IsRecipeLearnable(profID, recipeID),
                     difficulty = data.difficulty,
+                    guildKnown = guildKnown,
+                    sourceCount = crafterCount,
                     -- sourceName/sourceZone intentionally nil — filled by UIGuildCrafters.
                 }
             end
@@ -1078,6 +1109,41 @@ function RecipeBook:RefreshRecipeList()
     local scrollChild = self.mainFrame._scrollChild
     if not scrollChild then return end
 
+    -- Show/hide chrome specific to character vs guild view:
+    -- guild view has no Hide-Known/Hide-Unlearnable filters and no
+    -- Recipes/Wishlist tabs (neither applies to crafter data).
+    do
+        local inGuildView = self:GetViewedGuildKey() ~= nil
+        local mf = self.mainFrame
+        local function setShown(f, show)
+            if not f then return end
+            if show then f:Show() else f:Hide() end
+        end
+        setShown(mf._hideKnownCheck,        not inGuildView)
+        setShown(mf._hideUnlearnableCheck,  not inGuildView)
+        setShown(mf._recipesTab,            not inGuildView)
+        setShown(mf._wishlistTab,           not inGuildView)
+        setShown(mf._guildUnknownCheck,     inGuildView)
+        if mf._guildUnknownCheck and RecipeBookCharDB then
+            mf._guildUnknownCheck:SetChecked(RecipeBookCharDB.guildHideUnknownRecipes == true)
+        end
+        if mf._charLabel then
+            mf._charLabel:SetText(inGuildView and "Guild:" or "Character:")
+        end
+        if mf._guildCountText then
+            if inGuildView and RecipeBook.UIGuildCrafters then
+                local onlineTotal  = RecipeBook.UIGuildCrafters:CountOnlineGuildMembers()
+                local onlineCached = RecipeBook.UIGuildCrafters:CountOnlineCachedMembers()
+                -- X / Y  —  X = total online, Y = online with cached recipe data
+                mf._guildCountText:SetText(
+                    "|cffffffff" .. onlineTotal .. "|r / |cffffd100" .. onlineCached .. "|r")
+                mf._guildCountText:Show()
+            else
+                mf._guildCountText:Hide()
+            end
+        end
+    end
+
     -- Recycle existing rows
     for _, row in ipairs(displayedRows) do
         self:RecycleRow(row)
@@ -1164,7 +1230,16 @@ function RecipeBook:RefreshRecipeList()
                         end
                     end
 
-                    if entry.isIgnored then
+                    if entry.sourceType == "crafter" then
+                        -- Guild view: gray for recipes no guildmate knows,
+                        -- crafted-item quality color when at least one does.
+                        if not entry.guildKnown then
+                            row._nameText:SetTextColor(0.5, 0.5, 0.5)
+                        else
+                            local qc = GetRecipeQualityColor(filters.professionID, entry.recipeID)
+                            row._nameText:SetTextColor(qc.r, qc.g, qc.b)
+                        end
+                    elseif entry.isIgnored then
                         row._nameText:SetTextColor(0.4, 0.4, 0.4)
                     elseif entry.isKnown then
                         row._nameText:SetTextColor(UI.COLOR_KNOWN.r, UI.COLOR_KNOWN.g, UI.COLOR_KNOWN.b)
@@ -1216,12 +1291,18 @@ function RecipeBook:RefreshRecipeList()
                     end
 
                     -- Source cell: guild view delegates to UIGuildCrafters;
-                    -- normal view shows the chosen best NPC / zone.
+                    -- normal view shows the chosen best NPC / zone. The
+                    -- _guildCrafters field is the signal used by
+                    -- OnRecipeClick to route right-click to the crafter
+                    -- menu — explicitly clear it on non-guild rows so a
+                    -- recycled row from a prior guild view doesn't leak
+                    -- stale state.
                     if entry.sourceType == "crafter" and RecipeBook.UIGuildCrafters then
                         RecipeBook.UIGuildCrafters:RenderCraftersCell(
                             row, filters.professionID, entry.recipeID)
                         row._sourceText:SetTextColor(UI.COLOR_SOURCE.r, UI.COLOR_SOURCE.g, UI.COLOR_SOURCE.b)
                     else
+                        row._guildCrafters = nil
                         local sourceStr = entry.sourceName or ""
                         if entry.sourceZone then
                             sourceStr = sourceStr .. " |cff999999(" .. entry.sourceZone .. ")|r"
@@ -1239,8 +1320,9 @@ function RecipeBook:RefreshRecipeList()
                         end
                     end
 
-                    -- Override all colors for ignored recipes
-                    if entry.isIgnored then
+                    -- Override all colors for ignored recipes (character view only —
+                    -- the "ignore" flag is per-character and doesn't apply to guilds).
+                    if entry.isIgnored and entry.sourceType ~= "crafter" then
                         row._skillText:SetTextColor(0.4, 0.4, 0.4)
                         if row._countText then row._countText:SetTextColor(0.4, 0.4, 0.4) end
                         row._sourceText:SetTextColor(0.4, 0.4, 0.4)
