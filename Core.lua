@@ -592,6 +592,12 @@ local function initGuildSubsystems()
     if RecipeBook.GuildRoster and RecipeBook.GuildRoster.Request then
         RecipeBook.GuildRoster:Request()
     end
+    -- Populate the guild store with self-data so the Guild view shows
+    -- something useful before any guildmate's HELLO arrives (and also
+    -- when you're the only one in your guild running RecipeBook).
+    if RecipeBook.GuildComm and RecipeBook.GuildComm.MirrorAllSelf then
+        RecipeBook.GuildComm.MirrorAllSelf()
+    end
 end
 
 -- Event frame
@@ -629,6 +635,9 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         end
         if RecipeBook.GuildRoster then
             RecipeBook.GuildRoster:Request()
+        end
+        if RecipeBook.GuildComm and RecipeBook.GuildComm.MirrorAllSelf then
+            RecipeBook.GuildComm.MirrorAllSelf()
         end
         maybePromptGuildShare()
 
@@ -740,6 +749,51 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
             RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
         elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
+        end
+    elseif msg == "guild" or msg:match("^guild%s") then
+        local sub = msg:match("^guild%s+(.+)$") or ""
+        sub = strtrim(sub)
+        local gc = RecipeBook.GuildComm
+        if sub == "mirror" then
+            local n = gc and gc.MirrorAllSelf and gc.MirrorAllSelf() or 0
+            RecipeBook:Print("Mirrored " .. n .. " known professions into guild store.")
+            if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+                RecipeBook:RefreshRecipeList()
+            end
+        elseif sub == "hello" then
+            if gc and gc.BroadcastHelloImmediate then gc.BroadcastHelloImmediate() end
+            RecipeBook:Print("HELLO broadcast triggered.")
+        elseif sub == "forget" then
+            local gkey = gc and gc.CurrentGuildKey()
+            if gkey and RecipeBookDB.guilds then
+                RecipeBookDB.guilds[gkey] = nil
+                if RecipeBookCharDB and RecipeBookCharDB.viewingGuildKey == gkey then
+                    RecipeBookCharDB.viewingGuildKey = nil
+                end
+                RecipeBook:Print("Forgot guild: " .. gkey)
+                if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
+                    RecipeBook:RefreshRecipeList()
+                end
+            else
+                RecipeBook:Print("Not in a guild.")
+            end
+        else
+            -- Default: diagnostic status
+            local enabled = RecipeBookDB and RecipeBookDB.guildSharingEnabled
+            local gkey = gc and gc.CurrentGuildKey()
+            local idx  = gc and gc._channelIndex
+            RecipeBook:Print("--- Guild Crafts status ---")
+            RecipeBook:Print("Sharing enabled: " .. (enabled == true and "|cff00ff00yes|r"
+                or enabled == false and "|cffff0000no|r" or "|cffffff00(not prompted)|r"))
+            RecipeBook:Print("Current guild:   " .. (gkey or "|cff888888(none)|r"))
+            RecipeBook:Print("Channel index:   " .. (idx or "|cff888888(not joined)|r"))
+            local ncached = 0
+            if gkey and RecipeBookDB.guilds and RecipeBookDB.guilds[gkey]
+                and RecipeBookDB.guilds[gkey].members then
+                for _ in pairs(RecipeBookDB.guilds[gkey].members) do ncached = ncached + 1 end
+            end
+            RecipeBook:Print("Cached members:  " .. ncached)
+            RecipeBook:Print("Subcommands: /rb guild mirror | hello | forget")
         end
     elseif msg == "minimap" then
         RecipeBook:ToggleMinimapButton()

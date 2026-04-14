@@ -158,6 +158,25 @@ function GuildComm.RefreshSelfMeta(profID)
     end
 end
 
+-- Mirror every known profession's recipe list for the current character
+-- into the guild store. Called on login so the Guild view has self-data
+-- to show without needing to open a profession window first.
+function GuildComm.MirrorAllSelf()
+    if not GuildComm.CurrentGuildKey() then return 0 end
+    local myKey = RecipeBook:GetMyCharKey()
+    if not myKey then return 0 end
+    local charData = RecipeBookDB and RecipeBookDB.characters and RecipeBookDB.characters[myKey]
+    if not charData or not charData.knownProfessions then return 0 end
+    local count = 0
+    for profID, known in pairs(charData.knownProfessions) do
+        if known then
+            GuildComm.RefreshSelfMeta(profID)
+            count = count + 1
+        end
+    end
+    return count
+end
+
 -- Apply a received DATA record to the guild store.
 function GuildComm.ApplyData(senderCharKey, profID, dv, recipes)
     local guildKey, gName, realm = GuildComm.CurrentGuildKey()

@@ -329,6 +329,33 @@ function T.test_refresh_self_meta_updates_dv_and_hash()
     assert(prof.recipes[1] == 100 and prof.recipes[2] == 200)
 end
 
+function T.test_mirror_all_self_populates_all_known_professions()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownProfessions[ALCHEMY]   = true
+    myData.knownProfessions[TAILORING] = true
+    myData.knownRecipes[ALCHEMY]   = { [1] = true, [2] = true }
+    myData.knownRecipes[TAILORING] = { [10] = true, [20] = true, [30] = true }
+
+    local n = RecipeBook.GuildComm.MirrorAllSelf()
+    assert(n == 2, "should mirror 2 professions, got " .. n)
+
+    local myKey = RecipeBook:GetMyCharKey()
+    local guild = RecipeBookDB.guilds["TestGuild-TestRealm"]
+    assert(guild and guild.members[myKey], "self should be in guild store")
+    local profs = guild.members[myKey].professions
+    assert(profs[ALCHEMY] and #profs[ALCHEMY].recipes == 2)
+    assert(profs[TAILORING] and #profs[TAILORING].recipes == 3)
+end
+
+function T.test_mirror_all_self_noop_when_guildless()
+    MockWoW.SetGuild(nil)  -- leave guild
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownProfessions[ALCHEMY] = true
+    myData.knownRecipes[ALCHEMY] = { [1]=true }
+    local n = RecipeBook.GuildComm.MirrorAllSelf()
+    assert(n == 0, "should no-op when not in a guild, got " .. n)
+end
+
 function T.test_learn_recipe_advances_hash()
     local myData = RecipeBook:GetMyCharData()
     myData.knownRecipes[ALCHEMY] = { [100]=true }
