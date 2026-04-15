@@ -828,7 +828,16 @@ function RecipeBook:SelectProfession(profID)
             name = name .. "  |cffffffff(" .. skill .. ")|r"
         end
     end
-    UIDropDownMenu_SetText(profDropdown, name)
+    -- Blizzard's UIDropDownMenu_SetText in TBC Anniversary can throw
+    -- "attempt to index local 'frame' (a nil value)" at
+    -- Blizzard_SharedXML/Classic/UIDropDownMenu.lua:1290 on the first
+    -- call against a dropdown that has never been opened — the new
+    -- ScrollBox-backed display frame is lazy-initialised on first open.
+    -- RecipeTracker can reach us before the user has ever clicked the
+    -- dropdown (auto-detect at login on a fresh install). Swallow the
+    -- Blizzard error so our scan path doesn't die; the label just won't
+    -- update that first time, and the next interaction fixes it.
+    pcall(UIDropDownMenu_SetText, profDropdown, name)
     self:UpdateHideKnownState()
     self:RefreshRecipeList()
 end
