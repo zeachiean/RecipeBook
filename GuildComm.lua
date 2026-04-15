@@ -20,7 +20,10 @@ local GuildSync = RecipeBook.GuildSync
 
 GuildComm.PREFIX         = "RB"
 GuildComm.HELLO_DEBOUNCE = 5       -- seconds
-GuildComm.KEEPALIVE_SECS = 600     -- 10 min
+-- If we sent a HELLO within this many seconds, any peer currently
+-- online has already received it — skip the first-seen echo so two
+-- near-simultaneous logins don't bounce HELLOs back and forth.
+GuildComm.HELLO_ECHO_SUPPRESS_SECS = 30
 -- Minimum gap between DATA broadcasts for the same profession. Suppresses
 -- piling on when many guildmates NEED the same roster — DATA on GUILD
 -- scope already reaches everyone, so later NEEDs are redundant.
@@ -171,13 +174,18 @@ GuildComm._myRecipesForProfession = myRecipesForProfession
 -- cycle where harmless TRADE_SKILL_UPDATE events (re-opening a prof
 -- window, a passive game tick, etc.) kept stamping new dvs, which
 -- peers interpreted as "newer data" and re-requested every time.
+--
+-- Returns true when the hash actually changed (so callers can decide
+-- whether a HELLO broadcast is warranted), false when the recipe set
+-- was identical to what we already had.
 function GuildComm.RefreshSelfMeta(profID)
-    if not RecipeBookCharDB then return end
+    if not RecipeBookCharDB then return false end
     RecipeBookCharDB.guildSelfMeta = RecipeBookCharDB.guildSelfMeta or {}
     local recipes = myRecipesForProfession(profID)
     local hash = GuildSync.HashRecipes(recipes)
     local prev = RecipeBookCharDB.guildSelfMeta[profID]
-    if not prev or prev.hash ~= hash or not prev.dv then
+    local changed = not prev or prev.hash ~= hash or not prev.dv
+    if changed then
         RecipeBookCharDB.guildSelfMeta[profID] = { dv = time(), hash = hash }
     end
 
@@ -203,16 +211,17 @@ function GuildComm.RefreshSelfMeta(profID)
             member._has = nil
         end
     end
+
+    return changed
 end
 
 -- Mirror every known profession's recipe list for the current character
--- into the guild store. Called on login so the Guild view has self-data
--- to show without needing to open a profession window first.
---
--- After mirroring, schedule a HELLO broadcast so guildmates who are
--- already online can find out we're here without needing us to
--- manually run /rb guild hello. Debounced (5 s) so a login burst that
--- also fires OnMyRecipesChanged during window open doesn't double-send.
+-- into the guild store. Pure data sync — does NOT broadcast. Callers
+-- that want to announce our presence (login handler, guild-join
+-- handler, manual /rb guild hello) should call BroadcastHello
+-- explicitly. Keeping this split means zone transitions (which also
+-- fire PLAYER_ENTERING_WORLD) can refresh the mirror without spamming
+-- peers with a fresh HELLO.
 function GuildComm.MirrorAllSelf()
     if not GuildComm.CurrentGuildKey() then return 0 end
     local myKey = RecipeBook:GetMyCharKey()
@@ -226,22 +235,31 @@ function GuildComm.MirrorAllSelf()
             count = count + 1
         end
     end
-    if count > 0 then
-        GuildComm.BroadcastHello()
-    end
     return count
 end
 
 -- Apply a received DATA record to the guild store.
+-- Staleness guard: if we already have a record for this (charKey, profID)
+-- at an equal-or-newer dv, drop the incoming DATA. Protects against
+-- replayed reassembly buffers, out-of-order chunk deliveries for a dv
+-- we've since moved past, and clock-skew weirdness from peers.
+-- Returns true when the store was updated, false on stale reject.
 function GuildComm.ApplyData(senderCharKey, profID, dv, recipes)
     local guildKey, gName, realm = GuildComm.CurrentGuildKey()
-    if not guildKey then return end
+    if not guildKey then return false end
     local guild = ensureGuildStore(guildKey, gName, realm)
-    if not guild then return end
+    if not guild then return false end
     local m = ensureMember(guild, senderCharKey)
+    local existing = m.professions[profID]
+    if existing and existing.dv and dv and existing.dv >= dv then
+        -- Still refresh lastSeen — we heard from them, just didn't learn anything new.
+        m.lastSeen = time()
+        return false
+    end
     m.lastSeen = time()
     m.professions[profID] = { dv = dv, hash = GuildSync.HashRecipes(recipes), recipes = recipes }
     m._has = nil
+    return true
 end
 
 -- ============================================================
@@ -256,15 +274,27 @@ local function canBroadcast()
     return true
 end
 
+-- Minimum gap between actual HELLO emissions on the wire. Prevents a
+-- duplicate send when BroadcastHelloImmediate fires while a debounced
+-- BroadcastHello timer is already scheduled (the timer would otherwise
+-- re-fire sendHelloNow shortly after with identical content).
+GuildComm.HELLO_MIN_GAP_SECS = 2
+
 local function sendHelloNow()
     GuildComm._helloPending = false
     if not canBroadcast() then return end
+    local now = time()
+    if GuildComm._lastHelloSent
+        and (now - GuildComm._lastHelloSent) < GuildComm.HELLO_MIN_GAP_SECS then
+        return
+    end
     local myKey = RecipeBook:GetMyCharKey()
     if not myKey then return end
     local entries = myHelloEntries()
     if next(entries) == nil then return end
     local msg = GuildSync.EncodeHello(myKey, entries)
     rawSend(msg, "NORMAL")
+    GuildComm._lastHelloSent = now
 end
 
 GuildComm._sendHelloNow = sendHelloNow
@@ -320,14 +350,16 @@ local function handleHello(record, senderCharKey)
     end
 
     -- First time we've heard from this peer this session → echo our
-    -- own HELLO back (debounced). This solves the "client that logs in
-    -- second never learns about the client that logged in first": the
-    -- first peer's data reaches us via their login HELLO, and our
-    -- echo lets them discover us in return. Further HELLOs from the
-    -- same peer won't re-trigger the echo until the session ends.
+    -- own HELLO back (debounced), unless we broadcast recently enough
+    -- that this peer has almost certainly already seen it. Without the
+    -- suppress window, two simultaneous logins would bounce a third
+    -- HELLO back and forth that neither side needed.
     if not GuildComm._seenHelloThisSession[record.charKey] then
         GuildComm._seenHelloThisSession[record.charKey] = true
-        GuildComm.BroadcastHello()
+        local last = GuildComm._lastHelloSent
+        if not last or (time() - last) >= GuildComm.HELLO_ECHO_SUPPRESS_SECS then
+            GuildComm.BroadcastHello()
+        end
     end
 end
 
@@ -390,8 +422,6 @@ function GuildComm.HandleMessage(msg, senderCharKey)
     if not isInCurrentGuild(senderCharKey) then return end
     local record = GuildSync.Decode(msg)
     if not record then return end
-    -- Ignore self-echoes (belt-and-suspenders alongside the sender check above)
-    if myKey and record.charKey == myKey and record.type ~= "NEED" then return end
     if record.type == "HELLO" then
         handleHello(record, senderCharKey)
     elseif record.type == "NEED" then

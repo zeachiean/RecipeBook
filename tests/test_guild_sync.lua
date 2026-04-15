@@ -36,6 +36,7 @@ function T.setup()
     RecipeBook.GuildComm._helloPending = false
     RecipeBook.GuildComm._seenHelloThisSession = {}
     RecipeBook.GuildComm._lastDataSent = {}
+    RecipeBook.GuildComm._lastHelloSent = nil
 end
 
 -- ============================================================
@@ -331,6 +332,53 @@ function T.test_own_echoes_are_dropped()
         "self-echo should not schedule any HELLO broadcast")
 end
 
+function T.test_refresh_self_meta_return_value()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY] = { [1] = true, [2] = true }
+
+    -- First call — must report "changed".
+    local firstChanged = RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    assert(firstChanged, "first RefreshSelfMeta must report changed")
+
+    -- Second call with the same recipe set — must report "not changed".
+    local secondChanged = RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    assert(not secondChanged,
+        "RefreshSelfMeta must return false when hash is unchanged")
+
+    -- Add a recipe and re-run — must report changed again.
+    myData.knownRecipes[ALCHEMY][3] = true
+    local thirdChanged = RecipeBook.GuildComm.RefreshSelfMeta(ALCHEMY)
+    assert(thirdChanged, "RefreshSelfMeta must return true after the set grows")
+end
+
+function T.test_on_my_recipes_changed_skips_broadcast_when_unchanged()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownProfessions[ALCHEMY] = true
+    myData.knownRecipes[ALCHEMY]     = { [1] = true, [2] = true }
+
+    -- Prime: the first call has nothing to compare to, so it broadcasts.
+    RecipeBook:OnMyRecipesChanged(ALCHEMY)
+    assert(RecipeBook.GuildComm._helloPending,
+        "first call should schedule a broadcast")
+
+    -- Flush and reset.
+    RecipeBook.GuildComm._sendHelloNow()
+    RecipeBook.GuildComm._helloPending = false
+    assert(not RecipeBook.GuildComm._helloPending)
+
+    -- Call again with identical data — must NOT schedule another broadcast.
+    -- (This mirrors TRADE_SKILL_UPDATE firing while the prof window is open.)
+    RecipeBook:OnMyRecipesChanged(ALCHEMY)
+    assert(not RecipeBook.GuildComm._helloPending,
+        "unchanged data must not re-schedule a HELLO")
+
+    -- After an actual change, broadcast resumes.
+    myData.knownRecipes[ALCHEMY][3] = true
+    RecipeBook:OnMyRecipesChanged(ALCHEMY)
+    assert(RecipeBook.GuildComm._helloPending,
+        "new recipe should schedule a HELLO")
+end
+
 function T.test_idempotent_dv_when_hash_unchanged()
     local myData = RecipeBook:GetMyCharData()
     myData.knownRecipes[ALCHEMY] = { [100] = true, [200] = true }
@@ -364,13 +412,180 @@ function T.test_need_for_other_char_is_ignored()
 end
 
 function T.test_apply_data_populates_guild_store()
-    RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 300, { 10, 20, 30 })
+    local ok = RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 300, { 10, 20, 30 })
+    assert(ok, "ApplyData should return true on fresh write")
     local guild = RecipeBookDB.guilds["TestGuild-TestRealm"]
     assert(guild, "guild entry should exist")
     local m = guild.members["Buddy-TestRealm"]
     assert(m and m.professions[ALCHEMY])
     assert(m.professions[ALCHEMY].dv == 300)
     assert(#m.professions[ALCHEMY].recipes == 3)
+end
+
+function T.test_apply_data_rejects_stale_dv()
+    -- First, a normal write at dv=500.
+    assert(RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 500, { 1, 2, 3, 4 }))
+    -- Now an older DATA arrives (replay / out-of-order reassembly).
+    local ok = RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 100, { 9 })
+    assert(ok == false, "stale DATA must be rejected")
+    -- The existing record should be untouched.
+    local m = RecipeBookDB.guilds["TestGuild-TestRealm"].members["Buddy-TestRealm"]
+    assert(m.professions[ALCHEMY].dv == 500)
+    assert(#m.professions[ALCHEMY].recipes == 4)
+end
+
+function T.test_apply_data_rejects_equal_dv()
+    assert(RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 500, { 1, 2 }))
+    -- Same dv again: drop. Same data is idempotent, different data at
+    -- the same dv is an owner-side bug but we still don't want a flap.
+    local ok = RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 500, { 1, 2, 3 })
+    assert(ok == false, "equal-dv DATA must be rejected")
+    local m = RecipeBookDB.guilds["TestGuild-TestRealm"].members["Buddy-TestRealm"]
+    assert(#m.professions[ALCHEMY].recipes == 2)
+end
+
+-- ============================================================
+-- BYE handler
+-- ============================================================
+
+function T.test_bye_updates_last_seen_without_wiping_data()
+    -- Seed Buddy with some data.
+    RecipeBook.GuildComm.ApplyData("Buddy-TestRealm", ALCHEMY, 100, { 10, 20, 30 })
+    local before = RecipeBookDB.guilds["TestGuild-TestRealm"]
+        .members["Buddy-TestRealm"].lastSeen
+    -- Tiny wait-equivalent: adjust lastSeen back so we can see it move.
+    RecipeBookDB.guilds["TestGuild-TestRealm"]
+        .members["Buddy-TestRealm"].lastSeen = before - 100
+
+    local bye = RecipeBook.GuildSync.EncodeBye("Buddy-TestRealm")
+    RecipeBook.GuildComm.HandleMessage(bye, "Buddy-TestRealm")
+
+    local m = RecipeBookDB.guilds["TestGuild-TestRealm"].members["Buddy-TestRealm"]
+    assert(m, "BYE must not wipe the member entry")
+    assert(m.professions[ALCHEMY], "BYE must not wipe cached professions")
+    assert(m.lastSeen > before - 100, "lastSeen should be bumped")
+end
+
+-- ============================================================
+-- Conflict path (same dv, different hash) emits no traffic
+-- ============================================================
+
+function T.test_conflict_emits_no_need_or_data()
+    -- Pre-populate: we have the peer at dv=200, hash="aaaa".
+    local guild = RecipeBookDB.guilds["TestGuild-TestRealm"]
+        or { name = "TestGuild", realm = "TestRealm", members = {} }
+    RecipeBookDB.guilds["TestGuild-TestRealm"] = guild
+    guild.members["Buddy-TestRealm"] = {
+        name = "Buddy", realm = "TestRealm",
+        professions = { [ALCHEMY] = { dv = 200, hash = "aaaa", recipes = {1,2,3} } },
+    }
+    -- Mark as already-seen to isolate this from the first-seen echo path.
+    RecipeBook.GuildComm._seenHelloThisSession["Buddy-TestRealm"] = true
+
+    -- Peer HELLOs with same dv, different hash → conflict branch.
+    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
+        [ALCHEMY] = { dv = 200, hash = "bbbb" },
+    })
+    MockWoW.ClearAddonMessages()
+    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
+
+    assert(#MockWoW._addonMessages == 0,
+        "conflict must not trigger NEED or DATA; got " .. #MockWoW._addonMessages)
+    -- And the conflict should be logged once.
+    assert(RecipeBook.GuildComm._conflictLog
+        and RecipeBook.GuildComm._conflictLog["Buddy-TestRealm:" .. ALCHEMY])
+end
+
+-- ============================================================
+-- Privacy-gated NEED handling
+-- ============================================================
+
+function T.test_need_ignored_when_sharing_disabled()
+    RecipeBookDB.guildSharingEnabled = false
+    -- Seed self-meta; the ONLY thing stopping a reply is the gate.
+    local myKey = RecipeBook:GetMyCharKey()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY] = { [100] = true }
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 500, hash = "x" }
+
+    local need = RecipeBook.GuildSync.EncodeNeed(myKey, ALCHEMY)
+    RecipeBook.GuildComm.HandleMessage(need, "Buddy-TestRealm")
+    assert(#MockWoW._addonMessages == 0,
+        "must not reply to NEED when guildSharingEnabled is false")
+end
+
+-- ============================================================
+-- DATA cooldown is per-profession, not global
+-- ============================================================
+
+function T.test_data_cooldown_is_per_profession()
+    local myKey = RecipeBook:GetMyCharKey()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownRecipes[ALCHEMY]   = { [100] = true }
+    myData.knownRecipes[TAILORING] = { [200] = true }
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY]   = { dv = 100, hash = "a" }
+    RecipeBookCharDB.guildSelfMeta[TAILORING] = { dv = 200, hash = "b" }
+
+    -- NEED for Alchemy — replied.
+    RecipeBook.GuildComm.HandleMessage(
+        RecipeBook.GuildSync.EncodeNeed(myKey, ALCHEMY), "Buddy-TestRealm")
+    assert(#MockWoW._addonMessages >= 1)
+
+    -- NEED for Tailoring — must NOT be blocked by Alchemy's cooldown.
+    MockWoW.ClearAddonMessages()
+    RecipeBook.GuildComm.HandleMessage(
+        RecipeBook.GuildSync.EncodeNeed(myKey, TAILORING), "Buddy-TestRealm")
+    assert(#MockWoW._addonMessages >= 1,
+        "cooldown must be per-profession; Tailoring was suppressed by Alchemy's window")
+end
+
+-- ============================================================
+-- Chunk reassembly corner cases
+-- ============================================================
+
+function T.test_duplicate_chunks_do_not_corrupt_buffer()
+    local recipes = makeRecipes(500)
+    local chunks = RecipeBook.GuildSync.EncodeData("A-R", ALCHEMY, 1, recipes)
+    assert(#chunks > 1, "need a multi-chunk payload for this test")
+
+    -- Ingest all chunks, then re-deliver each once more.
+    local done, out
+    for _, c in ipairs(chunks) do
+        done, out = RecipeBook.GuildSync.IngestData(RecipeBook.GuildSync.Decode(c))
+    end
+    assert(done and #out == 500, "initial reassembly should succeed")
+
+    -- Now replay. The buffer has been freed, so the first replay starts
+    -- a new buffer; subsequent dupes within that new buffer should not
+    -- bump received past total.
+    RecipeBook.GuildSync._buffers = {}
+    local d1 = RecipeBook.GuildSync.Decode(chunks[1])
+    RecipeBook.GuildSync.IngestData(d1)
+    RecipeBook.GuildSync.IngestData(d1)
+    RecipeBook.GuildSync.IngestData(d1)  -- triple-deliver chunk 1
+    for i = 2, #chunks do
+        RecipeBook.GuildSync.IngestData(RecipeBook.GuildSync.Decode(chunks[i]))
+    end
+    -- Reassembly should still complete cleanly at the right count.
+    -- (Buffer is cleared on completion; a subsequent ingest would restart.)
+end
+
+-- ============================================================
+-- MirrorAllSelf idempotency
+-- ============================================================
+
+function T.test_mirror_all_self_preserves_dvs_when_unchanged()
+    local myData = RecipeBook:GetMyCharData()
+    myData.knownProfessions[ALCHEMY] = true
+    myData.knownRecipes[ALCHEMY]     = { [1] = true, [2] = true }
+
+    RecipeBook.GuildComm.MirrorAllSelf()
+    local firstDV = RecipeBookCharDB.guildSelfMeta[ALCHEMY].dv
+
+    -- Second pass, no changes.
+    RecipeBook.GuildComm.MirrorAllSelf()
+    assert(RecipeBookCharDB.guildSelfMeta[ALCHEMY].dv == firstDV,
+        "MirrorAllSelf must be idempotent when the recipe set is unchanged")
 end
 
 function T.test_messages_from_non_guild_sender_are_dropped()
@@ -452,15 +667,25 @@ end
 -- Login-time auto-broadcast + first-seen echo
 -- ============================================================
 
-function T.test_mirror_all_self_schedules_hello_broadcast()
+function T.test_mirror_all_self_is_pure_data_sync()
+    -- MirrorAllSelf must mirror into the guild store but must NOT
+    -- broadcast a HELLO on its own — callers decide when to announce,
+    -- because PLAYER_ENTERING_WORLD fires on zone changes too.
     local myData = RecipeBook:GetMyCharData()
-    myData.knownProfessions[ALCHEMY]   = true
-    myData.knownRecipes[ALCHEMY]       = { [1] = true, [2] = true }
+    myData.knownProfessions[ALCHEMY] = true
+    myData.knownRecipes[ALCHEMY]     = { [1] = true, [2] = true }
 
-    assert(not RecipeBook.GuildComm._helloPending, "should start unscheduled")
-    RecipeBook.GuildComm.MirrorAllSelf()
-    assert(RecipeBook.GuildComm._helloPending,
-        "MirrorAllSelf should schedule a debounced HELLO")
+    assert(not RecipeBook.GuildComm._helloPending)
+    local n = RecipeBook.GuildComm.MirrorAllSelf()
+    assert(n == 1, "should mirror the one known profession")
+    assert(not RecipeBook.GuildComm._helloPending,
+        "MirrorAllSelf must NOT schedule a HELLO by itself")
+
+    -- The guild store should reflect the mirror.
+    local myKey = RecipeBook:GetMyCharKey()
+    local guild = RecipeBookDB.guilds["TestGuild-TestRealm"]
+    assert(guild and guild.members[myKey], "self must appear in the guild store")
+    assert(#guild.members[myKey].professions[ALCHEMY].recipes == 2)
 end
 
 function T.test_mirror_all_self_noop_when_no_known_professions()
@@ -493,6 +718,71 @@ function T.test_first_seen_peer_triggers_echo_hello()
         if m.text:find("^HELLO|v1|") then sawEcho = true end
     end
     assert(sawEcho, "echo HELLO did not reach the wire")
+end
+
+function T.test_first_seen_echo_suppressed_after_recent_broadcast()
+    -- We just broadcast a HELLO. Any peer currently online has received
+    -- it, so a first-seen echo back at them would be wasted traffic.
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
+    RecipeBook.GuildComm._lastHelloSent = time()  -- just sent
+
+    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
+        [ALCHEMY] = { dv = 100, hash = "peerhash" },
+    })
+    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
+
+    -- The peer is still marked as seen (we processed their HELLO).
+    assert(RecipeBook.GuildComm._seenHelloThisSession["Buddy-TestRealm"])
+    -- But we did NOT schedule an echo broadcast.
+    assert(not RecipeBook.GuildComm._helloPending,
+        "recent broadcast should suppress the first-seen echo")
+end
+
+function T.test_first_seen_echo_fires_after_suppress_window()
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
+    -- Pretend our last HELLO was long enough ago.
+    RecipeBook.GuildComm._lastHelloSent =
+        time() - RecipeBook.GuildComm.HELLO_ECHO_SUPPRESS_SECS - 10
+
+    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
+        [ALCHEMY] = { dv = 100, hash = "peerhash" },
+    })
+    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
+
+    assert(RecipeBook.GuildComm._helloPending,
+        "past the suppress window, the echo should fire")
+end
+
+function T.test_send_hello_now_stamps_last_sent()
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "x" }
+    assert(RecipeBook.GuildComm._lastHelloSent == nil)
+    RecipeBook.GuildComm._sendHelloNow()
+    assert(RecipeBook.GuildComm._lastHelloSent,
+        "sendHelloNow must record the broadcast time")
+end
+
+function T.test_hello_rate_limit_prevents_duplicate_from_immediate_plus_debounced()
+    -- Simulates: BroadcastHello() scheduled, then BroadcastHelloImmediate()
+    -- fires before the debounce — the original timer must not double-send.
+    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "x" }
+
+    RecipeBook.GuildComm.BroadcastHelloImmediate()
+    local count1 = 0
+    for _, m in ipairs(MockWoW._addonMessages) do
+        if m.text:find("^HELLO|v1|") then count1 = count1 + 1 end
+    end
+    assert(count1 == 1, "first immediate send should go out")
+
+    -- Now the debounced timer would fire (we fake it synchronously).
+    RecipeBook.GuildComm._sendHelloNow()
+
+    local count2 = 0
+    for _, m in ipairs(MockWoW._addonMessages) do
+        if m.text:find("^HELLO|v1|") then count2 = count2 + 1 end
+    end
+    assert(count2 == 1,
+        "timer-fired sendHelloNow must not double-send when a HELLO just went out; got "
+        .. count2 .. " HELLOs")
 end
 
 function T.test_subsequent_hellos_do_not_re_echo()

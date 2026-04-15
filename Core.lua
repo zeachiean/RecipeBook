@@ -590,14 +590,19 @@ end
 -- Guild Crafts wiring
 -- ============================================================
 
--- Called by RecipeTracker after recording a change to my own known-recipe
--- list for a profession. Updates dv+hash, mirrors self into the guild
--- store, and debounces a HELLO broadcast.
+-- Called by RecipeTracker after (potentially) changing the known-recipe
+-- list for a profession. Updates dv+hash and mirrors self into the
+-- guild store — but only broadcasts a HELLO when the hash actually
+-- changed. TRADE_SKILL_UPDATE fires repeatedly while a profession
+-- window is open (hovering recipes, server-sent refreshes, etc.) and
+-- would otherwise spam peers with identical-content HELLOs.
 function RecipeBook:OnMyRecipesChanged(profID)
     if not profID then return end
     if not RecipeBook.GuildComm then return end
-    RecipeBook.GuildComm.RefreshSelfMeta(profID)
-    RecipeBook.GuildComm.BroadcastHello()
+    local changed = RecipeBook.GuildComm.RefreshSelfMeta(profID)
+    if changed then
+        RecipeBook.GuildComm.BroadcastHello()
+    end
 end
 
 -- One-shot gate: show the first-join popup when appropriate.
@@ -641,23 +646,37 @@ eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
 
 eventFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_ENTERING_WORLD" then
-        InitSavedVars()
-        RecipeBook:BuildMapLookup()
-        RecipeBook:BuildAreaToZoneLookup()
-        RecipeBook:BuildContinentZoneMap()
-        RecipeBook:BuildLookupsAndPrecache()
-        RecipeBook:CacheItemSourceNames()
-        RecipeBook:SaveReputationStandings()
-        RecipeBook:HookTooltips()
-        RecipeBook:RegisterTrackingEvents(self)
-        RecipeBook:CreateMinimapButton()
-        initGuildSubsystems()
-        maybePromptGuildShare()
+        -- PLAYER_ENTERING_WORLD fires on login, /reload, AND every
+        -- zone/instance transition. We only want the expensive one-time
+        -- init (and the guild HELLO announce) on actual session start.
+        local isInitialLogin, isReloadingUi = ...
+        local isFreshSession = isInitialLogin or isReloadingUi
 
-        self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-        self:RegisterEvent("ZONE_CHANGED")
-        self:RegisterEvent("ZONE_CHANGED_INDOORS")
-        self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+        if isFreshSession then
+            InitSavedVars()
+            RecipeBook:BuildMapLookup()
+            RecipeBook:BuildAreaToZoneLookup()
+            RecipeBook:BuildContinentZoneMap()
+            RecipeBook:BuildLookupsAndPrecache()
+            RecipeBook:CacheItemSourceNames()
+            RecipeBook:SaveReputationStandings()
+            RecipeBook:HookTooltips()
+            RecipeBook:RegisterTrackingEvents(self)
+            RecipeBook:CreateMinimapButton()
+            initGuildSubsystems()
+            -- Announce ourselves to the guild (debounced 5 s).
+            if RecipeBook.GuildComm and RecipeBook.GuildComm.BroadcastHello then
+                RecipeBook.GuildComm.BroadcastHello()
+            end
+            maybePromptGuildShare()
+
+            self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+            self:RegisterEvent("ZONE_CHANGED")
+            self:RegisterEvent("ZONE_CHANGED_INDOORS")
+            self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+        end
+        -- Zone/instance transitions: no-op. RecipeTracker's TRADE_SKILL
+        -- hooks pick up any recipe changes independently.
 
     elseif event == "PLAYER_GUILD_UPDATE" then
         if RecipeBook.GuildComm and RecipeBook.GuildComm.RefreshChannelIndex then
@@ -668,6 +687,13 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         end
         if RecipeBook.GuildComm and RecipeBook.GuildComm.MirrorAllSelf then
             RecipeBook.GuildComm.MirrorAllSelf()
+            -- If we just joined a guild (or our membership changed),
+            -- announce ourselves. The HELLO_MIN_GAP_SECS guard in
+            -- sendHelloNow coalesces this with any near-simultaneous
+            -- broadcast from the login path or Settings toggle.
+            if RecipeBook.GuildComm.BroadcastHello then
+                RecipeBook.GuildComm.BroadcastHello()
+            end
         end
         maybePromptGuildShare()
 
