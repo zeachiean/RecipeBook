@@ -36,6 +36,7 @@ jobs:
       publish: ${{ github.event_name == 'push' || inputs.publish }}
     secrets:
       # secrets: inherit doesn't work for cross-repo calls to public reusable
-      # workflows; each secret must be passed explicitly here.
+      # workflows; each secret must be passed explicitly here. The site
+      # rebuild is handled by docs-update.yml so SITE_DISPATCH_TOKEN is not
+      # passed through here.
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
-      SITE_DISPATCH_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}

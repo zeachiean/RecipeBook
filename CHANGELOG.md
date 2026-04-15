@@ -1,5 +1,10 @@
 # RecipeBook Changelog
 
+## v1.4.6
+
+### Fixes
+- Fixed Lua error from Blizzard's `UIDropDownMenu_SetText` when RecipeBook's auto-scan ran before the profession dropdown had been opened for the first time (common on fresh installs — opening a profession window at login would throw `attempt to index local 'frame' (a nil value)` from `Blizzard_SharedXML/Classic/UIDropDownMenu.lua:1290`).
+
 ## v1.4.5
 
 ### Fixes
