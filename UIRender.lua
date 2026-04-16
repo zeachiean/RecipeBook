@@ -48,9 +48,22 @@ local function OnRecipeEnter(self)
         return
     end
 
+    -- SetItemByID can cascade into third-party tooltip hooks (e.g.
+    -- LoonBestInSlot's item callbacks, which in turn reach
+    -- Blizzard's Item ObjectAPI). If the item isn't fully registered
+    -- yet when the callback fires we get "table index is nil" out of
+    -- Blizzard_ObjectAPI/Classic/Item.lua:320. Wrap in pcall so a
+    -- misbehaving neighbour addon can't kill our tooltip path.
+    local function safeSetItem(id)
+        if not pcall(GameTooltip.SetItemByID, GameTooltip, id) then
+            GameTooltip:ClearLines()
+            GameTooltip:AddLine(data.name or "Unknown Recipe", 1, 1, 1)
+        end
+    end
+
     if not data.isSpell then
         -- Recipe item: show the item tooltip directly
-        GameTooltip:SetItemByID(self._recipeID)
+        safeSetItem(self._recipeID)
     elseif data.teaches ~= self._recipeID or self._profID == 333 then
         -- Key is a real spell ID (teaches differs, or enchanting where
         -- the spell IS the product).  Show the spell tooltip.
@@ -60,7 +73,7 @@ local function OnRecipeEnter(self)
         end
     else
         -- Key is the crafted item ID — show the item tooltip
-        GameTooltip:SetItemByID(self._recipeID)
+        safeSetItem(self._recipeID)
     end
 
     GameTooltip:AddLine(" ")
