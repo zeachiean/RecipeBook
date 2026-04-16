@@ -9,7 +9,6 @@ function T.setup()
     RecipeBookDB.characters = {}
     RecipeBookDB.minimap = { hide = false }
     RecipeBookDB.maxPhase = 5
-    RecipeBookDB.currentPhase = 1
     RecipeBookCharDB = RecipeBookCharDB or {}
     RecipeBookCharDB.hideKnown = false
     RecipeBookCharDB.collapsedSources = {}

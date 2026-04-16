@@ -2,6 +2,14 @@
 
 ## v1.6.0
 
+### Breaking
+- **Your known-recipe data will be cleared on upgrade.** RecipeBook 1.6.0 introduces a data-schema sentinel and changes the character-data shape. On your first login after updating, a popup will ask you to reopen each profession window once so RecipeBook can rescan. Profession skill levels are preserved.
+- **Per-character preferences reset to defaults.** Things like "Hide Known", window position, last-viewed character/guild all reset once. Profession skill levels are kept.
+- **Cached guild-crafter data is cleared on upgrade.** No user action needed — the guild-sync handshake repopulates from online guildmates within a few seconds of login.
+- Migration code has been removed in favour of this schema-sentinel pattern. Any future breaking data changes will be called out in this section.
+
+
+
 ### New Features
 - **Guild Crafts**: new per-guild entry in the Character dropdown. Selecting a guild replaces the Source column with guildmates who know each recipe.
 - Online crafters are class-colored and show their zone; offline crafters are greyed.

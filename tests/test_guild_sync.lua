@@ -14,7 +14,6 @@ function T.setup()
         guildSharePrompted = true,
         whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE,
         minimap = { hide = false },
-        currentPhase = 1,
         maxPhase = 5,
     }
     RecipeBookCharDB = {
@@ -720,9 +719,13 @@ function T.test_first_seen_peer_triggers_echo_hello()
     assert(sawEcho, "echo HELLO did not reach the wire")
 end
 
-function T.test_first_seen_echo_suppressed_after_recent_broadcast()
-    -- We just broadcast a HELLO. Any peer currently online has received
-    -- it, so a first-seen echo back at them would be wasted traffic.
+function T.test_first_seen_echo_fires_regardless_of_recent_broadcast()
+    -- Regression: an earlier heuristic skipped the echo when we'd
+    -- recently broadcast a HELLO, on the theory that any peer currently
+    -- online had already received it. But a peer whose own
+    -- _lastHelloSent was recent (e.g. learned a recipe just before
+    -- the newcomer logged in) would then never echo, and the newcomer
+    -- would never learn about them. Fix: always echo on first-seen.
     RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
     RecipeBook.GuildComm._lastHelloSent = time()  -- just sent
 
@@ -731,26 +734,9 @@ function T.test_first_seen_echo_suppressed_after_recent_broadcast()
     })
     RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
 
-    -- The peer is still marked as seen (we processed their HELLO).
     assert(RecipeBook.GuildComm._seenHelloThisSession["Buddy-TestRealm"])
-    -- But we did NOT schedule an echo broadcast.
-    assert(not RecipeBook.GuildComm._helloPending,
-        "recent broadcast should suppress the first-seen echo")
-end
-
-function T.test_first_seen_echo_fires_after_suppress_window()
-    RecipeBookCharDB.guildSelfMeta[ALCHEMY] = { dv = 50, hash = "selfhash" }
-    -- Pretend our last HELLO was long enough ago.
-    RecipeBook.GuildComm._lastHelloSent =
-        time() - RecipeBook.GuildComm.HELLO_ECHO_SUPPRESS_SECS - 10
-
-    local hello = RecipeBook.GuildSync.EncodeHello("Buddy-TestRealm", {
-        [ALCHEMY] = { dv = 100, hash = "peerhash" },
-    })
-    RecipeBook.GuildComm.HandleMessage(hello, "Buddy-TestRealm")
-
     assert(RecipeBook.GuildComm._helloPending,
-        "past the suppress window, the echo should fire")
+        "first-seen peer must always trigger an echo HELLO, even if we broadcast recently")
 end
 
 function T.test_send_hello_now_stamps_last_sent()

@@ -20,10 +20,6 @@ local GuildSync = RecipeBook.GuildSync
 
 GuildComm.PREFIX         = "RB"
 GuildComm.HELLO_DEBOUNCE = 5       -- seconds
--- If we sent a HELLO within this many seconds, any peer currently
--- online has already received it — skip the first-seen echo so two
--- near-simultaneous logins don't bounce HELLOs back and forth.
-GuildComm.HELLO_ECHO_SUPPRESS_SECS = 30
 -- Minimum gap between DATA broadcasts for the same profession. Suppresses
 -- piling on when many guildmates NEED the same roster — DATA on GUILD
 -- scope already reaches everyone, so later NEEDs are redundant.
@@ -350,16 +346,19 @@ local function handleHello(record, senderCharKey)
     end
 
     -- First time we've heard from this peer this session → echo our
-    -- own HELLO back (debounced), unless we broadcast recently enough
-    -- that this peer has almost certainly already seen it. Without the
-    -- suppress window, two simultaneous logins would bounce a third
-    -- HELLO back and forth that neither side needed.
+    -- own HELLO back (debounced). This is the ONLY reliable way a
+    -- late-joining peer learns about us and vice versa — an earlier
+    -- "suppress echo if we broadcast recently" heuristic caused
+    -- asymmetric discovery, where a peer whose _lastHelloSent was
+    -- recent (e.g. just learned a recipe) would skip the echo, so the
+    -- newcomer never heard from them.
+    --
+    -- The HELLO_MIN_GAP_SECS guard in sendHelloNow already prevents
+    -- back-to-back identical sends, so unconditionally scheduling
+    -- here is safe.
     if not GuildComm._seenHelloThisSession[record.charKey] then
         GuildComm._seenHelloThisSession[record.charKey] = true
-        local last = GuildComm._lastHelloSent
-        if not last or (time() - last) >= GuildComm.HELLO_ECHO_SUPPRESS_SECS then
-            GuildComm.BroadcastHello()
-        end
+        GuildComm.BroadcastHello()
     end
 end
 

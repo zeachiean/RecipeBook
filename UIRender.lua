@@ -330,8 +330,20 @@ local function OnRecipeClick(self, button)
                 link = string.format("|cff71d5ff|Hspell:%d|h[%s]|h|r",
                     data.teaches, data.name or "Recipe")
             end
-            RecipeBook.UIGuildCrafters:OpenMenu(self, crafter, link,
-                { profID = self._profID, recipeID = self._recipeID })
+            -- When there's more than one crafter, skip the per-crafter
+            -- actions — the user should pick a specific crafter from
+            -- the popup first. The main menu becomes just "Show All
+            -- Crafters". With a single crafter, fall through to the
+            -- full Whisper/Invite/Who/Copy menu for that one.
+            local ctx
+            if #self._guildCrafters > 1 then
+                ctx = {
+                    profID = self._profID,
+                    recipeID = self._recipeID,
+                    popupOnly = true,
+                }
+            end
+            RecipeBook.UIGuildCrafters:OpenMenu(self, crafter, link, ctx)
             return
         end
     end
@@ -852,13 +864,28 @@ local function BuildGuildDisplayData(filters)
 
     local groups = { crafter = {} }
     local totalRecipes, totalKnown, totalShown = 0, 0, 0
+    local myKey = RecipeBook:GetMyCharKey()
 
     for recipeID, data in pairs(recipes) do
         local phase = RecipeBook:GetRecipePhase(profID, recipeID)
         if phase <= filters.maxPhase then
             totalRecipes = totalRecipes + 1
-            local myKey = RecipeBook:GetMyCharKey()
-            if RecipeBook:IsRecipeKnown(profID, recipeID, myKey) then
+
+            -- Precompute whether ANY guildmate knows this recipe — used
+            -- to decide name color (gray when unknown), to apply the
+            -- Unknown Guild Recipes filter, and to count guild-collective
+            -- "known" for the header stats in guild view.
+            local crafterCount = 0
+            if RecipeBook.UIGuildCrafters then
+                local guildKey = RecipeBook:GetViewedGuildKey()
+                crafterCount = RecipeBook.UIGuildCrafters:CountCrafters(profID, recipeID, guildKey)
+            end
+            local guildKnown = crafterCount > 0
+
+            -- In guild view the "X/Y known" stat is guild-collective
+            -- ("at least one guildmate knows this"), NOT the current
+            -- character's personal count.
+            if guildKnown then
                 totalKnown = totalKnown + 1
             end
 
@@ -870,20 +897,17 @@ local function BuildGuildDisplayData(filters)
                 end
             end
 
-            -- Precompute whether ANY guildmate knows this recipe — used
-            -- to decide name color (gray when unknown) and to apply the
-            -- "Hide Unknown Guild Recipes" filter below.
-            local crafterCount = 0
-            if RecipeBook.UIGuildCrafters then
-                local guildKey = RecipeBook:GetViewedGuildKey()
-                crafterCount = RecipeBook.UIGuildCrafters:CountCrafters(profID, recipeID, guildKey)
-            end
-            local guildKnown = crafterCount > 0
-
-            if not dominated and RecipeBookCharDB
-                and RecipeBookCharDB.guildHideUnknownRecipes
-                and not guildKnown then
-                dominated = true
+            -- "Unknown Guild Recipes" filter:
+            --   show (default) — no filtering, unknown rendered gray
+            --   hide           — drop recipes nobody in the guild knows
+            --   only           — drop recipes at least one person knows
+            if not dominated and RecipeBookCharDB then
+                local mode = RecipeBookCharDB.guildUnknownFilter or "show"
+                if mode == "hide" and not guildKnown then
+                    dominated = true
+                elseif mode == "only" and guildKnown then
+                    dominated = true
+                end
             end
 
             -- Zone/continent filter in guild view: match by crafter's
@@ -1123,24 +1147,19 @@ function RecipeBook:RefreshRecipeList()
         setShown(mf._hideUnlearnableCheck,  not inGuildView)
         setShown(mf._recipesTab,            not inGuildView)
         setShown(mf._wishlistTab,           not inGuildView)
-        setShown(mf._guildUnknownCheck,     inGuildView)
-        if mf._guildUnknownCheck and RecipeBookCharDB then
-            mf._guildUnknownCheck:SetChecked(RecipeBookCharDB.guildHideUnknownRecipes == true)
+        setShown(mf._guildUnknownDropdown,  inGuildView)
+        setShown(mf._guildUnknownLabel,     inGuildView)
+        if inGuildView and mf._guildUnknownDropdown and RecipeBookCharDB then
+            local mode = RecipeBookCharDB.guildUnknownFilter or "show"
+            for _, opt in ipairs(mf._guildUnknownOptions or {}) do
+                if opt.value == mode then
+                    UIDropDownMenu_SetText(mf._guildUnknownDropdown, opt.label)
+                    break
+                end
+            end
         end
         if mf._charLabel then
             mf._charLabel:SetText(inGuildView and "Guild:" or "Character:")
-        end
-        if mf._guildCountText then
-            if inGuildView and RecipeBook.UIGuildCrafters then
-                local onlineTotal  = RecipeBook.UIGuildCrafters:CountOnlineGuildMembers()
-                local onlineCached = RecipeBook.UIGuildCrafters:CountOnlineCachedMembers()
-                -- X / Y  —  X = total online, Y = online with cached recipe data
-                mf._guildCountText:SetText(
-                    "|cffffffff" .. onlineTotal .. "|r / |cffffd100" .. onlineCached .. "|r")
-                mf._guildCountText:Show()
-            else
-                mf._guildCountText:Hide()
-            end
         end
     end
 
@@ -1163,6 +1182,9 @@ function RecipeBook:RefreshRecipeList()
         scrollChild:SetHeight(UI.ROW_HEIGHT)
         if self.mainFrame._countText then
             self.mainFrame._countText:SetText("")
+        end
+        if self.mainFrame._countLabel then
+            self.mainFrame._countLabel:SetText("")
         end
         return
     end
@@ -1399,11 +1421,40 @@ function RecipeBook:RefreshRecipeList()
 
     scrollChild:SetHeight(math.abs(yOffset) + 20)
 
-    -- Update count text
+    -- Update count text + coloured label. Label is class-colored char
+    -- name in char view, guild-chat-green guild name in guild view.
+    -- The stats themselves ("X/Y known") are scoped accordingly:
+    --   char view  — current/viewed character's known count
+    --   guild view — recipes at least one guildmate knows
     if self.mainFrame._countText then
         self.mainFrame._countText:SetText(
             totalShown .. " shown | " .. totalKnown .. "/" .. totalRecipes .. " known"
         )
+    end
+    if self.mainFrame._countLabel then
+        local label = self.mainFrame._countLabel
+        local guildKey = self:GetViewedGuildKey()
+        if guildKey then
+            local guild = RecipeBookDB and RecipeBookDB.guilds and RecipeBookDB.guilds[guildKey]
+            local gName = (guild and guild.name) or guildKey
+            local green = RecipeBook.GUILD_CHAT_COLOR or "|cff40ff40"
+            label:SetText(green .. gName .. "|r")
+        else
+            local charKey = self:GetViewedCharKey()
+            local charData = charKey and RecipeBookDB.characters
+                and RecipeBookDB.characters[charKey]
+            local name = (charData and charData.name) or charKey or ""
+            local classColor = charData and charData.class
+                and RAID_CLASS_COLORS and RAID_CLASS_COLORS[charData.class]
+            if classColor then
+                label:SetText(string.format("|cff%02x%02x%02x%s|r",
+                    math.floor(classColor.r * 255),
+                    math.floor(classColor.g * 255),
+                    math.floor(classColor.b * 255), name))
+            else
+                label:SetText(name)
+            end
+        end
     end
 
     -- Refresh the sources popup if it's open

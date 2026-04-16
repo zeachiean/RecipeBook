@@ -189,7 +189,6 @@ function T.test_reset_all_resets_account_settings()
     StaticPopupDialogs["RECIPEBOOK_CONFIRM_RESET_ALL"].OnAccept()
 
     assert_equal(5, RecipeBookDB.maxPhase, "maxPhase should reset to 5")
-    assert_equal(1, RecipeBookDB.currentPhase, "currentPhase should reset to 1")
     assert_equal(5, RecipeBookDB.minCharLevel, "minCharLevel should reset to 5")
     assert_equal(true, RecipeBookDB.showTooltipInfo, "showTooltipInfo should reset to true")
     assert_equal(false, RecipeBookDB.minimap.hide, "minimap.hide should reset to false")

@@ -5,6 +5,31 @@ RecipeBook.RELEASE_DATE = "April 11, 2026"
 RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
 
+-- ============================================================
+-- Saved-data schema sentinels.
+--
+-- We do NOT migrate incompatible data. When the shape of a saved
+-- namespace changes in a breaking way, bump the corresponding number
+-- here; on next login, InitSavedVars detects the mismatch and clears
+-- the affected namespace. The data re-sources itself:
+--
+--   DB_SCHEMA       — bump wipes RecipeBookDB.characters and shows
+--                     the rescan-professions popup. Users reopen
+--                     their profession windows once.
+--   CHAR_DB_SCHEMA  — bump wipes RecipeBookCharDB (preserving
+--                     professionSkill). Per-char preferences are
+--                     trivially re-settable in Settings.
+--   GUILD_SCHEMA    — bump wipes RecipeBookDB.guilds silently. The
+--                     guild handshake re-populates from peers within
+--                     a few seconds of login.
+--
+-- Every bump MUST be called out in CHANGELOG.md under a "Breaking"
+-- subsection, and flagged to the user before the change is made.
+-- ============================================================
+RecipeBook.DB_SCHEMA      = 1
+RecipeBook.CHAR_DB_SCHEMA = 1
+RecipeBook.GUILD_SCHEMA   = 1
+
 -- Fixed-size fonts
 local FONT_FILE = "Fonts\\FRIZQT__.TTF"
 
@@ -339,6 +364,21 @@ function RecipeBook:GetAllCharKeys()
     return list
 end
 
+-- Returns true when the stored character is below the configured
+-- Minimum Character Level — used to hide low-level alts from the
+-- Character dropdown, ignore list, and cross-character tooltips.
+-- The currently logged-in character is never hidden (you still need to
+-- see / manage yourself even if you're below the threshold).
+function RecipeBook:IsCharBelowMinLevel(charKey)
+    if not RecipeBookDB or not RecipeBookDB.characters then return false end
+    if charKey == self:GetMyCharKey() then return false end
+    local entry = RecipeBookDB.characters[charKey]
+    local level = entry and entry.level
+    if not level then return false end  -- unknown level → don't hide
+    local minLevel = (RecipeBookDB.minCharLevel) or 5
+    return level < minLevel
+end
+
 -- Guild view state (mutually exclusive with viewingChar).
 function RecipeBook:GetViewedGuildKey()
     if RecipeBookCharDB and RecipeBookCharDB.viewingGuildKey then
@@ -492,27 +532,63 @@ StaticPopupDialogs["RECIPEBOOK_SKILL_RESCAN"] = {
 }
 
 -- Initialize saved variables with defaults.
--- Returns true if a one-shot migration wiped known-recipe state (caller should
--- prompt the user to reopen their profession windows).
+--
+-- Schema mismatch handling runs FIRST, before any default-setting, so
+-- incompatible data is cleared cleanly. See the DB_SCHEMA /
+-- CHAR_DB_SCHEMA / GUILD_SCHEMA sentinels near the top of this file.
+--
+-- Exposed on RecipeBook for test access; callers in this file still
+-- invoke it via the local binding.
 local function InitSavedVars()
-    if not RecipeBookDB then
-        RecipeBookDB = {}
+    if not RecipeBookDB then RecipeBookDB = {} end
+    if not RecipeBookCharDB then RecipeBookCharDB = {} end
+
+    -- ------------------------------------------------------------
+    -- Schema checks. Wipe incompatible namespaces, don't migrate.
+    -- ------------------------------------------------------------
+    if (RecipeBookDB.schema or 0) ~= RecipeBook.DB_SCHEMA then
+        local hadCharData = RecipeBookDB.characters
+            and next(RecipeBookDB.characters) ~= nil
+        RecipeBookDB.characters = {}
+        RecipeBookDB.schema = RecipeBook.DB_SCHEMA
+        -- Only surface the rescan prompt if the user actually had data
+        -- to lose — fresh installs shouldn't see it.
+        if hadCharData then
+            StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
+        end
     end
+
+    if (RecipeBookDB.guildSchema or 0) ~= RecipeBook.GUILD_SCHEMA then
+        -- Silent: the guild-sync handshake will re-populate from peers.
+        RecipeBookDB.guilds = {}
+        RecipeBookDB.guildSchema = RecipeBook.GUILD_SCHEMA
+    end
+
+    if (RecipeBookCharDB.schema or 0) ~= RecipeBook.CHAR_DB_SCHEMA then
+        -- Preserve professionSkill (expensive to rebuild — requires
+        -- opening every profession window). Everything else is a
+        -- trivially re-settable per-character preference.
+        local skill = RecipeBookCharDB.professionSkill
+        wipe(RecipeBookCharDB)
+        RecipeBookCharDB.professionSkill = skill or {}
+        RecipeBookCharDB.schema = RecipeBook.CHAR_DB_SCHEMA
+    end
+
+    -- ------------------------------------------------------------
+    -- Defaults (idempotent — safe to re-apply after a wipe).
+    -- ------------------------------------------------------------
     if not RecipeBookDB.minimap then
         RecipeBookDB.minimap = { hide = false }
     end
     if RecipeBookDB.maxPhase == nil then
         RecipeBookDB.maxPhase = 5
     end
-    -- Current server phase — update this when the server advances
-    RecipeBookDB.currentPhase = 1
     if RecipeBookDB.showTooltipInfo == nil then
         RecipeBookDB.showTooltipInfo = true
     end
     if not RecipeBookDB.characters then
         RecipeBookDB.characters = {}
     end
-    -- Guild sharing defaults (nil guildSharingEnabled = never prompted)
     if RecipeBookDB.guildSharePrompted == nil then
         RecipeBookDB.guildSharePrompted = false
     end
@@ -523,9 +599,6 @@ local function InitSavedVars()
         RecipeBookDB.guilds = {}
     end
 
-    if not RecipeBookCharDB then
-        RecipeBookCharDB = {}
-    end
     if not RecipeBookCharDB.guildSelfMeta then
         RecipeBookCharDB.guildSelfMeta = {}
     end
@@ -541,6 +614,9 @@ local function InitSavedVars()
     if not RecipeBookCharDB.collapsedSources then
         RecipeBookCharDB.collapsedSources = {}
     end
+    if RecipeBookCharDB.guildUnknownFilter == nil then
+        RecipeBookCharDB.guildUnknownFilter = "show"
+    end
 
     -- Ensure current character has an entry in the global store
     local myName = UnitName("player")
@@ -548,33 +624,17 @@ local function InitSavedVars()
     local myKey = RecipeBook:BuildCharKey(myName, myRealm)
     if myKey then
         local entry = RecipeBook:GetOrCreateCharData(myKey, myName, myRealm)
-        -- Record faction/class metadata (cheap, refresh every login)
+        -- Record faction/class/level metadata (cheap, refresh every login)
         local _, faction = UnitFactionGroup("player")
         entry.faction = faction
         local _, classFile = UnitClass("player")
         entry.class = classFile
+        entry.level = UnitLevel("player") or entry.level
         entry.lastSeen = time()
-
-        -- One-time migration from per-character DB to global characters store
-        if RecipeBookCharDB.knownRecipes and not RecipeBookCharDB.migratedToGlobal then
-            for profID, recipes in pairs(RecipeBookCharDB.knownRecipes) do
-                entry.knownRecipes[profID] = entry.knownRecipes[profID] or {}
-                for recipeID, v in pairs(recipes) do
-                    if v then entry.knownRecipes[profID][recipeID] = true end
-                end
-            end
-            if RecipeBookCharDB.knownProfessions then
-                for profID, v in pairs(RecipeBookCharDB.knownProfessions) do
-                    if v then entry.knownProfessions[profID] = true end
-                end
-            end
-            RecipeBookCharDB.knownRecipes = nil
-            RecipeBookCharDB.knownProfessions = nil
-            RecipeBookCharDB.profTrackingFixed = nil
-            RecipeBookCharDB.migratedToGlobal = true
-        end
     end
 end
+
+RecipeBook._InitSavedVars = InitSavedVars  -- test access
 
 -- Get the effective phase for a recipe.
 -- Each recipe has an explicit phase field (1-5) in recipeDB; this is the
@@ -664,9 +724,13 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
             RecipeBook:RegisterTrackingEvents(self)
             RecipeBook:CreateMinimapButton()
             initGuildSubsystems()
-            -- Announce ourselves to the guild (debounced 5 s).
-            if RecipeBook.GuildComm and RecipeBook.GuildComm.BroadcastHello then
-                RecipeBook.GuildComm.BroadcastHello()
+            -- Announce ourselves to the guild (debounced 5 s), and seed
+            -- _lastKnownGuildKey so the PLAYER_GUILD_UPDATE handler
+            -- (which fires after every loading screen) doesn't re-broadcast.
+            if RecipeBook.GuildComm then
+                local gc = RecipeBook.GuildComm
+                gc._lastKnownGuildKey = gc.CurrentGuildKey and gc.CurrentGuildKey()
+                if gc.BroadcastHello then gc.BroadcastHello() end
             end
             maybePromptGuildShare()
 
@@ -679,20 +743,20 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         -- hooks pick up any recipe changes independently.
 
     elseif event == "PLAYER_GUILD_UPDATE" then
-        if RecipeBook.GuildComm and RecipeBook.GuildComm.RefreshChannelIndex then
-            RecipeBook.GuildComm.RefreshChannelIndex()
-        end
+        -- PLAYER_GUILD_UPDATE fires on real membership changes AND on
+        -- routine data refreshes after loading screens (zone/instance
+        -- transitions). Only broadcast a HELLO when the guild key
+        -- actually changed — i.e. the player joined or left a guild.
         if RecipeBook.GuildRoster then
             RecipeBook.GuildRoster:Request()
         end
-        if RecipeBook.GuildComm and RecipeBook.GuildComm.MirrorAllSelf then
-            RecipeBook.GuildComm.MirrorAllSelf()
-            -- If we just joined a guild (or our membership changed),
-            -- announce ourselves. The HELLO_MIN_GAP_SECS guard in
-            -- sendHelloNow coalesces this with any near-simultaneous
-            -- broadcast from the login path or Settings toggle.
-            if RecipeBook.GuildComm.BroadcastHello then
-                RecipeBook.GuildComm.BroadcastHello()
+        local gc = RecipeBook.GuildComm
+        if gc then
+            local currentKey = gc.CurrentGuildKey and gc.CurrentGuildKey()
+            if gc.MirrorAllSelf then gc.MirrorAllSelf() end
+            if currentKey ~= gc._lastKnownGuildKey then
+                gc._lastKnownGuildKey = currentKey
+                if gc.BroadcastHello then gc.BroadcastHello() end
             end
         end
         maybePromptGuildShare()
@@ -752,18 +816,7 @@ SLASH_RECIPEBOOK1 = "/recipebook"
 SLASH_RECIPEBOOK2 = "/rb"
 SlashCmdList["RECIPEBOOK"] = function(msg)
     msg = strtrim(msg or "")
-    if msg == "phase" or msg:match("^phase%s") then
-        local phase = tonumber(msg:match("^phase%s+(%d+)"))
-        if phase and phase >= 1 and phase <= 5 then
-            RecipeBookDB.currentPhase = phase
-            RecipeBook:Print("Current phase set to " .. phase)
-            if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
-                RecipeBook:RefreshRecipeList()
-            end
-        else
-            RecipeBook:Print("Usage: /rb phase <1-5> (current: " .. (RecipeBookDB.currentPhase or 1) .. ")")
-        end
-    elseif msg == "clearcache" then
+    if msg == "clearcache" then
         wipe(RecipeBook.itemNames)
         RecipeBook._refreshPending = nil
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
@@ -1009,10 +1062,11 @@ function RecipeBook:HookTooltips()
         for _, entry in ipairs(entries) do
             for _, key in ipairs(self:GetAllCharKeys()) do
                 if not seen[key] then
-                    -- Skip ignored characters
+                    -- Skip ignored characters and sub-minimum-level alts
                     local isCharIgnored = RecipeBookDB.ignoredCharacters
                         and RecipeBookDB.ignoredCharacters[key]
-                    if isCharIgnored then
+                    local belowMin = self:IsCharBelowMinLevel(key)
+                    if isCharIgnored or belowMin then
                         seen[key] = true
                     else
                         local isIgnored = self:IsRecipeIgnored(entry.profID, entry.recipeID, key)

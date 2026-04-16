@@ -158,7 +158,8 @@ local function PhaseDropdown_Init(self, level)
     info.text = "       All       "
     info.notCheckable = true
     info.func = function()
-        RecipeBook._settingsPhase = nil
+        -- "All" stores 5 (the natural maximum); the filter treats 5 as uncapped.
+        RecipeBookDB.maxPhase = 5
         UIDropDownMenu_SetText(phaseDropdown, "All")
         RecipeBook:RefreshRecipeList()
     end
@@ -170,8 +171,8 @@ local function PhaseDropdown_Init(self, level)
         info.value = p
         info.notCheckable = true
         info.func = function()
-            RecipeBook._settingsPhase = p
-            UIDropDownMenu_SetText(phaseDropdown, tostring(p))
+            RecipeBookDB.maxPhase = p
+            UIDropDownMenu_SetText(phaseDropdown, (p == 5) and "All" or tostring(p))
             RecipeBook:RefreshRecipeList()
         end
         UIDropDownMenu_AddButton(info, level)
@@ -257,7 +258,13 @@ local function RefreshIgnoreList()
         cb:Hide()
     end
 
-    local keys = RecipeBook:GetAllCharKeys()
+    local allKeys = RecipeBook:GetAllCharKeys()
+    local keys = {}
+    for _, k in ipairs(allKeys) do
+        if not RecipeBook:IsCharBelowMinLevel(k) then
+            keys[#keys + 1] = k
+        end
+    end
     local ROW_H = 26
     local count = 0
 
@@ -435,7 +442,6 @@ StaticPopupDialogs["RECIPEBOOK_CONFIRM_RESET_ALL"] = {
 
         -- Reset account-wide settings to defaults
         RecipeBookDB.maxPhase = 5
-        RecipeBookDB.currentPhase = 1
         RecipeBookDB.minCharLevel = 5
         RecipeBookDB.showTooltipInfo = true
         RecipeBookDB.minimap = { hide = false }
@@ -689,13 +695,9 @@ panel:SetScript("OnShow", function()
     local showTooltip = not RecipeBookDB or RecipeBookDB.showTooltipInfo ~= false
     tooltipCheck:SetChecked(showTooltip)
 
-    -- Phase
-    local phase = RecipeBook._settingsPhase
-    if phase then
-        UIDropDownMenu_SetText(phaseDropdown, tostring(phase))
-    else
-        UIDropDownMenu_SetText(phaseDropdown, "All")
-    end
+    -- Max Phase (persisted). 5 reads as "All" since it caps at everything.
+    local phase = (RecipeBookDB and RecipeBookDB.maxPhase) or 5
+    UIDropDownMenu_SetText(phaseDropdown, (phase >= 5) and "All" or tostring(phase))
 
     -- Level slider
     local minLevel = RecipeBookDB and RecipeBookDB.minCharLevel or 5

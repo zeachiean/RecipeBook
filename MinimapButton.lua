@@ -28,8 +28,13 @@ function RecipeBook:CreateMinimapButton()
 
     local icon = LibStub("LibDBIcon-1.0", true)
     if icon then
+        -- IsRegistered is the primary guard, but defend against edge
+        -- cases where it gives a false negative (library-version skew
+        -- between concurrent addons, an embedded copy's state out of
+        -- sync with ours): pcall the Register so a duplicate doesn't
+        -- bubble an error to the user.
         if not icon:IsRegistered("RecipeBook") then
-            icon:Register("RecipeBook", dataObj, RecipeBookDB.minimap)
+            pcall(icon.Register, icon, "RecipeBook", dataObj, RecipeBookDB.minimap)
         end
         self._dbIcon = icon
     end

@@ -95,33 +95,6 @@ function UIGC:AnyCrafterMatchesZoneFilter(profID, recipeID, guildKey, zoneFilter
     return false
 end
 
--- Total online guild members (from the live guild roster).
-function UIGC:CountOnlineGuildMembers()
-    if not _G.GetNumGuildMembers then return 0 end
-    local n = _G.GetNumGuildMembers() or 0
-    local online = 0
-    for i = 1, n do
-        local _, _, _, _, _, _, _, _, isOnline = _G.GetGuildRosterInfo(i)
-        if isOnline then online = online + 1 end
-    end
-    return online
-end
-
--- Cached guild members who are also currently online. These are the
--- people whose recipe data we know AND who can actually respond.
-function UIGC:CountOnlineCachedMembers(guildKey)
-    guildKey = guildKey or RecipeBook:GetViewedGuildKey()
-    if not guildKey then return 0 end
-    local guild = RecipeBookDB and RecipeBookDB.guilds and RecipeBookDB.guilds[guildKey]
-    if not guild or not guild.members then return 0 end
-    local count = 0
-    for _, member in pairs(guild.members) do
-        local ri = RecipeBook.GuildRoster and RecipeBook.GuildRoster:Get(member.name or "")
-        if ri and ri.online then count = count + 1 end
-    end
-    return count
-end
-
 -- Count unique guildmates (online + offline) who have this profession
 -- in the cached guild store. Used to decide whether the profession
 -- even appears in the guild-view profession dropdown.
@@ -243,13 +216,17 @@ function UIGC:OpenMenu(anchor, crafter, recipeLink, context)
     menuFrame = menuFrame or CreateFrame("Frame", "RecipeBookCrafterMenu", UIParent, "UIDropDownMenuTemplate")
 
     local charName = crafter and crafter.name or ""
-    -- context is an optional { profID, recipeID } pair — lets us offer
-    -- "Show All Crafters" only when we know which recipe the menu was
-    -- opened from. (The popup itself omits that entry to avoid loops.)
+    -- context is optional. Fields:
+    --   profID, recipeID  — needed to open the Show All Crafters popup.
+    --   popupOnly         — when true, the main menu is ONLY
+    --                       "Show All Crafters" + Cancel. Used for
+    --                       multi-crafter recipes; the user picks a
+    --                       specific crafter from the popup and takes
+    --                       per-crafter actions from there.
     UIDropDownMenu_Initialize(menuFrame, function(self, level)
         local info
 
-        if context and context.profID and context.recipeID then
+        if context and context.popupOnly and context.profID and context.recipeID then
             info = UIDropDownMenu_CreateInfo()
             info.text = "Show All Crafters"
             info.notCheckable = true
@@ -258,11 +235,12 @@ function UIGC:OpenMenu(anchor, crafter, recipeLink, context)
             end
             UIDropDownMenu_AddButton(info, level)
 
-            local sep = UIDropDownMenu_CreateInfo()
-            sep.text = ""
-            sep.isTitle = true
-            sep.notCheckable = true
-            UIDropDownMenu_AddButton(sep, level)
+            info = UIDropDownMenu_CreateInfo()
+            info.text = CANCEL or "Cancel"
+            info.notCheckable = true
+            info.func = function() end
+            UIDropDownMenu_AddButton(info, level)
+            return
         end
 
         info = UIDropDownMenu_CreateInfo()
@@ -271,23 +249,27 @@ function UIGC:OpenMenu(anchor, crafter, recipeLink, context)
         info.notCheckable = true
         UIDropDownMenu_AddButton(info, level)
 
-        info = UIDropDownMenu_CreateInfo()
-        info.text = "Whisper"
-        info.notCheckable = true
-        info.func = function() doWhisper(charName, recipeLink or "") end
-        UIDropDownMenu_AddButton(info, level)
+        -- Whisper / Invite / Who all require the target to be online.
+        -- Hide them for offline crafters to avoid silent no-ops.
+        if crafter and crafter.online then
+            info = UIDropDownMenu_CreateInfo()
+            info.text = "Whisper"
+            info.notCheckable = true
+            info.func = function() doWhisper(charName, recipeLink or "") end
+            UIDropDownMenu_AddButton(info, level)
 
-        info = UIDropDownMenu_CreateInfo()
-        info.text = "Invite"
-        info.notCheckable = true
-        info.func = function() doInvite(charName) end
-        UIDropDownMenu_AddButton(info, level)
+            info = UIDropDownMenu_CreateInfo()
+            info.text = "Invite"
+            info.notCheckable = true
+            info.func = function() doInvite(charName) end
+            UIDropDownMenu_AddButton(info, level)
 
-        info = UIDropDownMenu_CreateInfo()
-        info.text = "Who"
-        info.notCheckable = true
-        info.func = function() doWho(charName) end
-        UIDropDownMenu_AddButton(info, level)
+            info = UIDropDownMenu_CreateInfo()
+            info.text = "Who"
+            info.notCheckable = true
+            info.func = function() doWho(charName) end
+            UIDropDownMenu_AddButton(info, level)
+        end
 
         info = UIDropDownMenu_CreateInfo()
         info.text = "Copy Name"

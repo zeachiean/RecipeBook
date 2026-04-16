@@ -8,7 +8,6 @@ local selectedContinent = nil
 local selectedZone = nil
 local hideKnown = false
 local hideUnlearnable = false
-local selectedPhase = nil -- nil = use maxPhase from settings
 local searchText = ""
 local listMode = "all" -- "all" | "wishlist" | "ignored"
 
@@ -156,14 +155,6 @@ function RecipeBook:CreateMainFrame()
     UIDropDownMenu_SetWidth(charDropdown, UI.DROPDOWN_WIDTH)
     frame._charDropdown = charDropdown
 
-    -- Guild-view-only: "<online members> / <cached online crafters>" counter,
-    -- anchored to the right of the char dropdown. Hidden in character view.
-    local guildCountText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontNormal")
-    guildCountText:SetPoint("LEFT", charDropdown, "RIGHT", -2, 2)
-    guildCountText:SetTextColor(1, 0.82, 0)
-    guildCountText:Hide()
-    frame._guildCountText = guildCountText
-
     local function CharDropdown_Init(self, level)
         local myKey = RecipeBook:GetMyCharKey()
         local keys = RecipeBook:GetAllCharKeys()
@@ -190,7 +181,8 @@ function RecipeBook:CreateMainFrame()
         for _, key in ipairs(keys) do
             local isIgnored = RecipeBookDB and RecipeBookDB.ignoredCharacters
                 and RecipeBookDB.ignoredCharacters[key]
-            if key ~= myKey and not isIgnored then
+            local belowMin = RecipeBook:IsCharBelowMinLevel(key)
+            if key ~= myKey and not isIgnored and not belowMin then
                 if not hasOthers then
                     local header = UIDropDownMenu_CreateInfo()
                     header.text = "Other Characters"
@@ -343,7 +335,10 @@ function RecipeBook:CreateMainFrame()
                 end
                 if not hidden and total > 0 then
                     local info = UIDropDownMenu_CreateInfo()
-                    info.text = prof.name .. "  |cffffffff(" .. online .. ")|r"
+                    -- (online/total) — online in green, total in gray.
+                    info.text = prof.name
+                        .. "  |cff40ff40(" .. online .. "|r"
+                        .. "|cff888888 / " .. total .. ")|r"
                     info.value = prof.id
                     info.notCheckable = true
                     info.func = function()
@@ -424,13 +419,14 @@ function RecipeBook:CreateMainFrame()
         local name = RecipeBook.PROFESSION_NAMES[selectedProfession] or "Select..."
         local guildKey = RecipeBook.GetViewedGuildKey and RecipeBook:GetViewedGuildKey()
         if guildKey then
-            local online = 0
+            local total, online = 0, 0
             if RecipeBook.UIGuildCrafters then
-                local _, n = RecipeBook.UIGuildCrafters:CountMembersWithProfession(
+                total, online = RecipeBook.UIGuildCrafters:CountMembersWithProfession(
                     selectedProfession, guildKey)
-                online = n or 0
             end
-            name = name .. "  |cffffffff(" .. online .. ")|r"
+            name = name
+                .. "  |cff40ff40(" .. (online or 0) .. "|r"
+                .. "|cff888888 / " .. (total or 0) .. ")|r"
         else
             local skill = RecipeBook:GetProfessionSkill(selectedProfession)
             if skill then
@@ -458,30 +454,56 @@ function RecipeBook:CreateMainFrame()
     frame._recipesTab = recipesTab
     frame._wishlistTab = wishlistTab
 
-    -- Guild-view-only: "Hide Unknown Guild Recipes" — hides recipes
-    -- that no one in the guild can currently craft. Shares screen real
-    -- estate with hideKnownCheck (mutually exclusive via view mode).
-    local guildHideUnknownCheck = CreateFrame("CheckButton", "RecipeBookGuildHideUnknown", frame, "UICheckButtonTemplate")
-    guildHideUnknownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 110, 0)
-    guildHideUnknownCheck:SetPoint("TOP", profLabel, "TOP", 0, 5)
-    guildHideUnknownCheck:SetSize(20, 20)
-    do
-        local t = _G["RecipeBookGuildHideUnknownText"]
-        t:SetText("Hide Unknown Guild Recipes")
-        t:SetFontObject("RecipeBookFontSmall")
-        -- Flip the label to the left of the checkbox so the long
-        -- string doesn't overflow the frame's right edge.
-        t:ClearAllPoints()
-        t:SetPoint("RIGHT", guildHideUnknownCheck, "LEFT", -2, 0)
-        t:SetJustifyH("RIGHT")
-    end
-    guildHideUnknownCheck:SetScript("OnClick", function(self)
+    -- Guild-view-only: "Unknown Guild Recipes" dropdown. Shares screen
+    -- real estate with hideKnownCheck (mutually exclusive via view mode).
+    --   show : everything visible (unknown ones rendered gray)
+    --   hide : hide recipes nobody in the guild can craft
+    --   only : show ONLY recipes nobody in the guild can craft
+    -- Dropdown first, label second: the value + label together read
+    -- as a sentence ("Show Unknown Guild Recipes" / "Hide …" / "Only …").
+    local guildUnknownDropdown = CreateFrame(
+        "Frame", "RecipeBookGuildUnknownDropdown", frame, "UIDropDownMenuTemplate")
+    guildUnknownDropdown:SetPoint("LEFT", profDropdown, "RIGHT", -8, 0)
+    UIDropDownMenu_SetWidth(guildUnknownDropdown, 70)
+
+    local guildUnknownLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    guildUnknownLabel:SetPoint("LEFT", guildUnknownDropdown, "RIGHT", -10, 4)
+    guildUnknownLabel:SetText("Unknown Guild Recipes")
+    guildUnknownLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
+
+    local UNKNOWN_OPTIONS = {
+        { value = "show", label = "Show" },
+        { value = "hide", label = "Hide" },
+        { value = "only", label = "Only" },
+    }
+    local function setUnknownMode(value)
         RecipeBookCharDB = RecipeBookCharDB or {}
-        RecipeBookCharDB.guildHideUnknownRecipes = self:GetChecked() and true or false
+        RecipeBookCharDB.guildUnknownFilter = value
+        -- Find the matching label for the dropdown text.
+        for _, opt in ipairs(UNKNOWN_OPTIONS) do
+            if opt.value == value then
+                UIDropDownMenu_SetText(guildUnknownDropdown, opt.label)
+                break
+            end
+        end
         RecipeBook:RefreshRecipeList()
+    end
+    UIDropDownMenu_Initialize(guildUnknownDropdown, function(self, level)
+        for _, opt in ipairs(UNKNOWN_OPTIONS) do
+            local info = UIDropDownMenu_CreateInfo()
+            info.text = opt.label
+            info.value = opt.value
+            info.notCheckable = true
+            info.func = function() setUnknownMode(opt.value) end
+            UIDropDownMenu_AddButton(info, level)
+        end
     end)
-    guildHideUnknownCheck:Hide()
-    frame._guildUnknownCheck = guildHideUnknownCheck
+    guildUnknownDropdown:Hide()
+    guildUnknownLabel:Hide()
+    frame._guildUnknownDropdown = guildUnknownDropdown
+    frame._guildUnknownLabel    = guildUnknownLabel
+    -- Expose the option list for the Refresh code to read and set text.
+    frame._guildUnknownOptions  = UNKNOWN_OPTIONS
 
     -- Hide Unlearnable checkbox (to the left of Hide Known)
     hideUnlearnableCheck = CreateFrame("CheckButton", "RecipeBookHideUnlearnable", frame, "UICheckButtonTemplate")
@@ -670,12 +692,20 @@ function RecipeBook:CreateMainFrame()
         RecipeBook:RefreshRecipeList()
     end)
 
-    -- Entry count (above search box, right-aligned)
+    -- Entry count (above search box, right-aligned).
+    -- Preceded by a coloured label — char name (class color) in char
+    -- view, guild name (guild green) in guild view — so the count is
+    -- unambiguously scoped.
     local countText = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     countText:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 8, 0)
     countText:SetPoint("TOP", contLabel, "TOP", 0, 0)
     countText:SetTextColor(0.5, 0.5, 0.5)
     frame._countText = countText
+
+    local countLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
+    countLabel:SetPoint("RIGHT", countText, "LEFT", -6, 0)
+    countLabel:SetJustifyH("RIGHT")
+    frame._countLabel = countLabel
 
     -- Search box (pinned to right side of zone row)
     local searchBox = CreateFrame("EditBox", "RecipeBookSearchBox", frame, "InputBoxTemplate")
@@ -703,11 +733,9 @@ function RecipeBook:CreateMainFrame()
     searchLabel:SetText("Search:")
     searchLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
-    -- Initialize phase and faction from saved vars (managed in Settings)
-    local currentPhase = RecipeBookDB and RecipeBookDB.currentPhase or 1
-    selectedPhase = currentPhase
-    RecipeBook._settingsPhase = currentPhase
-    -- Initialize faction from saved or default to true
+    -- Initialize faction from saved or default to true.
+    -- (Max-Phase filter is read directly from RecipeBookDB.maxPhase —
+    -- no UI-local state to initialise for it.)
     if RecipeBookCharDB and RecipeBookCharDB.myFactionOnly ~= nil then
         RecipeBook.myFactionOnly = RecipeBookCharDB.myFactionOnly
     else
@@ -816,12 +844,13 @@ function RecipeBook:SelectProfession(profID)
     local name = self.PROFESSION_NAMES[profID] or "Select..."
     local guildKey = self.GetViewedGuildKey and self:GetViewedGuildKey()
     if guildKey then
-        local online = 0
+        local total, online = 0, 0
         if self.UIGuildCrafters then
-            local _, n = self.UIGuildCrafters:CountMembersWithProfession(profID, guildKey)
-            online = n or 0
+            total, online = self.UIGuildCrafters:CountMembersWithProfession(profID, guildKey)
         end
-        name = name .. "  |cffffffff(" .. online .. ")|r"
+        name = name
+            .. "  |cff40ff40(" .. (online or 0) .. "|r"
+            .. "|cff888888 / " .. (total or 0) .. ")|r"
     else
         local skill = self:GetProfessionSkill(profID)
         if skill then
@@ -938,7 +967,7 @@ function RecipeBook:GetFilterState()
         zone = filterZone,
         hideKnown = hideKnown,
         hideUnlearnable = hideUnlearnable,
-        maxPhase = RecipeBook._settingsPhase or (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
+        maxPhase = (RecipeBookDB and RecipeBookDB.maxPhase) or 5,
         playerFaction = playerFaction,
         searchText = searchText ~= "" and strlower(searchText) or nil,
         listMode = listMode,
