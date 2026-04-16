@@ -14,7 +14,7 @@ Recipes are grouped into collapsible sections by how you obtain them. Expand or 
 
 ### Guild Crafts
 
-See which guildmates can craft what. A Guild entry in the Character dropdown replaces the Source column with a live list of guildmates who know each recipe — online ones class-colored with their zone, offline ones greyed. Right-click any crafter for Whisper (pre-filled with the recipe link), Invite, Who, or Copy Name. Sharing is on by default — the first time you're in a guild, a one-time notice tells you how to disable it in Settings. Syncs over addon messages with a timestamped-hash handshake so only changed data is transferred, invisible to guild chat.
+See which guildmates can craft what recipes in all professions. Right-click any crafter for Whisper (pre-filled with the recipe link) or Invite. Sharing is on by default — the first time you're in a guild, a one-time notice tells you how to disable it in Settings. Maintains data for all guilds of all your characters.
 
 ### Known Recipe Tracking
 
