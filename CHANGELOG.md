@@ -1,5 +1,11 @@
 # RecipeBook Changelog
 
+## v1.6.1
+
+### Data
+- Corrected drop sources for **Formula: Enchant Cloak - Greater Arcane Resistance** (now drops from Eclipsion Archmage in Shadowmoon Valley) and **Formula: Enchant Cloak - Greater Shadow Resistance** (now drops from Voidshrieker in Netherstorm). Thanks to @Bennylavaa for the in-game verification.
+- Corrected phase for **Formula: Enchant Weapon - Major Striking** (phase 1 → 3). Thanks to @Bennylavaa.
+
 ## v1.6.0
 
 ### Breaking

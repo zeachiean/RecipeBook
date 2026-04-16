@@ -2,7 +2,7 @@
 ## Title: RecipeBook
 ## Notes: Recipe and profession browser with source tracking and waypoint integration.
 ## Author: Breakbone - Dreamscythe
-## Version: 1.6.0
+## Version: 1.6.1
 ## X-License: All Rights Reserved
 ## X-Curse-Project-ID: 1504542
 ## X-WoWI-ID: 27111
