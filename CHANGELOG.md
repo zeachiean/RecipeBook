@@ -3,6 +3,7 @@
 ## v1.6.0
 
 ### Breaking
+- **Guild sharing is now ON by default.** The first-login popup that asked you to opt in is gone; instead, the first time RecipeBook sees you in a guild it shows a one-time informational notice explaining that sharing is active and telling you how to disable it in Settings. If you had previously opted in or out, your existing choice is preserved. If you had not been prompted yet (fresh install or skipped the old popup), you are now sharing.
 - **Your known-recipe data will be cleared on upgrade.** RecipeBook 1.6.0 introduces a data-schema sentinel and changes the character-data shape. On your first login after updating, a popup will ask you to reopen each profession window once so RecipeBook can rescan. Profession skill levels are preserved.
 - **Per-character preferences reset to defaults.** Things like "Hide Known", window position, last-viewed character/guild all reset once. Profession skill levels are kept.
 - **Cached guild-crafter data is cleared on upgrade.** No user action needed — the guild-sync handshake repopulates from online guildmates within a few seconds of login.

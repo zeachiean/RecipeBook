@@ -501,19 +501,17 @@ StaticPopupDialogs["RECIPEBOOK_RESCAN_PROFESSIONS"] = {
     preferredIndex = 3,
 }
 
-StaticPopupDialogs["RECIPEBOOK_GUILD_SHARE_PROMPT"] = {
-    text = "RecipeBook can share your known recipes with your guildmates so they can see who to ask for crafts.\n\nEnable sharing?\n\n(You can change this later in /rb settings.)",
-    button1 = "Enable sharing",
-    button2 = "Not now",
+-- Informational notice shown once when the player is first seen in a
+-- guild. Sharing is on by default (see InitSavedVars); this just lets
+-- the user know and points them at Settings to disable.
+StaticPopupDialogs["RECIPEBOOK_GUILD_SHARE_NOTICE"] = {
+    text = "RecipeBook is sharing your known recipes with your guildmates so they can see who to ask for crafts.\n\nYou can disable this in /rb settings under Guild Sharing.",
+    button1 = OKAY,
     OnAccept = function()
-        RecipeBookDB.guildSharingEnabled = true
         RecipeBookDB.guildSharePrompted = true
-        if RecipeBook.GuildComm and RecipeBook.GuildComm.BroadcastHelloImmediate then
-            RecipeBook.GuildComm.BroadcastHelloImmediate()
-        end
     end,
-    OnCancel = function()
-        RecipeBookDB.guildSharingEnabled = false
+    OnHide = function()
+        -- ESC / click-outside also counts as "acknowledged".
         RecipeBookDB.guildSharePrompted = true
     end,
     timeout = 0,
@@ -592,6 +590,12 @@ local function InitSavedVars()
     if RecipeBookDB.guildSharePrompted == nil then
         RecipeBookDB.guildSharePrompted = false
     end
+    -- Guild sharing defaults to ON. The user sees an informational
+    -- notice the first time they're in a guild (see
+    -- RECIPEBOOK_GUILD_SHARE_NOTICE) and can disable it in Settings.
+    if RecipeBookDB.guildSharingEnabled == nil then
+        RecipeBookDB.guildSharingEnabled = true
+    end
     if RecipeBookDB.whisperTemplate == nil or RecipeBookDB.whisperTemplate == "" then
         RecipeBookDB.whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE
     end
@@ -665,17 +669,14 @@ function RecipeBook:OnMyRecipesChanged(profID)
     end
 end
 
--- One-shot gate: show the first-join popup when appropriate.
+-- One-shot gate: show the informational notice the first time we
+-- detect guild membership. No-op once acknowledged (or if the user
+-- already disabled sharing before ever being in a guild).
 local function maybePromptGuildShare()
     if not RecipeBookDB then return end
     if RecipeBookDB.guildSharePrompted then return end
-    if RecipeBookDB.guildSharingEnabled ~= nil then
-        -- Somehow set without the prompt (e.g. manual edit); mark prompted.
-        RecipeBookDB.guildSharePrompted = true
-        return
-    end
     if not IsInGuild or not IsInGuild() then return end
-    StaticPopup_Show("RECIPEBOOK_GUILD_SHARE_PROMPT")
+    StaticPopup_Show("RECIPEBOOK_GUILD_SHARE_NOTICE")
 end
 
 local function initGuildSubsystems()
