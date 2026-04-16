@@ -1,4 +1,4 @@
-## RecipeBook is a profession recipe browser for TBC Anniversary. Browse every recipe by source, track what you know, filter by zone and phase, and set waypoints to vendors and trainers.
+## RecipeBook is a profession recipe browser for TBC Anniversary. Browse every recipe by source, track what you know across all your characters, see which guildmates can craft what, filter by zone and phase, and set waypoints to vendors and trainers.
 
 <img src="https://breakbone-addons.com/images/recipebook-screenshot.png" alt="RecipeBook Main Window" width="500"/>
 
@@ -14,7 +14,7 @@ Recipes are grouped into collapsible sections by how you obtain them. Expand or 
 
 ### Guild Crafts
 
-See which guildmates can craft what. A Guild entry in the Character dropdown replaces the Source column with a live list of guildmates who know each recipe — online ones class-colored with their zone, offline ones greyed. Right-click any crafter for Whisper (pre-filled with the recipe link), Invite, Who, or Copy Name. Opt-in via Settings → Guild Sharing; syncs over a private addon-message channel with a timestamped-hash handshake so only changed data is transferred.
+See which guildmates can craft what. A Guild entry in the Character dropdown replaces the Source column with a live list of guildmates who know each recipe — online ones class-colored with their zone, offline ones greyed. Right-click any crafter for Whisper (pre-filled with the recipe link), Invite, Who, or Copy Name. Sharing is on by default — the first time you're in a guild, a one-time notice tells you how to disable it in Settings. Syncs over addon messages with a timestamped-hash handshake so only changed data is transferred, invisible to guild chat.
 
 ### Known Recipe Tracking
 
@@ -52,8 +52,8 @@ Recipe data is sourced from [RecipeMaster TBC](https://www.curseforge.com/wow/ad
 
 - **Minimap button**: Left-click to open
 - `/rb` — Toggle RecipeBook
-- `/rb phase <N>` — Set max phase (1-5)
 - `/rb reset` — Reset window position
+- Max phase, guild sharing, whisper template, and other preferences live in **Settings** (gear icon in the main window).
 
 ## Installation
 
