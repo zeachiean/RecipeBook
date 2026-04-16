@@ -2,6 +2,12 @@
 
 <img src="https://breakbone-addons.com/images/recipebook-screenshot.png" alt="RecipeBook Main Window" width="500"/>
 
+## Newest Feature
+
+### Guild Crafts
+
+See which guildmates can craft what recipes in all professions. Right-click any crafter for Whisper (pre-filled with the recipe link) or Invite. Sharing is on by default — the first time you're in a guild, a one-time notice tells you how to disable it in Settings. Maintains data for all guilds of all your characters.
+
 ## Features
 
 ### Browse All Recipes
@@ -11,10 +17,6 @@ View every TBC profession recipe organized by source type — Trainer, Vendor, Q
 ### Source Grouping
 
 Recipes are grouped into collapsible sections by how you obtain them. Expand or collapse Trainer, Vendor, Drop, Quest, and other categories to focus on what matters.
-
-### Guild Crafts
-
-See which guildmates can craft what recipes in all professions. Right-click any crafter for Whisper (pre-filled with the recipe link) or Invite. Sharing is on by default — the first time you're in a guild, a one-time notice tells you how to disable it in Settings. Maintains data for all guilds of all your characters.
 
 ### Known Recipe Tracking
 
