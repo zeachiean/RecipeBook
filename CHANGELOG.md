@@ -15,7 +15,7 @@
 - **Guild Crafts**: new per-guild entry in the Character dropdown. Selecting a guild replaces the Source column with guildmates who know each recipe.
 - Online crafters are class-colored and show their zone; offline crafters are greyed.
 - Right-click a crafter row for **Whisper** (pre-filled polite message with the recipe link), **Invite**, **Who**, or **Copy Name**.
-- New **Guild Sharing** section in Settings: opt-in toggle (default off, first-join prompt), customizable whisper template with `{name}` and `{recipe}` placeholders, and a "Forget current guild" button.
+- New **Guild Sharing** section in Settings: on/off toggle (default on, informational notice the first time you're in a guild), customizable whisper template with `{name}` and `{recipe}` placeholders, and a "Forget current guild" button.
 - Syncs recipe data with guildmates running RecipeBook via a private addon-message channel, using a timestamped-hash handshake so only changed data is transferred.
 
 ### API
