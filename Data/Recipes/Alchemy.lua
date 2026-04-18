@@ -4,7 +4,8 @@ RecipeBook.recipeDB[171] = {
 	[118] = {
 		name = "Minor Healing Potion",
 		difficulty = { 1, 55, 75, 95 },
-		teaches = 118,
+		teaches = 2330,
+		isSpell = false,
 		requiredSkill = 1,
 		phase = 1,
 	},
