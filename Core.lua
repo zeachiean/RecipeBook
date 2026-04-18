@@ -5,6 +5,7 @@ RecipeBook.RELEASE_DATE = "April 16, 2026"
 RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
 
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 -- ============================================================
 -- Saved-data schema sentinels.
 --
@@ -72,18 +73,18 @@ end
 
 -- Profession data
 RecipeBook.PROFESSIONS = {
-    { id = 171, name = "Alchemy" },
-    { id = 164, name = "Blacksmithing" },
-    { id = 185, name = "Cooking" },
-    { id = 333, name = "Enchanting" },
-    { id = 202, name = "Engineering" },
-    { id = 129, name = "First Aid" },
-    { id = 356, name = "Fishing" },
-    { id = 755, name = "Jewelcrafting" },
-    { id = 165, name = "Leatherworking" },
-    { id = 186, name = "Mining" },
-    { id = 2842, name = "Poisons" },
-    { id = 197, name = "Tailoring" },
+    { id = 171, name = L["Alchemy"] },
+    { id = 164, name = L["Blacksmithing"] },
+    { id = 185, name = L["Cooking"] },
+    { id = 333, name = L["Enchanting"] },
+    { id = 202, name = L["Engineering"] },
+    { id = 129, name = L["First Aid"] },
+    { id = 356, name = L["Fishing"] },
+    { id = 755, name = L["Jewelcrafting"] },
+    { id = 165, name = L["Leatherworking"] },
+    { id = 186, name = L["Mining"] },
+    { id = 2842, name = L["Poisons"] },
+    { id = 197, name = L["Tailoring"] },
 }
 
 -- Lookup by ID
