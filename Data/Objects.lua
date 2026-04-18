@@ -4,6 +4,7 @@ RecipeBook.objectDB = {
 	[2560] = {
 		names = {
 			enUS = "Half Buried Bottle",
+			deDE = "Halb vergrabene Flasche",
 		},
 		zones = {
 			33,
@@ -12,6 +13,7 @@ RecipeBook.objectDB = {
 	[2849] = {
 		names = {
 			enUS = "Battered Chest",
+			deDE = "Ramponierte Truhe",
 		},
 		zones = {
 			44,
@@ -27,6 +29,7 @@ RecipeBook.objectDB = {
 	[2850] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			44,
@@ -41,6 +44,7 @@ RecipeBook.objectDB = {
 	[2852] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			10,
@@ -53,6 +57,7 @@ RecipeBook.objectDB = {
 	[2855] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			36,
@@ -66,6 +71,7 @@ RecipeBook.objectDB = {
 	[2857] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			45,
@@ -80,6 +86,7 @@ RecipeBook.objectDB = {
 	[3642] = {
 		names = {
 			enUS = "Kolkars Booty",
+			deDE = "Kolkars Beute",
 		},
 		zones = {
 			17,
@@ -88,6 +95,7 @@ RecipeBook.objectDB = {
 	[3714] = {
 		names = {
 			enUS = "Alliance Strongbox",
+			deDE = "Geldkassette der Allianz",
 		},
 		zones = {
 			17,
@@ -96,6 +104,7 @@ RecipeBook.objectDB = {
 	[3715] = {
 		names = {
 			enUS = "Alliance Chest",
+			deDE = "Truhe der Allianz",
 		},
 		zones = {
 			267,
@@ -106,6 +115,7 @@ RecipeBook.objectDB = {
 	[4096] = {
 		names = {
 			enUS = "Alliance Chest",
+			deDE = "Truhe der Allianz",
 		},
 		zones = {
 			267,
@@ -114,6 +124,7 @@ RecipeBook.objectDB = {
 	[4149] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			33,
@@ -128,6 +139,7 @@ RecipeBook.objectDB = {
 	[74447] = {
 		names = {
 			enUS = "Large Iron Bound Chest",
+			deDE = "Große eisenbeschlagene Truhe",
 		},
 		zones = {
 			721,
@@ -137,6 +149,7 @@ RecipeBook.objectDB = {
 	[74448] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			721,
@@ -146,6 +159,7 @@ RecipeBook.objectDB = {
 	[75293] = {
 		names = {
 			enUS = "Large Battered Chest",
+			deDE = "Große ramponierte Truhe",
 		},
 		zones = {
 			209,
@@ -157,6 +171,7 @@ RecipeBook.objectDB = {
 	[75295] = {
 		names = {
 			enUS = "Large Iron Bound Chest",
+			deDE = "Große eisenbeschlagene Truhe",
 		},
 		zones = {
 			209,
@@ -167,6 +182,7 @@ RecipeBook.objectDB = {
 	[75296] = {
 		names = {
 			enUS = "Large Iron Bound Chest",
+			deDE = "Große eisenbeschlagene Truhe",
 		},
 		zones = {
 			796,
@@ -175,6 +191,7 @@ RecipeBook.objectDB = {
 	[75297] = {
 		names = {
 			enUS = "Large Iron Bound Chest",
+			deDE = "Große eisenbeschlagene Truhe",
 		},
 		zones = {
 			796,
@@ -184,6 +201,7 @@ RecipeBook.objectDB = {
 	[75298] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			209,
@@ -195,6 +213,7 @@ RecipeBook.objectDB = {
 	[75299] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			796,
@@ -204,6 +223,7 @@ RecipeBook.objectDB = {
 	[75300] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			796,
@@ -214,6 +234,7 @@ RecipeBook.objectDB = {
 	[105578] = {
 		names = {
 			enUS = "Horde Chest",
+			deDE = "Truhe der Horde",
 		},
 		zones = {
 			45,
@@ -222,6 +243,7 @@ RecipeBook.objectDB = {
 	[105579] = {
 		names = {
 			enUS = "Alliance Chest",
+			deDE = "Truhe der Allianz",
 		},
 		zones = {
 			36,
@@ -231,6 +253,7 @@ RecipeBook.objectDB = {
 	[105581] = {
 		names = {
 			enUS = "Alliance Chest",
+			deDE = "Truhe der Allianz",
 		},
 		zones = {
 			45,
@@ -239,6 +262,7 @@ RecipeBook.objectDB = {
 	[106318] = {
 		names = {
 			enUS = "Battered Chest",
+			deDE = "Ramponierte Truhe",
 		},
 		zones = {
 			14,
@@ -252,6 +276,7 @@ RecipeBook.objectDB = {
 	[106319] = {
 		names = {
 			enUS = "Battered Chest",
+			deDE = "Ramponierte Truhe",
 		},
 		zones = {
 			40,
@@ -264,6 +289,7 @@ RecipeBook.objectDB = {
 	[111095] = {
 		names = {
 			enUS = "Alliance Chest",
+			deDE = "Truhe der Allianz",
 		},
 		zones = {
 			130,
@@ -273,6 +299,7 @@ RecipeBook.objectDB = {
 	[128403] = {
 		names = {
 			enUS = "Shallow Grave",
+			deDE = "Flaches Grab",
 		},
 		zones = {
 			3358,
@@ -284,6 +311,7 @@ RecipeBook.objectDB = {
 	[131979] = {
 		names = {
 			enUS = "Large Darkwood Chest",
+			deDE = "Große Dunkelholztruhe",
 		},
 		zones = {
 			1337,
@@ -292,6 +320,7 @@ RecipeBook.objectDB = {
 	[141979] = {
 		names = {
 			enUS = "Ancient Treasure",
+			deDE = "Antiker Schatz",
 		},
 		zones = {
 			1337,
@@ -300,6 +329,7 @@ RecipeBook.objectDB = {
 	[142184] = {
 		names = {
 			enUS = "Captains Chest",
+			deDE = "Truhe des Käpt'ns",
 		},
 		zones = {
 			440,
@@ -308,6 +338,7 @@ RecipeBook.objectDB = {
 	[152608] = {
 		names = {
 			enUS = "Kolkars Booty",
+			deDE = "Kolkars Beute",
 		},
 		zones = {
 			17,
@@ -316,6 +347,7 @@ RecipeBook.objectDB = {
 	[152618] = {
 		names = {
 			enUS = "Kolkars Booty",
+			deDE = "Kolkars Beute",
 		},
 		zones = {
 			17,
@@ -324,6 +356,7 @@ RecipeBook.objectDB = {
 	[153451] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			47,
@@ -335,6 +368,7 @@ RecipeBook.objectDB = {
 	[153453] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			46,
@@ -346,6 +380,7 @@ RecipeBook.objectDB = {
 	[153454] = {
 		names = {
 			enUS = "Solid Chest",
+			deDE = "Robuste Truhe",
 		},
 		zones = {
 			139,
@@ -355,6 +390,7 @@ RecipeBook.objectDB = {
 	[153463] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			28,
@@ -363,6 +399,7 @@ RecipeBook.objectDB = {
 	[153464] = {
 		names = {
 			enUS = "Large Solid Chest",
+			deDE = "Große robuste Truhe",
 		},
 		zones = {
 			2557,
@@ -374,6 +411,7 @@ RecipeBook.objectDB = {
 	[153468] = {
 		names = {
 			enUS = "Large Mithril Bound Chest",
+			deDE = "Große mithrilbeschlagene Truhe",
 		},
 		zones = {
 			28,
@@ -382,6 +420,7 @@ RecipeBook.objectDB = {
 	[153469] = {
 		names = {
 			enUS = "Large Mithril Bound Chest",
+			deDE = "Große mithrilbeschlagene Truhe",
 		},
 		zones = {
 			2557,
@@ -392,6 +431,7 @@ RecipeBook.objectDB = {
 	[160845] = {
 		names = {
 			enUS = "Dark Coffer",
+			deDE = "Dunkler Kasten",
 		},
 		zones = {
 			1584,
@@ -400,6 +440,7 @@ RecipeBook.objectDB = {
 	[173232] = {
 		names = {
 			enUS = "Blacksmithing Plans",
+			deDE = "Schmiedekunstpläne",
 		},
 		zones = {
 			1584,
@@ -408,6 +449,7 @@ RecipeBook.objectDB = {
 	[173234] = {
 		names = {
 			enUS = "Blacksmithing Plans",
+			deDE = "Schmiedekunstpläne",
 		},
 		zones = {
 			1584,
@@ -416,6 +458,7 @@ RecipeBook.objectDB = {
 	[176224] = {
 		names = {
 			enUS = "Supply Crate",
+			deDE = "Vorratskiste",
 		},
 		zones = {
 			2017,
@@ -425,6 +468,7 @@ RecipeBook.objectDB = {
 	[176325] = {
 		names = {
 			enUS = "Blacksmithing Plans",
+			deDE = "Schmiedekunstpläne",
 		},
 		zones = {
 			2017,
@@ -433,6 +477,7 @@ RecipeBook.objectDB = {
 	[176327] = {
 		names = {
 			enUS = "Blacksmithing Plans",
+			deDE = "Schmiedekunstpläne",
 		},
 		zones = {
 			2017,
@@ -441,6 +486,7 @@ RecipeBook.objectDB = {
 	[179501] = {
 		names = {
 			enUS = "Knot Thimblejacks Cache",
+			deDE = "Knot Thimblejacks Behälter",
 		},
 		zones = {
 			2557,
@@ -449,6 +495,7 @@ RecipeBook.objectDB = {
 	[179564] = {
 		names = {
 			enUS = "Gordok Tribute",
+			deDE = "Tribut der Gordok",
 		},
 		zones = {
 			2557,
@@ -457,6 +504,7 @@ RecipeBook.objectDB = {
 	[179697] = {
 		names = {
 			enUS = "Arena Treasure Chest",
+			deDE = "Arenaschatztruhe",
 		},
 		zones = {
 			33,
@@ -465,6 +513,7 @@ RecipeBook.objectDB = {
 	[404352] = {
 		names = {
 			enUS = "Artifact Storage",
+			deDE = "Artefaktlagertruhe",
 		},
 		zones = {
 			215,
@@ -473,6 +522,7 @@ RecipeBook.objectDB = {
 	[407734] = {
 		names = {
 			enUS = "Gnarlpine Cache",
+			deDE = "Knarzklauenkiste",
 		},
 		zones = {
 			141,

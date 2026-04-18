@@ -212,22 +212,37 @@ end
 -- Get display name for a recipe
 function RecipeBook:GetRecipeName(profID, recipeID)
     local data = self.recipeDB[profID] and self.recipeDB[profID][recipeID]
-    if not data then return "Unknown Recipe" end
-    return data.name or "Unknown Recipe"
+    if not isEnglishClient then
+        local name
+        if data and data.isSpell then
+            name = GetSpellInfo(recipeID)
+        else
+            name = GetItemInfo(recipeID)
+        end
+        if name then return name end
+    end
+    return (data and data.name) or L["Unknown Recipe"]
+end
+
+-- Get display name for a quest
+function RecipeBook:GetQuestName(questID)
+    local q = self.questDB and self.questDB[questID]
+    if not q or not q.names then return "Quest #" .. questID end
+    return (not isEnglishClient and q.names[clientLocale]) or q.names.enUS or ("Quest #" .. questID)
 end
 
 -- Get display name for an NPC
 function RecipeBook:GetNPCName(npcID)
     local npc = self.npcDB and self.npcDB[npcID]
     if not npc or not npc.names then return "NPC #" .. npcID end
-    return npc.names.enUS or "NPC #" .. npcID
+    return (not isEnglishClient and npc.names[clientLocale]) or npc.names.enUS or ("NPC #" .. npcID)
 end
 
 -- Get display name for an object
 function RecipeBook:GetObjectName(objectID)
     local obj = self.objectDB and self.objectDB[objectID]
     if not obj or not obj.names then return "Object #" .. objectID end
-    return obj.names.enUS or "Object #" .. objectID
+    return (not isEnglishClient and obj.names[clientLocale]) or obj.names.enUS or ("Object #" .. objectID)
 end
 
 -- Get display name for a unique source
@@ -235,7 +250,7 @@ function RecipeBook:GetUniqueName(uniqueID)
     if uniqueID == 0 then return "Crafted" end
     local entry = self.uniqueDB and self.uniqueDB[uniqueID]
     if not entry or not entry.names then return "Special #" .. uniqueID end
-    return entry.names.enUS or "Special #" .. uniqueID
+    return (not isEnglishClient and entry.names[clientLocale]) or entry.names.enUS or ("Special #" .. uniqueID)
 end
 
 -- Get first zone name for a source entity
