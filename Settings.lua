@@ -3,6 +3,7 @@
 
 RecipeBook = RecipeBook or {}
 
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 local UI = RecipeBook.UI
 
 local PANEL_WIDTH = 460
@@ -39,7 +40,7 @@ titleBar:SetPoint("TOP", 0, 12)
 
 local titleText = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 titleText:SetPoint("TOP", titleBar, "TOP", 0, -14)
-titleText:SetText("RecipeBook Settings")
+titleText:SetText(L["RecipeBook Settings"])
 
 -- Close button
 local closeBtn = CreateFrame("Button", nil, panel, "UIPanelCloseButton")
@@ -88,14 +89,14 @@ local topAnchor = CreateFrame("Frame", nil, scrollChild)
 topAnchor:SetSize(1, 1)
 topAnchor:SetPoint("TOPLEFT", 12, 8)
 
-local generalHeader, generalLine = CreateSectionHeader(topAnchor, "General")
+local generalHeader, generalLine = CreateSectionHeader(topAnchor, L["General"])
 
 -- Minimap button checkbox
 local minimapCheck = CreateFrame("CheckButton", "RecipeBookSettingsMinimap", scrollChild, "UICheckButtonTemplate")
 minimapCheck:SetPoint("TOPLEFT", generalLine, "BOTTOMLEFT", -4, -8)
 minimapCheck:SetSize(24, 24)
 local minimapText = _G["RecipeBookSettingsMinimapText"]
-minimapText:SetText("Show Minimap Button")
+minimapText:SetText(L["Show Minimap Button"])
 minimapText:SetFontObject("GameFontNormal")
 minimapCheck:SetScript("OnClick", function(self)
     local wantHidden = not self:GetChecked()
@@ -110,7 +111,7 @@ local tooltipCheck = CreateFrame("CheckButton", "RecipeBookSettingsTooltip", scr
 tooltipCheck:SetPoint("TOPLEFT", minimapCheck, "BOTTOMLEFT", 0, -4)
 tooltipCheck:SetSize(24, 24)
 local tooltipText = _G["RecipeBookSettingsTooltipText"]
-tooltipText:SetText("Show Recipe Info on Tooltips")
+tooltipText:SetText(L["Show Recipe Info on Tooltips"])
 tooltipText:SetFontObject("GameFontNormal")
 tooltipCheck:SetScript("OnClick", function(self)
     local checked = self:GetChecked() and true or false
@@ -126,14 +127,14 @@ end)
 local generalSectionEnd = CreateSectionEnd(tooltipCheck, 0)
 generalSectionEnd:SetPoint("TOPLEFT", tooltipCheck, "BOTTOMLEFT", 4, 0)
 
-local filterHeader, filterLine = CreateSectionHeader(generalSectionEnd, "Filters")
+local filterHeader, filterLine = CreateSectionHeader(generalSectionEnd, L["Filters"])
 
 -- My Faction checkbox
 local factionCheck = CreateFrame("CheckButton", "RecipeBookSettingsFaction", scrollChild, "UICheckButtonTemplate")
 factionCheck:SetPoint("TOPLEFT", filterLine, "BOTTOMLEFT", -4, -8)
 factionCheck:SetSize(24, 24)
 local factionText = _G["RecipeBookSettingsFactionText"]
-factionText:SetText("My Faction Only")
+factionText:SetText(L["My Faction Only"])
 factionText:SetFontObject("GameFontNormal")
 factionCheck:SetScript("OnClick", function(self)
     local checked = self:GetChecked() and true or false
@@ -147,7 +148,7 @@ end)
 -- Phase dropdown
 local phaseLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 phaseLabel:SetPoint("TOPLEFT", factionCheck, "BOTTOMLEFT", 4, -12)
-phaseLabel:SetText("Max Phase:")
+phaseLabel:SetText(L["Max Phase:"])
 
 local phaseDropdown = CreateFrame("Frame", "RecipeBookSettingsPhaseDropdown", scrollChild, "UIDropDownMenuTemplate")
 phaseDropdown:SetPoint("LEFT", phaseLabel, "RIGHT", -8, -2)
@@ -185,7 +186,7 @@ phaseDesc:SetPoint("TOPLEFT", phaseLabel, "BOTTOMLEFT", 0, -20)
 phaseDesc:SetTextColor(0.5, 0.5, 0.5)
 phaseDesc:SetWidth(CONTENT_WIDTH)
 phaseDesc:SetWordWrap(true)
-phaseDesc:SetText("Only show recipes available in this phase or earlier.")
+phaseDesc:SetText(L["Only show recipes available in this phase or earlier."])
 
 -- ============================================================
 -- Section: Characters
@@ -193,11 +194,11 @@ phaseDesc:SetText("Only show recipes available in this phase or earlier.")
 
 local filterSectionEnd = CreateSectionEnd(phaseDesc, 0)
 
-local charHeader, charLine = CreateSectionHeader(filterSectionEnd, "Characters")
+local charHeader, charLine = CreateSectionHeader(filterSectionEnd, L["Characters"])
 
 local levelLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 levelLabel:SetPoint("TOPLEFT", charLine, "BOTTOMLEFT", 0, -10)
-levelLabel:SetText("Minimum Character Level:")
+levelLabel:SetText(L["Minimum Character Level:"])
 
 local levelSlider = CreateFrame("Slider", "RecipeBookSettingsLevelSlider", scrollChild, "OptionsSliderTemplate")
 levelSlider:SetPoint("TOPLEFT", levelLabel, "BOTTOMLEFT", 0, -14)
@@ -231,19 +232,19 @@ levelDesc:SetPoint("TOPLEFT", levelSlider, "BOTTOMLEFT", 0, -8)
 levelDesc:SetTextColor(0.5, 0.5, 0.5)
 levelDesc:SetWidth(CONTENT_WIDTH)
 levelDesc:SetWordWrap(true)
-levelDesc:SetText("Characters below this level won't be saved or shown in the dropdown.")
+levelDesc:SetText(L["Characters below this level won't be saved or shown in the dropdown."])
 
 -- Character Ignore List
 local ignoreLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 ignoreLabel:SetPoint("TOPLEFT", levelDesc, "BOTTOMLEFT", 0, -16)
-ignoreLabel:SetText("Character Ignore List:")
+ignoreLabel:SetText(L["Character Ignore List:"])
 
 local ignoreDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 ignoreDesc:SetPoint("TOPLEFT", ignoreLabel, "BOTTOMLEFT", 0, -4)
 ignoreDesc:SetTextColor(0.5, 0.5, 0.5)
 ignoreDesc:SetWidth(CONTENT_WIDTH)
 ignoreDesc:SetWordWrap(true)
-ignoreDesc:SetText("Ignored characters won't appear in the dropdown or be updated on login.")
+ignoreDesc:SetText(L["Ignored characters won't appear in the dropdown or be updated on login."])
 
 -- Container for ignore checkboxes
 local ignoreContainer = CreateFrame("Frame", nil, scrollChild)
@@ -313,7 +314,7 @@ end
 
 local charSectionEnd = CreateSectionEnd(ignoreContainer, 0)
 
-local resetHeader, resetLine = CreateSectionHeader(charSectionEnd, "Reset")
+local resetHeader, resetLine = CreateSectionHeader(charSectionEnd, L["Reset"])
 
 local BUTTON_WIDTH = CONTENT_WIDTH
 local BUTTON_HEIGHT = 22
@@ -322,14 +323,14 @@ local BUTTON_HEIGHT = 22
 local clearProfBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 clearProfBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
 clearProfBtn:SetPoint("TOPLEFT", resetLine, "BOTTOMLEFT", 0, -8)
-clearProfBtn:SetText("Clear Profession Data")
+clearProfBtn:SetText(L["Clear Profession Data"])
 
 local clearProfDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 clearProfDesc:SetPoint("TOPLEFT", clearProfBtn, "BOTTOMLEFT", 0, -2)
 clearProfDesc:SetTextColor(0.5, 0.5, 0.5)
 clearProfDesc:SetWidth(CONTENT_WIDTH)
 clearProfDesc:SetWordWrap(true)
-clearProfDesc:SetText("Clears all saved profession data for this character. Open your profession windows to rescan.")
+clearProfDesc:SetText(L["Clears all saved profession data for this character. Open your profession windows to rescan."])
 
 StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_PROF"] = {
     text = "RecipeBook: Clear all saved profession data for this character?\n\nYou will need to reopen each profession window to rescan.",
@@ -347,7 +348,7 @@ StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_PROF"] = {
         end
         RecipeBookCharDB.selectedProfession = nil
         RecipeBook:ClearTeachesCache()
-        RecipeBook:Print("Profession data cleared. Please reopen your profession windows.")
+        RecipeBook:Print(L["Profession data cleared. Please reopen your profession windows."])
         if RecipeBook.SelectProfession then
             RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
         elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
@@ -367,14 +368,14 @@ end)
 local clearCharBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 clearCharBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
 clearCharBtn:SetPoint("TOPLEFT", clearProfDesc, "BOTTOMLEFT", 0, -10)
-clearCharBtn:SetText("Clear All Character Data")
+clearCharBtn:SetText(L["Clear All Character Data"])
 
 local clearCharDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 clearCharDesc:SetPoint("TOPLEFT", clearCharBtn, "BOTTOMLEFT", 0, -2)
 clearCharDesc:SetTextColor(0.5, 0.5, 0.5)
 clearCharDesc:SetWidth(CONTENT_WIDTH)
 clearCharDesc:SetWordWrap(true)
-clearCharDesc:SetText("Clears profession data and wishlists for this character.")
+clearCharDesc:SetText(L["Clears profession data and wishlists for this character."])
 
 StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_CHAR"] = {
     text = "RecipeBook: Clear all data for this character?\n\nThis will remove profession data and wishlists. You will need to reopen each profession window to rescan.",
@@ -398,7 +399,7 @@ StaticPopupDialogs["RECIPEBOOK_CONFIRM_CLEAR_CHAR"] = {
         end
         RecipeBookCharDB.selectedProfession = nil
         RecipeBook:ClearTeachesCache()
-        RecipeBook:Print("All character data cleared. Please reopen your profession windows.")
+        RecipeBook:Print(L["All character data cleared. Please reopen your profession windows."])
         if RecipeBook.SelectProfession then
             RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
         elseif RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
@@ -418,14 +419,14 @@ end)
 local resetAllBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 resetAllBtn:SetSize(BUTTON_WIDTH, BUTTON_HEIGHT)
 resetAllBtn:SetPoint("TOPLEFT", clearCharDesc, "BOTTOMLEFT", 0, -10)
-resetAllBtn:SetText("Reset All")
+resetAllBtn:SetText(L["Reset All"])
 
 local resetAllDesc = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 resetAllDesc:SetPoint("TOPLEFT", resetAllBtn, "BOTTOMLEFT", 0, -2)
 resetAllDesc:SetTextColor(0.5, 0.5, 0.5)
 resetAllDesc:SetWidth(CONTENT_WIDTH)
 resetAllDesc:SetWordWrap(true)
-resetAllDesc:SetText("Clears all profession, wishlist, and character data for the account and resets all settings to defaults.")
+resetAllDesc:SetText(L["Clears all profession, wishlist, and character data for the account and resets all settings to defaults."])
 
 StaticPopupDialogs["RECIPEBOOK_CONFIRM_RESET_ALL"] = {
     text = "RecipeBook: Reset everything?\n\nThis will clear ALL profession data, wishlists, and character data across the account and reset all settings to defaults. This cannot be undone.",
@@ -466,7 +467,7 @@ StaticPopupDialogs["RECIPEBOOK_CONFIRM_RESET_ALL"] = {
             RecipeBook._dbIcon:Show("RecipeBook")
         end
 
-        RecipeBook:Print("All data and settings reset to defaults. Please reopen your profession windows.")
+        RecipeBook:Print(L["All data and settings reset to defaults. Please reopen your profession windows."])
 
         -- Refresh settings panel if open
         if panel:IsShown() then
@@ -495,12 +496,12 @@ end)
 
 local resetSectionEnd = CreateSectionEnd(resetAllDesc, 0)
 
-local guildHeader, guildLine = CreateSectionHeader(resetSectionEnd, "Guild Sharing")
+local guildHeader, guildLine = CreateSectionHeader(resetSectionEnd, L["Guild Sharing"])
 
 local guildCheck = CreateFrame("CheckButton", "RecipeBookGuildShareCheck", scrollChild, "UICheckButtonTemplate")
 guildCheck:SetPoint("TOPLEFT", guildLine, "BOTTOMLEFT", 0, -6)
 guildCheck:SetSize(24, 24)
-_G["RecipeBookGuildShareCheckText"]:SetText("Share my recipes with guild")
+_G["RecipeBookGuildShareCheckText"]:SetText(L["Share my recipes with guild"])
 _G["RecipeBookGuildShareCheckText"]:SetFontObject("GameFontHighlight")
 guildCheck:SetScript("OnClick", function(self)
     RecipeBookDB = RecipeBookDB or {}
@@ -517,11 +518,11 @@ local guildHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontDisableS
 guildHelp:SetPoint("TOPLEFT", guildCheck, "BOTTOMLEFT", 4, -2)
 guildHelp:SetWidth(CONTENT_WIDTH - 8)
 guildHelp:SetJustifyH("LEFT")
-guildHelp:SetText("Guildmates running RecipeBook will see which recipes you can craft, so they can ask you for help.")
+guildHelp:SetText(L["Guildmates running RecipeBook will see which recipes you can craft, so they can ask you for help."])
 
 local whisperLabel = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 whisperLabel:SetPoint("TOPLEFT", guildHelp, "BOTTOMLEFT", -4, -12)
-whisperLabel:SetText("Whisper template (use |cffffd100{name}|r and |cffffd100{recipe}|r):")
+whisperLabel:SetText(L["Whisper template (use |cffffd100{name}|r and |cffffd100{recipe}|r):"])
 
 -- Multi-line EditBox in a bordered backdrop frame. InputBoxTemplate is
 -- single-line only, so we build the chrome manually.
@@ -555,7 +556,7 @@ whisperBG:SetScript("OnMouseDown", function() whisperBox:SetFocus() end)
 local resetTemplateBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 resetTemplateBtn:SetSize(140, 22)
 resetTemplateBtn:SetPoint("TOPLEFT", whisperBG, "BOTTOMLEFT", 0, -8)
-resetTemplateBtn:SetText("Reset to default")
+resetTemplateBtn:SetText(L["Reset to default"])
 resetTemplateBtn:SetScript("OnClick", function()
     RecipeBookDB.whisperTemplate = RecipeBook.DEFAULT_WHISPER_TEMPLATE
     whisperBox:SetText(RecipeBook.DEFAULT_WHISPER_TEMPLATE)
@@ -564,7 +565,7 @@ end)
 local forgetBtn = CreateFrame("Button", nil, scrollChild, "UIPanelButtonTemplate")
 forgetBtn:SetSize(160, 22)
 forgetBtn:SetPoint("LEFT", resetTemplateBtn, "RIGHT", 8, 0)
-forgetBtn:SetText("Forget current guild…")
+forgetBtn:SetText(L["Forget current guild…"])
 StaticPopupDialogs["RECIPEBOOK_FORGET_GUILD"] = {
     text = "Forget cached data for guild '%s'?\n\nThis removes all stored members and recipes. They will re-sync if you're still in this guild.",
     button1 = YES or "Yes",
@@ -588,7 +589,7 @@ StaticPopupDialogs["RECIPEBOOK_FORGET_GUILD"] = {
 forgetBtn:SetScript("OnClick", function()
     local gkey = RecipeBook.GuildComm and RecipeBook.GuildComm.CurrentGuildKey()
     if not gkey or not RecipeBookDB.guilds[gkey] then
-        RecipeBook:Print("No cached guild to forget.")
+        RecipeBook:Print(L["No cached guild to forget."])
         return
     end
     local dlg = StaticPopup_Show("RECIPEBOOK_FORGET_GUILD", gkey, nil, gkey)
@@ -598,7 +599,7 @@ end)
 local hideSecondaryCheck = CreateFrame("CheckButton", "RecipeBookGuildHideSecondary", scrollChild, "UICheckButtonTemplate")
 hideSecondaryCheck:SetPoint("TOPLEFT", resetTemplateBtn, "BOTTOMLEFT", 4, -14)
 hideSecondaryCheck:SetSize(24, 24)
-_G["RecipeBookGuildHideSecondaryText"]:SetText("Hide secondary professions in Guild view")
+_G["RecipeBookGuildHideSecondaryText"]:SetText(L["Hide secondary professions in Guild view"])
 _G["RecipeBookGuildHideSecondaryText"]:SetFontObject("GameFontHighlight")
 hideSecondaryCheck:SetScript("OnClick", function(self)
     RecipeBookDB = RecipeBookDB or {}
@@ -612,12 +613,12 @@ local hideSecondaryHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFont
 hideSecondaryHelp:SetPoint("TOPLEFT", hideSecondaryCheck, "BOTTOMLEFT", 4, -2)
 hideSecondaryHelp:SetWidth(CONTENT_WIDTH - 8)
 hideSecondaryHelp:SetJustifyH("LEFT")
-hideSecondaryHelp:SetText("Removes Cooking, First Aid, Fishing, and Poisons from the Guild profession list.")
+hideSecondaryHelp:SetText(L["Removes Cooking, First Aid, Fishing, and Poisons from the Guild profession list."])
 
 local hideGatheringCheck = CreateFrame("CheckButton", "RecipeBookGuildHideGathering", scrollChild, "UICheckButtonTemplate")
 hideGatheringCheck:SetPoint("TOPLEFT", hideSecondaryHelp, "BOTTOMLEFT", -4, -8)
 hideGatheringCheck:SetSize(24, 24)
-_G["RecipeBookGuildHideGatheringText"]:SetText("Hide gathering professions in Guild view")
+_G["RecipeBookGuildHideGatheringText"]:SetText(L["Hide gathering professions in Guild view"])
 _G["RecipeBookGuildHideGatheringText"]:SetFontObject("GameFontHighlight")
 hideGatheringCheck:SetScript("OnClick", function(self)
     RecipeBookDB = RecipeBookDB or {}
@@ -631,7 +632,7 @@ local hideGatheringHelp = scrollChild:CreateFontString(nil, "ARTWORK", "GameFont
 hideGatheringHelp:SetPoint("TOPLEFT", hideGatheringCheck, "BOTTOMLEFT", 4, -2)
 hideGatheringHelp:SetWidth(CONTENT_WIDTH - 8)
 hideGatheringHelp:SetJustifyH("LEFT")
-hideGatheringHelp:SetText("Removes Mining from the Guild profession list. (Herbalism and Skinning have no recipes to share.)")
+hideGatheringHelp:SetText(L["Removes Mining from the Guild profession list. (Herbalism and Skinning have no recipes to share.)"])
 
 -- ============================================================
 -- Section: About
@@ -639,7 +640,7 @@ hideGatheringHelp:SetText("Removes Mining from the Guild profession list. (Herba
 
 local guildSectionEnd = CreateSectionEnd(hideGatheringHelp, -4)
 
-local aboutHeader, aboutLine = CreateSectionHeader(guildSectionEnd, "About")
+local aboutHeader, aboutLine = CreateSectionHeader(guildSectionEnd, L["About"])
 
 local getMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local versionStr = (getMetadata and getMetadata("RecipeBook", "Version")) or RecipeBook.VERSION or "?"
@@ -739,7 +740,7 @@ optionsFrame.name = "RecipeBook"
 local optionsBtn = CreateFrame("Button", nil, optionsFrame, "UIPanelButtonTemplate")
 optionsBtn:SetSize(180, 28)
 optionsBtn:SetPoint("TOPLEFT", 16, -16)
-optionsBtn:SetText("Open Settings Window")
+optionsBtn:SetText(L["Open Settings Window"])
 optionsBtn:SetScript("OnClick", function()
     RecipeBook:ShowSettings()
 end)

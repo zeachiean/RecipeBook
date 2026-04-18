@@ -1,4 +1,5 @@
 RecipeBook = RecipeBook or {}
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 
 local UI = RecipeBook.UI
 
@@ -35,7 +36,7 @@ local function GuildDisplayName(guildKey)
     local label = green .. name .. "|r"
     local currentKey = RecipeBook.GuildComm and RecipeBook.GuildComm.CurrentGuildKey()
     if currentKey ~= guildKey then
-        label = label .. " |cff888888(not a member)|r"
+        label = label .. L[" |cff888888(not a member)|r"]
     end
     return label
 end
@@ -146,7 +147,7 @@ function RecipeBook:CreateMainFrame()
 
     local charLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     charLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row0Y - 5)
-    charLabel:SetText("Character:")
+    charLabel:SetText(L["Character:"])
     charLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
     frame._charLabel = charLabel
 
@@ -162,14 +163,14 @@ function RecipeBook:CreateMainFrame()
         -- Always put current character first
         if myKey then
             local info = UIDropDownMenu_CreateInfo()
-            info.text = CharDisplayName(myKey) .. " (this character)"
+            info.text = CharDisplayName(myKey) .. L[" (this character)"]
             info.notCheckable = true
             info.func = function()
                 RecipeBook:SetViewedCharKey(myKey)
                 UIDropDownMenu_SetText(charDropdown, CharDisplayName(myKey))
                 selectedProfession = nil
                 RecipeBookCharDB.selectedProfession = nil
-                UIDropDownMenu_SetText(profDropdown, "Select...")
+                UIDropDownMenu_SetText(profDropdown, L["Select..."])
                 RecipeBook:UpdateHideKnownState()
                 RecipeBook:RefreshRecipeList()
             end
@@ -185,7 +186,7 @@ function RecipeBook:CreateMainFrame()
             if key ~= myKey and not isIgnored and not belowMin then
                 if not hasOthers then
                     local header = UIDropDownMenu_CreateInfo()
-                    header.text = "Other Characters"
+                    header.text = L["Other Characters"]
                     header.isTitle = true
                     header.notCheckable = true
                     UIDropDownMenu_AddButton(header, level)
@@ -198,7 +199,7 @@ function RecipeBook:CreateMainFrame()
                     RecipeBook:SetViewedCharKey(key)
                     UIDropDownMenu_SetText(charDropdown, CharDisplayName(key))
                     selectedProfession = nil
-                    UIDropDownMenu_SetText(profDropdown, "Select...")
+                    UIDropDownMenu_SetText(profDropdown, L["Select..."])
                     RecipeBook:UpdateHideKnownState()
                     RecipeBook:RefreshRecipeList()
                 end
@@ -210,7 +211,7 @@ function RecipeBook:CreateMainFrame()
         local guildKeys = RecipeBook.GetAllGuildKeys and RecipeBook:GetAllGuildKeys() or {}
         if #guildKeys > 0 then
             local header = UIDropDownMenu_CreateInfo()
-            header.text = "Guilds"
+            header.text = L["Guilds"]
             header.isTitle = true
             header.notCheckable = true
             UIDropDownMenu_AddButton(header, level)
@@ -222,7 +223,7 @@ function RecipeBook:CreateMainFrame()
                     RecipeBook:SetViewedGuildKey(gkey)
                     UIDropDownMenu_SetText(charDropdown, GuildDisplayName(gkey))
                     selectedProfession = nil
-                    UIDropDownMenu_SetText(profDropdown, "Select...")
+                    UIDropDownMenu_SetText(profDropdown, L["Select..."])
                     RecipeBook:UpdateHideKnownState()
                     RecipeBook:RefreshRecipeList()
                 end
@@ -258,7 +259,7 @@ function RecipeBook:CreateMainFrame()
     })
     local wishlistTabText = wishlistTab:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     wishlistTabText:SetPoint("CENTER", 0, 0)
-    wishlistTabText:SetText("Wishlist")
+    wishlistTabText:SetText(L["Wishlist"])
 
     local recipesTab = CreateFrame("Button", nil, frame, "BackdropTemplate")
     recipesTab:SetSize(TAB_WIDTH, TAB_HEIGHT)
@@ -271,7 +272,7 @@ function RecipeBook:CreateMainFrame()
     })
     local recipesTabText = recipesTab:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     recipesTabText:SetPoint("CENTER", 0, 0)
-    recipesTabText:SetText("Recipes")
+    recipesTabText:SetText(L["Recipes"])
 
     local function UpdateViewToggle()
         if listMode == "wishlist" then
@@ -306,7 +307,7 @@ function RecipeBook:CreateMainFrame()
 
     local profLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     profLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row1Y - 5)
-    profLabel:SetText("Profession:")
+    profLabel:SetText(L["Profession:"])
     profLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     profDropdown = CreateFrame("Frame", "RecipeBookProfDropdown", frame, "UIDropDownMenuTemplate")
@@ -367,7 +368,7 @@ function RecipeBook:CreateMainFrame()
         -- Known professions header
         if #knownProfs > 0 then
             local header = UIDropDownMenu_CreateInfo()
-            header.text = isOther and (viewedName .. "'s Professions") or "My Professions"
+            header.text = isOther and string.format(L["%s's Professions"], viewedName) or L["My Professions"]
             header.isTitle = true
             header.notCheckable = true
             UIDropDownMenu_AddButton(header, level)
@@ -392,7 +393,7 @@ function RecipeBook:CreateMainFrame()
         -- "Other" header
         if #unknownProfs > 0 then
             local header = UIDropDownMenu_CreateInfo()
-            header.text = "Other"
+            header.text = L["Other"]
             header.isTitle = true
             header.notCheckable = true
             UIDropDownMenu_AddButton(header, level)
@@ -435,7 +436,7 @@ function RecipeBook:CreateMainFrame()
         end
         UIDropDownMenu_SetText(profDropdown, name)
     else
-        UIDropDownMenu_SetText(profDropdown, "Select...")
+        UIDropDownMenu_SetText(profDropdown, L["Select..."])
     end
 
     -- Hide Known/Ignored checkbox (pinned to right side)
@@ -443,7 +444,7 @@ function RecipeBook:CreateMainFrame()
     hideKnownCheck:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -UI.PADDING - 110, 0)
     hideKnownCheck:SetPoint("TOP", profLabel, "TOP", 0, 5)
     hideKnownCheck:SetSize(20, 20)
-    _G["RecipeBookHideKnownText"]:SetText("Hide Known/Ignored")
+    _G["RecipeBookHideKnownText"]:SetText(L["Hide Known/Ignored"])
     _G["RecipeBookHideKnownText"]:SetFontObject("RecipeBookFontSmall")
     hideKnownCheck:SetScript("OnClick", function(self)
         hideKnown = self:GetChecked()
@@ -468,7 +469,7 @@ function RecipeBook:CreateMainFrame()
 
     local guildUnknownLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     guildUnknownLabel:SetPoint("LEFT", guildUnknownDropdown, "RIGHT", -10, 4)
-    guildUnknownLabel:SetText("Unknown Guild Recipes")
+    guildUnknownLabel:SetText(L["Unknown Guild Recipes"])
     guildUnknownLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local UNKNOWN_OPTIONS = {
@@ -509,7 +510,7 @@ function RecipeBook:CreateMainFrame()
     hideUnlearnableCheck = CreateFrame("CheckButton", "RecipeBookHideUnlearnable", frame, "UICheckButtonTemplate")
     hideUnlearnableCheck:SetPoint("RIGHT", hideKnownCheck, "LEFT", -90, 0)
     hideUnlearnableCheck:SetSize(20, 20)
-    _G["RecipeBookHideUnlearnableText"]:SetText("Hide Unlearnable")
+    _G["RecipeBookHideUnlearnableText"]:SetText(L["Hide Unlearnable"])
     _G["RecipeBookHideUnlearnableText"]:SetFontObject("RecipeBookFontSmall")
     hideUnlearnableCheck:SetScript("OnClick", function(self)
         hideUnlearnable = self:GetChecked()
@@ -528,7 +529,7 @@ function RecipeBook:CreateMainFrame()
 
     local contLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     contLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row2Y - 5)
-    contLabel:SetText("Continent:")
+    contLabel:SetText(L["Continent:"])
     contLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local continentDropdown = CreateFrame("Frame", "RecipeBookContinentDropdown", frame, "UIDropDownMenuTemplate")
@@ -541,22 +542,22 @@ function RecipeBook:CreateMainFrame()
     contAutoCheck:SetPoint("TOP", contLabel, "TOP", 0, 5)
     contAutoCheck:SetSize(20, 20)
     contAutoCheck:SetChecked(false)
-    _G["RecipeBookContAutoFilterText"]:SetText("Auto")
+    _G["RecipeBookContAutoFilterText"]:SetText(L["Auto"])
     _G["RecipeBookContAutoFilterText"]:SetFontObject("RecipeBookFontSmall")
 
     -- Initial continent text
-    UIDropDownMenu_SetText(continentDropdown, "All")
+    UIDropDownMenu_SetText(continentDropdown, L["All"])
 
     local function ContinentDropdown_Init(self, level)
         local info = UIDropDownMenu_CreateInfo()
-        info.text = "All Continents"
+        info.text = L["All Continents"]
         info.notCheckable = true
         info.func = function()
             selectedContinent = nil
             selectedZone = nil
             contAutoCheck:SetChecked(false)
-            UIDropDownMenu_SetText(continentDropdown, "All")
-            UIDropDownMenu_SetText(frame._zoneDropdown, "All")
+            UIDropDownMenu_SetText(continentDropdown, L["All"])
+            UIDropDownMenu_SetText(frame._zoneDropdown, L["All"])
             if frame._zoneAutoCheck then frame._zoneAutoCheck:SetChecked(false) end
             RecipeBook:RefreshRecipeList()
         end
@@ -572,7 +573,7 @@ function RecipeBook:CreateMainFrame()
                 selectedZone = nil
                 contAutoCheck:SetChecked(false)
                 UIDropDownMenu_SetText(continentDropdown, name)
-                UIDropDownMenu_SetText(frame._zoneDropdown, "All")
+                UIDropDownMenu_SetText(frame._zoneDropdown, L["All"])
                 if frame._zoneAutoCheck then frame._zoneAutoCheck:SetChecked(false) end
                 RecipeBook:RefreshRecipeList()
             end
@@ -586,10 +587,10 @@ function RecipeBook:CreateMainFrame()
             selectedContinent = "Auto"
             local rZone = RecipeBook:GetCurrentZoneName()
             local rCont = rZone and RecipeBook:GetContinentForZone(rZone)
-            UIDropDownMenu_SetText(continentDropdown, rCont or "All")
+            UIDropDownMenu_SetText(continentDropdown, rCont or L["All"])
         else
             selectedContinent = nil
-            UIDropDownMenu_SetText(continentDropdown, "All")
+            UIDropDownMenu_SetText(continentDropdown, L["All"])
         end
         RecipeBook:RefreshRecipeList()
     end)
@@ -603,13 +604,13 @@ function RecipeBook:CreateMainFrame()
 
     local zoneLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     zoneLabel:SetPoint("TOPLEFT", frame, "TOPLEFT", leftEdge, row3Y - 5)
-    zoneLabel:SetText("Zone:")
+    zoneLabel:SetText(L["Zone:"])
     zoneLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local zoneDropdown = CreateFrame("Frame", "RecipeBookZoneDropdown", frame, "UIDropDownMenuTemplate")
     zoneDropdown:SetPoint("TOPLEFT", frame, "TOPLEFT", ddLeft - 16, row3Y + 4)
     UIDropDownMenu_SetWidth(zoneDropdown, UI.DROPDOWN_WIDTH)
-    UIDropDownMenu_SetText(zoneDropdown, "All")
+    UIDropDownMenu_SetText(zoneDropdown, L["All"])
     frame._zoneDropdown = zoneDropdown
 
     -- Zone Auto checkbox
@@ -618,18 +619,18 @@ function RecipeBook:CreateMainFrame()
     zoneAutoCheck:SetPoint("TOP", zoneLabel, "TOP", 0, 5)
     zoneAutoCheck:SetSize(20, 20)
     zoneAutoCheck:SetChecked(false)
-    _G["RecipeBookZoneAutoFilterText"]:SetText("Auto")
+    _G["RecipeBookZoneAutoFilterText"]:SetText(L["Auto"])
     _G["RecipeBookZoneAutoFilterText"]:SetFontObject("RecipeBookFontSmall")
     frame._zoneAutoCheck = zoneAutoCheck
 
     local function ZoneDropdown_Init(self, level)
         local info = UIDropDownMenu_CreateInfo()
-        info.text = "All Zones"
+        info.text = L["All Zones"]
         info.notCheckable = true
         info.func = function()
             selectedZone = nil
             zoneAutoCheck:SetChecked(false)
-            UIDropDownMenu_SetText(zoneDropdown, "All")
+            UIDropDownMenu_SetText(zoneDropdown, L["All"])
             RecipeBook:RefreshRecipeList()
         end
         UIDropDownMenu_AddButton(info, level)
@@ -678,16 +679,16 @@ function RecipeBook:CreateMainFrame()
         if self:GetChecked() then
             selectedZone = "Auto"
             local rZone = RecipeBook:GetCurrentZoneName()
-            UIDropDownMenu_SetText(zoneDropdown, rZone or "All")
+            UIDropDownMenu_SetText(zoneDropdown, rZone or L["All"])
             if not contAutoCheck:GetChecked() then
                 contAutoCheck:SetChecked(true)
                 selectedContinent = "Auto"
                 local rCont = rZone and RecipeBook:GetContinentForZone(rZone)
-                UIDropDownMenu_SetText(continentDropdown, rCont or "All")
+                UIDropDownMenu_SetText(continentDropdown, rCont or L["All"])
             end
         else
             selectedZone = nil
-            UIDropDownMenu_SetText(zoneDropdown, "All")
+            UIDropDownMenu_SetText(zoneDropdown, L["All"])
         end
         RecipeBook:RefreshRecipeList()
     end)
@@ -730,7 +731,7 @@ function RecipeBook:CreateMainFrame()
 
     local searchLabel = frame:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     searchLabel:SetPoint("RIGHT", searchBox, "LEFT", -8, 0)
-    searchLabel:SetText("Search:")
+    searchLabel:SetText(L["Search:"])
     searchLabel:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     -- Initialize faction from saved or default to true.
@@ -771,14 +772,14 @@ function RecipeBook:CreateMainFrame()
 
     local headerName = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     headerName:SetPoint("LEFT", hdrRef, "LEFT", 4, 0)
-    headerName:SetText("Recipe")
+    headerName:SetText(L["Recipe"])
     headerName:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerSkill = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     headerSkill:SetPoint("LEFT", hdrRef, "LEFT", 218, 0)
     headerSkill:SetWidth(30)
     headerSkill:SetJustifyH("RIGHT")
-    headerSkill:SetText("Skill")
+    headerSkill:SetText(L["Skill"])
     headerSkill:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerLearn = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
@@ -797,7 +798,7 @@ function RecipeBook:CreateMainFrame()
 
     local headerSource = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
     headerSource:SetPoint("LEFT", hdrRef, "LEFT", 308, 0)
-    headerSource:SetText("Best Source")
+    headerSource:SetText(L["Best Source"])
     headerSource:SetTextColor(UI.COLOR_HEADER.r, UI.COLOR_HEADER.g, UI.COLOR_HEADER.b)
 
     local headerRate = listPanel:CreateFontString(nil, "OVERLAY", "RecipeBookFontSmall")
@@ -822,14 +823,14 @@ function RecipeBook:CreateMainFrame()
 
     -- Update status indicators
     if RecipeBook:HasTomTom() then
-        ttStatus:SetText("|cff00ff00TomTom|r")
+        ttStatus:SetText(L["|cff00ff00TomTom|r"])
     else
-        ttStatus:SetText("|cffff0000No TomTom|r")
+        ttStatus:SetText(L["|cffff0000No TomTom|r"])
     end
     if RecipeBook:HasAddressBook() then
-        abStatus:SetText("|cff00ff00AddressBook|r")
+        abStatus:SetText(L["|cff00ff00AddressBook|r"])
     else
-        abStatus:SetText("|cffff6600No AddressBook|r")
+        abStatus:SetText(L["|cffff6600No AddressBook|r"])
     end
 
     self.mainFrame = frame
@@ -841,7 +842,7 @@ function RecipeBook:SelectProfession(profID)
     selectedProfession = profID
     RecipeBookCharDB.selectedProfession = profID
     if not profDropdown then return end
-    local name = self.PROFESSION_NAMES[profID] or "Select..."
+    local name = self.PROFESSION_NAMES[profID] or L["Select..."]
     local guildKey = self.GetViewedGuildKey and self:GetViewedGuildKey()
     if guildKey then
         local total, online = 0, 0

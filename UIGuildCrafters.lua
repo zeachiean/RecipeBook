@@ -1,4 +1,5 @@
 -- UIGuildCrafters.lua — guild-view rendering + right-click crafter menu.
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 --
 -- When the Character dropdown has a Guild selected, UIRender swaps the
 -- per-row Source cell for a Crafters cell rendered here. Rows expose the
@@ -126,7 +127,7 @@ function UIGC:RenderCraftersCell(row, profID, recipeID)
     row._recipeID = recipeID
 
     if #crafters == 0 then
-        row._sourceText:SetText("|cff888888(no crafters)|r")
+        row._sourceText:SetText(L["|cff888888(no crafters)|r"])
         if row._countText then row._countText:SetText("0") end
         return
     end
@@ -500,7 +501,7 @@ function UIGC:ShowCraftersPopup(profID, recipeID, guildKey)
             row._zone:SetText(c.zone or "Online")
             row._zone:SetTextColor(0.8, 0.9, 1.0)
         else
-            row._zone:SetText("|cff888888offline|r")
+            row._zone:SetText(L["|cff888888offline|r"])
         end
         row._crafter = c
         row._recipeLink = recipeLink

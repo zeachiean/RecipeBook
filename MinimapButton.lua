@@ -1,5 +1,7 @@
 RecipeBook = RecipeBook or {}
 
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
+
 function RecipeBook:CreateMinimapButton()
     local ldb = LibStub("LibDataBroker-1.1", true)
     if not ldb then return end
@@ -15,12 +17,12 @@ function RecipeBook:CreateMinimapButton()
         end,
         OnTooltipShow = function(tt)
             tt:AddLine("RecipeBook", 0, 0.82, 1)
-            tt:AddLine("Left-click: Toggle window", 1, 1, 1)
+            tt:AddLine(L["Left-click: Toggle window"], 1, 1, 1)
             tt:AddLine(" ")
             if RecipeBook:HasAddressBook() then
-                tt:AddLine("AddressBook: |cff00ff00Available|r", 0.7, 0.7, 0.7)
+                tt:AddLine(L["AddressBook: |cff00ff00Available|r"], 0.7, 0.7, 0.7)
             else
-                tt:AddLine("AddressBook: |cffff6600Not loaded|r", 0.7, 0.7, 0.7)
+                tt:AddLine(L["AddressBook: |cffff6600Not loaded|r"], 0.7, 0.7, 0.7)
             end
         end,
     })
@@ -45,9 +47,9 @@ function RecipeBook:ToggleMinimapButton()
     RecipeBookDB.minimap.hide = not RecipeBookDB.minimap.hide
     if RecipeBookDB.minimap.hide then
         if self._dbIcon then self._dbIcon:Hide("RecipeBook") end
-        self:Print("Minimap button hidden. Use /rb minimap to show it again.")
+        self:Print(L["Minimap button hidden. Use /rb minimap to show it again."])
     else
         if self._dbIcon then self._dbIcon:Show("RecipeBook") end
-        self:Print("Minimap button shown.")
+        self:Print(L["Minimap button shown."])
     end
 end

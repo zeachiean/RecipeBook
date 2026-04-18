@@ -1,5 +1,6 @@
 RecipeBook = RecipeBook or {}
 
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 local UI = RecipeBook.UI
 
 -- Currently displayed rows
@@ -154,7 +155,7 @@ local function OnRecipeEnter(self)
 
         elseif self._sourceType == "quest" then
             local questData = RecipeBook.questDB and RecipeBook.questDB[self._sourceID]
-            local title = questData and questData.name or ("Quest #" .. self._sourceID)
+            local title = questData and RecipeBook:GetQuestName(self._sourceID) or ("Quest #" .. self._sourceID)
             GameTooltip:AddLine(title, 1, 1, 1)
             if questData then
                 if questData.startNPC then
@@ -644,7 +645,7 @@ local function BestSourceForType(profID, recipeID, srcType, srcData, hasFilter, 
                 end
                 local function questDisplay(questID)
                     local qd = RecipeBook.questDB and RecipeBook.questDB[questID]
-                    local name = qd and qd.name or ("Quest #" .. questID)
+                    local name = qd and RecipeBook:GetQuestName(questID) or ("Quest #" .. questID)
                     local zone = nil
                     if qd and qd.startNPC then
                         zone = RecipeBook:GetFirstZoneForNPC(qd.startNPC)
@@ -1186,7 +1187,7 @@ function RecipeBook:RefreshRecipeList()
 
     if not filters.professionID then
         local row = self:GetHeaderRow(scrollChild)
-        row._nameText:SetText("Select a profession to browse recipes.")
+        row._nameText:SetText(L["Select a profession to browse recipes."])
         row._nameText:SetTextColor(0.7, 0.7, 0.7)
         row._toggleIcon:Hide()
         row:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, 0)
@@ -1441,7 +1442,7 @@ function RecipeBook:RefreshRecipeList()
     --   guild view — recipes at least one guildmate knows
     if self.mainFrame._countText then
         self.mainFrame._countText:SetText(
-            totalShown .. " shown | " .. totalKnown .. "/" .. totalRecipes .. " known"
+            string.format(L["%d shown | %d/%d known"], totalShown, totalKnown, totalRecipes)
         )
     end
     if self.mainFrame._countLabel then

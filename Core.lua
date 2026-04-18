@@ -6,6 +6,9 @@ RecipeBook.ADDON_NAME = "RecipeBook"
 RecipeBook.mainFrame = nil
 
 local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
+local clientLocale = GetLocale()
+local isEnglishClient = (clientLocale == "enUS" or clientLocale == "enGB")
+
 -- ============================================================
 -- Saved-data schema sentinels.
 --
@@ -120,17 +123,17 @@ end
 -- Source type display order and labels
 RecipeBook.SOURCE_ORDER = { "trainer", "vendor", "quest", "drop", "pickpocket", "object", "item", "fishing", "unique", "discovery" }
 RecipeBook.SOURCE_LABELS = {
-    trainer = "Trainer",
-    vendor = "Vendor",
-    quest = "Quest",
-    drop = "Drop",
-    pickpocket = "Pickpocket",
-    object = "Object",
-    item = "Contained In",
-    fishing = "Fishing",
-    unique = "Special",
-    discovery = "Discovery",
-    crafter = "Guild Crafters",
+    trainer   = L["Trainer"],
+    vendor    = L["Vendor"],
+    quest     = L["Quest"],
+    drop      = L["Drop"],
+    pickpocket= L["Pickpocket"],
+    object    = L["Object"],
+    item      = L["Contained In"],
+    fishing   = L["Fishing"],
+    unique    = L["Special"],
+    discovery = L["Discovery"],
+    crafter   = L["Guild Crafters"],
 }
 
 -- Phase labels
@@ -494,7 +497,7 @@ end
 -- speculatively. See feedback memory: saved data wipes must be rare and
 -- announced.
 StaticPopupDialogs["RECIPEBOOK_RESCAN_PROFESSIONS"] = {
-    text = "RecipeBook: Your profession cache was reset by an update.\n\nPlease open each of your profession windows once so RecipeBook can rescan which recipes you know.",
+    text = L["RecipeBook: Your profession cache was reset by an update.\n\nPlease open each of your profession windows once so RecipeBook can rescan which recipes you know."],
     button1 = OKAY,
     timeout = 0,
     whileDead = true,
@@ -506,7 +509,7 @@ StaticPopupDialogs["RECIPEBOOK_RESCAN_PROFESSIONS"] = {
 -- guild. Sharing is on by default (see InitSavedVars); this just lets
 -- the user know and points them at Settings to disable.
 StaticPopupDialogs["RECIPEBOOK_GUILD_SHARE_NOTICE"] = {
-    text = "RecipeBook is sharing your known recipes with your guildmates so they can see who to ask for crafts.\n\nYou can disable this in /rb settings under Guild Sharing.",
+    text = L["RecipeBook is sharing your known recipes with your guildmates so they can see who to ask for crafts.\n\nYou can disable this in /rb settings under Guild Sharing."],
     button1 = OKAY,
     OnAccept = function()
         RecipeBookDB.guildSharePrompted = true
@@ -522,7 +525,7 @@ StaticPopupDialogs["RECIPEBOOK_GUILD_SHARE_NOTICE"] = {
 }
 
 StaticPopupDialogs["RECIPEBOOK_SKILL_RESCAN"] = {
-    text = "RecipeBook: Profession skill levels are missing.\n\nPlease open each of your profession windows once so RecipeBook can detect your skill levels.",
+    text = L["RecipeBook: Profession skill levels are missing.\n\nPlease open each of your profession windows once so RecipeBook can detect your skill levels."],
     button1 = OKAY,
     timeout = 0,
     whileDead = true,
@@ -829,7 +832,7 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         end
         RecipeBook:BuildLookupsAndPrecache()
         RecipeBook:CacheItemSourceNames()
-        RecipeBook:Print("Caches cleared.")
+        RecipeBook:Print(L["Caches cleared."])
         if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
             RecipeBook:RefreshRecipeList()
         end
@@ -854,7 +857,7 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         RecipeBookCharDB.selectedProfession = nil
         RecipeBook:BuildLookupsAndPrecache()
         RecipeBook:CacheItemSourceNames()
-        RecipeBook:Print("All caches and known-recipe data cleared.")
+        RecipeBook:Print(L["All caches and known-recipe data cleared."])
         StaticPopup_Show("RECIPEBOOK_RESCAN_PROFESSIONS")
         if RecipeBook.SelectProfession then
             RecipeBook:SelectProfession(RecipeBook.PROFESSIONS[1].id)
@@ -867,16 +870,16 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
         local gc = RecipeBook.GuildComm
         if sub == "mirror" then
             local n = gc and gc.MirrorAllSelf and gc.MirrorAllSelf() or 0
-            RecipeBook:Print("Mirrored " .. n .. " known professions into guild store.")
+            RecipeBook:Print(L["Mirrored "] .. n .. " known professions into guild store.")
             if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
                 RecipeBook:RefreshRecipeList()
             end
         elseif sub == "hello" then
             if not (IsInGuild and IsInGuild()) then
-                RecipeBook:Print("|cffff0000Not in a guild|r — HELLO only broadcasts to guildmates.")
+                RecipeBook:Print(L["|cffff0000Not in a guild|r — HELLO only broadcasts to guildmates."])
             elseif gc and gc.BroadcastHelloImmediate then
                 gc.BroadcastHelloImmediate()
-                RecipeBook:Print("HELLO broadcast triggered.")
+                RecipeBook:Print(L["HELLO broadcast triggered."])
             end
         elseif sub == "debug" or sub:match("^debug%s") then
             local arg = sub:match("^debug%s+(%S+)$")
@@ -887,7 +890,7 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
             else
                 RecipeBookDB.guildDebug = not RecipeBookDB.guildDebug
             end
-            RecipeBook:Print("Guild Crafts debug: "
+            RecipeBook:Print(L["Guild Crafts debug: "]
                 .. (RecipeBookDB.guildDebug and "|cff00ff00ON|r" or "|cffff0000OFF|r"))
         elseif sub == "forget" then
             local gkey = gc and gc.CurrentGuildKey()
@@ -896,31 +899,31 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
                 if RecipeBookCharDB and RecipeBookCharDB.viewingGuildKey == gkey then
                     RecipeBookCharDB.viewingGuildKey = nil
                 end
-                RecipeBook:Print("Forgot guild: " .. gkey)
+                RecipeBook:Print(L["Forgot guild: "] .. gkey)
                 if RecipeBook.mainFrame and RecipeBook.mainFrame:IsShown() then
                     RecipeBook:RefreshRecipeList()
                 end
             else
-                RecipeBook:Print("Not in a guild.")
+                RecipeBook:Print(L["Not in a guild."])
             end
         else
             -- Default: diagnostic status
             local enabled = RecipeBookDB and RecipeBookDB.guildSharingEnabled
             local gkey = gc and gc.CurrentGuildKey()
-            RecipeBook:Print("--- Guild Crafts status ---")
-            RecipeBook:Print("Sharing enabled: " .. (enabled == true and "|cff00ff00yes|r"
-                or enabled == false and "|cffff0000no|r" or "|cffffff00(not prompted)|r"))
-            RecipeBook:Print("Current guild:   " .. (gkey or "|cff888888(none)|r"))
-            RecipeBook:Print("Transport:       addon messages on GUILD scope (no chat channel)")
-            RecipeBook:Print("Debug logging:   "
-                .. (RecipeBookDB.guildDebug and "|cff00ff00ON|r" or "|cff888888off|r"))
+            RecipeBook:Print(L["--- Guild Crafts status ---"])
+            RecipeBook:Print(L["Sharing enabled: "] .. (enabled == true and L["|cff00ff00yes|r"]
+                or enabled == false and L["|cffff0000no|r"] or L["|cffffff00(not prompted)|r"]))
+            RecipeBook:Print(L["Current guild:   "] .. (gkey or L["|cff888888(none)|r"]))
+            RecipeBook:Print(L["Transport:       addon messages on GUILD scope (no chat channel)"])
+            RecipeBook:Print(L["Debug logging:   "]
+                .. (RecipeBookDB.guildDebug and "|cff00ff00ON|r" or L["|cff888888off|r"]))
             local ncached = 0
             if gkey and RecipeBookDB.guilds and RecipeBookDB.guilds[gkey]
                 and RecipeBookDB.guilds[gkey].members then
                 for _ in pairs(RecipeBookDB.guilds[gkey].members) do ncached = ncached + 1 end
             end
-            RecipeBook:Print("Cached members:  " .. ncached)
-            RecipeBook:Print("Subcommands: /rb guild mirror | hello | debug [on|off] | forget")
+            RecipeBook:Print(L["Cached members:  "] .. ncached)
+            RecipeBook:Print(L["Subcommands: /rb guild mirror | hello | debug [on|off] | forget"])
         end
     elseif msg == "minimap" then
         RecipeBook:ToggleMinimapButton()
@@ -930,7 +933,7 @@ SlashCmdList["RECIPEBOOK"] = function(msg)
             RecipeBook.mainFrame:ClearAllPoints()
             RecipeBook.mainFrame:SetPoint("CENTER")
         end
-        RecipeBook:Print("Window position reset.")
+        RecipeBook:Print(L["Window position reset."])
     else
         RecipeBook:Toggle()
     end

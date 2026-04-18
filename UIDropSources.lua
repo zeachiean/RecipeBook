@@ -1,5 +1,6 @@
 RecipeBook = RecipeBook or {}
 
+local L = LibStub("AceLocale-3.0"):GetLocale("RecipeBook")
 local UI = RecipeBook.UI
 
 -- ----------------------------------------------------------------------------
@@ -78,7 +79,7 @@ local function CollectAllSources(profID, recipeID, factionFilter)
                 if factionFilter and q and q.faction and q.faction ~= factionFilter then
                     -- filtered out
                 else
-                    local label = q and q.name or ("Quest #" .. questID)
+                    local label = q and RecipeBook:GetQuestName(questID) or ("Quest #" .. questID)
                     local extra = q and q.level and ("Level " .. q.level) or nil
                     local zone = nil
                     local npcID = q and q.startNPC
@@ -486,7 +487,7 @@ function RecipeBook:ShowSourcesPopup(profID, recipeID)
         local row = GetPopupRow(scrollChild)
         row:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, 0)
         row:SetPoint("RIGHT", scrollChild, "RIGHT", 0, 0)
-        row._nameText:SetText("No sources found")
+        row._nameText:SetText(L["No sources found"])
         row._nameText:SetTextColor(0.6, 0.6, 0.6)
         row._zoneText:SetText("")
         row._rateText:SetText("")
